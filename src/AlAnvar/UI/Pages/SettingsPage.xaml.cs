@@ -199,9 +199,9 @@ public sealed partial class SettingsPage : Page
         Settings.AyatFontFamilyName = null;
         Settings.AyatNumberFontFamilyName = null;
         Settings.TranslationFontFamilyName = null;
-        Settings.AyatFontSize = 24;
-        Settings.AyatNumberFontSize = 24;
-        Settings.TranslationFontSize = 24;
+        Settings.AyatFontSize = Constants.AYAT_DEFAULT_FONT_SIZE;
+        Settings.AyatNumberFontSize = Constants.AYAT_NUMBER_DEFAULT_FONT_SIZE;
+        Settings.TranslationFontSize = Constants.TRANSLATION_DEFAULT_FONT_SIZE;
         GetDefaultFonts();
     }
 

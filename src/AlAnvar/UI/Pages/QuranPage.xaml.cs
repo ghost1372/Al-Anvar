@@ -10,7 +10,7 @@ public sealed partial class QuranPage : Page
         LoadTranslationsInCombobox();
     }
 
-    public void AddNewTab(int surahId, string name, int ayaCount)
+    public void AddNewTab(int surahId, string name, string type, int ayaCount)
     {
         var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (tabViewItem as QuranTabViewItem).SurahId == surahId).FirstOrDefault();
         if (currentTabViewItem is not null)
@@ -20,7 +20,7 @@ public sealed partial class QuranPage : Page
         }
 
         var item = new QuranTabViewItem();
-        item.Header = name;
+        item.Header = $"{surahId} - {name} - {ayaCount} آیه - {type}";
         item.SurahId = surahId;
         item.TotalAyah = ayaCount;
         tabView.TabItems.Add(item);

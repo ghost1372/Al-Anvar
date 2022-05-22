@@ -32,6 +32,120 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
+    #region Property
+
+    #region Translation
+    private SolidColorBrush _TranslationForeground;
+
+    public SolidColorBrush TranslationForeground
+    {
+        get { return _TranslationForeground; }
+        set
+        {
+            _TranslationForeground = value;
+            OnPropertyChanged();
+        }
+    }
+    private FontFamily _TranslationFontFamily;
+
+    public FontFamily TranslationFontFamily
+    {
+        get { return _TranslationFontFamily; }
+        set
+        {
+            _TranslationFontFamily = value;
+            OnPropertyChanged();
+        }
+    }
+    private double _TranslationFontSize;
+
+    public double TranslationFontSize
+    {
+        get { return _TranslationFontSize; }
+        set
+        {
+            _TranslationFontSize = value;
+            OnPropertyChanged();
+        }
+    }
+    #endregion
+
+    #region Ayat
+    private SolidColorBrush _AyatForeground;
+
+    public SolidColorBrush AyatForeground
+    {
+        get { return _AyatForeground; }
+        set
+        {
+            _AyatForeground = value;
+            OnPropertyChanged();
+        }
+    }
+    private FontFamily _AyatFontFamily;
+
+    public FontFamily AyatFontFamily
+    {
+        get { return _AyatFontFamily; }
+        set
+        {
+            _AyatFontFamily = value;
+            OnPropertyChanged();
+        }
+    }
+    private double _AyatFontSize;
+
+    public double AyatFontSize
+    {
+        get { return _AyatFontSize; }
+        set
+        {
+            _AyatFontSize = value;
+            OnPropertyChanged();
+        }
+    }
+
+    #endregion
+
+    #region Ayat Number
+    private SolidColorBrush _AyatNumberForeground;
+
+    public SolidColorBrush AyatNumberForeground
+    {
+        get { return _AyatNumberForeground; }
+        set
+        {
+            _AyatNumberForeground = value;
+            OnPropertyChanged();
+        }
+    }
+    private FontFamily _AyatNumberFontFamily;
+
+    public FontFamily AyatNumberFontFamily
+    {
+        get { return _AyatNumberFontFamily; }
+        set
+        {
+            _AyatNumberFontFamily = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private double _AyatNumberFontSize;
+    public double AyatNumberFontSize
+    {
+        get { return _AyatNumberFontSize; }
+        set
+        {
+            _AyatNumberFontSize = value;
+            OnPropertyChanged();
+        }
+    }
+
+    #endregion
+
+    #endregion
+
     public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
@@ -70,8 +184,56 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         Loaded += QuranTabViewItem_LoadedAsync;
     }
 
+    private void GetDefaultForeground()
+    {
+        if (Settings.AyatForeground is not null)
+        {
+            AyatForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatForeground));
+        }
+        if (Settings.AyatNumberForeground is not null)
+        {
+            AyatNumberForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatNumberForeground));
+        }
+        if (Settings.TranslationForeground is not null)
+        {
+            TranslationForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.TranslationForeground));
+        }
+    }
+
+    private void GetDefaultFont()
+    {
+        if (Settings.AyatFontFamilyName is not null)
+        {
+            AyatFontFamily = new FontFamily(Settings.AyatFontFamilyName);
+        }
+        if (Settings.AyatNumberFontFamilyName is not null)
+        {
+            AyatNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
+        }
+        if (Settings.TranslationFontFamilyName is not null)
+        {
+            TranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
+        }
+
+        if (Settings.AyatFontSize is not Constants.AYAT_DEFAULT_FONT_SIZE)
+        {
+            AyatFontSize = Settings.AyatFontSize;
+        }
+        if (Settings.AyatNumberFontSize is not Constants.AYAT_NUMBER_DEFAULT_FONT_SIZE)
+        {
+            AyatNumberFontSize = Settings.AyatNumberFontSize;
+        }
+        if (Settings.TranslationFontSize is not Constants.TRANSLATION_DEFAULT_FONT_SIZE)
+        {
+            TranslationFontSize = Settings.TranslationFontSize;
+        }
+
+    }
     private void QuranTabViewItem_LoadedAsync(object sender, RoutedEventArgs e)
     {
+        GetDefaultForeground();
+        GetDefaultFont();
+
         GetSurahFromDB();
         GetTranslationText();
         GetSuraText();

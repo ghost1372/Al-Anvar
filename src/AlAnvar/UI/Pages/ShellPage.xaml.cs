@@ -97,11 +97,11 @@ public sealed partial class ShellPage : Page
         if (currentType != typeof(QuranPage))
         {
             shellFrame.Navigate(typeof(QuranPage), null, new EntranceNavigationTransitionInfo());
-            QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Ayas);
+            QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
         }
         else
         {
-            QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Ayas);
+            QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
         }
     }
 }
