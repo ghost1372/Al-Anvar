@@ -105,7 +105,7 @@ public sealed partial class SettingsPage : Page
                 }
             }
 
-            cmbTranslators.SelectedItem = Settings.QuranTranslation;
+            cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
         }
     }
     private void GetDefaultFonts()

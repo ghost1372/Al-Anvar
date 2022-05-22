@@ -62,7 +62,6 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         }
     }
 
-
     public QuranTabViewItem()
     {
         this.InitializeComponent();

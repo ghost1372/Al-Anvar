@@ -35,11 +35,14 @@ public sealed partial class QuranPage : Page
 
     private void cmbTranslators_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
-        var itemIndex = QuranTabViewItem.Instance.GetCurrentListViewItemIndex();
-        QuranTabViewItem.Instance.GetTranslationText();
-        QuranTabViewItem.Instance.GetSuraText();
-        QuranTabViewItem.Instance.ScrollIntoView(itemIndex);
+        if (QuranTabViewItem.Instance is not null)
+        {
+            Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
+            var itemIndex = QuranTabViewItem.Instance.GetCurrentListViewItemIndex();
+            QuranTabViewItem.Instance.GetTranslationText();
+            QuranTabViewItem.Instance.GetSuraText();
+            QuranTabViewItem.Instance.ScrollIntoView(itemIndex);
+        }
     }
 
     public QuranTranslation GetComboboxFirstElement()
@@ -65,6 +68,7 @@ public sealed partial class QuranPage : Page
                     }
                 }
                 cmbTranslators.ItemsSource = items;
+                cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
             }
         }
     }
