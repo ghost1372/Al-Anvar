@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AlAnvar (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AlAnvar (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
