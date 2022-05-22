@@ -1,7 +1,13 @@
-﻿namespace AlAnvar.UI.Pages;
+﻿using System.Reflection;
+using Windows.System;
+
+namespace AlAnvar.UI.Pages;
 
 public sealed partial class SettingsPage : Page
 {
+    private Version CurrentVersion;
+
+    private string ChangeLog = string.Empty;
     public SettingsPage()
     {
         this.InitializeComponent();
@@ -11,6 +17,12 @@ public sealed partial class SettingsPage : Page
 
     private void SettingsPage_Loaded(object sender, RoutedEventArgs e)
     {
+        var assembly = typeof(App).GetTypeInfo().Assembly;
+        var assemblyVersion = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+        CurrentVersion = new Version(assemblyVersion);
+        txtCurrentVersion.Header = $"نسخه فعلی {CurrentVersion}";
+        txtLastUpdateChecke.Text = Settings.LastUpdateCheck;
+
         LoadFontsInCombobox();
         GetDefaultColors();
         GetDefaultFonts();
@@ -262,5 +274,81 @@ public sealed partial class SettingsPage : Page
     private void btnMoreTranslation_Click(object sender, RoutedEventArgs e)
     {
         ShellPage.Instance.GetFrame().Navigate(typeof(TranslationPage), null, new EntranceNavigationTransitionInfo());
+    }
+
+    private async void btnCheckUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        if (GeneralHelper.IsNetworkAvailable())
+        {
+            txtLastUpdateChecke.Text = DateTime.Now.ToShortDateString();
+            Settings.LastUpdateCheck = DateTime.Now.ToShortDateString();
+
+            downloadPanel.Children.Clear();
+            updateErrorInfo.IsOpen = false;
+            updateDownloadInfo.IsOpen = false;
+            updateInfo.IsOpen = false;
+            prgUpdate.IsActive = true;
+            txtUpdate.Visibility = Visibility.Visible;
+            try
+            {
+                var update = await UpdateHelper.CheckUpdateAsync("ghost1372", "Al-Anvar", CurrentVersion);
+                if (update.IsExistNewVersion)
+                {
+                    txtReleaseNote.Visibility = Visibility.Visible;
+                    ChangeLog = update.Changelog;
+                    updateDownloadInfo.Message = $"ما یک نسخه جدید پیدا کردیم {update.TagName} در تاریخ {update.CreatedAt} ایجاد شده و در تاریخ {update.PublishedAt} منتشر شده است.";
+                    foreach (var item in update.Assets)
+                    {
+                        var btn = new Button
+                        {
+                            Content = $"دانلود {Path.GetFileName(item.Url).Replace("AlAnvar.Package._", "")}",
+                            MinWidth = 300,
+                            Margin = new Thickness(10)
+                        };
+
+                        btn.Click += async (s, e) =>
+                        {
+                            await Launcher.LaunchUriAsync(new Uri(item.Url));
+                        };
+
+                        downloadPanel.Children.Add(btn);
+                    }
+
+                    updateDownloadInfo.IsOpen = true;
+                }
+                else
+                {
+                    updateInfo.IsOpen = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                updateErrorInfo.Title = null;
+                updateErrorInfo.Message = ex.Message;
+                updateErrorInfo.IsOpen = true;
+            }
+
+            prgUpdate.IsActive = false;
+            txtUpdate.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            updateErrorInfo.Title = "خطا در اتصال";
+            updateErrorInfo.Message = "شما به اینترنت متصل نیستید و یا ارتباط فعالی وجود ندارد. بعدا دوباره امتحان کنید.";
+            updateErrorInfo.IsOpen = true;
+        }
+    }
+
+    private async void txtReleaseNote_Click(object sender, RoutedEventArgs e)
+    {
+        ContentDialog dialog = new ContentDialog()
+        {
+            Title = "یادداشت انتشار",
+            CloseButtonText = "بستن",
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = Content.XamlRoot
+        };
+
+        await dialog.ShowAsyncQueue();
     }
 }

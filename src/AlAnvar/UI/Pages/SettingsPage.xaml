@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:controls="using:SettingsUI.Controls" 
-    xmlns:table="using:AlAnvar.Database.Tables">
+    xmlns:table="using:AlAnvar.Database.Tables"
+    xmlns:community="using:CommunityToolkit.WinUI.UI.Controls">
     <controls:SettingsPageControl ModuleDescription="تنظیمات"
                                   ModuleImageSource="ms-appx:///Assets/Images/logo.png"
                                   ModuleTitle="تنظیمات"
@@ -17,39 +18,58 @@
             <StackPanel Orientation="Vertical">
                 <controls:SettingsGroup Margin="0,-32,0,0"
                                         Header="نسخه">
-                    <controls:Setting Header="v0.45.0"
+                    <controls:Setting Name="txtCurrentVersion" Header="نسخه فعلی"
                                       Icon="&#xE117;">
                         <controls:Setting.Description>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Style="{StaticResource SecondaryTextStyle}">
-                                    <Run Text="آخرین بررسی" />
-                                    <Run Text="2021/09/10" />
+                                    <Run Text="آخرین زمان بررسی" />
+                                    <Run x:Name="txtLastUpdateChecke" />
                                 </TextBlock>
-                                <HyperlinkButton Margin="0,2,0,0"
+                                <HyperlinkButton Name="txtReleaseNote"
+                                                 Margin="0,2,0,0"
+                                                 Click="txtReleaseNote_Click"
                                                  Content="یادداشت انتشار"
-                                                 NavigateUri="https://github.com/microsoft/PowerToys/releases/" />
+                                                 Visibility="Collapsed" />
                             </StackPanel>
                         </controls:Setting.Description>
                         <controls:Setting.ActionContent>
                             <StackPanel VerticalAlignment="Center"
                                         Orientation="Horizontal"
                                         Spacing="18">
-                                <ProgressRing Width="24"
-                                              Height="24" />
-                                <TextBlock VerticalAlignment="Center"
+                                <ProgressRing Name="prgUpdate"
+                                              IsActive="False" />
+                                <TextBlock Name="txtUpdate"
+                                           VerticalAlignment="Center"
                                            FontWeight="SemiBold"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                           Text="درحال بررسی برای نسخه جدید" />
-                                <Button HorizontalAlignment="Right"
+                                           Text="درحال بررسی برای نسخه جدید"
+                                           Visibility="Collapsed" />
+                                <Button Name="btnCheckUpdate"
+                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        HorizontalAlignment="Right"
+                                        Click="btnCheckUpdate_Click"
                                         Content="بررسی برای نسخه جدید" />
                             </StackPanel>
                         </controls:Setting.ActionContent>
                     </controls:Setting>
-
-                    <InfoBar Title="برنامه شما بروز می باشد"
+                    <InfoBar Name="updateInfo"
+                             Title="شما از آخرین نسخه استفاده می کنید"
                              IsClosable="False"
-                             IsOpen="True"
                              Severity="Success" />
+                    <InfoBar Name="updateDownloadInfo"
+                             Title="نسخه جدید موجود است!"
+                             IsClosable="False"
+                             Message="ما یک نسخه جدیدتر از نسخه فعلی پیدا کردیم"
+                             Severity="Success">
+                        <InfoBar.Content>
+                            <community:WrapPanel x:Name="downloadPanel"
+                                                 Margin="0,10"
+                                                 Orientation="Horizontal" />
+                        </InfoBar.Content>
+                    </InfoBar>
+                    <InfoBar Name="updateErrorInfo"
+                             Severity="Error" />
                 </controls:SettingsGroup>
                 <controls:SettingsGroup Header="ظاهر برنامه">
                     <controls:Setting Header="انتخاب حالت"

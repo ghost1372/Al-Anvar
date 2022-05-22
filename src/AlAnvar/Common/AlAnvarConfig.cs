@@ -20,5 +20,6 @@ public class AlAnvarConfig : JsonSettings, IVersionable
     public virtual double TranslationFontSize { get; set; } = 24;
     public virtual double AyatNumberFontSize { get; set; } = 24;
     public virtual QuranTranslation QuranTranslation { get; set; }
+    public virtual string LastUpdateCheck { get; set; } = "هرگز";
 
 }

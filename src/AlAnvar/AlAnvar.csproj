@@ -38,6 +38,7 @@
 
   <ItemGroup>
 	<PackageReference Include="CommunityToolkit.WinUI.UI" Version="7.1.2" />
+	<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
 	<PackageReference Include="Downloader" Version="2.3.5" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
 	<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0-preview3" />

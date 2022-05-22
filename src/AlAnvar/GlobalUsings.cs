@@ -5,6 +5,8 @@ global using Microsoft.UI.Xaml.Media.Animation;
 global using Microsoft.EntityFrameworkCore;
 
 global using SettingsUI.Helpers;
+global using SettingsUI.Extensions;
+
 global using Newtonsoft.Json;
 
 global using System.ComponentModel.DataAnnotations;
