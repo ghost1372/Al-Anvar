@@ -63,6 +63,7 @@ public sealed partial class TranslationPage : Page
     {
         var selectedItems = rootListView.SelectedItems;
         btnDownload.IsEnabled = false;
+        btnRefresh.IsEnabled = false;
         rootListView.IsEnabled = false;
         try
         {
@@ -91,6 +92,7 @@ public sealed partial class TranslationPage : Page
         catch (Exception)
         {
             btnDownload.IsEnabled = true;
+            btnRefresh.IsEnabled = true;
             rootListView.IsEnabled = true;
         }
     }
@@ -104,6 +106,7 @@ public sealed partial class TranslationPage : Page
             if (_downloadedtItemCount == _totalDownloadItemCount)
             {
                 btnDownload.IsEnabled = true;
+                btnRefresh.IsEnabled = true;
                 rootListView.IsEnabled = true;
                 rootListView.SelectedItems.Clear();
             }

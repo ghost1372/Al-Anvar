@@ -26,6 +26,8 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
+
+    private List<Quran> AyahCollection { get; set; } = new List<Quran>();
     internal static QuranTabViewItem Instance { get; private set; }
 
     public QuranTabViewItem()
@@ -38,7 +40,9 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     private void QuranTabViewItem_LoadedAsync(object sender, RoutedEventArgs e)
     {
-        GetQuranText();
+        GetSurahFromDB();
+        GetTranslationText();
+        GetSuraText();
     }
     public int GetCurrentListViewItemIndex()
     {
@@ -49,14 +53,18 @@ public sealed partial class QuranTabViewItem : TabViewItem
         quranListView.SelectedIndex = index;
         quranListView.ScrollIntoView(quranListView.SelectedItem);
     }
-    public async void GetQuranText()
+
+    private async void GetSurahFromDB()
+    {
+        AyahCollection?.Clear();
+        using var db = new AlAnvarDBContext();
+        AyahCollection = await db.Qurans.Where(x => x.SurahId == SurahId).ToListAsync();
+    }
+    public void GetSuraText(bool isTranslationAvailable = true)
     {
         QuranCollection?.Clear();
-        using var db = new AlAnvarDBContext();
-        var surah = await db.Qurans.Where(x => x.SurahId == SurahId).ToListAsync();
-        GetTranslation();
-
-        foreach (var item in surah)
+       
+        foreach (var item in AyahCollection)
         {
             QuranCollection.Add(new QuranItem
             {
@@ -69,17 +77,17 @@ public sealed partial class QuranTabViewItem : TabViewItem
                 SurahId = SurahId,
                 TotalAyah = TotalAyah,
                 AyaDetail = $"({item.AyahNumber}:{TotalAyah})",
-                TranslationText = TranslationCollection.Where(x => x.Aya == item.AyahNumber).FirstOrDefault()?.Translation
+                TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
             });
         }
         quranListView.ItemsSource = QuranCollection;
     }
 
-    public void GetTranslation()
+    public void GetTranslationText()
     {
         TranslationCollection?.Clear();
-        var selectedTranslation = Settings.QuranTranslation;
-        if (Directory.Exists(Constants.TranslationsPath))
+        var selectedTranslation = Settings.QuranTranslation ?? QuranPage.Instance.GetComboboxFirstElement();
+        if (Directory.Exists(Constants.TranslationsPath) && selectedTranslation != null)
         {
             var files = Directory.GetFiles(Constants.TranslationsPath, "*.txt", SearchOption.AllDirectories);
             if (files.Count() > 0)

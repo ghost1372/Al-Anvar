@@ -17,7 +17,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <controls:InlineAutoCompleteTextBox SuggestionsSource="{x:Bind InlineQuranTranslationSuggestions, Mode=OneWay}" TextChanged="txtInlineSearch_TextChanged" Name="txtInlineSearch" IsSuggestionCaseSensitive="False" Margin="10,20,10,10" PlaceholderText="جستجو"/>
+                <controls:InlineAutoCompleteTextBox x:Name="txtInlineSearch" SuggestionsSource="{x:Bind InlineQuranTranslationSuggestions, Mode=OneWay}" TextChanged="txtInlineSearch_TextChanged" IsSuggestionCaseSensitive="False" Margin="10,20,10,10" PlaceholderText="جستجو"/>
                 <ListView Name="rootListView" Grid.Row="1" SelectionChanged="rootListView_SelectionChanged" Margin="10" x:DefaultBindMode="OneWay" SelectionMode="Multiple">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="table:QuranTranslation">

@@ -37,9 +37,17 @@ public sealed partial class QuranPage : Page
     {
         Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
         var itemIndex = QuranTabViewItem.Instance.GetCurrentListViewItemIndex();
-        QuranTabViewItem.Instance.GetQuranText();
+        QuranTabViewItem.Instance.GetTranslationText();
+        QuranTabViewItem.Instance.GetSuraText();
         QuranTabViewItem.Instance.ScrollIntoView(itemIndex);
     }
+
+    public QuranTranslation GetComboboxFirstElement()
+    {
+        cmbTranslators.SelectedIndex = 0;
+        return cmbTranslators.SelectedItem as QuranTranslation;
+    }
+
     private void LoadTranslationsInCombobox()
     {
         if (Directory.Exists(Constants.TranslationsPath))
