@@ -8,10 +8,10 @@
     xmlns:table="using:AlAnvar.Database.Tables"
     mc:Ignorable="d">
 
-    <ListView Name="quranListView" Margin="10">
+    <ListView Name="quranListView" Margin="10" BorderThickness="1" BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}" CornerRadius="{ThemeResource ControlCornerRadius}">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="table:QuranItem">
-                <RichTextBlock FontSize="24" IsTextSelectionEnabled="False">
+                <RichTextBlock Margin="10" FontSize="24" IsTextSelectionEnabled="False">
                     <Paragraph>
                         <InlineUIContainer>
                             <TextBlock Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">

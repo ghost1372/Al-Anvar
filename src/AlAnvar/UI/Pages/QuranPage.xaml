@@ -43,6 +43,7 @@
             <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,-50,10,0" HorizontalAlignment="Stretch"/>
 
             <CommandBar FlowDirection="LeftToRight" Margin="0,5,0,5" Grid.Row="1" IsOpen="False" DefaultLabelPosition="Right">
+                <AppBarButton Icon="FontColor" Label="فونت و رنگ متن"/>
                 <AppBarButton Icon="Add" Label="افزودن یادداشت"/>
                 <AppBarButton Icon="Priority" Label="موضوع بندی آیات"/>
                 <AppBarButton Icon="ShowResults" Label="تفسیر"/>
