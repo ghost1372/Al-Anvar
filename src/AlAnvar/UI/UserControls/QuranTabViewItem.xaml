@@ -13,11 +13,20 @@
             <DataTemplate x:DataType="table:QuranItem">
                 <RichTextBlock FontSize="24" IsTextSelectionEnabled="False">
                     <Paragraph>
-                        <Run Text="{x:Bind AyahText}"/>
-                        <Run FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                        <InlineUIContainer>
+                            <TextBlock Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Run Text="{x:Bind AyahText}"/>
+                                <Run FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                            </TextBlock>
+                        </InlineUIContainer>
+                        
                         <LineBreak/>
-                        <Run Text="{x:Bind TranslationText}"/>
-                        <Run FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                        <InlineUIContainer>
+                            <TextBlock Visibility="{Binding ElementName=rootItem, Path=DataContext.IsTranslationAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Run Text="{x:Bind TranslationText}"/>
+                                <Run FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                            </TextBlock>
+                        </InlineUIContainer>
                     </Paragraph>
                 </RichTextBlock>
             </DataTemplate>

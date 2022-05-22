@@ -47,7 +47,7 @@ public sealed partial class TranslationPage : Page
                 foreach (var item in localFiles)
                 {
                     var translationItem = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(item));
-                    if (translationItem != null)
+                    if (translationItem is not null)
                     {
                         data.Remove(translationItem);
                     }

@@ -36,8 +36,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <StackPanel Margin="10" Spacing="10">
-                <CheckBox Name="chkOnlyAyaText" Content="عدم نمایش آیه"/>
-                <CheckBox Name="chkOnlyTranslationText" Content="عدم نمایش ترجمه"/>
+                <CheckBox x:Name="chkOnlyAyaText" IsChecked="True" Checked="chkOnlyAyaText_Checked" Unchecked="chkOnlyAyaText_Checked" Content="عدم نمایش آیه"/>
+                <CheckBox x:Name="chkOnlyTranslationText" IsChecked="True" Checked="chkOnlyTranslationText_Checked" Unchecked="chkOnlyTranslationText_Checked" Content="عدم نمایش ترجمه"/>
             </StackPanel>
             
             <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,-50,10,0" HorizontalAlignment="Stretch"/>

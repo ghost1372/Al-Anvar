@@ -13,7 +13,7 @@ public sealed partial class QuranPage : Page
     public void AddNewTab(int surahId, string name, int ayaCount)
     {
         var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (tabViewItem as QuranTabViewItem).SurahId == surahId).FirstOrDefault();
-        if (currentTabViewItem != null)
+        if (currentTabViewItem is not null)
         {
             tabView.SelectedItem = currentTabViewItem;
             return;
@@ -59,13 +59,29 @@ public sealed partial class QuranPage : Page
                 foreach (var file in files)
                 {
                     var trans = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(file));
-                    if (trans != null)
+                    if (trans is not null)
                     {
                         items.Add(trans);
                     }
                 }
                 cmbTranslators.ItemsSource = items;
             }
+        }
+    }
+
+    private void chkOnlyAyaText_Checked(object sender, RoutedEventArgs e)
+    {
+        if (QuranTabViewItem.Instance is not null)
+        {
+            QuranTabViewItem.Instance.IsSurahTextAvailable = chkOnlyAyaText.IsChecked.Value;
+        }
+    }
+
+    private void chkOnlyTranslationText_Checked(object sender, RoutedEventArgs e)
+    {
+        if (QuranTabViewItem.Instance is not null)
+        {
+            QuranTabViewItem.Instance.IsTranslationAvailable = chkOnlyTranslationText.IsChecked.Value;
         }
     }
 }

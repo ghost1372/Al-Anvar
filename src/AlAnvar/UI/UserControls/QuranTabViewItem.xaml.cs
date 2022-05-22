@@ -1,6 +1,8 @@
-﻿namespace AlAnvar.UI.UserControls;
+﻿using System.Runtime.CompilerServices;
 
-public sealed partial class QuranTabViewItem : TabViewItem
+namespace AlAnvar.UI.UserControls;
+
+public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChanged
 {
     #region DependencyProperty
     public static readonly DependencyProperty SurahIdProperty =
@@ -24,11 +26,42 @@ public sealed partial class QuranTabViewItem : TabViewItem
     }
     #endregion
 
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
     public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
-
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
+
     internal static QuranTabViewItem Instance { get; private set; }
+
+    private bool _IsTranslationAvailable = true;
+
+    public bool IsTranslationAvailable
+    {
+        get { return _IsTranslationAvailable; }
+        set
+        {
+            _IsTranslationAvailable = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private bool _IsSurahTextAvailable = true;
+
+    public bool IsSurahTextAvailable
+    {
+        get { return _IsSurahTextAvailable; }
+        set
+        {
+            _IsSurahTextAvailable = value;
+            OnPropertyChanged();
+        }
+    }
+
 
     public QuranTabViewItem()
     {
@@ -87,7 +120,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
     {
         TranslationCollection?.Clear();
         var selectedTranslation = Settings.QuranTranslation ?? QuranPage.Instance.GetComboboxFirstElement();
-        if (Directory.Exists(Constants.TranslationsPath) && selectedTranslation != null)
+        if (Directory.Exists(Constants.TranslationsPath) && selectedTranslation is not null)
         {
             var files = Directory.GetFiles(Constants.TranslationsPath, "*.txt", SearchOption.AllDirectories);
             if (files.Count() > 0)
