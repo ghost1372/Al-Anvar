@@ -202,32 +202,13 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
 
     private void GetDefaultFont()
     {
-        if (Settings.AyatFontFamilyName is not null)
-        {
-            AyatFontFamily = new FontFamily(Settings.AyatFontFamilyName);
-        }
-        if (Settings.AyatNumberFontFamilyName is not null)
-        {
-            AyatNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
-        }
-        if (Settings.TranslationFontFamilyName is not null)
-        {
-            TranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
-        }
+        AyatFontFamily = new FontFamily(Settings.AyatFontFamilyName);
+        AyatNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
+        TranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
 
-        if (Settings.AyatFontSize is not Constants.AYAT_DEFAULT_FONT_SIZE)
-        {
-            AyatFontSize = Settings.AyatFontSize;
-        }
-        if (Settings.AyatNumberFontSize is not Constants.AYAT_NUMBER_DEFAULT_FONT_SIZE)
-        {
-            AyatNumberFontSize = Settings.AyatNumberFontSize;
-        }
-        if (Settings.TranslationFontSize is not Constants.TRANSLATION_DEFAULT_FONT_SIZE)
-        {
-            TranslationFontSize = Settings.TranslationFontSize;
-        }
-
+        AyatFontSize = Settings.AyatFontSize;
+        AyatNumberFontSize = Settings.AyatNumberFontSize;
+        TranslationFontSize = Settings.TranslationFontSize;
     }
     private void QuranTabViewItem_LoadedAsync(object sender, RoutedEventArgs e)
     {

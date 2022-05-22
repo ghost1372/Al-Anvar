@@ -13,9 +13,9 @@ public class AlAnvarConfig : JsonSettings, IVersionable
     public virtual string AyatForeground { get; set; }
     public virtual string TranslationForeground { get; set; }
     public virtual string AyatNumberForeground { get; set; }
-    public virtual string AyatFontFamilyName { get; set; }
-    public virtual string TranslationFontFamilyName { get; set; }
-    public virtual string AyatNumberFontFamilyName { get; set; }
+    public virtual string AyatFontFamilyName { get; set; } = Constants.AYAT_DEFAULT_FONT_NAME;
+    public virtual string TranslationFontFamilyName { get; set; } = Constants.AYAT_NUMBER_DEFAULT_FONT_NAME;
+    public virtual string AyatNumberFontFamilyName { get; set; } = Constants.TRANSLATION_DEFAULT_FONT_NAME;
     public virtual double AyatFontSize { get; set; } = Constants.AYAT_DEFAULT_FONT_SIZE;
     public virtual double TranslationFontSize { get; set; } = Constants.TRANSLATION_DEFAULT_FONT_SIZE;
     public virtual double AyatNumberFontSize { get; set; } = Constants.AYAT_NUMBER_DEFAULT_FONT_SIZE;

@@ -10,4 +10,11 @@ public class Constants
     public const double AYAT_DEFAULT_FONT_SIZE = 24;
     public const double AYAT_NUMBER_DEFAULT_FONT_SIZE = 24;
     public const double TRANSLATION_DEFAULT_FONT_SIZE = 24;
+    public const string AYAT_DEFAULT_FONT_NAME = "Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn";
+    public const string AYAT_NUMBER_DEFAULT_FONT_NAME = "Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn";
+    public const string TRANSLATION_DEFAULT_FONT_NAME = "Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn";
+
+    public const string FONT_VAZIRMATN_REGULAR = "Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn";
+    public const string FONT_VAZIRMATN_MEDIUM = "Assets/Fonts/Vazirmatn-Medium.ttf#Vazirmatn Medium";
+    public const string FONT_VAZIRMATN_BOLD = "Assets/Fonts/Vazirmatn-Bold.ttf#Vazirmatn";
 }

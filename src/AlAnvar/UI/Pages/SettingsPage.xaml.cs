@@ -54,8 +54,9 @@ public sealed partial class SettingsPage : Page
         else
         {
             //Todo:
-            List<string> fonts = new List<string>();
-
+            cmbFonts.Items.Add(new FontFamily(Constants.FONT_VAZIRMATN_REGULAR).Source);
+            cmbFonts.Items.Add(new FontFamily(Constants.FONT_VAZIRMATN_MEDIUM).Source);
+            cmbFonts.Items.Add(new FontFamily(Constants.FONT_VAZIRMATN_BOLD).Source);
         }
     }
 
@@ -123,20 +124,9 @@ public sealed partial class SettingsPage : Page
     }
     private void GetDefaultFonts()
     {
-        if (Settings.AyatFontFamilyName is not null)
-        {
-            txtAyat2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatFontFamilyName);
-        }
-
-        if (Settings.AyatNumberFontFamilyName is not null)
-        {
-            txtAyatNumber2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatNumberFontFamilyName);
-        }
-
-        if (Settings.TranslationFontFamilyName is not null)
-        {
-            txtTranslation2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.TranslationFontFamilyName);
-        }
+        txtAyat2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatFontFamilyName);
+        txtAyatNumber2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatNumberFontFamilyName);
+        txtTranslation2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.TranslationFontFamilyName);
 
         txtAyat2.FontSize = Settings.AyatFontSize;
         txtAyatNumber2.FontSize = Settings.AyatNumberFontSize;
@@ -196,9 +186,9 @@ public sealed partial class SettingsPage : Page
 
     private void btnResetFont_Click(object sender, RoutedEventArgs e)
     {
-        Settings.AyatFontFamilyName = null;
-        Settings.AyatNumberFontFamilyName = null;
-        Settings.TranslationFontFamilyName = null;
+        Settings.AyatFontFamilyName = Constants.AYAT_DEFAULT_FONT_NAME;
+        Settings.AyatNumberFontFamilyName = Constants.AYAT_NUMBER_DEFAULT_FONT_NAME;
+        Settings.TranslationFontFamilyName = Constants.TRANSLATION_DEFAULT_FONT_NAME;
         Settings.AyatFontSize = Constants.AYAT_DEFAULT_FONT_SIZE;
         Settings.AyatNumberFontSize = Constants.AYAT_NUMBER_DEFAULT_FONT_SIZE;
         Settings.TranslationFontSize = Constants.TRANSLATION_DEFAULT_FONT_SIZE;
@@ -238,31 +228,22 @@ public sealed partial class SettingsPage : Page
                 double ayatFontSize = Settings.AyatFontSize;
                 txtAyat2.FontSize = ayatFontSize;
                 nbFontSize.Value = ayatFontSize;
-                if (Settings.AyatFontFamilyName is not null)
-                {
-                    txtAyat2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatFontFamilyName);
-                    cmbFonts.SelectedItem = Settings.AyatFontFamilyName;
-                }
+                txtAyat2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatFontFamilyName);
+                cmbFonts.SelectedItem = Settings.AyatFontFamilyName;
                 break;
             case 1:
                 double translationFontSize = Settings.TranslationFontSize;
                 txtTranslation2.FontSize = translationFontSize;
                 nbFontSize.Value = translationFontSize;
-                if (Settings.TranslationFontFamilyName is not null)
-                {
-                    txtTranslation2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.TranslationFontFamilyName);
-                    cmbFonts.SelectedItem = Settings.TranslationFontFamilyName;
-                }
+                txtTranslation2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.TranslationFontFamilyName);
+                cmbFonts.SelectedItem = Settings.TranslationFontFamilyName;
                 break;
             case 2:
                 double ayatNumberFontSize = Settings.AyatNumberFontSize;
                 txtAyatNumber2.FontSize = ayatNumberFontSize;
                 nbFontSize.Value = ayatNumberFontSize;
-                if (Settings.AyatNumberFontFamilyName is not null)
-                {
-                    txtAyatNumber2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatNumberFontFamilyName);
-                    cmbFonts.SelectedItem = Settings.AyatNumberFontFamilyName;
-                }
+                txtAyatNumber2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatNumberFontFamilyName);
+                cmbFonts.SelectedItem = Settings.AyatNumberFontFamilyName;
                 break;
         }
     }
