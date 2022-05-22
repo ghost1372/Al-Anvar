@@ -54,9 +54,9 @@ public sealed partial class SettingsPage : Page
         else
         {
             //Todo:
-            cmbFonts.Items.Add(new FontFamily(Constants.FONT_VAZIRMATN_REGULAR).Source);
-            cmbFonts.Items.Add(new FontFamily(Constants.FONT_VAZIRMATN_MEDIUM).Source);
-            cmbFonts.Items.Add(new FontFamily(Constants.FONT_VAZIRMATN_BOLD).Source);
+            cmbFonts.Items.Add("وزیرمتن رگولار");
+            cmbFonts.Items.Add("وزیرمتن مدیوم");
+            cmbFonts.Items.Add("وزیرمتن بولد");
         }
     }
 
@@ -143,7 +143,16 @@ public sealed partial class SettingsPage : Page
     private void cmbFonts_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedFont = cmbFonts.SelectedItem;
-        var fontFamily = new Microsoft.UI.Xaml.Media.FontFamily(selectedFont as string);
+        FontFamily fontFamily;
+        if (chkSystemFonts.IsChecked.Value)
+        {
+            fontFamily = new FontFamily(selectedFont as string);
+        }
+        else
+        {
+            fontFamily = GetFontFamilyFromFontName(selectedFont as string);
+        }
+
         switch (rbFont.SelectedIndex)
         {
             case 0:
@@ -160,7 +169,19 @@ public sealed partial class SettingsPage : Page
                 break;
         }
     }
-
+    private FontFamily GetFontFamilyFromFontName(string fontname)
+    {
+        switch (fontname)
+        {
+            case "وزیرمتن رگولار":
+                return new FontFamily(Constants.FONT_VAZIRMATN_REGULAR);
+            case "وزیرمتن مدیوم":
+                return new FontFamily(Constants.FONT_VAZIRMATN_MEDIUM);
+            case "وزیرمتن بولد":
+                return new FontFamily(Constants.FONT_VAZIRMATN_BOLD);
+        }
+        return new FontFamily(Constants.FONT_VAZIRMATN_REGULAR);
+    }
     private void nbFontSize_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
     {
         if (rbFont == null)
