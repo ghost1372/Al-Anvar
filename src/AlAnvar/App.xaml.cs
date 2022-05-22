@@ -11,7 +11,6 @@ public partial class App : Application
     {
         m_window = new MainWindow();
         ThemeHelper.Initialize(m_window, true);
-        ThemeHelper.UpdateSystemCaptionButtonColors();
         m_window.Activate();
     }
 

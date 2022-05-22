@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using CommunityToolkit.WinUI.UI.Controls;
 using Windows.System;
 
 namespace AlAnvar.UI.Pages;
@@ -296,7 +297,7 @@ public sealed partial class SettingsPage : Page
                 {
                     txtReleaseNote.Visibility = Visibility.Visible;
                     ChangeLog = update.Changelog;
-                    updateDownloadInfo.Message = $"ما یک نسخه جدید پیدا کردیم {update.TagName} در تاریخ {update.CreatedAt} ایجاد شده و در تاریخ {update.PublishedAt} منتشر شده است.";
+                    updateDownloadInfo.Message = $"ما یک نسخه جدید پیدا کردیم {update.TagName} در تاریخ {update.CreatedAt} ایجاد و در تاریخ {update.PublishedAt} منتشر شده است.";
                     foreach (var item in update.Assets)
                     {
                         var btn = new Button
@@ -345,6 +346,7 @@ public sealed partial class SettingsPage : Page
         {
             Title = "یادداشت انتشار",
             CloseButtonText = "بستن",
+            Content = new ScrollViewer { Content = new MarkdownTextBlock { Text = ChangeLog }, Margin = new Thickness(10) },
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot
         };

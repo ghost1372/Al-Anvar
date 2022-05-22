@@ -60,7 +60,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Name="btnDownload" MinWidth="320" IsEnabled="False" Click="btnDownload_Click" Margin="10" Content="دانلود ترجمه های انتخاب شده"/>
+                    <Button Name="btnDownload" Style="{ThemeResource AccentButtonStyle}" MinWidth="320" IsEnabled="False" Click="btnDownload_Click" Margin="10" Content="دانلود ترجمه های انتخاب شده"/>
                     <Button Name="btnRefresh" Grid.Column="1" MinWidth="320" Click="btnRefresh_Click" Margin="10" Content="بروزرسانی لیست"/>
 
                     <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Spacing="10">
@@ -114,7 +114,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Name="btnDelete" IsEnabled="False" MinWidth="320" Click="btnDelete_Click" Margin="10" Content="حذف ترجمه های انتخاب شده"/>
+                    <Button Name="btnDelete" Style="{ThemeResource AccentButtonStyle}" IsEnabled="False" MinWidth="320" Click="btnDelete_Click" Margin="10" Content="حذف ترجمه های انتخاب شده"/>
                     <Button Name="btnRefreshLocal" Grid.Column="1" MinWidth="320" Click="btnRefreshLocal_Click" Margin="10" Content="بروزرسانی لیست"/>
                 </Grid>
             </Grid>

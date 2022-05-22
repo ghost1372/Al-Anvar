@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     xmlns:controls="using:SettingsUI.Controls" 
     xmlns:table="using:AlAnvar.Database.Tables"
-    xmlns:community="using:CommunityToolkit.WinUI.UI.Controls">
+    xmlns:internalControls="using:SettingsUI.Internal.Controls">
     <controls:SettingsPageControl ModuleDescription="تنظیمات"
                                   ModuleImageSource="ms-appx:///Assets/Images/logo.png"
                                   ModuleTitle="تنظیمات"
@@ -18,7 +18,7 @@
             <StackPanel Orientation="Vertical">
                 <controls:SettingsGroup Margin="0,-32,0,0"
                                         Header="نسخه">
-                    <controls:Setting Name="txtCurrentVersion" Header="نسخه فعلی"
+                    <controls:Setting x:Name="txtCurrentVersion" Header="نسخه فعلی"
                                       Icon="&#xE117;">
                         <controls:Setting.Description>
                             <StackPanel Orientation="Vertical">
@@ -49,6 +49,7 @@
                                         MinWidth="{StaticResource SettingActionControlMinWidth}"
                                         HorizontalAlignment="Right"
                                         Click="btnCheckUpdate_Click"
+                                        Style="{ThemeResource AccentButtonStyle}"
                                         Content="بررسی برای نسخه جدید" />
                             </StackPanel>
                         </controls:Setting.ActionContent>
@@ -63,7 +64,7 @@
                              Message="ما یک نسخه جدیدتر از نسخه فعلی پیدا کردیم"
                              Severity="Success">
                         <InfoBar.Content>
-                            <community:WrapPanel x:Name="downloadPanel"
+                            <internalControls:WrapPanel x:Name="downloadPanel"
                                                  Margin="0,10"
                                                  Orientation="Horizontal" />
                         </InfoBar.Content>

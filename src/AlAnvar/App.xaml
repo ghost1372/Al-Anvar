@@ -20,31 +20,6 @@
             <Style TargetType="MenuFlyoutItem">
                 <Setter Property="FontFamily" Value="{StaticResource VazirmatnRegular}"/>
             </Style>
-            
-            <ThemeShadow x:Name="ThemeShadow"/>
-            
-            <Style TargetType="Grid" x:Key="GridPanel">
-                <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}"/>
-                <Setter Property="BorderBrush" Value="{ThemeResource TeachingTipBorderBrush}"/>
-                <Setter Property="BorderThickness" Value="{ThemeResource TeachingTipContentBorderThicknessUntargeted}"/>
-                <Setter Property="Background" Value="{ThemeResource TeachingTipTransientBackground}"/>
-                <Setter Property="Shadow" Value="{ThemeResource ThemeShadow}"/>
-                <Setter Property="Transitions">
-                    <Setter.Value>
-                        <TransitionCollection>
-                            <ContentThemeTransition VerticalOffset="150" />
-                        </TransitionCollection>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            
-            <Style TargetType="Border" x:Key="BorderPanel">
-                <Setter Property="Margin" Value="{ThemeResource NavigationViewContentMargin}"/>
-                <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}"/>
-                <Setter Property="Background" Value="{ThemeResource NavigationViewContentBackground}"/>
-                <Setter Property="BorderBrush" Value="{ThemeResource NavigationViewContentGridBorderBrush}"/>
-                <Setter Property="BorderThickness" Value="1"/>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
