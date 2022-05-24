@@ -8,7 +8,7 @@
     xmlns:table="using:AlAnvar.Database.Tables"
     mc:Ignorable="d">
 
-    <ListView Name="quranListView" Margin="10" BorderThickness="1" BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}" CornerRadius="{ThemeResource ControlCornerRadius}">
+    <ListView Name="quranListView" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="table:QuranItem">
                 <RichTextBlock Margin="10"  IsTextSelectionEnabled="False">

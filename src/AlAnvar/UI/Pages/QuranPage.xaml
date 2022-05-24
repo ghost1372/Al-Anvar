@@ -54,10 +54,20 @@
             
             <StackPanel Spacing="10" Margin="10,0,10,10" Grid.Row="2">
                 <CheckBox Name="chkRepeat" Content="تکرار پخش"/>
-                <TextBlock Name="txtStatus" Text="سوره: 1 آیه: 5"/>
+                <TextBlock Name="txtStatus"/>
             </StackPanel>
-            
-            <ComboBox Name="cmbQari" Header="قاری قرآن" Margin="10,0" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch"/>
+
+            <ComboBox Name="cmbQari" Header="قاری قرآن" SelectionChanged="cmbQari_SelectionChanged" Margin="10,0" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="table:QuranAudio">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind PName}"/>
+                            <TextBlock Text="-"/>
+                            <TextBlock Text="{x:Bind Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
 
         <TabView Grid.Row="1" Name="tabView" IsAddTabButtonVisible="False"/>

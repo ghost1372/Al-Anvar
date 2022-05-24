@@ -5,6 +5,16 @@ namespace AlAnvar.UI.UserControls;
 public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChanged
 {
     #region DependencyProperty
+    public static readonly DependencyProperty SurahNameProperty =
+        DependencyProperty.Register("SurahName", typeof(int), typeof(QuranTabViewItem),
+        new PropertyMetadata(1));
+
+    public string SurahName
+    {
+        get { return (string) GetValue(SurahNameProperty); }
+        set { SetValue(SurahNameProperty, value); }
+    }
+
     public static readonly DependencyProperty SurahIdProperty =
         DependencyProperty.Register("SurahId", typeof(int), typeof(QuranTabViewItem),
         new PropertyMetadata(1));
@@ -250,6 +260,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                 Id = item.Id,
                 Juz = item.Juz,
                 SurahId = SurahId,
+                SurahName = SurahName,
                 TotalAyah = TotalAyah,
                 AyaDetail = $"({item.AyahNumber}:{TotalAyah})",
                 TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
@@ -288,6 +299,15 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                     }
                 }
             }
+        }
+    }
+
+    private void quranListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var item = quranListView.SelectedItem as QuranItem;
+        if (QuranPage.Instance is not null)
+        {
+            QuranPage.Instance.SetSurahStatus($"سوره: {item.SurahName} - آیه: {item.AyahNumber}");
         }
     }
 }

@@ -5,6 +5,7 @@ public class QuranItem
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     public int SurahId { get; set; }
+    public string SurahName { get; set; }
     public int AyahNumber { get; set; }
     public int TotalAyah { get; set; }
     public string AyahText { get; set; }

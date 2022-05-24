@@ -8,6 +8,7 @@ public sealed partial class QuranPage : Page
         this.InitializeComponent();
         Instance = this;
         LoadTranslationsInCombobox();
+        LoadQarisInCombobox();
     }
 
     public void AddNewTab(int surahId, string name, string type, int ayaCount)
@@ -22,6 +23,7 @@ public sealed partial class QuranPage : Page
         var item = new QuranTabViewItem();
         item.Header = $"{surahId} - {name} - {ayaCount} آیه - {type}";
         item.SurahId = surahId;
+        item.SurahName = name;
         item.TotalAyah = ayaCount;
         tabView.TabItems.Add(item);
         item.CloseRequested += Item_CloseRequested;
@@ -35,9 +37,10 @@ public sealed partial class QuranPage : Page
 
     private void cmbTranslators_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
+
         if (QuranTabViewItem.Instance is not null)
         {
-            Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
             var itemIndex = QuranTabViewItem.Instance.GetCurrentListViewItemIndex();
             QuranTabViewItem.Instance.GetTranslationText();
             QuranTabViewItem.Instance.GetSuraText();
@@ -72,6 +75,27 @@ public sealed partial class QuranPage : Page
             }
         }
     }
+    private void LoadQarisInCombobox()
+    {
+        if (Directory.Exists(Constants.AudiosPath))
+        {
+            var items = new ObservableCollection<QuranAudio>();
+            var files = Directory.GetFiles(Constants.AudiosPath, "*.ini", SearchOption.AllDirectories);
+            if (files.Count() > 0)
+            {
+                foreach (var file in files)
+                {
+                    var audio = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
+                    if (audio is not null)
+                    {
+                        items.Add(audio);
+                    }
+                }
+                cmbQari.ItemsSource = items;
+                cmbQari.SelectedItem = cmbQari.Items.Where(trans => ((QuranAudio) trans).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
+            }
+        }
+    }
 
     private void chkOnlyAyaText_Checked(object sender, RoutedEventArgs e)
     {
@@ -87,5 +111,15 @@ public sealed partial class QuranPage : Page
         {
             QuranTabViewItem.Instance.IsTranslationAvailable = chkOnlyTranslationText.IsChecked.Value;
         }
+    }
+
+    private void cmbQari_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Settings.QuranAudio = cmbQari.SelectedItem as QuranAudio;
+    }
+
+    public void SetSurahStatus(string status)
+    {
+        txtStatus.Text = status;
     }
 }
