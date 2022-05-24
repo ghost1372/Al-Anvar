@@ -7,7 +7,7 @@
     xmlns:local="using:AlAnvar.UI.Pages"
     mc:Ignorable="d">
 
-    <Grid FlowDirection="RightToLeft">
+    <Grid Name="mainGrid" FlowDirection="RightToLeft">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
