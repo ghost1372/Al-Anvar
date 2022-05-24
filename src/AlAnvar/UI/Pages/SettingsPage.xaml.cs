@@ -28,6 +28,7 @@ public sealed partial class SettingsPage : Page
         GetDefaultColors();
         GetDefaultFonts();
         LoadTranslationsInCombobox();
+        LoadQarisInCombobox();
     }
 
     private void OnThemeRadioButtonChecked(object sender, RoutedEventArgs e)
@@ -120,6 +121,26 @@ public sealed partial class SettingsPage : Page
             }
 
             cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
+        }
+    }
+    private void LoadQarisInCombobox()
+    {
+        if (Directory.Exists(Constants.AudiosPath))
+        {
+            var files = Directory.GetFiles(Constants.AudiosPath, "*.ini", SearchOption.AllDirectories);
+            if (files.Count() > 0)
+            {
+                foreach (var file in files)
+                {
+                    var audios = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
+                    if (audios is not null)
+                    {
+                        cmbQaris.Items.Add(audios);
+                    }
+                }
+            }
+
+            cmbQaris.SelectedItem = cmbQaris.Items.Where(audio => ((QuranAudio) audio).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
         }
     }
     private void GetDefaultFonts()
@@ -354,5 +375,15 @@ public sealed partial class SettingsPage : Page
         };
 
         await dialog.ShowAsyncQueue();
+    }
+
+    private void cmbQaris_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Settings.QuranAudio = cmbQaris.SelectedItem as QuranAudio;
+    }
+
+    private void btnMoreQaris_Click(object sender, RoutedEventArgs e)
+    {
+        ShellPage.Instance.GetFrame().Navigate(typeof(QariPage), null, new EntranceNavigationTransitionInfo());
     }
 }

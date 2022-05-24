@@ -160,7 +160,7 @@
                     </Grid>
 
                 </controls:SettingsGroup>
-                <controls:SettingsGroup Header="ترجمه ها">
+                <controls:SettingsGroup Header="ترجمه و صوت">
                     <controls:Setting Header="ترجمه های موجود و پیشفرض"
                                       Icon="&#xE771;">
                         <controls:Setting.Description>
@@ -176,6 +176,25 @@
                                             <TextBlock Text="{x:Bind Language}"/>
                                             <TextBlock Text="-"/>
                                             <TextBlock Text="{x:Bind Translator}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </controls:Setting>
+                    <controls:Setting Header="صوت های موجود و پیشفرض"
+                                      Icon="&#xE771;">
+                        <controls:Setting.Description>
+                            <HyperlinkButton Click="btnMoreQaris_Click" Content="دانلود صوت های بیشتر" />
+                        </controls:Setting.Description>
+                        <StackPanel Spacing="5">
+                            <ComboBox x:Name="cmbQaris" SelectionChanged="cmbQaris_SelectionChanged" MinWidth="300" HorizontalAlignment="Stretch" Header="صوت پیشفرض">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="table:QuranAudio">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{x:Bind PName}"/>
+                                            <TextBlock Text="-"/>
+                                            <TextBlock Text="{x:Bind Name}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
