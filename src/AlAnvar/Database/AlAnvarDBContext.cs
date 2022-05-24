@@ -12,4 +12,5 @@ public class AlAnvarDBContext : DbContext
     public DbSet<Quran> Qurans { get; set; }
     public DbSet<QuranSearch> QuranSearches { get; set; }
     public DbSet<QuranTranslation> Translations { get; set; }
+    public DbSet<QuranAudio> Audios { get; set; }
 }

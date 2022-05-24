@@ -16,7 +16,6 @@ public sealed partial class MainWindow : Window
     {
         if (sender is MenuFlyoutItem { Tag: string pageName })
         {
-
             switch (pageName)
             {
                 case "SettingsPage":
@@ -25,10 +24,11 @@ public sealed partial class MainWindow : Window
                 case "TranslationPage":
                     ShellPage.Instance.GetFrame().Navigate(typeof(TranslationPage), null, new EntranceNavigationTransitionInfo());
                     break;
+                case "QariPage":
+                    ShellPage.Instance.GetFrame().Navigate(typeof(QariPage), null, new EntranceNavigationTransitionInfo());
+                    break;
                 case "Exit":
                     Application.Current.Exit();
-                    break;
-                default:
                     break;
             }
         }

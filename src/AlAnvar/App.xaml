@@ -20,6 +20,12 @@
             <Style TargetType="MenuFlyoutItem">
                 <Setter Property="FontFamily" Value="{StaticResource VazirmatnRegular}"/>
             </Style>
+
+            <Style TargetType="ListView" x:Key="myListView">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource NavigationViewContentGridBorderBrush}"/>
+                <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

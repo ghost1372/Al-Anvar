@@ -82,7 +82,7 @@
                         <KeyboardAccelerator Modifiers="Shift" Key="T"/>
                     </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
-                <MenuFlyoutItem Text="مدیریت قاری ها">
+                <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="QariPage" Text="مدیریت قاری ها">
                     <MenuFlyoutItem.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Shift" Key="Q"/>
                     </MenuFlyoutItem.KeyboardAccelerators>

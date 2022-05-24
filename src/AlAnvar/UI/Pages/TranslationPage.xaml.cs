@@ -22,14 +22,6 @@ public sealed partial class TranslationPage : Page
     {
         GetQuranTranslations();
 
-        //Fill InlineAutoCompleteTextBox
-        foreach (var item in QuranTranslations)
-        {
-            InlineQuranTranslationSuggestions.Add(item.Name);
-            InlineQuranTranslationSuggestions.Add(item.Language);
-            InlineQuranTranslationSuggestions.Add(item.Translator);
-        }
-
         GetLocalTranslations();
     }
 
@@ -58,6 +50,16 @@ public sealed partial class TranslationPage : Page
         QuranTranslations = new(data);
         QuranTranslationsACV = new AdvancedCollectionView(QuranTranslations, true);
         rootListView.ItemsSource = QuranTranslationsACV;
+
+        InlineQuranTranslationSuggestions?.Clear();
+
+        //Fill InlineAutoCompleteTextBox
+        foreach (var item in QuranTranslations)
+        {
+            InlineQuranTranslationSuggestions.Add(item.Name);
+            InlineQuranTranslationSuggestions.Add(item.Language);
+            InlineQuranTranslationSuggestions.Add(item.Translator);
+        }
     }
     private async void btnDownload_Click(object sender, RoutedEventArgs e)
     {
@@ -180,7 +182,7 @@ public sealed partial class TranslationPage : Page
             {
                 var translationId = (item as QuranTranslation).TranslationId;
                 var dirPath = Path.Combine(Constants.TranslationsPath, translationId);
-                Directory.Delete(dirPath);
+                Directory.Delete(dirPath, true);
             }
             GetLocalTranslations();
         }
