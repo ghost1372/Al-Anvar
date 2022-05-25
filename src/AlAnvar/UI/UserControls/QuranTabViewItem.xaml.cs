@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace AlAnvar.UI.UserControls;
+﻿namespace AlAnvar.UI.UserControls;
 
 public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChanged
 {
@@ -154,14 +152,6 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
 
     #endregion
 
-    #endregion
-
-    public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
-    private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
-    private List<Quran> AyahCollection { get; set; } = new List<Quran>();
-
-    internal static QuranTabViewItem Instance { get; private set; }
-
     private bool _IsTranslationAvailable = true;
 
     public bool IsTranslationAvailable
@@ -185,6 +175,14 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             OnPropertyChanged();
         }
     }
+
+    #endregion
+
+    public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
+    private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
+    private List<Quran> AyahCollection { get; set; } = new List<Quran>();
+
+    internal static QuranTabViewItem Instance { get; private set; }
 
     public QuranTabViewItem()
     {
@@ -228,15 +226,6 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         GetSurahFromDB();
         GetTranslationText();
         GetSuraText();
-    }
-    public int GetCurrentListViewItemIndex()
-    {
-        return quranListView.SelectedIndex;
-    }
-    public void ScrollIntoView(int index)
-    {
-        quranListView.SelectedIndex = index;
-        quranListView.ScrollIntoView(quranListView.SelectedItem);
     }
 
     private async void GetSurahFromDB()
@@ -308,6 +297,52 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         if (QuranPage.Instance is not null)
         {
             QuranPage.Instance.SetSurahStatus($"سوره: {item.SurahName} - آیه: {item.AyahNumber}");
+            QuranPage.Instance.UpdateMediaPlayerButtons(quranListView.SelectedIndex, quranListView.Items.Count - 1);
         }
+        ScrollIntoView(quranListView.SelectedIndex);
+    }
+
+    public QuranItem GetListViewSelectedItem()
+    {
+        return quranListView.SelectedItem as QuranItem;
+    }
+
+    public void GoToListViewNextItem()
+    {
+        var currentIndex = quranListView.SelectedIndex;
+        if (currentIndex == -1)
+        {
+            quranListView.SelectedIndex = 0;
+        }
+        else if (currentIndex != quranListView.Items.Count -1)
+        {
+            quranListView.SelectedIndex += 1;
+        } 
+    }
+
+    public int GetListViewLastIndex()
+    {
+        return quranListView.Items.Count - 1;
+    }
+    public int GetListViewSelectedIndex()
+    {
+        return quranListView.SelectedIndex;
+    }
+    public void GoToListViewPreviousItem()
+    {
+        var currentIndex = quranListView.SelectedIndex;
+        if (currentIndex == -1)
+        {
+            quranListView.SelectedIndex = 0;
+        }
+        else if (currentIndex != 0)
+        {
+            quranListView.SelectedIndex -= 1;
+        }
+    }
+    public void ScrollIntoView(int index)
+    {
+        quranListView.SelectedIndex = index;
+        quranListView.ScrollIntoView(quranListView.SelectedItem);
     }
 }

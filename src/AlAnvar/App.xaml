@@ -2,7 +2,8 @@
     x:Class="AlAnvar.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:CommunityToolkit.WinUI.UI.Converters">
+    xmlns:converter="using:CommunityToolkit.WinUI.UI.Converters"
+    xmlns:localConverter="using:AlAnvar.Tools.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,6 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
             
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <localConverter:ThumbToolTipValueConverter x:Key="ThumbToolTipValueConverter"/>
             
             <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
             <FontFamily x:Key="VazirmatnBold">Assets/Fonts/Vazirmatn-Bold.ttf#Vazirmatn</FontFamily>

@@ -13,6 +13,7 @@ global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using System.Collections.ObjectModel;
 global using System.ComponentModel;
+global using System.Runtime.CompilerServices;
 
 global using static AlAnvar.Common.AlAnvarHelper;
 global using AlAnvar.Common;
