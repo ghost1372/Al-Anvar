@@ -162,24 +162,34 @@ public sealed partial class QuranPage : Page
         txtStatus.Text = status;
     }
 
-    private void btnPlay_Click(object sender, RoutedEventArgs e)
+    private async void btnPlay_Click(object sender, RoutedEventArgs e)
     {
         var qari = cmbQari.SelectedItem as QuranAudio;
         if (qari is not null)
         {
-            var qariPath = Path.Combine(Constants.AudiosPath, qari.DirName);
             if (QuranTabViewItem.Instance.GetListViewSelectedIndex() == -1)
             {
                 QuranTabViewItem.Instance.GoToListViewNextItem();
             }
 
-            if (Directory.Exists(qariPath) && QuranTabViewItem.Instance.GetListViewSelectedIndex() != -1)
+            PlayQuran();
+        }
+        else
+        {
+            ContentDialog dialog = new ContentDialog()
             {
-                PlayQuran();
-            }
-            else
+                Title = "قاری انتخاب نشده",
+                CloseButtonText = "بستن",
+                Content = new ScrollViewer { Content = "به صفحه قاری ها رفته و حداقل صوت یک قاری را دانلود کنید.", Margin = new Thickness(10) },
+                DefaultButton = ContentDialogButton.Primary,
+                PrimaryButtonText = "دانلود صوت قاری",
+                XamlRoot = Content.XamlRoot
+            };
+
+            var result = await dialog.ShowAsyncQueue();
+            if (result == ContentDialogResult.Primary)
             {
-                // directory not found
+                ShellPage.Instance.Navigate(typeof(QariPage));
             }
         }
     }

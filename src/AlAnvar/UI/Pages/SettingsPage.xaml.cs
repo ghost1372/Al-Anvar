@@ -297,7 +297,7 @@ public sealed partial class SettingsPage : Page
 
     private void btnMoreTranslation_Click(object sender, RoutedEventArgs e)
     {
-        ShellPage.Instance.GetFrame().Navigate(typeof(TranslationPage), null, new EntranceNavigationTransitionInfo());
+        ShellPage.Instance.Navigate(typeof(TranslationPage));
     }
 
     private async void btnCheckUpdate_Click(object sender, RoutedEventArgs e)
@@ -384,6 +384,6 @@ public sealed partial class SettingsPage : Page
 
     private void btnMoreQaris_Click(object sender, RoutedEventArgs e)
     {
-        ShellPage.Instance.GetFrame().Navigate(typeof(QariPage), null, new EntranceNavigationTransitionInfo());
+        ShellPage.Instance.Navigate(typeof(QariPage));
     }
 }

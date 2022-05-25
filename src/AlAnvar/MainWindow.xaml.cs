@@ -25,13 +25,13 @@ public sealed partial class MainWindow : Window
             switch (pageName)
             {
                 case "SettingsPage":
-                    ShellPage.Instance.GetFrame().Navigate(typeof(SettingsPage), null, new EntranceNavigationTransitionInfo());
+                    ShellPage.Instance.Navigate(typeof(SettingsPage));
                     break;
                 case "TranslationPage":
-                    ShellPage.Instance.GetFrame().Navigate(typeof(TranslationPage), null, new EntranceNavigationTransitionInfo());
+                    ShellPage.Instance.Navigate(typeof(TranslationPage));
                     break;
                 case "QariPage":
-                    ShellPage.Instance.GetFrame().Navigate(typeof(QariPage), null, new EntranceNavigationTransitionInfo());
+                    ShellPage.Instance.Navigate(typeof(QariPage));
                     break;
                 case "Exit":
                     Application.Current.Exit();

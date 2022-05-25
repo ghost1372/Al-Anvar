@@ -11,7 +11,7 @@
     <ListView Name="quranListView" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="table:QuranItem">
-                <RichTextBlock Margin="10"  IsTextSelectionEnabled="False">
+                <RichTextBlock Margin="10" IsTextSelectionEnabled="False">
                     <Paragraph>
                         <InlineUIContainer>
                             <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">

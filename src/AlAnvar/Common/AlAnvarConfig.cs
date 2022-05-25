@@ -22,5 +22,6 @@ public class AlAnvarConfig : JsonSettings, IVersionable
     public virtual QuranTranslation QuranTranslation { get; set; }
     public virtual QuranAudio QuranAudio { get; set; }
     public virtual string LastUpdateCheck { get; set; } = "هرگز";
+    public virtual bool IsAutoDownloadSound { get; set; } = true;
 
 }

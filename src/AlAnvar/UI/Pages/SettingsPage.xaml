@@ -9,7 +9,7 @@
     xmlns:controls="using:SettingsUI.Controls" 
     xmlns:table="using:AlAnvar.Database.Tables"
     xmlns:internalControls="using:SettingsUI.Internal.Controls">
-    <controls:SettingsPageControl ModuleDescription="تنظیمات"
+    <controls:SettingsPageControl ModuleDescription="تمامی تنظیمات بصورت خودکار ذخیره میشوند. لازم است بعد از بروزرسانی تنظیمات را یکبار مرور کنید تا مشکلی ایجاد نشود."
                                   ModuleImageSource="ms-appx:///Assets/Images/logo.png"
                                   ModuleTitle="تنظیمات"
                                   x:DefaultBindMode="TwoWay"
@@ -126,11 +126,12 @@
                         ColorChanged="ColorPicker_ColorChanged"/>
                     </StackPanel>
                     <controls:Setting Header="قلم آیات و ترجمه"
-                                      Description="انتخاب نوع قلم متون ترجمه و آیات"
-                                      Icon="&#xE771;">
+                                      Description="انتخاب نوع قلم متون ترجمه و آیات">
+                        <controls:Setting.Icon>
+                            <SymbolIcon Symbol="FontColor"/>
+                        </controls:Setting.Icon>
                         <StackPanel Spacing="10">
                             <CheckBox x:Name="chkSystemFonts" IsChecked="{x:Bind settings:AlAnvarHelper.Settings.IsUsingSystemFonts}" Checked="chkSystemFonts_Checked" Unchecked="chkSystemFonts_Checked" Content="استفاده از فونت های پیشفرض ویندوز"/>
-
                         </StackPanel>
                     </controls:Setting>
                     <StackPanel Orientation="Horizontal" Margin="10">
@@ -161,8 +162,10 @@
 
                 </controls:SettingsGroup>
                 <controls:SettingsGroup Header="ترجمه و صوت">
-                    <controls:Setting Header="ترجمه های موجود و پیشفرض"
-                                      Icon="&#xE771;">
+                    <controls:Setting Header="ترجمه های موجود و پیشفرض">
+                        <controls:Setting.Icon>
+                            <SymbolIcon Symbol="Bookmarks"/>
+                        </controls:Setting.Icon>
                         <controls:Setting.Description>
                             <HyperlinkButton Click="btnMoreTranslation_Click" Content="دانلود ترجمه های بیشتر" />
                         </controls:Setting.Description>
@@ -182,11 +185,13 @@
                             </ComboBox>
                         </StackPanel>
                     </controls:Setting>
-                    <controls:Setting Header="صوت های موجود و پیشفرض"
-                                      Icon="&#xE771;">
+                    <controls:Setting Header="صوت های موجود و پیشفرض">
                         <controls:Setting.Description>
                             <HyperlinkButton Click="btnMoreQaris_Click" Content="دانلود صوت های بیشتر" />
                         </controls:Setting.Description>
+                        <controls:Setting.Icon>
+                            <SymbolIcon Symbol="Volume"/>
+                        </controls:Setting.Icon>
                         <StackPanel Spacing="5">
                             <ComboBox x:Name="cmbQaris" SelectionChanged="cmbQaris_SelectionChanged" MinWidth="300" HorizontalAlignment="Stretch" Header="صوت پیشفرض">
                                 <ComboBox.ItemTemplate>
@@ -200,6 +205,13 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         </StackPanel>
+                    </controls:Setting>
+                    <controls:Setting Header="دانلود خودکار صوت"
+                                      Description="در صورتی که تمامی صوت های قاری دانلود نشده باشد، هنگام پخش آیه، بخش های دانلود نشده بصورت خودکار دانلود خواهند شد.">
+                        <controls:Setting.Icon>
+                            <SymbolIcon Symbol="Download"/>
+                        </controls:Setting.Icon>
+                        <CheckBox IsChecked="{x:Bind settings:AlAnvarHelper.Settings.IsAutoDownloadSound}"/>
                     </controls:Setting>
                 </controls:SettingsGroup>
             </StackPanel>
