@@ -166,6 +166,10 @@ public sealed partial class QuranPage : Page
         txtStatus.Text = status;
     }
 
+    public void CallBtnPlay()
+    {
+        btnPlay_Click(null, null);
+    }
     private async void btnPlay_Click(object sender, RoutedEventArgs e)
     {
         var qari = cmbQari.SelectedItem as QuranAudio;

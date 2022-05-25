@@ -8,7 +8,7 @@
     xmlns:table="using:AlAnvar.Database.Tables"
     mc:Ignorable="d">
 
-    <ListView Name="quranListView" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
+    <ListView Name="quranListView" RightTapped="quranListView_RightTapped" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="table:QuranItem">
                 <RichTextBlock Margin="10" IsTextSelectionEnabled="False">
@@ -31,5 +31,31 @@
                 </RichTextBlock>
             </DataTemplate>
         </ListView.ItemTemplate>
+        <ListView.Resources>
+            <MenuFlyout x:Name="menuFlyout">
+                <MenuFlyout.Items>
+                    <MenuFlyoutItem x:Name="mnuPlay" Tag="Play" Text="قرائت" Click="menuFlyout_Click">
+                        <MenuFlyoutItem.Icon>
+                            <SymbolIcon Symbol="Volume"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem x:Name="mnuCopyTranslation" Tag="CopyTranslation" Text="کپی ترجمه" Click="menuFlyout_Click">
+                        <MenuFlyoutItem.Icon>
+                            <SymbolIcon Symbol="Copy"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem x:Name="mnuCopyAya" Tag="CopyAya" Text="کپی آیه" Click="menuFlyout_Click">
+                        <MenuFlyoutItem.Icon>
+                            <SymbolIcon Symbol="Copy"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem x:Name="mnuTafsir" Tag="Tafsir" Text="تفسیر" Click="menuFlyout_Click">
+                        <MenuFlyoutItem.Icon>
+                            <SymbolIcon Symbol="ContactInfo"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout.Items>
+            </MenuFlyout>
+        </ListView.Resources>
     </ListView>
 </TabViewItem>

@@ -1,4 +1,6 @@
-﻿namespace AlAnvar.UI.UserControls;
+﻿using Windows.ApplicationModel.DataTransfer;
+
+namespace AlAnvar.UI.UserControls;
 
 public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChanged
 {
@@ -341,5 +343,34 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     {
         quranListView.SelectedIndex = index;
         quranListView.ScrollIntoView(quranListView.SelectedItem);
+    }
+
+    private void menuFlyout_Click(object sender, RoutedEventArgs e)
+    {
+        var selectedItem = quranListView.SelectedItem as QuranItem;
+        DataPackage dataPackage = new DataPackage();
+        dataPackage.RequestedOperation = DataPackageOperation.Copy;
+        switch ((sender as MenuFlyoutItem).Tag)
+        {
+            case "Play":
+                QuranPage.Instance.CallBtnPlay();
+                break;
+            case "CopyTranslation":
+                dataPackage.SetText(selectedItem.TranslationText);
+                Clipboard.SetContent(dataPackage);
+                break;
+            case "CopyAya":
+                dataPackage.SetText(selectedItem.AyahText);
+                Clipboard.SetContent(dataPackage);
+                break;
+            case "Tafsir":
+
+                break;
+        }
+    }
+
+    private void quranListView_RightTapped(object sender, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+    {
+        menuFlyout.ShowAt(quranListView, e.GetPosition(quranListView));
     }
 }
