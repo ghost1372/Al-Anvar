@@ -294,7 +294,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     private void quranListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var item = quranListView.SelectedItem as QuranItem;
-        if (QuranPage.Instance is not null)
+        if (QuranPage.Instance is not null && item is not null)
         {
             QuranPage.Instance.SetSurahStatus($"سوره: {item.SurahName} - آیه: {item.AyahNumber}");
             QuranPage.Instance.UpdateMediaPlayerButtons(quranListView.SelectedIndex, quranListView.Items.Count - 1);

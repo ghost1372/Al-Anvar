@@ -1,4 +1,6 @@
-﻿namespace AlAnvar.UI.Pages;
+﻿using Downloader;
+
+namespace AlAnvar.UI.Pages;
 
 public sealed partial class QuranPage : Page
 {
@@ -193,11 +195,37 @@ public sealed partial class QuranPage : Page
             }
         }
     }
-    
-    public void PlayQuran()
+    private DownloadService downloadService;
+    private AudioModel ayaSound;
+    public async void PlayQuran()
     {
         var selectedItem = QuranTabViewItem.Instance.GetListViewSelectedItem();
-        var ayaSound = audioList.Where(x => x.SurahId == selectedItem.SurahId && x.AyaId == selectedItem.AyahNumber)?.FirstOrDefault();
+        ayaSound = audioList.Where(x => x.SurahId == selectedItem.SurahId && x.AyaId == selectedItem.AyahNumber)?.FirstOrDefault();
+
+        if (ayaSound is null)
+        {
+            if (Settings.IsAutoDownloadSound && GeneralHelper.IsNetworkAvailable())
+            {
+                if (downloadService is not null && downloadService.IsCancelled)
+                {
+                    return;
+                }
+                else
+                {
+                    var audioUrl = Path.Combine(Settings.QuranAudio.Url, $"{selectedItem.Audio}.mp3");
+                    var dirPath = Path.Combine(Constants.AudiosPath, Settings.QuranAudio.DirName);
+
+                    ayaSound = new AudioModel { AyaId = Convert.ToInt32(selectedItem.Audio.Substring(3)), SurahId = selectedItem.SurahId, FileName = selectedItem.Audio, FullPath = $@"{dirPath}\{selectedItem.Audio}.mp3" };
+                    downloadService = new DownloadService();
+                    downloadService.DownloadFileCompleted += Downloader_DownloadFileCompleted;
+                    await downloadService.DownloadFileTaskAsync(audioUrl, new DirectoryInfo(dirPath));
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
 
         btnStop.IsEnabled = true;
         btnPlay.IsEnabled = false;
@@ -223,6 +251,13 @@ public sealed partial class QuranPage : Page
                 CanPlay = false;
             }
         }
+    }
+    private void Downloader_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            audioList.Add(ayaSound);
+        });
     }
     public string GetLenghtTimeFormat()
     {
@@ -314,6 +349,7 @@ public sealed partial class QuranPage : Page
             timer.Stop();
             mediaPlayer.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
             mediaPlayer.Stop();
+            downloadService.CancelAsync();
         }
     }
     private void btnPrevious_Click(object sender, RoutedEventArgs e)
