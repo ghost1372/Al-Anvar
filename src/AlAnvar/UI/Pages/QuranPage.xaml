@@ -76,6 +76,7 @@
                 <AppBarButton Name="btnNext" Click="btnNext_Click" IsEnabled="False" Icon="Next" Label="بعدی"/>
             </CommandBar>
             <TextBlock Name="txtSoundEnd" Text="00:00:00" Grid.Row="4" Margin="10,5"/>
+            <ProgressBar Name="prgDownload" Value="0" Opacity="0.2" FlowDirection="LeftToRight" Grid.Row="4" Margin="0,-30,-10,15" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
             <Slider Name="slider" ManipulationMode="All" ThumbToolTipValueConverter="{ThemeResource ThumbToolTipValueConverter}" ManipulationStarted="slider_ManipulationStarted" ManipulationCompleted="slider_ManipulationCompleted" FlowDirection="LeftToRight" Grid.Row="4" Margin="60,0,60,10" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
             <TextBlock Name="txtSoundStart" Text="00:00:00" Grid.Row="4" Margin="10,5" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         </Grid>

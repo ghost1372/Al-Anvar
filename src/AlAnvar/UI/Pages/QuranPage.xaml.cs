@@ -15,6 +15,8 @@ public sealed partial class QuranPage : Page
 
     List<AudioModel> audioList = new List<AudioModel>();
     private bool CanPlay = true;
+    private DownloadService downloadService;
+    private AudioModel ayaSound;
     internal static QuranPage Instance { get; private set; }
     public QuranPage()
     {
@@ -61,12 +63,12 @@ public sealed partial class QuranPage : Page
     {
         Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
 
-        if (QuranTabViewItem.Instance is not null)
+        if (GetCurrectTabViewItem() is not null)
         {
-            var itemIndex = QuranTabViewItem.Instance.GetListViewSelectedIndex();
-            QuranTabViewItem.Instance.GetTranslationText();
-            QuranTabViewItem.Instance.GetSuraText();
-            QuranTabViewItem.Instance.ScrollIntoView(itemIndex);
+            var itemIndex = GetCurrectTabViewItem().GetListViewSelectedIndex();
+            GetCurrectTabViewItem().GetTranslationText();
+            GetCurrectTabViewItem().GetSuraText();
+            GetCurrectTabViewItem().ScrollIntoView(itemIndex);
         }
     }
 
@@ -122,17 +124,17 @@ public sealed partial class QuranPage : Page
 
     private void chkOnlyAyaText_Checked(object sender, RoutedEventArgs e)
     {
-        if (QuranTabViewItem.Instance is not null)
+        if (GetCurrectTabViewItem() is not null)
         {
-            QuranTabViewItem.Instance.IsSurahTextAvailable = chkOnlyAyaText.IsChecked.Value;
+            GetCurrectTabViewItem().IsSurahTextAvailable = chkOnlyAyaText.IsChecked.Value;
         }
     }
 
     private void chkOnlyTranslationText_Checked(object sender, RoutedEventArgs e)
     {
-        if (QuranTabViewItem.Instance is not null)
+        if (GetCurrectTabViewItem() is not null)
         {
-            QuranTabViewItem.Instance.IsTranslationAvailable = chkOnlyTranslationText.IsChecked.Value;
+            GetCurrectTabViewItem().IsTranslationAvailable = chkOnlyTranslationText.IsChecked.Value;
         }
     }
 
@@ -169,9 +171,9 @@ public sealed partial class QuranPage : Page
         var qari = cmbQari.SelectedItem as QuranAudio;
         if (qari is not null)
         {
-            if (QuranTabViewItem.Instance.GetListViewSelectedIndex() == -1)
+            if (GetCurrectTabViewItem().GetListViewSelectedIndex() == -1)
             {
-                QuranTabViewItem.Instance.GoToListViewNextItem();
+                GetCurrectTabViewItem().GoToListViewNextItem();
             }
 
             PlayQuran();
@@ -195,11 +197,10 @@ public sealed partial class QuranPage : Page
             }
         }
     }
-    private DownloadService downloadService;
-    private AudioModel ayaSound;
+    
     public async void PlayQuran()
     {
-        var selectedItem = QuranTabViewItem.Instance.GetListViewSelectedItem();
+        var selectedItem = GetCurrectTabViewItem().GetListViewSelectedItem();
         ayaSound = audioList.Where(x => x.SurahId == selectedItem.SurahId && x.AyaId == selectedItem.AyahNumber)?.FirstOrDefault();
 
         if (ayaSound is null)
@@ -212,12 +213,15 @@ public sealed partial class QuranPage : Page
                 }
                 else
                 {
+                    btnStop.IsEnabled = true;
+                    btnPlay.IsEnabled = false;
                     var audioUrl = Path.Combine(Settings.QuranAudio.Url, $"{selectedItem.Audio}.mp3");
                     var dirPath = Path.Combine(Constants.AudiosPath, Settings.QuranAudio.DirName);
 
                     ayaSound = new AudioModel { AyaId = Convert.ToInt32(selectedItem.Audio.Substring(3)), SurahId = selectedItem.SurahId, FileName = selectedItem.Audio, FullPath = $@"{dirPath}\{selectedItem.Audio}.mp3" };
                     downloadService = new DownloadService();
                     downloadService.DownloadFileCompleted += Downloader_DownloadFileCompleted;
+                    downloadService.DownloadProgressChanged += Downloader_DownloadProgressChanged;
                     await downloadService.DownloadFileTaskAsync(audioUrl, new DirectoryInfo(dirPath));
                 }
             }
@@ -243,8 +247,8 @@ public sealed partial class QuranPage : Page
             txtSoundEnd.Text = GetLenghtTimeFormat();
             slider.Maximum = mediaPlayer.GetLenghtInSeconds();
 
-            var currentIndex = QuranTabViewItem.Instance.GetListViewSelectedIndex();
-            var lastIndex = QuranTabViewItem.Instance.GetListViewLastIndex();
+            var currentIndex = GetCurrectTabViewItem().GetListViewSelectedIndex();
+            var lastIndex = GetCurrectTabViewItem().GetListViewLastIndex();
 
             if (currentIndex == lastIndex)
             {
@@ -252,11 +256,27 @@ public sealed partial class QuranPage : Page
             }
         }
     }
+    private QuranTabViewItem GetCurrectTabViewItem()
+    {
+        if (tabView is not null)
+        {
+            return tabView.SelectedItem as QuranTabViewItem;
+        }
+        return null;
+    }
     private void Downloader_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
     {
         DispatcherQueue.TryEnqueue(() =>
         {
             audioList.Add(ayaSound);
+            prgDownload.Value = 0;
+        });
+    }
+    private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            prgDownload.Value = e.ProgressPercentage;
         });
     }
     public string GetLenghtTimeFormat()
@@ -316,7 +336,7 @@ public sealed partial class QuranPage : Page
             // Go To Play Next File
             if (!chkRepeat.IsChecked.Value)
             {
-                QuranTabViewItem.Instance.GoToListViewNextItem();
+                GetCurrectTabViewItem().GoToListViewNextItem();
             }
             else
             {
@@ -349,20 +369,23 @@ public sealed partial class QuranPage : Page
             timer.Stop();
             mediaPlayer.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
             mediaPlayer.Stop();
-            downloadService.CancelAsync();
+            if (downloadService is not null)
+            {
+                downloadService.CancelAsync();
+            }
         }
     }
     private void btnPrevious_Click(object sender, RoutedEventArgs e)
     {
         btnStop_Click(null, null);
-        QuranTabViewItem.Instance.GoToListViewPreviousItem();
+        GetCurrectTabViewItem().GoToListViewPreviousItem();
         PlayQuran();
     }
 
     private void btnNext_Click(object sender, RoutedEventArgs e)
     {
         btnStop_Click(null, null);
-        QuranTabViewItem.Instance.GoToListViewNextItem();
+        GetCurrectTabViewItem().GoToListViewNextItem();
         PlayQuran();
     }
 

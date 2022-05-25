@@ -182,12 +182,9 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
 
-    internal static QuranTabViewItem Instance { get; private set; }
-
     public QuranTabViewItem()
     {
         this.InitializeComponent();
-        Instance = this;
         DataContext = this;
         Loaded += QuranTabViewItem_LoadedAsync;
     }
