@@ -12,7 +12,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Margin="10,10,10,20" Style="{ThemeResource GridPanel}" Translation="0, 0, 48">
+        <Grid Name="toolbarGrid" Margin="10,10,10,20" Style="{ThemeResource GridPanel}" Translation="0, 0, 48">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
@@ -22,9 +22,9 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
-            <ComboBox x:Name="cmbTranslators" Grid.Column="1" Margin="10" SelectionChanged="cmbTranslators_SelectionChanged" HorizontalAlignment="Stretch" Header="مترجم">
+            <TextBlock HorizontalAlignment="Left" Margin="-35,15,0,0" Text="مترجم" Grid.Column="1"/>
+            <ComboBox x:Name="cmbTranslators" PlaceholderText="مترجم" Grid.Column="1" Margin="10" SelectionChanged="cmbTranslators_SelectionChanged" HorizontalAlignment="Stretch">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="table:QuranTranslation">
                         <StackPanel Orientation="Horizontal">
@@ -37,7 +37,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <StackPanel Margin="10" Spacing="10">
+            <StackPanel Orientation="Horizontal" Margin="10" Spacing="10">
                 <CheckBox x:Name="chkOnlyAyaText" IsChecked="True" Checked="chkOnlyAyaText_Checked" Unchecked="chkOnlyAyaText_Checked" Content="عدم نمایش آیه"/>
                 <CheckBox x:Name="chkOnlyTranslationText" IsChecked="True" Checked="chkOnlyTranslationText_Checked" Unchecked="chkOnlyTranslationText_Checked" Content="عدم نمایش ترجمه"/>
             </StackPanel>
@@ -45,20 +45,21 @@
             <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,-50,10,0" HorizontalAlignment="Stretch"/>
 
             <CommandBar FlowDirection="LeftToRight" Margin="0,5,0,5" Grid.Row="1" IsOpen="False" DefaultLabelPosition="Right">
-                <AppBarButton Icon="FontColor" Label="فونت و رنگ متن"/>
-                <AppBarButton Icon="Add" Label="افزودن یادداشت"/>
-                <AppBarButton Icon="Priority" Label="موضوع بندی آیات"/>
-                <AppBarButton Icon="ShowResults" Label="تفسیر"/>
+                <AppBarButton Name="btnGoToFontChange" Tag="GoToFont" Click="mnuToolbar_Click" Icon="FontColor" Label="تغییر فونت و رنگ متن"/>
+                <AppBarButton Icon="Add" Tag="AddNote" Click="mnuToolbar_Click" Label="افزودن یادداشت"/>
+                <AppBarButton Icon="Priority" Tag="Subject" Click="mnuToolbar_Click" Label="موضوع بندی آیات"/>
+                <AppBarButton Icon="ShowResults" Tag="Tafsir" Click="mnuToolbar_Click" Label="تفسیر"/>
             </CommandBar>
             
             <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,50,10,0" HorizontalAlignment="Stretch"/>
             
-            <StackPanel Spacing="10" Margin="10,0,10,10" Grid.Row="2">
+            <StackPanel Spacing="10" Margin="10,0" Grid.Row="2">
                 <CheckBox Name="chkRepeat" Content="تکرار پخش"/>
                 <TextBlock Name="txtStatus"/>
             </StackPanel>
 
-            <ComboBox Name="cmbQari" Header="قاری قرآن" SelectionChanged="cmbQari_SelectionChanged" Margin="10,0" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
+            <TextBlock HorizontalAlignment="Left" Margin="-35,5,0,0" Text="قاری" Grid.Row="2" Grid.Column="1"/>
+            <ComboBox Name="cmbQari" PlaceholderText="قاری" SelectionChanged="cmbQari_SelectionChanged" Margin="10,0" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="table:QuranAudio">
                         <StackPanel Orientation="Horizontal">
@@ -69,19 +70,20 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <CommandBar FlowDirection="LeftToRight" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="3" IsOpen="False" DefaultLabelPosition="Right">
+
+            <CommandBar Margin="0,35,50,0" FlowDirection="LeftToRight" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="2" IsOpen="False" DefaultLabelPosition="Right">
                 <AppBarButton Name="btnPrevious" Click="btnPrevious_Click" IsEnabled="False" Icon="Previous" Label="قبلی"/>
                 <AppBarButton Name="btnPlay" Click="btnPlay_Click" Icon="Play" Label="پخش"/>
                 <AppBarButton Name="btnStop" IsEnabled="False" Click="btnStop_Click" Icon="Stop" Label="توقف"/>
                 <AppBarButton Name="btnNext" Click="btnNext_Click" IsEnabled="False" Icon="Next" Label="بعدی"/>
             </CommandBar>
-            <TextBlock Name="txtSoundEnd" Text="00:00:00" Grid.Row="4" Margin="10,5"/>
-            <ProgressBar Name="prgDownload" Value="0" Opacity="0.2" FlowDirection="LeftToRight" Grid.Row="4" Margin="0,-30,-10,15" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
-            <Slider Name="slider" ManipulationMode="All" ThumbToolTipValueConverter="{ThemeResource ThumbToolTipValueConverter}" ManipulationStarted="slider_ManipulationStarted" ManipulationCompleted="slider_ManipulationCompleted" FlowDirection="LeftToRight" Grid.Row="4" Margin="60,0,60,10" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
-            <TextBlock Name="txtSoundStart" Text="00:00:00" Grid.Row="4" Margin="10,5" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+            <TextBlock Name="txtSoundEnd" Text="00:00:00" Grid.Row="3" Margin="10,5"/>
+            <ProgressBar Name="prgDownload" Value="0" Opacity="0.2" FlowDirection="LeftToRight" Grid.Row="3" Margin="0,-30,-10,15" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+            <Slider Name="slider" ManipulationMode="All" ThumbToolTipValueConverter="{ThemeResource ThumbToolTipValueConverter}" ManipulationStarted="slider_ManipulationStarted" ManipulationCompleted="slider_ManipulationCompleted" FlowDirection="LeftToRight" Grid.Row="3" Margin="60,0,60,10" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+            <TextBlock Name="txtSoundStart" Text="00:00:00" Grid.Row="3" Margin="10,5" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         </Grid>
 
-        <TabView Grid.Row="1" Name="tabView" IsAddTabButtonVisible="False"/>
+        <TabView Grid.Row="1" Name="tabView" SelectionChanged="tabView_SelectionChanged" IsAddTabButtonVisible="False"/>
         
     </Grid>
 </Page>

@@ -221,7 +221,6 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     {
         GetDefaultForeground();
         GetDefaultFont();
-
         GetSurahFromDB();
         GetTranslationText();
         GetSuraText();

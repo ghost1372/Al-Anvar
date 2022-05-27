@@ -422,4 +422,37 @@ public sealed partial class QuranPage : Page
             txtSoundStart.Text = GetPositionTimeFormat();
         }
     }
+
+    private void mnuToolbar_Click(object sender, RoutedEventArgs e)
+    {
+        switch ((sender as AppBarButton).Tag)
+        {
+            case "GoToFont":
+                ShellPage.Instance.Navigate(typeof(SettingsPage));
+                break;
+            case "AddNote":
+
+                break;
+            case "Subject":
+
+                break;
+            case "Tafsir":
+
+                break;
+        }
+    }
+
+    private void tabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        switch (tabView.TabItems.Count)
+        {
+            case 0:
+                toolbarGrid.Visibility = Visibility.Collapsed;
+                ShellPage.Instance.DeSelectListView();
+                break;
+            default:
+                toolbarGrid.Visibility = Visibility.Visible;
+                break;
+        }
+    }
 }

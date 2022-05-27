@@ -34,26 +34,17 @@
         <ListView.Resources>
             <MenuFlyout x:Name="menuFlyout">
                 <MenuFlyout.Items>
-                    <MenuFlyoutItem x:Name="mnuPlay" Tag="Play" Text="قرائت" Click="menuFlyout_Click">
-                        <MenuFlyoutItem.Icon>
-                            <SymbolIcon Symbol="Volume"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                    <MenuFlyoutItem x:Name="mnuCopyTranslation" Tag="CopyTranslation" Text="کپی ترجمه" Click="menuFlyout_Click">
-                        <MenuFlyoutItem.Icon>
-                            <SymbolIcon Symbol="Copy"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                    <MenuFlyoutItem x:Name="mnuCopyAya" Tag="CopyAya" Text="کپی آیه" Click="menuFlyout_Click">
-                        <MenuFlyoutItem.Icon>
-                            <SymbolIcon Symbol="Copy"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                    <MenuFlyoutItem x:Name="mnuTafsir" Tag="Tafsir" Text="تفسیر" Click="menuFlyout_Click">
-                        <MenuFlyoutItem.Icon>
-                            <SymbolIcon Symbol="ContactInfo"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                    <MenuFlyoutItem x:Name="mnuPlay" Icon="Volume" Tag="Play" Text="قرائت" Click="menuFlyout_Click"/>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem x:Name="mnuStar" Icon="SolidStar" Tag="Star" Text="افزودن نشانه" Click="menuFlyout_Click"/>
+                    <MenuFlyoutItem x:Name="mnuSubject" Icon="Priority" Tag="Subject" Text="موضوع بندی آیات" Click="menuFlyout_Click"/>
+                    <MenuFlyoutItem x:Name="mnuAddNote" Icon="Add" Tag="AddNote" Text="افزودن یادداشت" Click="menuFlyout_Click"/>
+                    <MenuFlyoutItem x:Name="mnuTafsir" Icon="ContactInfo" Tag="Tafsir" Text="تفسیر" Click="menuFlyout_Click"/>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutSubItem Text="کپی" Icon="Copy">
+                        <MenuFlyoutItem x:Name="mnuCopyTranslation" Icon="Copy" Tag="CopyTranslation" Text="ترجمه" Click="menuFlyout_Click"/>
+                        <MenuFlyoutItem x:Name="mnuCopyAya" Icon="Copy" Tag="CopyAya" Text="آیه" Click="menuFlyout_Click"/>
+                    </MenuFlyoutSubItem>
                 </MenuFlyout.Items>
             </MenuFlyout>
         </ListView.Resources>
