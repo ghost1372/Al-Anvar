@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using CommunityToolkit.WinUI.UI.Controls;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.System;
 
 namespace AlAnvar.UI.Pages;
@@ -23,8 +25,9 @@ public sealed partial class SettingsPage : Page
         CurrentVersion = new Version(assemblyVersion);
         txtCurrentVersion.Header = $"نسخه فعلی {CurrentVersion}";
         txtLastUpdateChecke.Text = Settings.LastUpdateCheck;
+        btnOpenDefaultFolderPath.Content = Settings.AppFolderPath;
 
-       Task.Run(() => {
+        Task.Run(() => {
             LoadFontsInCombobox();
             GetDefaultColors();
             GetDefaultFonts();
@@ -401,5 +404,26 @@ public sealed partial class SettingsPage : Page
     private void btnMoreQaris_Click(object sender, RoutedEventArgs e)
     {
         ShellPage.Instance.Navigate(typeof(QariPage));
+    }
+
+    private async void btnOpenDefaultFolderPath_Click(object sender, RoutedEventArgs e)
+    {
+        string folderPath = btnOpenDefaultFolderPath.Content.ToString();
+        StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(folderPath);
+        await Launcher.LaunchFolderAsync(folder);
+    }
+
+    private async void btnChooseFolder_Click(object sender, RoutedEventArgs e)
+    {
+        FolderPicker folderPicker = new();
+        folderPicker.FileTypeFilter.Add("*");
+
+        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowHelper.GetWindowHandleForCurrentWindow(MainWindow.Instance));
+
+        StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+        if (folder is not null)
+        {
+            Settings.AppFolderPath = folder.Path;
+        }
     }
 }

@@ -12,6 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
             
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converter:BoolNegationConverter x:Key="BoolNegationConverter"/>
             <localConverter:ThumbToolTipValueConverter x:Key="ThumbToolTipValueConverter"/>
             
             <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
