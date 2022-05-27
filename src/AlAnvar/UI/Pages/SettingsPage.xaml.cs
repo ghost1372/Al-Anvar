@@ -1,8 +1,4 @@
-﻿using System.Reflection;
-using CommunityToolkit.WinUI.UI.Controls;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.System;
+﻿using CommunityToolkit.WinUI.UI.Controls;
 
 namespace AlAnvar.UI.Pages;
 
@@ -43,7 +39,7 @@ public sealed partial class SettingsPage : Page
 
     private async void WindowsColorSettings_Click(object sender, RoutedEventArgs e)
     {
-        _= await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:colors"));
+        _= await Launcher.LaunchUriAsync(new Uri("ms-settings:colors"));
     }
 
     private void LoadFontsInCombobox()

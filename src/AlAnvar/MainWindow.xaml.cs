@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml.Input;
-
-namespace AlAnvar;
+﻿namespace AlAnvar;
 
 public sealed partial class MainWindow : Window
 {
@@ -22,7 +20,7 @@ public sealed partial class MainWindow : Window
         Settings.TranslationsPath = Path.Combine(Settings.AppFolderPath, Constants.TranslationsFolderName);
         Settings.AudiosPath = Path.Combine(Settings.AppFolderPath, Constants.AudiosFolderName);
     }
-    private void MenuBarItem_Tapped(object sender, TappedRoutedEventArgs e)
+    private async void MenuBarItem_Tapped(object sender, TappedRoutedEventArgs e)
     {
         if (sender is MenuFlyoutItem { Tag: string pageName })
         {
@@ -36,6 +34,13 @@ public sealed partial class MainWindow : Window
                     break;
                 case "QariPage":
                     ShellPage.Instance.Navigate(typeof(QariPage));
+                    break;
+                case "GoToGithub":
+                    await Launcher.LaunchUriAsync(new Uri(Constants.AppGithubPage));
+                    break;
+                case "AboutDialog":
+                    aboutContentDialog.XamlRoot = Content.XamlRoot;
+                    await aboutContentDialog.ShowAsyncQueue();
                     break;
                 case "Exit":
                     Application.Current.Exit();

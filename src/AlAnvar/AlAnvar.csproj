@@ -57,9 +57,6 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UI\Windows\" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="UI\Pages\QariPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,5 +85,8 @@
     <Page Update="UI\Pages\ShellPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Windows\" />
   </ItemGroup>
 </Project>

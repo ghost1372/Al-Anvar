@@ -89,18 +89,18 @@
                 </MenuFlyoutItem>
             </MenuBarItem>
             <MenuBarItem Title="راهنما" AccessKey="H">
-                <MenuFlyoutItem Text="صفحه پروژه">
+                <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="GoToGithub" Text="صفحه پروژه">
                     <MenuFlyoutItem.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control" Key="W"/>
                     </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
-                <MenuFlyoutItem Text="بررسی برای نسخه جدید">
+                <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="SettingsPage" Text="بررسی برای نسخه جدید">
                     <MenuFlyoutItem.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control" Key="U"/>
                     </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
                 <MenuFlyoutSeparator/>
-                <MenuFlyoutItem Text="درباره ما">
+                <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="AboutDialog" Text="درباره ما">
                     <MenuFlyoutItem.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control" Key="I"/>
                     </MenuFlyoutItem.KeyboardAccelerators>
@@ -109,5 +109,11 @@
         </MenuBar>
 
         <local:ShellPage Grid.Row="2"/>
+        <ContentDialog x:Name="aboutContentDialog" CloseButtonText="بستن" Title="درباره ما">
+            <StackPanel Margin="10" Spacing="10">
+                <TextBlock Name="txtVersion" FontFamily="{ThemeResource VazirmatnBold}" Style="{ThemeResource TitleTextBlockStyle}"/>
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Left" Text="این برنامه قرآنی بصورت کاملا رایگان و متن باز ارائه شده است. ما الانوار را از نسخه قدیمی ( ++C و Qt) با امکانات جدیدتر و بهتر با زبان #C و WinUI 3 بازنویسی کردیم." Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            </StackPanel>
+        </ContentDialog>
     </Grid>
 </Window>
