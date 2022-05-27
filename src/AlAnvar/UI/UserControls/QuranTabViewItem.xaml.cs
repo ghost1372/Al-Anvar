@@ -188,105 +188,125 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     {
         this.InitializeComponent();
         DataContext = this;
-        Loaded += QuranTabViewItem_LoadedAsync;
+        Loaded += QuranTabViewItem_Loaded;
     }
 
     private void GetDefaultForeground()
     {
-        if (Settings.AyatForeground is not null)
+        DispatcherQueue.TryEnqueue(() =>
         {
-            AyatForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatForeground));
-        }
-        if (Settings.AyatNumberForeground is not null)
-        {
-            AyatNumberForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatNumberForeground));
-        }
-        if (Settings.TranslationForeground is not null)
-        {
-            TranslationForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.TranslationForeground));
-        }
+            if (Settings.AyatForeground is not null)
+            {
+                AyatForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatForeground));
+            }
+            if (Settings.AyatNumberForeground is not null)
+            {
+                AyatNumberForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatNumberForeground));
+            }
+            if (Settings.TranslationForeground is not null)
+            {
+                TranslationForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.TranslationForeground));
+            }
+        });
     }
 
     private void GetDefaultFont()
     {
-        AyatFontFamily = new FontFamily(Settings.AyatFontFamilyName);
-        AyatNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
-        TranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            AyatFontFamily = new FontFamily(Settings.AyatFontFamilyName);
+            AyatNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
+            TranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
 
-        AyatFontSize = Settings.AyatFontSize;
-        AyatNumberFontSize = Settings.AyatNumberFontSize;
-        TranslationFontSize = Settings.TranslationFontSize;
+            AyatFontSize = Settings.AyatFontSize;
+            AyatNumberFontSize = Settings.AyatNumberFontSize;
+            TranslationFontSize = Settings.TranslationFontSize;
+        });
     }
-    private void QuranTabViewItem_LoadedAsync(object sender, RoutedEventArgs e)
+    private async void QuranTabViewItem_Loaded(object sender, RoutedEventArgs e)
     {
-        GetDefaultForeground();
-        GetDefaultFont();
-        GetSurahFromDB();
-        GetTranslationText();
-        GetSuraText();
+        await Task.Run(() => {
+            GetDefaultForeground();
+            GetDefaultFont();
+            GetSurahFromDB();
+            GetTranslationText();
+            GetSuraText();
+        });
     }
 
-    private async void GetSurahFromDB()
+    private void GetSurahFromDB()
     {
-        AyahCollection?.Clear();
-        using var db = new AlAnvarDBContext();
-        AyahCollection = await db.Qurans.Where(x => x.SurahId == SurahId).ToListAsync();
+        DispatcherQueue.TryEnqueue(async () =>
+        {
+            AyahCollection?.Clear();
+            using var db = new AlAnvarDBContext();
+            AyahCollection = await db.Qurans.Where(x => x.SurahId == SurahId).ToListAsync();
+        });
     }
     public void GetSuraText(bool isTranslationAvailable = true)
     {
-        QuranCollection?.Clear();
-       
-        foreach (var item in AyahCollection)
+        DispatcherQueue.TryEnqueue(() =>
         {
-            QuranCollection.Add(new QuranItem
+            QuranCollection?.Clear();
+
+            foreach (var item in AyahCollection)
             {
-                Audio = item.Audio,
-                AyahNumber = item.AyahNumber,
-                AyahText = item.AyahText,
-                Hizb = item.Hizb,
-                Id = item.Id,
-                Juz = item.Juz,
-                SurahId = SurahId,
-                SurahName = SurahName,
-                TotalAyah = TotalAyah,
-                AyaDetail = $"({item.AyahNumber}:{TotalAyah})",
-                TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
-            });
-        }
-        quranListView.ItemsSource = QuranCollection;
+                QuranCollection.Add(new QuranItem
+                {
+                    Audio = item.Audio,
+                    AyahNumber = item.AyahNumber,
+                    AyahText = item.AyahText,
+                    Hizb = item.Hizb,
+                    Id = item.Id,
+                    Juz = item.Juz,
+                    SurahId = SurahId,
+                    SurahName = SurahName,
+                    TotalAyah = TotalAyah,
+                    AyaDetail = $"({item.AyahNumber}:{TotalAyah})",
+                    TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
+                });
+            }
+            quranListView.ItemsSource = QuranCollection;
+        });
     }
 
     public void GetTranslationText()
     {
-        TranslationCollection?.Clear();
-        var selectedTranslation = Settings.QuranTranslation ?? QuranPage.Instance.GetComboboxFirstElement();
-        if (Directory.Exists(Constants.TranslationsPath) && selectedTranslation is not null)
+        DispatcherQueue.TryEnqueue(() =>
         {
-            var files = Directory.GetFiles(Constants.TranslationsPath, "*.txt", SearchOption.AllDirectories);
-            if (files.Count() > 0)
+            TranslationCollection?.Clear();
+            var selectedTranslation = Settings.QuranTranslation ?? QuranPage.Instance.GetComboboxFirstElement();
+            if (Directory.Exists(Constants.TranslationsPath) && selectedTranslation is not null)
             {
-                foreach (var item in files)
+                var files = Directory.GetFiles(Constants.TranslationsPath, "*.txt", SearchOption.AllDirectories);
+                if (files.Count() > 0)
                 {
-                    if (Path.GetFileNameWithoutExtension(item).Equals(selectedTranslation.TranslationId))
+                    foreach (var item in files)
                     {
-                        var lines = File.ReadAllLines(item);
-                        foreach (var line in lines)
+                        if (Path.GetFileNameWithoutExtension(item).Equals(selectedTranslation.TranslationId))
                         {
-                            var trans = line.Split("|");
-                            if (trans[0] == SurahId.ToString())
+                            using (var streamReader = File.OpenText(item))
                             {
-                                TranslationCollection.Add(new TranslationItem
+                                string line = String.Empty;
+                                while ((line = streamReader.ReadLine()) != null)
                                 {
-                                    SurahId = Convert.ToInt32(trans[0]),
-                                    Aya = Convert.ToInt32(trans[1]),
-                                    Translation = trans[2]
-                                });
+                                    var trans = line.Split("|");
+                                    if (trans[0] == SurahId.ToString())
+                                    {
+                                        TranslationCollection.Add(new TranslationItem
+                                        {
+                                            SurahId = Convert.ToInt32(trans[0]),
+                                            Aya = Convert.ToInt32(trans[1]),
+                                            Translation = trans[2]
+                                        });
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-        }
+        });
     }
 
     private void quranListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

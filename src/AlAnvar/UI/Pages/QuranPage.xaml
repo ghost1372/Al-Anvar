@@ -38,8 +38,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <StackPanel Orientation="Horizontal" Margin="10" Spacing="10">
-                <CheckBox x:Name="chkOnlyAyaText" IsChecked="True" Checked="chkOnlyAyaText_Checked" Unchecked="chkOnlyAyaText_Checked" Content="عدم نمایش آیه"/>
-                <CheckBox x:Name="chkOnlyTranslationText" IsChecked="True" Checked="chkOnlyTranslationText_Checked" Unchecked="chkOnlyTranslationText_Checked" Content="عدم نمایش ترجمه"/>
+                <CheckBox x:Name="chkOnlyAyaText" Checked="chkOnlyAyaText_Checked" Unchecked="chkOnlyAyaText_Checked" Content="عدم نمایش آیه"/>
+                <CheckBox x:Name="chkOnlyTranslationText" Checked="chkOnlyTranslationText_Checked" Unchecked="chkOnlyTranslationText_Checked" Content="عدم نمایش ترجمه"/>
             </StackPanel>
             
             <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,-50,10,0" HorizontalAlignment="Stretch"/>
@@ -82,6 +82,7 @@
             <Slider Name="slider" ManipulationMode="All" ThumbToolTipValueConverter="{ThemeResource ThumbToolTipValueConverter}" ManipulationStarted="slider_ManipulationStarted" ManipulationCompleted="slider_ManipulationCompleted" FlowDirection="LeftToRight" Grid.Row="3" Margin="60,0,60,10" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
             <TextBlock Name="txtSoundStart" Text="00:00:00" Grid.Row="3" Margin="10,5" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         </Grid>
+        <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
 
         <TabView Grid.Row="1" Name="tabView" SelectionChanged="tabView_SelectionChanged" IsAddTabButtonVisible="False"/>
         

@@ -22,14 +22,22 @@ public sealed partial class QuranPage : Page
     {
         this.InitializeComponent();
         Instance = this;
-
-        LoadTranslationsInCombobox();
-        LoadQarisInCombobox();
-
         _playbackState = PlaybackState.Stopped;
         timer.Interval = TimeSpan.FromSeconds(1);
         timer.Tick += Timer_Tick;
+        Loaded += QuranPage_Loaded;
+        
     }
+
+    private async void QuranPage_Loaded(object sender, RoutedEventArgs e)
+    {
+       await Task.Run(() => {
+            LoadTranslationsInCombobox();
+            LoadQarisInCombobox();
+        });
+        prgLoading.IsActive = false;
+    }
+
     private void Timer_Tick(object sender, object e)
     {
         UpdateSlider();
@@ -94,8 +102,10 @@ public sealed partial class QuranPage : Page
                         items.Add(trans);
                     }
                 }
-                cmbTranslators.ItemsSource = items;
-                cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
+                DispatcherQueue.TryEnqueue(() => {
+                    cmbTranslators.ItemsSource = items;
+                    cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
+                });
             }
         }
     }
@@ -116,8 +126,10 @@ public sealed partial class QuranPage : Page
                         items.Add(audio);
                     }
                 }
-                cmbQari.ItemsSource = items;
-                cmbQari.SelectedItem = cmbQari.Items.Where(trans => ((QuranAudio) trans).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
+                DispatcherQueue.TryEnqueue(() => {
+                    cmbQari.ItemsSource = items;
+                    cmbQari.SelectedItem = cmbQari.Items.Where(trans => ((QuranAudio) trans).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
+                });
             }
         }
     }
@@ -126,7 +138,7 @@ public sealed partial class QuranPage : Page
     {
         if (GetCurrectTabViewItem() is not null)
         {
-            GetCurrectTabViewItem().IsSurahTextAvailable = chkOnlyAyaText.IsChecked.Value;
+            GetCurrectTabViewItem().IsSurahTextAvailable = !chkOnlyAyaText.IsChecked.Value;
         }
     }
 
@@ -134,7 +146,7 @@ public sealed partial class QuranPage : Page
     {
         if (GetCurrectTabViewItem() is not null)
         {
-            GetCurrectTabViewItem().IsTranslationAvailable = chkOnlyTranslationText.IsChecked.Value;
+            GetCurrectTabViewItem().IsTranslationAvailable = !chkOnlyTranslationText.IsChecked.Value;
         }
     }
 

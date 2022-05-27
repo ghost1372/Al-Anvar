@@ -24,11 +24,13 @@ public sealed partial class SettingsPage : Page
         txtCurrentVersion.Header = $"نسخه فعلی {CurrentVersion}";
         txtLastUpdateChecke.Text = Settings.LastUpdateCheck;
 
-        LoadFontsInCombobox();
-        GetDefaultColors();
-        GetDefaultFonts();
-        LoadTranslationsInCombobox();
-        LoadQarisInCombobox();
+       Task.Run(() => {
+            LoadFontsInCombobox();
+            GetDefaultColors();
+            GetDefaultFonts();
+            LoadTranslationsInCombobox();
+            LoadQarisInCombobox();
+        });
     }
 
     private void OnThemeRadioButtonChecked(object sender, RoutedEventArgs e)
@@ -43,22 +45,24 @@ public sealed partial class SettingsPage : Page
 
     private void LoadFontsInCombobox()
     {
-        cmbFonts.Items.Clear();
-        if (chkSystemFonts.IsChecked.Value)
-        {
-            var systemFonts = System.Drawing.FontFamily.Families;
-            foreach (var item in systemFonts)
+        DispatcherQueue.TryEnqueue(() => {
+            cmbFonts.Items.Clear();
+            if (chkSystemFonts.IsChecked.Value)
             {
-                cmbFonts.Items.Add(item.Name);
+                var systemFonts = System.Drawing.FontFamily.Families;
+                foreach (var item in systemFonts)
+                {
+                    cmbFonts.Items.Add(item.Name);
+                }
             }
-        }
-        else
-        {
-            //Todo:
-            cmbFonts.Items.Add("وزیرمتن رگولار");
-            cmbFonts.Items.Add("وزیرمتن مدیوم");
-            cmbFonts.Items.Add("وزیرمتن بولد");
-        }
+            else
+            {
+                //Todo:
+                cmbFonts.Items.Add("وزیرمتن رگولار");
+                cmbFonts.Items.Add("وزیرمتن مدیوم");
+                cmbFonts.Items.Add("وزیرمتن بولد");
+            }
+        });
     }
 
     private void chkSystemFonts_Checked(object sender, RoutedEventArgs e)
@@ -87,71 +91,83 @@ public sealed partial class SettingsPage : Page
     }
     private void GetDefaultColors()
     {
-        if (Settings.AyatForeground is not null)
+        DispatcherQueue.TryEnqueue(() =>
         {
-            txtAyat.Foreground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatForeground));
-        }
+            if (Settings.AyatForeground is not null)
+            {
+                txtAyat.Foreground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatForeground));
+            }
 
-        if (Settings.AyatNumberForeground is not null)
-        {
-            txtAyatNumber.Foreground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatNumberForeground));
-        }
+            if (Settings.AyatNumberForeground is not null)
+            {
+                txtAyatNumber.Foreground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatNumberForeground));
+            }
 
-        if (Settings.TranslationForeground is not null)
-        {
-            txtTranslation.Foreground = new SolidColorBrush(ColorHelper.ToColor(Settings.TranslationForeground));
-        }
+            if (Settings.TranslationForeground is not null)
+            {
+                txtTranslation.Foreground = new SolidColorBrush(ColorHelper.ToColor(Settings.TranslationForeground));
+            }
+        });
     }
 
     private void LoadTranslationsInCombobox()
     {
-        if (Directory.Exists(Constants.TranslationsPath))
+        DispatcherQueue.TryEnqueue(() =>
         {
-            var files = Directory.GetFiles(Constants.TranslationsPath, "*.ini", SearchOption.AllDirectories);
-            if (files.Count() > 0)
+            if (Directory.Exists(Constants.TranslationsPath))
             {
-                foreach (var file in files)
+                var files = Directory.GetFiles(Constants.TranslationsPath, "*.ini", SearchOption.AllDirectories);
+                if (files.Count() > 0)
                 {
-                    var trans = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(file));
-                    if (trans is not null)
+                    foreach (var file in files)
                     {
-                        cmbTranslators.Items.Add(trans);
+                        var trans = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(file));
+                        if (trans is not null)
+                        {
+                            cmbTranslators.Items.Add(trans);
+                        }
                     }
                 }
-            }
 
-            cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
-        }
+                cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
+            }
+        });
     }
     private void LoadQarisInCombobox()
     {
-        if (Directory.Exists(Constants.AudiosPath))
+        DispatcherQueue.TryEnqueue(() =>
         {
-            var files = Directory.GetFiles(Constants.AudiosPath, "*.ini", SearchOption.AllDirectories);
-            if (files.Count() > 0)
+            if (Directory.Exists(Constants.AudiosPath))
             {
-                foreach (var file in files)
+                var files = Directory.GetFiles(Constants.AudiosPath, "*.ini", SearchOption.AllDirectories);
+                if (files.Count() > 0)
                 {
-                    var audios = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
-                    if (audios is not null)
+                    foreach (var file in files)
                     {
-                        cmbQaris.Items.Add(audios);
+                        var audios = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
+                        if (audios is not null)
+                        {
+                            cmbQaris.Items.Add(audios);
+                        }
                     }
                 }
-            }
 
-            cmbQaris.SelectedItem = cmbQaris.Items.Where(audio => ((QuranAudio) audio).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
-        }
+                cmbQaris.SelectedItem = cmbQaris.Items.Where(audio => ((QuranAudio) audio).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
+            }
+        });
     }
     private void GetDefaultFonts()
     {
-        txtAyat2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatFontFamilyName);
-        txtAyatNumber2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatNumberFontFamilyName);
-        txtTranslation2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.TranslationFontFamilyName);
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            txtAyat2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatFontFamilyName);
+            txtAyatNumber2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.AyatNumberFontFamilyName);
+            txtTranslation2.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily(Settings.TranslationFontFamilyName);
 
-        txtAyat2.FontSize = Settings.AyatFontSize;
-        txtAyatNumber2.FontSize = Settings.AyatNumberFontSize;
-        txtTranslation2.FontSize = Settings.TranslationFontSize;
+            txtAyat2.FontSize = Settings.AyatFontSize;
+            txtAyatNumber2.FontSize = Settings.AyatNumberFontSize;
+            txtTranslation2.FontSize = Settings.TranslationFontSize;
+        });
     }
     private void btnResetColors_Click(object sender, RoutedEventArgs e)
     {
