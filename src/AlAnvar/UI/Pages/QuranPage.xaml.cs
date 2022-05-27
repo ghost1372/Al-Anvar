@@ -88,10 +88,10 @@ public sealed partial class QuranPage : Page
 
     private void LoadTranslationsInCombobox()
     {
-        if (Directory.Exists(Constants.TranslationsPath))
+        if (Directory.Exists(Settings.TranslationsPath))
         {
             var items = new ObservableCollection<QuranTranslation>();
-            var files = Directory.GetFiles(Constants.TranslationsPath, "*.ini", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(Settings.TranslationsPath, "*.ini", SearchOption.AllDirectories);
             if (files.Count() > 0)
             {
                 foreach (var file in files)
@@ -112,10 +112,10 @@ public sealed partial class QuranPage : Page
 
     private void LoadQarisInCombobox()
     {
-        if (Directory.Exists(Constants.AudiosPath))
+        if (Directory.Exists(Settings.AudiosPath))
         {
             var items = new ObservableCollection<QuranAudio>();
-            var files = Directory.GetFiles(Constants.AudiosPath, "*.ini", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
             if (files.Count() > 0)
             {
                 foreach (var file in files)
@@ -157,7 +157,7 @@ public sealed partial class QuranPage : Page
 
         Settings.QuranAudio = qari;
 
-        var qariPath = Path.Combine(Constants.AudiosPath, qari.DirName);
+        var qariPath = Path.Combine(Settings.AudiosPath, qari.DirName);
         
         if (Directory.Exists(qariPath))
         {
@@ -232,7 +232,7 @@ public sealed partial class QuranPage : Page
                     btnStop.IsEnabled = true;
                     btnPlay.IsEnabled = false;
                     var audioUrl = Path.Combine(Settings.QuranAudio.Url, $"{selectedItem.Audio}.mp3");
-                    var dirPath = Path.Combine(Constants.AudiosPath, Settings.QuranAudio.DirName);
+                    var dirPath = Path.Combine(Settings.AudiosPath, Settings.QuranAudio.DirName);
 
                     ayaSound = new AudioModel { AyaId = Convert.ToInt32(selectedItem.Audio.Substring(3)), SurahId = selectedItem.SurahId, FileName = selectedItem.Audio, FullPath = $@"{dirPath}\{selectedItem.Audio}.mp3" };
                     downloadService = new DownloadService();

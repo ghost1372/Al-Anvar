@@ -117,9 +117,9 @@ public sealed partial class SettingsPage : Page
     {
         DispatcherQueue.TryEnqueue(() =>
         {
-            if (Directory.Exists(Constants.TranslationsPath))
+            if (Directory.Exists(Settings.TranslationsPath))
             {
-                var files = Directory.GetFiles(Constants.TranslationsPath, "*.ini", SearchOption.AllDirectories);
+                var files = Directory.GetFiles(Settings.TranslationsPath, "*.ini", SearchOption.AllDirectories);
                 if (files.Count() > 0)
                 {
                     foreach (var file in files)
@@ -140,9 +140,9 @@ public sealed partial class SettingsPage : Page
     {
         DispatcherQueue.TryEnqueue(() =>
         {
-            if (Directory.Exists(Constants.AudiosPath))
+            if (Directory.Exists(Settings.AudiosPath))
             {
-                var files = Directory.GetFiles(Constants.AudiosPath, "*.ini", SearchOption.AllDirectories);
+                var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
                 if (files.Count() > 0)
                 {
                     foreach (var file in files)
@@ -423,7 +423,9 @@ public sealed partial class SettingsPage : Page
         StorageFolder folder = await folderPicker.PickSingleFolderAsync();
         if (folder is not null)
         {
-            Settings.AppFolderPath = folder.Path;
+            Settings.AppFolderPath = Path.Combine(folder.Path, Constants.AppName);
+            MainWindow.Instance.SetDefaultFoldersPath();
+            btnOpenDefaultFolderPath.Content = Settings.AppFolderPath;
         }
     }
 }

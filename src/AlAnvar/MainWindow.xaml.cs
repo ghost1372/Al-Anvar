@@ -9,7 +9,7 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
         Instance = this;
-
+        SetDefaultFoldersPath();
         if (OSVersionHelper.IsWindows10_OrGreater && !OSVersionHelper.IsWindows11_OrGreater)
         {
             mainGrid.Background = Application.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush;
@@ -17,7 +17,11 @@ public sealed partial class MainWindow : Window
 
         TitleBarHelper.Initialize(this, TitleTextBlock, AppTitleBar, LeftPaddingColumn, IconColumn, TitleColumn, LeftDragColumn, SearchColumn, RightDragColumn, RightPaddingColumn);
     }
-
+    public void SetDefaultFoldersPath()
+    {
+        Settings.TranslationsPath = Path.Combine(Settings.AppFolderPath, Constants.TranslationsFolderName);
+        Settings.AudiosPath = Path.Combine(Settings.AppFolderPath, Constants.AudiosFolderName);
+    }
     private void MenuBarItem_Tapped(object sender, TappedRoutedEventArgs e)
     {
         if (sender is MenuFlyoutItem { Tag: string pageName })

@@ -31,9 +31,9 @@ public sealed partial class TranslationPage : Page
         var data = await db.Translations.ToListAsync();
 
         //Remove Already Exist Translation from Download List
-        if (Directory.Exists(Constants.TranslationsPath))
+        if (Directory.Exists(Settings.TranslationsPath))
         {
-            var localFiles = Directory.GetFiles(Constants.TranslationsPath, "*.ini", SearchOption.AllDirectories);
+            var localFiles = Directory.GetFiles(Settings.TranslationsPath, "*.ini", SearchOption.AllDirectories);
             if (localFiles.Count() > 0)
             {
                 foreach (var item in localFiles)
@@ -76,7 +76,7 @@ public sealed partial class TranslationPage : Page
                 foreach (var item in selectedItems)
                 {
                     var translation = item as QuranTranslation;
-                    var dirInfo = Path.Combine(Constants.TranslationsPath, translation.TranslationId);
+                    var dirInfo = Path.Combine(Settings.TranslationsPath, translation.TranslationId);
                     DirectoryInfo path = new DirectoryInfo(dirInfo);
                     if (!Directory.Exists(dirInfo))
                     {
@@ -154,10 +154,10 @@ public sealed partial class TranslationPage : Page
     #region Local Translations
     private void GetLocalTranslations()
     {
-        if (Directory.Exists(Constants.TranslationsPath))
+        if (Directory.Exists(Settings.TranslationsPath))
         {
             LocalTranslations = new();
-            var localFiles = Directory.GetFiles(Constants.TranslationsPath, "*.ini", SearchOption.AllDirectories);
+            var localFiles = Directory.GetFiles(Settings.TranslationsPath, "*.ini", SearchOption.AllDirectories);
             if (localFiles.Count() > 0)
             {
                 foreach (var file in localFiles)
@@ -181,7 +181,7 @@ public sealed partial class TranslationPage : Page
             foreach (var item in localListView.SelectedItems)
             {
                 var translationId = (item as QuranTranslation).TranslationId;
-                var dirPath = Path.Combine(Constants.TranslationsPath, translationId);
+                var dirPath = Path.Combine(Settings.TranslationsPath, translationId);
                 Directory.Delete(dirPath, true);
             }
             GetLocalTranslations();

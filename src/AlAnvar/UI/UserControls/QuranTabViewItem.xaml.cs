@@ -276,9 +276,9 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         {
             TranslationCollection?.Clear();
             var selectedTranslation = Settings.QuranTranslation ?? QuranPage.Instance.GetComboboxFirstElement();
-            if (Directory.Exists(Constants.TranslationsPath) && selectedTranslation is not null)
+            if (Directory.Exists(Settings.TranslationsPath) && selectedTranslation is not null)
             {
-                var files = Directory.GetFiles(Constants.TranslationsPath, "*.txt", SearchOption.AllDirectories);
+                var files = Directory.GetFiles(Settings.TranslationsPath, "*.txt", SearchOption.AllDirectories);
                 if (files.Count() > 0)
                 {
                     foreach (var item in files)

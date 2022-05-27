@@ -5,8 +5,8 @@ namespace AlAnvar.Common;
 
 public class AlAnvarConfig : JsonSettings, IVersionable
 {
-    [EnforcedVersion("1.2.0.0")]
-    public virtual Version Version { get; set; } = new Version(1, 2, 0, 0);
+    [EnforcedVersion("1.0.0.0")]
+    public virtual Version Version { get; set; } = new Version(1, 0, 0, 0);
     public override string FileName { get; set; } = Constants.AppConfigPath;
 
     public virtual bool IsUsingSystemFonts { get; set; } = false;
@@ -25,5 +25,7 @@ public class AlAnvarConfig : JsonSettings, IVersionable
     public virtual bool IsAutoDownloadSound { get; set; } = true;
     public virtual bool IsUsingDefaultAppFolder { get; set; } = true;
     public virtual string AppFolderPath { get; set; } = Constants.RootPath;
+    public virtual string TranslationsPath { get; set; }
+    public virtual string AudiosPath { get; set; }
 
 }

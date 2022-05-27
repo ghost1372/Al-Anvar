@@ -80,7 +80,7 @@ public sealed partial class QariPage : Page
             var sourceFilePath = await GetAudioPageSource(audioItem.Url, audioItem.DirName);
 
             var audioIds = GetAudioIds(sourceFilePath).Where(x => x.Contains(".mp3"));
-            var dirPath = Path.Combine(Constants.AudiosPath, audioItem.DirName);
+            var dirPath = Path.Combine(Settings.AudiosPath, audioItem.DirName);
             prgStatus2.Maximum = _totalDownloadItemCount = audioIds.Count();
 
             var json = JsonConvert.SerializeObject(audioItem);
@@ -169,7 +169,7 @@ public sealed partial class QariPage : Page
         using HttpContent content = response.Content;
         string result = await content.ReadAsStringAsync();
 
-        var audioPath = Path.Combine(Constants.AudiosPath, dirName);
+        var audioPath = Path.Combine(Settings.AudiosPath, dirName);
         if (!Directory.Exists(audioPath))
         {
             Directory.CreateDirectory(audioPath);
@@ -218,7 +218,7 @@ public sealed partial class QariPage : Page
             foreach (var item in localListView.SelectedItems)
             {
                 var audioId = (item as QuranAudio).DirName;
-                var dirPath = Path.Combine(Constants.AudiosPath, audioId);
+                var dirPath = Path.Combine(Settings.AudiosPath, audioId);
                 Directory.Delete(dirPath, true);
             }
             GetLocalAudios();
@@ -227,10 +227,10 @@ public sealed partial class QariPage : Page
 
     private void GetLocalAudios()
     {
-        if (Directory.Exists(Constants.AudiosPath))
+        if (Directory.Exists(Settings.AudiosPath))
         {
             LocalAudios = new();
-            var localFiles = Directory.GetFiles(Constants.AudiosPath, "*.ini", SearchOption.AllDirectories);
+            var localFiles = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
             if (localFiles.Count() > 0)
             {
                 foreach (var file in localFiles)

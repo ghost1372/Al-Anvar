@@ -188,7 +188,7 @@
                             <HyperlinkButton Click="btnMoreTranslation_Click" Content="دانلود ترجمه های بیشتر" />
                         </controls:Setting.Description>
                         <controls:Setting.ActionContent>
-                            <ComboBox x:Name="cmbTranslators" SelectionChanged="cmbTranslators_SelectionChanged" MinWidth="300" HorizontalAlignment="Stretch" Header="ترجمه پیشفرض">
+                            <ComboBox x:Name="cmbTranslators" PlaceholderText="مترجم" SelectionChanged="cmbTranslators_SelectionChanged" MinWidth="300" HorizontalAlignment="Stretch" Header="ترجمه پیشفرض">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate x:DataType="table:QuranTranslation">
                                         <StackPanel Orientation="Horizontal">
@@ -213,7 +213,7 @@
                                     <SymbolIcon Symbol="Volume"/>
                                 </controls:Setting.Icon>
                                 <controls:Setting.ActionContent>
-                                    <ComboBox x:Name="cmbQaris" SelectionChanged="cmbQaris_SelectionChanged" MinWidth="300" HorizontalAlignment="Stretch" Header="صوت پیشفرض">
+                                    <ComboBox x:Name="cmbQaris" PlaceholderText="قاری" SelectionChanged="cmbQaris_SelectionChanged" MinWidth="300" HorizontalAlignment="Stretch" Header="صوت پیشفرض">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate x:DataType="table:QuranAudio">
                                                 <StackPanel Orientation="Horizontal">
