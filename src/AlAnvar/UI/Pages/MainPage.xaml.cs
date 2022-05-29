@@ -9,9 +9,9 @@ public sealed partial class MainPage : Page
         Instance = this;
     }
 
-    public void AddNewSurahTab(int surahId, string name, string type, int ayaCount)
+    public void AddNewSurahTab(ChapterProperty chapterProperty)
     {
-        var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (tabViewItem as QuranTabViewItem)?.SurahId == surahId).FirstOrDefault();
+        var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (tabViewItem as QuranTabViewItem)?.SurahId == chapterProperty.Id).FirstOrDefault();
         if (currentTabViewItem is not null)
         {
             tabView.SelectedItem = currentTabViewItem;
@@ -19,10 +19,11 @@ public sealed partial class MainPage : Page
         }
 
         var item = new QuranTabViewItem();
-        item.Header = $"{surahId} - {name} - {ayaCount} آیه - {type}";
-        item.SurahId = surahId;
-        item.SurahName = name;
-        item.TotalAyah = ayaCount;
+        item.Header = $"{chapterProperty.Id} - {chapterProperty.Name} - {chapterProperty.Ayas} آیه - {chapterProperty.Type}";
+        item.SurahId = chapterProperty.Id;
+        item.SurahName = chapterProperty.Name;
+        item.TotalAyah = chapterProperty.Ayas;
+        item.ChapterInstance = chapterProperty;
         tabView.TabItems.Add(item);
         item.CloseRequested += TabViewItem_CloseRequested;
         tabView.SelectedIndex = tabView.TabItems.Count - 1;
@@ -51,5 +52,18 @@ public sealed partial class MainPage : Page
     public TabView GetTabView()
     {
         return tabView;
+    }
+
+    private void tabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var quranTabViewItem = tabView.SelectedItem as QuranTabViewItem;
+        if (quranTabViewItem is not null)
+        {
+            ShellPage.Instance.SetListViewItem(quranTabViewItem.ChapterInstance);
+        }
+        else
+        {
+            ShellPage.Instance.DeSelectListView();
+        }
     }
 }

@@ -6,6 +6,16 @@ namespace AlAnvar.UI.TabViewItems;
 public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChanged
 {
     #region DependencyProperty
+    public static readonly DependencyProperty ChapterInstanceProperty =
+        DependencyProperty.Register("ChapterInstance", typeof(ChapterProperty), typeof(QuranTabViewItem),
+        new PropertyMetadata(null));
+
+    public ChapterProperty ChapterInstance
+    {
+        get { return (ChapterProperty) GetValue(ChapterInstanceProperty); }
+        set { SetValue(ChapterInstanceProperty, value); }
+    }
+
     public static readonly DependencyProperty SurahNameProperty =
         DependencyProperty.Register("SurahName", typeof(int), typeof(QuranTabViewItem),
         new PropertyMetadata(1));

@@ -26,7 +26,14 @@ public sealed partial class ShellPage : Page
     {
         rootListView.SelectedIndex = -1;
     }
-
+    public bool IsListViewItemSelected()
+    {
+        return rootListView.SelectedIndex > -1;
+    }
+    public void SetListViewItem(ChapterProperty chapterProperty)
+    {
+        rootListView.SelectedItem = chapterProperty;
+    }
     public void Navigate(Type pageType, NavigationTransitionInfo transitionInfo = null, object parameter = null)
     {
         if (transitionInfo == null)
@@ -128,7 +135,7 @@ public sealed partial class ShellPage : Page
             var selectedItem = rootListView.SelectedItem as ChapterProperty;
             
             Navigate(typeof(MainPage));
-            MainPage.Instance.AddNewSurahTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
+            MainPage.Instance.AddNewSurahTab(selectedItem);
         }
     }
 }
