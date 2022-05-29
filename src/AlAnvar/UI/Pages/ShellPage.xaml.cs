@@ -128,7 +128,7 @@ public sealed partial class ShellPage : Page
             var selectedItem = rootListView.SelectedItem as ChapterProperty;
             
             Navigate(typeof(MainPage));
-            MainPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
+            MainPage.Instance.AddNewSurahTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
         }
     }
 }
