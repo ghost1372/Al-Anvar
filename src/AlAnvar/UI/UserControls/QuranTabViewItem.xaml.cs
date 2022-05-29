@@ -634,7 +634,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     #region Buttons
     private void btnStop_Click(object sender, RoutedEventArgs e)
     {
-        if (mediaPlayer != null)
+        if (mediaPlayer is not null)
         {
             timer.Stop();
             mediaPlayer.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
@@ -642,6 +642,17 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             if (downloadService is not null)
             {
                 downloadService.CancelAsync();
+            }
+        }
+
+        if (Temp.mediaPlayer_Temp is not null)
+        {
+            Temp.timer_Temp?.Stop();
+            Temp.mediaPlayer_Temp.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
+            Temp.mediaPlayer_Temp?.Stop();
+            if (Temp.downloadService_Temp is not null)
+            {
+                Temp.downloadService_Temp?.CancelAsync();
             }
         }
     }
@@ -659,6 +670,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     }
     private async void btnPlay_Click(object sender, RoutedEventArgs e)
     {
+        btnStop_Click(null, null);
         var qari = cmbQari.SelectedItem as QuranAudio;
         if (qari is not null)
         {
@@ -710,6 +722,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
 
                     ayaSound = new AudioModel { AyaId = Convert.ToInt32(selectedItem.Audio.Substring(3)), SurahId = selectedItem.SurahId, FileName = selectedItem.Audio, FullPath = $@"{dirPath}\{selectedItem.Audio}.mp3" };
                     downloadService = new DownloadService();
+                    Temp.downloadService_Temp = downloadService;
                     downloadService.DownloadFileCompleted += Downloader_DownloadFileCompleted;
                     downloadService.DownloadProgressChanged += Downloader_DownloadProgressChanged;
                     await downloadService.DownloadFileTaskAsync(audioUrl, new DirectoryInfo(dirPath));
@@ -731,7 +744,8 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             mediaPlayer.PlaybackStopped += MediaPlayer_PlaybackStopped;
             mediaPlayer.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
             mediaPlayer.TogglePlayPause(1);
-
+            Temp.mediaPlayer_Temp = mediaPlayer;
+            Temp.timer_Temp = timer;
             timer.Start();
             txtSoundStart.Text = GetPositionTimeFormat();
             txtSoundEnd.Text = GetLenghtTimeFormat();

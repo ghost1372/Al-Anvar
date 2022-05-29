@@ -4,12 +4,10 @@ namespace AlAnvar.Common;
 
 public class MediaPlayer
 {
-    
     public enum PlaybackStopTypes
     {
         PlaybackStoppedByUser, PlaybackStoppedReachingEndOfFile
     }
-
     public PlaybackStopTypes PlaybackStopType { get; set; }
 
     private AudioFileReader _audioFileReader;
