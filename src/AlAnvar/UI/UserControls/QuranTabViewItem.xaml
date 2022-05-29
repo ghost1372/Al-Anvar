@@ -7,46 +7,122 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:table="using:AlAnvar.Database.Tables"
     mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Name="toolbarGrid" Margin="10,10,10,20" Style="{ThemeResource GridPanel}" Translation="0, 0, 48">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left" Margin="-35,15,0,0" Text="مترجم" Grid.Column="1"/>
+            <ComboBox x:Name="cmbTranslators" PlaceholderText="مترجم" Grid.Column="1" Margin="10" SelectionChanged="cmbTranslators_SelectionChanged" HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="table:QuranTranslation">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind Name}"/>
+                            <TextBlock Text="-"/>
+                            <TextBlock Text="{x:Bind Language}"/>
+                            <TextBlock Text="-"/>
+                            <TextBlock Text="{x:Bind Translator}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal" Margin="10" Spacing="10">
+                <CheckBox x:Name="chkOnlyAyaText" Checked="chkOnlyAyaText_Checked" Unchecked="chkOnlyAyaText_Checked" Content="عدم نمایش آیه"/>
+                <CheckBox x:Name="chkOnlyTranslationText" Checked="chkOnlyTranslationText_Checked" Unchecked="chkOnlyTranslationText_Checked" Content="عدم نمایش ترجمه"/>
+            </StackPanel>
 
-    <ListView Name="quranListView" RightTapped="quranListView_RightTapped" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
-        <ListView.ItemTemplate>
-            <DataTemplate x:DataType="table:QuranItem">
-                <RichTextBlock Margin="10" IsTextSelectionEnabled="False">
-                    <Paragraph>
-                        <InlineUIContainer>
-                            <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+            <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,-50,10,0" HorizontalAlignment="Stretch"/>
+
+            <CommandBar FlowDirection="LeftToRight" Margin="0,5,0,5" Grid.Row="1" IsOpen="False" DefaultLabelPosition="Right">
+                <AppBarButton Name="btnGoToFontChange" Tag="GoToFont" Click="mnuToolbar_Click" Icon="FontColor" Label="تغییر فونت و رنگ متن"/>
+                <AppBarButton Icon="Add" Tag="AddNote" Click="mnuToolbar_Click" Label="افزودن یادداشت"/>
+                <AppBarButton Icon="Priority" Tag="Subject" Click="mnuToolbar_Click" Label="موضوع بندی آیات"/>
+                <AppBarButton Icon="ShowResults" Tag="Tafsir" Click="mnuToolbar_Click" Label="تفسیر"/>
+            </CommandBar>
+
+            <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,50,10,0" HorizontalAlignment="Stretch"/>
+
+            <StackPanel Spacing="10" Margin="10,0" Grid.Row="2">
+                <CheckBox Name="chkRepeat" Content="تکرار پخش"/>
+                <TextBlock Name="txtStatus"/>
+            </StackPanel>
+
+            <TextBlock HorizontalAlignment="Left" Margin="-35,5,0,0" Text="قاری" Grid.Row="2" Grid.Column="1"/>
+            <ComboBox Name="cmbQari" PlaceholderText="قاری" SelectionChanged="cmbQari_SelectionChanged" Margin="10,0" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="table:QuranAudio">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind PName}"/>
+                            <TextBlock Text="-"/>
+                            <TextBlock Text="{x:Bind Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <CommandBar Margin="0,35,50,0" FlowDirection="LeftToRight" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="2" IsOpen="False" DefaultLabelPosition="Right">
+                <AppBarButton Name="btnPrevious" Click="btnPrevious_Click" IsEnabled="False" Icon="Previous" Label="قبلی"/>
+                <AppBarButton Name="btnPlay" Click="btnPlay_Click" Icon="Play" Label="پخش"/>
+                <AppBarButton Name="btnStop" IsEnabled="False" Click="btnStop_Click" Icon="Stop" Label="توقف"/>
+                <AppBarButton Name="btnNext" Click="btnNext_Click" IsEnabled="False" Icon="Next" Label="بعدی"/>
+            </CommandBar>
+            <TextBlock Name="txtSoundEnd" Text="00:00:00" Grid.Row="3" Margin="10,5"/>
+            <ProgressBar Name="prgDownload" Value="0" Opacity="0.2" FlowDirection="LeftToRight" Grid.Row="3" Margin="0,-30,-10,15" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+            <Slider Name="slider" ManipulationMode="All" ThumbToolTipValueConverter="{ThemeResource ThumbToolTipValueConverter}" ManipulationStarted="slider_ManipulationStarted" ManipulationCompleted="slider_ManipulationCompleted" FlowDirection="LeftToRight" Grid.Row="3" Margin="60,0,60,10" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+            <TextBlock Name="txtSoundStart" Text="00:00:00" Grid.Row="3" Margin="10,5" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+        </Grid>
+        <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+        <ListView Name="quranListView" Grid.Row="1" RightTapped="quranListView_RightTapped" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="table:QuranItem">
+                    <RichTextBlock Margin="10" IsTextSelectionEnabled="False">
+                        <Paragraph>
+                            <InlineUIContainer>
+                                <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatForeground}" Text="{x:Bind AyahText}"/>
                                 <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
-                            </TextBlock>
-                        </InlineUIContainer>
-                        
-                        <LineBreak/>
-                        <InlineUIContainer>
-                            <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsTranslationAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                </TextBlock>
+                            </InlineUIContainer>
+
+                            <LineBreak/>
+                            <InlineUIContainer>
+                                <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsTranslationAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.TranslationFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.TranslationFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.TranslationForeground}" Text="{x:Bind TranslationText}"/>
                                 <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
-                            </TextBlock>
-                        </InlineUIContainer>
-                    </Paragraph>
-                </RichTextBlock>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        <ListView.Resources>
-            <MenuFlyout x:Name="menuFlyout">
-                <MenuFlyout.Items>
-                    <MenuFlyoutItem x:Name="mnuPlay" Icon="Volume" Tag="Play" Text="قرائت" Click="menuFlyout_Click"/>
-                    <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem x:Name="mnuStar" Icon="SolidStar" Tag="Star" Text="افزودن نشانه" Click="menuFlyout_Click"/>
-                    <MenuFlyoutItem x:Name="mnuSubject" Icon="Priority" Tag="Subject" Text="موضوع بندی آیات" Click="menuFlyout_Click"/>
-                    <MenuFlyoutItem x:Name="mnuAddNote" Icon="Add" Tag="AddNote" Text="افزودن یادداشت" Click="menuFlyout_Click"/>
-                    <MenuFlyoutItem x:Name="mnuTafsir" Icon="ContactInfo" Tag="Tafsir" Text="تفسیر" Click="menuFlyout_Click"/>
-                    <MenuFlyoutSeparator/>
-                    <MenuFlyoutSubItem Text="کپی" Icon="Copy">
-                        <MenuFlyoutItem x:Name="mnuCopyTranslation" Icon="Copy" Tag="CopyTranslation" Text="ترجمه" Click="menuFlyout_Click"/>
-                        <MenuFlyoutItem x:Name="mnuCopyAya" Icon="Copy" Tag="CopyAya" Text="آیه" Click="menuFlyout_Click"/>
-                    </MenuFlyoutSubItem>
-                </MenuFlyout.Items>
-            </MenuFlyout>
-        </ListView.Resources>
-    </ListView>
+                                </TextBlock>
+                            </InlineUIContainer>
+                        </Paragraph>
+                    </RichTextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Resources>
+                <MenuFlyout x:Name="menuFlyout">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem x:Name="mnuPlay" Icon="Volume" Tag="Play" Text="قرائت" Click="menuFlyout_Click"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="mnuStar" Icon="SolidStar" Tag="Star" Text="افزودن نشانه" Click="menuFlyout_Click"/>
+                        <MenuFlyoutItem x:Name="mnuSubject" Icon="Priority" Tag="Subject" Text="موضوع بندی آیات" Click="menuFlyout_Click"/>
+                        <MenuFlyoutItem x:Name="mnuAddNote" Icon="Add" Tag="AddNote" Text="افزودن یادداشت" Click="menuFlyout_Click"/>
+                        <MenuFlyoutItem x:Name="mnuTafsir" Icon="ContactInfo" Tag="Tafsir" Text="تفسیر" Click="menuFlyout_Click"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutSubItem Text="کپی" Icon="Copy">
+                            <MenuFlyoutItem x:Name="mnuCopyTranslation" Icon="Copy" Tag="CopyTranslation" Text="ترجمه" Click="menuFlyout_Click"/>
+                            <MenuFlyoutItem x:Name="mnuCopyAya" Icon="Copy" Tag="CopyAya" Text="آیه" Click="menuFlyout_Click"/>
+                        </MenuFlyoutSubItem>
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+        </ListView>
+    </Grid>
 </TabViewItem>
