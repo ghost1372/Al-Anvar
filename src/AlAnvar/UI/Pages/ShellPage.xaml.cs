@@ -47,14 +47,21 @@ public sealed partial class ShellPage : Page
     }
     private async void ShellPage_Loaded(object sender, RoutedEventArgs e)
     {
-        using var db = new AlAnvarDBContext();
+        await Task.Run(async () =>
+        {
+            using var db = new AlAnvarDBContext();
 
-        Chapters = new(await db.Chapters.ToListAsync());
-        ChaptersACV = new AdvancedCollectionView(Chapters, true);
-        currentSortDescription = new SortDescription("Id", SortDirection.Ascending);
-        ChaptersACV.SortDescriptions.Add(currentSortDescription);
-        rootListView.ItemsSource = ChaptersACV;
-        suggestListForSurahSearch = ChaptersACV.Select(x => ((ChapterProperty)x).Name).ToList();
+            Chapters = new(await db.Chapters.ToListAsync());
+            currentSortDescription = new SortDescription("Id", SortDirection.Ascending);
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                ChaptersACV = new AdvancedCollectionView(Chapters, true);
+                ChaptersACV.SortDescriptions.Add(currentSortDescription);
+                rootListView.ItemsSource = ChaptersACV;
+                suggestListForSurahSearch = ChaptersACV.Select(x => ((ChapterProperty) x).Name).ToList();
+            });
+        });
+        prgLoading.IsActive = false;
     }
 
     private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -82,7 +82,7 @@
             <Slider Name="slider" ManipulationMode="All" ThumbToolTipValueConverter="{ThemeResource ThumbToolTipValueConverter}" ManipulationStarted="slider_ManipulationStarted" ManipulationCompleted="slider_ManipulationCompleted" FlowDirection="LeftToRight" Grid.Row="3" Margin="60,0,60,10" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
             <TextBlock Name="txtSoundStart" Text="00:00:00" Grid.Row="3" Margin="10,5" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         </Grid>
-        <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+        <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <ListView Name="quranListView" Grid.Row="1" RightTapped="quranListView_RightTapped" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="table:QuranItem">

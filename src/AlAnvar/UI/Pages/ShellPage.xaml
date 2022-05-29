@@ -27,7 +27,8 @@
             </ComboBox>
             <AutoSuggestBox Name="txtSurahSearch" PlaceholderText="جستجو" TextChanged="txtSurahSearch_TextChanged"/>
         </StackPanel>
-        <ListView x:DefaultBindMode="OneWay" SelectionChanged="rootListView_SelectionChanged" MinWidth="320" x:Name="rootListView" Margin="10,0" Grid.Row="1">
+        <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <ListView x:Name="rootListView" Grid.Row="1" MinWidth="320" Margin="10,0" x:DefaultBindMode="OneWay" SelectionChanged="rootListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="tables:ChapterProperty">
                     <Grid>
