@@ -27,6 +27,7 @@ public sealed partial class MainWindow : Window
             switch (pageName)
             {
                 case "TafsirPage":
+                    ShellPage.Instance.Navigate(typeof(MainPage));
                     MainPage.Instance.AddNewTafsirTab();
                     break;
                 case "SettingsPage":
