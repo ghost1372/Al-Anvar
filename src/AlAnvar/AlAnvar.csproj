@@ -19,12 +19,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Images\surah.png" />
+    <None Remove="UI\Pages\MainPage.xaml" />
     <None Remove="UI\Pages\QariPage.xaml" />
-    <None Remove="UI\Pages\QuranPage.xaml" />
     <None Remove="UI\Pages\SettingsPage.xaml" />
     <None Remove="UI\Pages\ShellPage.xaml" />
     <None Remove="UI\Pages\TranslationPage.xaml" />
     <None Remove="UI\TabViewItems\QuranTabViewItem.xaml" />
+    <None Remove="UI\TabViewItems\TafsirTabViewItem.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,7 +73,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UI\Pages\QuranPage.xaml">
+    <Page Update="UI\Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -88,5 +89,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Windows\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UI\TabViewItems\TafsirTabViewItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

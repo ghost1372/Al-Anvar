@@ -34,7 +34,7 @@ public sealed partial class ShellPage : Page
             transitionInfo = new EntranceNavigationTransitionInfo();
         }
 
-        if (pageType != typeof(QuranPage))
+        if (pageType != typeof(MainPage))
         {
             DeSelectListView();
         }
@@ -127,8 +127,8 @@ public sealed partial class ShellPage : Page
         {
             var selectedItem = rootListView.SelectedItem as ChapterProperty;
             
-            Navigate(typeof(QuranPage));
-            QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
+            Navigate(typeof(MainPage));
+            MainPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
         }
     }
 }

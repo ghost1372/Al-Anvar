@@ -5,7 +5,7 @@ public class ThumbToolTipValueConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        var instance = QuranPage.Instance;
+        var instance = MainPage.Instance;
         if (instance is not null && instance.GetTabView().SelectedItem is not null)
         {
             var tabItem = instance.GetTabView().SelectedItem as QuranTabViewItem;

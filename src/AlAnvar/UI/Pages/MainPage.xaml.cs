@@ -1,9 +1,9 @@
 ﻿namespace AlAnvar.UI.Pages;
 
-public sealed partial class QuranPage : Page
+public sealed partial class MainPage : Page
 {
-    internal static QuranPage Instance { get; private set; }
-    public QuranPage()
+    internal static MainPage Instance { get; private set; }
+    public MainPage()
     {
         this.InitializeComponent();
         Instance = this;

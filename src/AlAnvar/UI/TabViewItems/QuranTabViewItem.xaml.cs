@@ -690,7 +690,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                 Content = new ScrollViewer { Content = "به صفحه قاری ها رفته و حداقل صوت یک قاری را دانلود کنید.", Margin = new Thickness(10) },
                 DefaultButton = ContentDialogButton.Primary,
                 PrimaryButtonText = "دانلود صوت قاری",
-                XamlRoot = QuranPage.Instance.XamlRoot
+                XamlRoot = MainPage.Instance.XamlRoot
             };
 
             var result = await dialog.ShowAsyncQueue();
