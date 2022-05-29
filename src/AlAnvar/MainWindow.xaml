@@ -75,7 +75,13 @@
                     </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
             </MenuBarItem>
-
+            <MenuBarItem Title="امکانات پژوهشی" AccessKey="R">
+                <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="TafsirPage" Text="تفسیر قرآن">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Windows" Key="T"/>
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+            </MenuBarItem>
             <MenuBarItem Title="افزونه ها" AccessKey="P">
                 <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="TranslationPage" Text="مدیریت ترجمه ها">
                     <MenuFlyoutItem.KeyboardAccelerators>

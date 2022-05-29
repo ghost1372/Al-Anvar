@@ -26,6 +26,9 @@ public sealed partial class MainWindow : Window
         {
             switch (pageName)
             {
+                case "TafsirPage":
+                    
+                    break;
                 case "SettingsPage":
                     ShellPage.Instance.Navigate(typeof(SettingsPage));
                     break;

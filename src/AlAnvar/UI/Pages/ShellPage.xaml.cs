@@ -26,6 +26,7 @@ public sealed partial class ShellPage : Page
     {
         rootListView.SelectedIndex = -1;
     }
+
     public void Navigate(Type pageType, NavigationTransitionInfo transitionInfo = null, object parameter = null)
     {
         if (transitionInfo == null)
@@ -37,7 +38,12 @@ public sealed partial class ShellPage : Page
         {
             DeSelectListView();
         }
-        shellFrame.Navigate(pageType, null, transitionInfo);
+
+        var currentType = shellFrame?.Content?.GetType();
+        if (currentType != pageType)
+        {
+            shellFrame.Navigate(pageType, null, transitionInfo);
+        }
     }
     private async void ShellPage_Loaded(object sender, RoutedEventArgs e)
     {
@@ -112,17 +118,10 @@ public sealed partial class ShellPage : Page
     {
         if (rootListView.SelectedIndex != -1)
         {
-            var currentType = shellFrame?.Content?.GetType();
             var selectedItem = rootListView.SelectedItem as ChapterProperty;
-            if (currentType != typeof(QuranPage))
-            {
-                shellFrame.Navigate(typeof(QuranPage), null, new EntranceNavigationTransitionInfo());
-                QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
-            }
-            else
-            {
-                QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
-            }
+            
+            Navigate(typeof(QuranPage));
+            QuranPage.Instance.AddNewTab(selectedItem.Id, selectedItem.Name, selectedItem.Type, selectedItem.Ayas);
         }
     }
 }

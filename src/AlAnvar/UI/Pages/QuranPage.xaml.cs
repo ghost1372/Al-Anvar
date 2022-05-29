@@ -45,7 +45,7 @@ public sealed partial class QuranPage : Page
 
     public void AddNewTab(int surahId, string name, string type, int ayaCount)
     {
-        var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (tabViewItem as QuranTabViewItem).SurahId == surahId).FirstOrDefault();
+        var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (tabViewItem as QuranTabViewItem)?.SurahId == surahId).FirstOrDefault();
         if (currentTabViewItem is not null)
         {
             tabView.SelectedItem = currentTabViewItem;
