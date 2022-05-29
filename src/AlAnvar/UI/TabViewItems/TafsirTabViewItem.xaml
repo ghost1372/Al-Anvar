@@ -2,12 +2,49 @@
     x:Class="AlAnvar.UI.TabViewItems.TafsirTabViewItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:AlAnvar.UI.TabViewItems"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:AlAnvar.Common"
     mc:Ignorable="d">
+    <TabViewItem.Resources>
+        <DataTemplate x:Key="FolderTemplate" x:DataType="local:ExplorerItem">
+            <TreeViewItem ItemsSource="{x:Bind Children}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20" Source="ms-appx:///Assets/Images/folder.png"/>
+                    <TextBlock Margin="10,0" Text="{x:Bind Name}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
 
+        <DataTemplate x:Key="FileTemplate" x:DataType="local:ExplorerItem">
+            <TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20" Source="ms-appx:///Assets/Images/file.png"/>
+                    <TextBlock Margin="10,0" Text="{x:Bind Name}"/>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+        
+        <local:ExplorerItemTemplateSelector
+            x:Key="ExplorerItemTemplateSelector"
+            FolderTemplate="{StaticResource FolderTemplate}"
+            FileTemplate="{StaticResource FileTemplate}" />
+        
+    </TabViewItem.Resources>
+    
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ProgressRing Name="prgLoading" Grid.RowSpan="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
+        <TreeView x:Name="tafsirTreeView" MinWidth="150" Grid.RowSpan="4" Margin="10" ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}"/>
     </Grid>
 </TabViewItem>

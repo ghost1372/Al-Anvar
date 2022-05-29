@@ -18,6 +18,8 @@
     <Content Remove="Assets\Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\Images\file.png" />
+    <None Remove="Assets\Images\folder.png" />
     <None Remove="Assets\Images\surah.png" />
     <None Remove="UI\Pages\MainPage.xaml" />
     <None Remove="UI\Pages\QariPage.xaml" />

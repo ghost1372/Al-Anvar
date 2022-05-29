@@ -11,6 +11,7 @@ global using Windows.System;
 
 global using SettingsUI.Helpers;
 global using SettingsUI.Extensions;
+global using SettingsUI.Tools;
 
 global using Newtonsoft.Json;
 
