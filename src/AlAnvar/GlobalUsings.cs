@@ -26,7 +26,7 @@ global using AlAnvar.Common;
 global using AlAnvar.Database;
 global using AlAnvar.Database.Tables;
 global using AlAnvar.UI.Pages;
-global using AlAnvar.UI.UserControls;
+global using AlAnvar.UI.TabViewItems;
 
 global using CommunityToolkit.WinUI.Helpers;
 global using CommunityToolkit.WinUI.UI;

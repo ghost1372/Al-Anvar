@@ -1,7 +1,7 @@
 ﻿using Downloader;
 using Windows.ApplicationModel.DataTransfer;
 
-namespace AlAnvar.UI.UserControls;
+namespace AlAnvar.UI.TabViewItems;
 
 public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChanged
 {

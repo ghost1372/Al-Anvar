@@ -24,7 +24,7 @@
     <None Remove="UI\Pages\SettingsPage.xaml" />
     <None Remove="UI\Pages\ShellPage.xaml" />
     <None Remove="UI\Pages\TranslationPage.xaml" />
-    <None Remove="UI\UserControls\QuranTabViewItem.xaml" />
+    <None Remove="UI\TabViewItems\QuranTabViewItem.xaml" />
   </ItemGroup>
 
   <ItemGroup>
