@@ -6,6 +6,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
     private List<Tafsir> TafsirCollection { get; set; } = new List<Tafsir>();
+    private List<ChapterProperty> ChapterCollection { get; set; } = new List<ChapterProperty>();
 
     public TafsirTabViewItem()
     {
@@ -20,6 +21,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
 
         await Task.Run(() =>
         {
+            GetChapterProeprty();
             GetSurahFromDB();
             LoadTafsirsInCombobox();
             GetTafsirText();
@@ -50,6 +52,12 @@ public sealed partial class TafsirTabViewItem : TabViewItem
             list.Add(rootNode);
         }
         return list;
+    }
+
+    private async void GetChapterProeprty()
+    {
+        using var db = new AlAnvarDBContext();
+        ChapterCollection = await db.Chapters.ToListAsync();
     }
 
     #region Tafsir
@@ -107,6 +115,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
         {
             txtAya.Text = TranslationCollection?.Where(x => x.SurahId == SurahId && x.Aya == AyaId)?.FirstOrDefault()?.Translation;
         }
+        txtAya.Header = GetSuraDetail(SurahId);
     }
 
     public void GetTranslationText()
@@ -147,7 +156,11 @@ public sealed partial class TafsirTabViewItem : TabViewItem
         SetAyaOrTranslationText();
         SetTafsirText();
     }
-    
+    private string GetSuraDetail(int surahId)
+    {
+        var chapter = ChapterCollection?.Where(x => x.Id == surahId)?.FirstOrDefault();
+        return $"{chapter?.Name} {AyaId}:{chapter?.Ayas}";
+    }
     private async void GetSurahFromDB()
     {
         AyahCollection?.Clear();
