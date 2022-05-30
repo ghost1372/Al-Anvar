@@ -27,6 +27,7 @@
     <None Remove="UI\Pages\ShellPage.xaml" />
     <None Remove="UI\Pages\TranslationPage.xaml" />
     <None Remove="UI\TabViewItems\QuranTabViewItem.xaml" />
+    <None Remove="UI\TabViewItems\SingleTafsirTabViewItem.xaml" />
     <None Remove="UI\TabViewItems\TafsirTabViewItem.xaml" />
   </ItemGroup>
 
@@ -91,6 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Windows\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UI\TabViewItems\SingleTafsirTabViewItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="UI\TabViewItems\TafsirTabViewItem.xaml">

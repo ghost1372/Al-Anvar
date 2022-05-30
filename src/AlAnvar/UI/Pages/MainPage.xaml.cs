@@ -12,7 +12,7 @@ public sealed partial class MainPage : Page
 
     public void AddNewSurahTab(ChapterProperty chapterProperty)
     {
-        var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (tabViewItem as QuranTabViewItem)?.SurahId == chapterProperty.Id).FirstOrDefault();
+        var currentTabViewItem = tabView.TabItems?.Where(tabViewItem => (tabViewItem as QuranTabViewItem)?.SurahId == chapterProperty.Id)?.FirstOrDefault();
         if (currentTabViewItem is not null)
         {
             tabView.SelectedItem = currentTabViewItem;
@@ -32,7 +32,7 @@ public sealed partial class MainPage : Page
 
     public void AddNewTafsirTab()
     {
-        var currentTabViewItem = tabView.TabItems.Where(tabViewItem => (string)(tabViewItem as TafsirTabViewItem)?.Header == Constants.TafsirTabViewItemHeader).FirstOrDefault();
+        var currentTabViewItem = tabView.TabItems?.Where(tabViewItem => (string)(tabViewItem as TafsirTabViewItem)?.Header == Constants.TafsirTabViewItemHeader)?.FirstOrDefault();
         if (currentTabViewItem is not null)
         {
             tabView.SelectedItem = currentTabViewItem;
@@ -41,6 +41,23 @@ public sealed partial class MainPage : Page
 
         var item = new TafsirTabViewItem();
         item.Header = Constants.TafsirTabViewItemHeader;
+        tabView.TabItems.Add(item);
+        item.CloseRequested += TabViewItem_CloseRequested;
+        tabView.SelectedIndex = tabView.TabItems.Count - 1;
+    }
+    public void AddNewSingleTafsirTab(QuranItem quranItem, ChapterProperty chapterProperty)
+    {
+        var currentTabViewItem = tabView.TabItems?.Where(tabViewItem => (string) (tabViewItem as SingleTafsirTabViewItem)?.Header == $"تفسیر سوره: {quranItem.SurahName} - آیه: {quranItem.AyahNumber}")?.FirstOrDefault();
+        if (currentTabViewItem is not null)
+        {
+            tabView.SelectedItem = currentTabViewItem;
+            return;
+        }
+
+        var item = new SingleTafsirTabViewItem();
+        item.Header = $"تفسیر سوره: {quranItem.SurahName} - آیه: {quranItem.AyahNumber}";
+        item.QuranItem = quranItem;
+        item.Chapter = chapterProperty;
         tabView.TabItems.Add(item);
         item.CloseRequested += TabViewItem_CloseRequested;
         tabView.SelectedIndex = tabView.TabItems.Count - 1;

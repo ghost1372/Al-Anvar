@@ -309,29 +309,6 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             quranListView.ItemsSource = QuranCollection;
         });
     }
-    private void menuFlyout_Click(object sender, RoutedEventArgs e)
-    {
-        var selectedItem = quranListView.SelectedItem as QuranItem;
-        DataPackage dataPackage = new DataPackage();
-        dataPackage.RequestedOperation = DataPackageOperation.Copy;
-        switch ((sender as MenuFlyoutItem).Tag)
-        {
-            case "Play":
-                btnPlay_Click(null, null);
-                break;
-            case "CopyTranslation":
-                dataPackage.SetText(selectedItem.TranslationText);
-                Clipboard.SetContent(dataPackage);
-                break;
-            case "CopyAya":
-                dataPackage.SetText(selectedItem.AyahText);
-                Clipboard.SetContent(dataPackage);
-                break;
-            case "Tafsir":
-
-                break;
-        }
-    }
 
     #region Translation
     public void GetTranslationText()
@@ -505,7 +482,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
 
     #endregion
 
-    #region MediaPlayer and Toolbar
+    #region MediaPlayer
     public void SetSurahStatus(string status)
     {
         txtStatus.Text = status;
@@ -766,6 +743,8 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     }
     #endregion
 
+    #endregion
+
     private void mnuToolbar_Click(object sender, RoutedEventArgs e)
     {
         switch ((sender as AppBarButton).Tag)
@@ -780,9 +759,41 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
 
                 break;
             case "Tafsir":
-
+                GoToTafsir();
                 break;
         }
     }
-    #endregion
+
+    private void GoToTafsir()
+    {
+        var quranItem = quranListView.SelectedItem as QuranItem;
+        if (quranItem is not null)
+        {
+            mainPage.AddNewSingleTafsirTab(quranItem, ChapterInstance);
+        }
+    }
+
+    private void menuFlyout_Click(object sender, RoutedEventArgs e)
+    {
+        var selectedItem = quranListView.SelectedItem as QuranItem;
+        DataPackage dataPackage = new DataPackage();
+        dataPackage.RequestedOperation = DataPackageOperation.Copy;
+        switch ((sender as MenuFlyoutItem).Tag)
+        {
+            case "Play":
+                btnPlay_Click(null, null);
+                break;
+            case "CopyTranslation":
+                dataPackage.SetText(selectedItem.TranslationText);
+                Clipboard.SetContent(dataPackage);
+                break;
+            case "CopyAya":
+                dataPackage.SetText(selectedItem.AyahText);
+                Clipboard.SetContent(dataPackage);
+                break;
+            case "Tafsir":
+                GoToTafsir();
+                break;
+        }
+    }
 }
