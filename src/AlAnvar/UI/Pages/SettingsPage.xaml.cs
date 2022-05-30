@@ -29,9 +29,22 @@ public sealed partial class SettingsPage : Page
             GetDefaultFonts();
             LoadTranslationsInCombobox();
             LoadQarisInCombobox();
+            LoadTafsirInCombobox();
         });
     }
-
+    private void LoadTafsirInCombobox()
+    {
+        DispatcherQueue.TryEnqueue(async () =>
+        {
+            using var db = new AlAnvarDBContext();
+            cmbTafsir.ItemsSource = await db.TafsirNames.ToListAsync();
+            cmbTafsir.SelectedItem = cmbTafsir.Items.Where(trans => ((TafsirName) trans).Name == Settings.QuranTafsir?.Name)?.FirstOrDefault();
+        });
+    }
+    private void cmbTafsir_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Settings.QuranTafsir = cmbTafsir.SelectedItem as TafsirName;
+    }
     private void OnThemeRadioButtonChecked(object sender, RoutedEventArgs e)
     {
         ThemeHelper.OnThemeRadioButtonChecked(sender);

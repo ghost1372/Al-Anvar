@@ -21,6 +21,7 @@ public class AlAnvarConfig : JsonSettings, IVersionable
     public virtual double AyatNumberFontSize { get; set; } = Constants.AYAT_NUMBER_DEFAULT_FONT_SIZE;
     public virtual QuranTranslation QuranTranslation { get; set; }
     public virtual QuranAudio QuranAudio { get; set; }
+    public virtual TafsirName QuranTafsir { get; set; }
     public virtual string LastUpdateCheck { get; set; } = "هرگز";
     public virtual bool IsAutoDownloadSound { get; set; } = true;
     public virtual bool IsUsingDefaultAppFolder { get; set; } = true;

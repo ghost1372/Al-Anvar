@@ -265,6 +265,24 @@
                         </controls:SettingExpander.Content>
                     </controls:SettingExpander>
                 </controls:SettingsGroup>
+                <controls:SettingsGroup Header="تفسیر قرآن">
+                    <controls:Setting Header="تفسیر های موجود و پیشفرض" Description="از میان تفسیر های موجود تفسیر دلخواه را انتخاب کنید">
+                        <controls:Setting.Icon>
+                            <SymbolIcon Symbol="ShowResults"/>
+                        </controls:Setting.Icon>
+                        <controls:Setting.ActionContent>
+                            <ComboBox x:Name="cmbTafsir" PlaceholderText="تفسیر" SelectionChanged="cmbTafsir_SelectionChanged" MinWidth="300" HorizontalAlignment="Stretch" Header="تفسیر پیشفرض">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="table:TafsirName">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{x:Bind Name}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </controls:Setting.ActionContent>
+                    </controls:Setting>
+                </controls:SettingsGroup>
             </StackPanel>
         </controls:SettingsPageControl.ModuleContent>
     </controls:SettingsPageControl>
