@@ -109,7 +109,6 @@ public sealed partial class TafsirTabViewItem : TabViewItem
         }
     }
 
-
     public void GetTranslationText()
     {
         TranslationCollection = new(GetQuranTranslation(cmbTranslators));

@@ -8,7 +8,7 @@ public sealed partial class MainWindow : Window
         this.InitializeComponent();
         Instance = this;
         SetDefaultFoldersPath();
-        if (OSVersionHelper.IsWindows10_OrGreater && !OSVersionHelper.IsWindows11_OrGreater)
+        if (OSVersionHelper.IsWindows10_1809 && !OSVersionHelper.IsWindows11_OrGreater)
         {
             mainGrid.Background = Application.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush;
         }
