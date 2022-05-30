@@ -4,6 +4,9 @@ namespace AlAnvar.UI.Pages;
 
 public sealed partial class SettingsPage : Page
 {
+    private MainWindow mainWindow = MainWindow.Instance;
+    private ShellPage shellPage = ShellPage.Instance;
+
     private Version CurrentVersion;
 
     private string ChangeLog = string.Empty;
@@ -133,7 +136,7 @@ public sealed partial class SettingsPage : Page
                 {
                     foreach (var file in files)
                     {
-                        var trans = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(file));
+                        var trans = file.DeserializeFromJson<QuranTranslation>();
                         if (trans is not null)
                         {
                             cmbTranslators.Items.Add(trans);
@@ -156,7 +159,7 @@ public sealed partial class SettingsPage : Page
                 {
                     foreach (var file in files)
                     {
-                        var audios = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
+                        var audios = file.DeserializeFromJson<QuranAudio>();
                         if (audios is not null)
                         {
                             cmbQaris.Items.Add(audios);
@@ -325,7 +328,7 @@ public sealed partial class SettingsPage : Page
 
     private void btnMoreTranslation_Click(object sender, RoutedEventArgs e)
     {
-        ShellPage.Instance.Navigate(typeof(TranslationPage));
+        shellPage.Navigate(typeof(TranslationPage));
     }
 
     private async void btnCheckUpdate_Click(object sender, RoutedEventArgs e)
@@ -412,7 +415,7 @@ public sealed partial class SettingsPage : Page
 
     private void btnMoreQaris_Click(object sender, RoutedEventArgs e)
     {
-        ShellPage.Instance.Navigate(typeof(QariPage));
+        shellPage.Navigate(typeof(QariPage));
     }
 
     private async void btnOpenDefaultFolderPath_Click(object sender, RoutedEventArgs e)
@@ -427,13 +430,13 @@ public sealed partial class SettingsPage : Page
         FolderPicker folderPicker = new();
         folderPicker.FileTypeFilter.Add("*");
 
-        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowHelper.GetWindowHandleForCurrentWindow(MainWindow.Instance));
+        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowHelper.GetWindowHandleForCurrentWindow(mainWindow));
 
         StorageFolder folder = await folderPicker.PickSingleFolderAsync();
         if (folder is not null)
         {
             Settings.AppFolderPath = Path.Combine(folder.Path, Constants.AppName);
-            MainWindow.Instance.SetDefaultFoldersPath();
+            mainWindow.SetDefaultFoldersPath();
             btnOpenDefaultFolderPath.Content = Settings.AppFolderPath;
         }
     }

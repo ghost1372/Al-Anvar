@@ -23,6 +23,7 @@ global using System.Runtime.CompilerServices;
 global using System.Reflection;
 
 global using static AlAnvar.Common.AlAnvarHelper;
+global using static AlAnvar.Common.JsonExtensions;
 global using AlAnvar.Common;
 global using AlAnvar.Database;
 global using AlAnvar.Database.Tables;

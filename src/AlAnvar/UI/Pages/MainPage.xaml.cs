@@ -3,6 +3,7 @@
 public sealed partial class MainPage : Page
 {
     internal static MainPage Instance { get; private set; }
+    private ShellPage shellPage = ShellPage.Instance;
     public MainPage()
     {
         this.InitializeComponent();
@@ -59,11 +60,11 @@ public sealed partial class MainPage : Page
         var quranTabViewItem = tabView.SelectedItem as QuranTabViewItem;
         if (quranTabViewItem is not null)
         {
-            ShellPage.Instance.SetListViewItem(quranTabViewItem.ChapterInstance);
+            shellPage.SetListViewItem(quranTabViewItem.ChapterInstance);
         }
         else
         {
-            ShellPage.Instance.DeSelectListView();
+            shellPage.DeSelectListView();
         }
     }
 }

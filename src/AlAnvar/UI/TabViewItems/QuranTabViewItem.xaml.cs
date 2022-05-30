@@ -194,6 +194,8 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
+    private MainPage mainPage = MainPage.Instance;
+    private ShellPage shellPage = ShellPage.Instance;
     internal static QuranTabViewItem Instance { get; private set; }
 
     #region MediaPlayer
@@ -466,7 +468,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             {
                 foreach (var file in files)
                 {
-                    var trans = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(file));
+                    var trans = file.DeserializeFromJson<QuranTranslation>();
                     if (trans is not null)
                     {
                         items.Add(trans);
@@ -489,7 +491,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             {
                 foreach (var file in files)
                 {
-                    var audio = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
+                    var audio = file.DeserializeFromJson<QuranAudio>();
                     if (audio is not null)
                     {
                         items.Add(audio);
@@ -700,13 +702,13 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                 Content = new ScrollViewer { Content = "به صفحه قاری ها رفته و حداقل صوت یک قاری را دانلود کنید.", Margin = new Thickness(10) },
                 DefaultButton = ContentDialogButton.Primary,
                 PrimaryButtonText = "دانلود صوت قاری",
-                XamlRoot = MainPage.Instance.XamlRoot
+                XamlRoot = mainPage.XamlRoot
             };
 
             var result = await dialog.ShowAsyncQueue();
             if (result == ContentDialogResult.Primary)
             {
-                ShellPage.Instance.Navigate(typeof(QariPage));
+                shellPage.Navigate(typeof(QariPage));
             }
         }
     }
@@ -800,7 +802,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         switch ((sender as AppBarButton).Tag)
         {
             case "GoToFont":
-                ShellPage.Instance.Navigate(typeof(SettingsPage));
+                shellPage.Navigate(typeof(SettingsPage));
                 break;
             case "AddNote":
 

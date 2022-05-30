@@ -162,7 +162,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
             {
                 foreach (var file in files)
                 {
-                    var trans = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(file));
+                    var trans = file.DeserializeFromJson<QuranTranslation>();
                     if (trans is not null)
                     {
                         cmbTranslators.Items.Add(trans);

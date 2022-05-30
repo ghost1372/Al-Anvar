@@ -38,7 +38,7 @@ public sealed partial class TranslationPage : Page
             {
                 foreach (var item in localFiles)
                 {
-                    var translationItem = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(item));
+                    var translationItem = item.DeserializeFromJson<QuranTranslation>();
                     if (translationItem is not null)
                     {
                         data.Remove(translationItem);
@@ -81,8 +81,7 @@ public sealed partial class TranslationPage : Page
                     if (!Directory.Exists(dirInfo))
                     {
                         Directory.CreateDirectory(dirInfo);
-                        string jsonString = JsonConvert.SerializeObject(translation);
-                        File.WriteAllText(Path.Combine(dirInfo, $"{translation.TranslationId}.ini"), jsonString);
+                        translation.SerializeToJson(Path.Combine(dirInfo, $"{translation.TranslationId}.ini"));
                     }
                     var downloader = new DownloadService();
                     downloader.DownloadProgressChanged += Downloader_DownloadProgressChanged;
@@ -162,7 +161,7 @@ public sealed partial class TranslationPage : Page
             {
                 foreach (var file in localFiles)
                 {
-                    var item = JsonConvert.DeserializeObject<QuranTranslation>(File.ReadAllText(file));
+                    var item = file.DeserializeFromJson<QuranTranslation>();
                     LocalTranslations.Add(item);
                 }
                 localListView.ItemsSource = LocalTranslations;

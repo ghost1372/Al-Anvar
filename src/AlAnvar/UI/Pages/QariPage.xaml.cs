@@ -3,8 +3,8 @@
 namespace AlAnvar.UI.Pages;
 public sealed partial class QariPage : Page
 {
-    public ObservableCollection<QuranAudio> QuranAudios { get; set; }
-    public ObservableCollection<QuranAudio> LocalAudios { get; set; }
+    private List<QuranAudio> QuranAudios { get; set; }
+    private List<QuranAudio> LocalAudios { get; set; }
     private List<string> InlineQuranAudioSuggestions { get; } = new();
 
     public AdvancedCollectionView QuranAudiosACV;
@@ -35,6 +35,7 @@ public sealed partial class QariPage : Page
         rootListView.ItemsSource = QuranAudiosACV;
 
         InlineQuranAudioSuggestions?.Clear();
+
         //Fill InlineAutoCompleteTextBox
         foreach (var item in QuranAudios)
         {
@@ -76,17 +77,14 @@ public sealed partial class QariPage : Page
 
         try
         {
-            var audioItem = (rootListView.SelectedItem as QuranAudio);
+            var audioItem = rootListView.SelectedItem as QuranAudio;
             var sourceFilePath = await GetAudioPageSource(audioItem.Url, audioItem.DirName);
 
             var audioIds = GetAudioIds(sourceFilePath).Where(x => x.Contains(".mp3"));
             var dirPath = Path.Combine(Settings.AudiosPath, audioItem.DirName);
             prgStatus2.Maximum = _totalDownloadItemCount = audioIds.Count();
 
-            var json = JsonConvert.SerializeObject(audioItem);
-
-            File.WriteAllText($@"{dirPath}\{audioItem.DirName}.ini", json);
-
+            audioItem.SerializeToJson($@"{dirPath}\{audioItem.DirName}.ini");
             foreach (var id in audioIds)
             {
                 if (downloadService is not null && downloadService.IsCancelled)
@@ -200,6 +198,7 @@ public sealed partial class QariPage : Page
         rootListView.IsEnabled = true;
         btnCancel.IsEnabled = false;
     }
+
     #region Local Translations
     private void localListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -235,9 +234,9 @@ public sealed partial class QariPage : Page
             {
                 foreach (var file in localFiles)
                 {
-                    var item = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
-                    LocalAudios.Add(item);
+                    LocalAudios.Add(file.DeserializeFromJson<QuranAudio>());
                 }
+
                 localListView.ItemsSource = LocalAudios;
             }
         }

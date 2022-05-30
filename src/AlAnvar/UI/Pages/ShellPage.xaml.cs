@@ -7,7 +7,6 @@ public sealed partial class ShellPage : Page
 
     private SortDescription currentSortDescription;
     private List<string> suggestListForSurahSearch = new List<string>();
-
     internal static ShellPage Instance { get; private set; }
     public ShellPage()
     {
