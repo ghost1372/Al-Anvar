@@ -63,7 +63,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
     private async void GetTafsirText()
     {
         TafsirCollection?.Clear();
-        var selectedTafsir = Settings.QuranTafsir ?? GetTafsirComboboxFirstElement();
+        var selectedTafsir = Settings.QuranTafsir ?? GetComboboxFirstElement<TafsirName>(cmbTafsir);
         if (selectedTafsir is not null)
         {
             using var db = new AlAnvarDBContext();
@@ -71,11 +71,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
             TafsirCollection = new(tafsir);
         }
     }
-    public TafsirName GetTafsirComboboxFirstElement()
-    {
-        cmbTafsir.SelectedIndex = 0;
-        return cmbTafsir.SelectedItem as TafsirName;
-    }
+
     public void SetTafsirText()
     {
         var id = AyahCollection?.Where(x => x.SurahId == SurahId && x.AyahNumber == AyaId)?.FirstOrDefault()?.Id;
@@ -100,11 +96,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
         GetTranslationText();
         SetAyaOrTranslationText();
     }
-    public QuranTranslation GetTranslatorComboboxFirstElement()
-    {
-        cmbTranslators.SelectedIndex = 0;
-        return cmbTranslators.SelectedItem as QuranTranslation;
-    }
+
     public void SetAyaOrTranslationText()
     {
         if (radioButtons.SelectedIndex == 0)
@@ -120,38 +112,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
 
     public void GetTranslationText()
     {
-        TranslationCollection?.Clear();
-        var selectedTranslation = Settings.QuranTranslation ?? GetTranslatorComboboxFirstElement();
-        if (Directory.Exists(Settings.TranslationsPath) && selectedTranslation is not null)
-        {
-            var files = Directory.GetFiles(Settings.TranslationsPath, "*.txt", SearchOption.AllDirectories);
-            if (files.Count() > 0)
-            {
-                foreach (var item in files)
-                {
-                    if (Path.GetFileNameWithoutExtension(item).Equals(selectedTranslation.TranslationId))
-                    {
-                        using (var streamReader = File.OpenText(item))
-                        {
-                            string line = String.Empty;
-                            while ((line = streamReader.ReadLine()) != null)
-                            {
-                                var trans = line.Split("|");
-                                if (trans[0] == SurahId.ToString())
-                                {
-                                    TranslationCollection.Add(new TranslationItem
-                                    {
-                                        SurahId = Convert.ToInt32(trans[0]),
-                                        Aya = Convert.ToInt32(trans[1]),
-                                        Translation = trans[2]
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        TranslationCollection = new(GetQuranTranslation(cmbTranslators));
     }
     private void LoadTranslationsInCombobox()
     {

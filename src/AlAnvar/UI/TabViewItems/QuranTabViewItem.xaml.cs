@@ -303,51 +303,132 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                     SurahName = SurahName,
                     TotalAyah = TotalAyah,
                     AyaDetail = $"({item.AyahNumber}:{TotalAyah})",
-                    TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
+                    TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.SurahId == SurahId && x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
                 });
             }
             quranListView.ItemsSource = QuranCollection;
         });
     }
+    private void menuFlyout_Click(object sender, RoutedEventArgs e)
+    {
+        var selectedItem = quranListView.SelectedItem as QuranItem;
+        DataPackage dataPackage = new DataPackage();
+        dataPackage.RequestedOperation = DataPackageOperation.Copy;
+        switch ((sender as MenuFlyoutItem).Tag)
+        {
+            case "Play":
+                btnPlay_Click(null, null);
+                break;
+            case "CopyTranslation":
+                dataPackage.SetText(selectedItem.TranslationText);
+                Clipboard.SetContent(dataPackage);
+                break;
+            case "CopyAya":
+                dataPackage.SetText(selectedItem.AyahText);
+                Clipboard.SetContent(dataPackage);
+                break;
+            case "Tafsir":
+
+                break;
+        }
+    }
+
+    #region Translation
     public void GetTranslationText()
     {
         DispatcherQueue.TryEnqueue(() =>
         {
-            TranslationCollection?.Clear();
-            var selectedTranslation = Settings.QuranTranslation ?? GetComboboxFirstElement();
-            if (Directory.Exists(Settings.TranslationsPath) && selectedTranslation is not null)
-            {
-                var files = Directory.GetFiles(Settings.TranslationsPath, "*.txt", SearchOption.AllDirectories);
-                if (files.Count() > 0)
-                {
-                    foreach (var item in files)
-                    {
-                        if (Path.GetFileNameWithoutExtension(item).Equals(selectedTranslation.TranslationId))
-                        {
-                            using (var streamReader = File.OpenText(item))
-                            {
-                                string line = String.Empty;
-                                while ((line = streamReader.ReadLine()) != null)
-                                {
-                                    var trans = line.Split("|");
-                                    if (trans[0] == SurahId.ToString())
-                                    {
-                                        TranslationCollection.Add(new TranslationItem
-                                        {
-                                            SurahId = Convert.ToInt32(trans[0]),
-                                            Aya = Convert.ToInt32(trans[1]),
-                                            Translation = trans[2]
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            TranslationCollection = new(GetQuranTranslation(cmbTranslators));
         });
     }
 
+    private void LoadTranslationsInCombobox()
+    {
+        if (Directory.Exists(Settings.TranslationsPath))
+        {
+            var items = new ObservableCollection<QuranTranslation>();
+            var files = Directory.GetFiles(Settings.TranslationsPath, "*.ini", SearchOption.AllDirectories);
+            if (files.Count() > 0)
+            {
+                foreach (var file in files)
+                {
+                    var trans = file.DeserializeFromJson<QuranTranslation>();
+                    if (trans is not null)
+                    {
+                        items.Add(trans);
+                    }
+                }
+                DispatcherQueue.TryEnqueue(() => {
+                    cmbTranslators.ItemsSource = items;
+                    cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
+                });
+            }
+        }
+    }
+    private void cmbTranslators_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
+
+        var itemIndex = GetListViewSelectedIndex();
+        TranslationCollection = new(GetQuranTranslation(cmbTranslators));
+        GetSuraText();
+        ScrollIntoView(itemIndex);
+    }
+    private void chkOnlyTranslationText_Checked(object sender, RoutedEventArgs e)
+    {
+        IsTranslationAvailable = !chkOnlyTranslationText.IsChecked.Value;
+    }
+    #endregion
+
+    #region Qari
+    private void LoadQarisInCombobox()
+    {
+        if (Directory.Exists(Settings.AudiosPath))
+        {
+            var items = new ObservableCollection<QuranAudio>();
+            var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
+            if (files.Count() > 0)
+            {
+                foreach (var file in files)
+                {
+                    var audio = file.DeserializeFromJson<QuranAudio>();
+                    if (audio is not null)
+                    {
+                        items.Add(audio);
+                    }
+                }
+                DispatcherQueue.TryEnqueue(() => {
+                    cmbQari.ItemsSource = items;
+                    cmbQari.SelectedItem = cmbQari.Items.Where(trans => ((QuranAudio) trans).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
+                });
+            }
+        }
+    }
+    private void cmbQari_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        audioList?.Clear();
+        var qari = cmbQari.SelectedItem as QuranAudio;
+
+        Settings.QuranAudio = qari;
+
+        var qariPath = Path.Combine(Settings.AudiosPath, qari.DirName);
+
+        if (Directory.Exists(qariPath))
+        {
+            var audios = Directory.GetFiles(qariPath, "*.mp3");
+
+            foreach (var audio in audios)
+            {
+                var fileName = Path.GetFileNameWithoutExtension(audio);
+                var surah = Convert.ToInt32(fileName.Substring(0, 3));
+                var aya = Convert.ToInt32(fileName.Substring(3));
+                audioList.Add(new AudioModel { SurahId = surah, AyaId = aya, FileName = fileName, FullPath = audio });
+            }
+        }
+    }
+    #endregion
+
+    #region ListView
     private void quranListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var item = quranListView.SelectedItem as QuranItem;
@@ -358,7 +439,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         }
         ScrollIntoView(quranListView.SelectedIndex);
     }
-    private void quranListView_RightTapped(object sender, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+    private void quranListView_RightTapped(object sender, RightTappedRoutedEventArgs e)
     {
         menuFlyout.ShowAt(quranListView, e.GetPosition(quranListView));
     }
@@ -366,7 +447,6 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     {
         return quranListView.SelectedItem as QuranItem;
     }
-
     public void GoToListViewNextItem()
     {
         var currentIndex = quranListView.SelectedIndex;
@@ -374,12 +454,11 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         {
             quranListView.SelectedIndex = 0;
         }
-        else if (currentIndex != quranListView.Items.Count -1)
+        else if (currentIndex != quranListView.Items.Count - 1)
         {
             quranListView.SelectedIndex += 1;
-        } 
+        }
     }
-
     public int GetListViewLastIndex()
     {
         return quranListView.Items.Count - 1;
@@ -405,37 +484,28 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         quranListView.SelectedIndex = index;
         quranListView.ScrollIntoView(quranListView.SelectedItem);
     }
+    #endregion
 
-    private void menuFlyout_Click(object sender, RoutedEventArgs e)
+    #region Downloader
+    private void Downloader_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
     {
-        var selectedItem = quranListView.SelectedItem as QuranItem;
-        DataPackage dataPackage = new DataPackage();
-        dataPackage.RequestedOperation = DataPackageOperation.Copy;
-        switch ((sender as MenuFlyoutItem).Tag)
+        DispatcherQueue.TryEnqueue(() =>
         {
-            case "Play":
-                btnPlay_Click(null, null);
-                break;
-            case "CopyTranslation":
-                dataPackage.SetText(selectedItem.TranslationText);
-                Clipboard.SetContent(dataPackage);
-                break;
-            case "CopyAya":
-                dataPackage.SetText(selectedItem.AyahText);
-                Clipboard.SetContent(dataPackage);
-                break;
-            case "Tafsir":
-
-                break;
-        }
+            audioList.Add(ayaSound);
+            prgDownload.Value = 0;
+        });
     }
+    private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            prgDownload.Value = e.ProgressPercentage;
+        });
+    }
+
+    #endregion
 
     #region MediaPlayer and Toolbar
-    public QuranTranslation GetComboboxFirstElement()
-    {
-        cmbTranslators.SelectedIndex = 0;
-        return cmbTranslators.SelectedItem as QuranTranslation;
-    }
     public void SetSurahStatus(string status)
     {
         txtStatus.Text = status;
@@ -458,118 +528,17 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         }
         return null;
     }
-    private void LoadTranslationsInCombobox()
-    {
-        if (Directory.Exists(Settings.TranslationsPath))
-        {
-            var items = new ObservableCollection<QuranTranslation>();
-            var files = Directory.GetFiles(Settings.TranslationsPath, "*.ini", SearchOption.AllDirectories);
-            if (files.Count() > 0)
-            {
-                foreach (var file in files)
-                {
-                    var trans = file.DeserializeFromJson<QuranTranslation>();
-                    if (trans is not null)
-                    {
-                        items.Add(trans);
-                    }
-                }
-                DispatcherQueue.TryEnqueue(() => {
-                    cmbTranslators.ItemsSource = items;
-                    cmbTranslators.SelectedItem = cmbTranslators.Items.Where(trans => ((QuranTranslation) trans).TranslationId == Settings.QuranTranslation?.TranslationId).FirstOrDefault();
-                });
-            }
-        }
-    }
-    private void LoadQarisInCombobox()
-    {
-        if (Directory.Exists(Settings.AudiosPath))
-        {
-            var items = new ObservableCollection<QuranAudio>();
-            var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
-            if (files.Count() > 0)
-            {
-                foreach (var file in files)
-                {
-                    var audio = file.DeserializeFromJson<QuranAudio>();
-                    if (audio is not null)
-                    {
-                        items.Add(audio);
-                    }
-                }
-                DispatcherQueue.TryEnqueue(() => {
-                    cmbQari.ItemsSource = items;
-                    cmbQari.SelectedItem = cmbQari.Items.Where(trans => ((QuranAudio) trans).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
-                });
-            }
-        }
-    }
+   
+    
     private void Timer_Tick(object sender, object e)
     {
         UpdateSlider();
-    }
-
-    #region ComboBox and CheckBox
-    private void cmbTranslators_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        Settings.QuranTranslation = cmbTranslators.SelectedItem as QuranTranslation;
-
-        var itemIndex = GetListViewSelectedIndex();
-        GetTranslationText();
-        GetSuraText();
-        ScrollIntoView(itemIndex);
-    }
-    private void cmbQari_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        audioList?.Clear();
-        var qari = cmbQari.SelectedItem as QuranAudio;
-
-        Settings.QuranAudio = qari;
-
-        var qariPath = Path.Combine(Settings.AudiosPath, qari.DirName);
-
-        if (Directory.Exists(qariPath))
-        {
-            var audios = Directory.GetFiles(qariPath, "*.mp3");
-
-            foreach (var audio in audios)
-            {
-                var fileName = Path.GetFileNameWithoutExtension(audio);
-                var surah = Convert.ToInt32(fileName.Substring(0, 3));
-                var aya = Convert.ToInt32(fileName.Substring(3));
-                audioList.Add(new AudioModel { SurahId = surah, AyaId = aya, FileName = fileName, FullPath = audio });
-            }
-        }
     }
 
     private void chkOnlyAyaText_Checked(object sender, RoutedEventArgs e)
     {
         IsSurahTextAvailable = !chkOnlyAyaText.IsChecked.Value;
     }
-    private void chkOnlyTranslationText_Checked(object sender, RoutedEventArgs e)
-    {
-        IsTranslationAvailable = !chkOnlyTranslationText.IsChecked.Value;
-    }
-    #endregion
-
-    #region Downloader
-    private void Downloader_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-    {
-        DispatcherQueue.TryEnqueue(() =>
-        {
-            audioList.Add(ayaSound);
-            prgDownload.Value = 0;
-        });
-    }
-    private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-    {
-        DispatcherQueue.TryEnqueue(() =>
-        {
-            prgDownload.Value = e.ProgressPercentage;
-        });
-    }
-
-    #endregion
 
     #region MediaPlayer Events
     private void MediaPlayer_PlaybackStopped()
