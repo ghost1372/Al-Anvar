@@ -6,44 +6,14 @@ namespace AlAnvar.UI.TabViewItems;
 public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChanged
 {
     #region DependencyProperty
-    public static readonly DependencyProperty ChapterInstanceProperty =
-        DependencyProperty.Register("ChapterInstance", typeof(ChapterProperty), typeof(QuranTabViewItem),
+    public static readonly DependencyProperty ChapterProperty =
+        DependencyProperty.Register("Chapter", typeof(ChapterProperty), typeof(QuranTabViewItem),
         new PropertyMetadata(null));
 
-    public ChapterProperty ChapterInstance
+    public ChapterProperty Chapter
     {
-        get { return (ChapterProperty) GetValue(ChapterInstanceProperty); }
-        set { SetValue(ChapterInstanceProperty, value); }
-    }
-
-    public static readonly DependencyProperty SurahNameProperty =
-        DependencyProperty.Register("SurahName", typeof(int), typeof(QuranTabViewItem),
-        new PropertyMetadata(1));
-
-    public string SurahName
-    {
-        get { return (string) GetValue(SurahNameProperty); }
-        set { SetValue(SurahNameProperty, value); }
-    }
-
-    public static readonly DependencyProperty SurahIdProperty =
-        DependencyProperty.Register("SurahId", typeof(int), typeof(QuranTabViewItem),
-        new PropertyMetadata(1));
-
-    public int SurahId
-    {
-        get { return (int)GetValue(SurahIdProperty); }
-        set { SetValue(SurahIdProperty, value); }
-    }
-
-    public static readonly DependencyProperty TotalAyahProperty =
-        DependencyProperty.Register("TotalAyah", typeof(int), typeof(QuranTabViewItem),
-        new PropertyMetadata(0));
-
-    public int TotalAyah
-    {
-        get { return (int)GetValue(TotalAyahProperty); }
-        set { SetValue(TotalAyahProperty, value); }
+        get { return (ChapterProperty) GetValue(ChapterProperty); }
+        set { SetValue(ChapterProperty, value); }
     }
     #endregion
 
@@ -280,7 +250,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         {
             AyahCollection?.Clear();
             using var db = new AlAnvarDBContext();
-            AyahCollection = await db.Qurans.Where(x => x.SurahId == SurahId).ToListAsync();
+            AyahCollection = await db.Qurans.Where(x => x.SurahId == Chapter.Id).ToListAsync();
         });
     }
     public void GetSuraText(bool isTranslationAvailable = true)
@@ -299,11 +269,11 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                     Hizb = item.Hizb,
                     Id = item.Id,
                     Juz = item.Juz,
-                    SurahId = SurahId,
-                    SurahName = SurahName,
-                    TotalAyah = TotalAyah,
-                    AyaDetail = $"({item.AyahNumber}:{TotalAyah})",
-                    TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.SurahId == SurahId && x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
+                    SurahId = Chapter.Id,
+                    SurahName = Chapter.Name,
+                    TotalAyah = Chapter.Ayas,
+                    AyaDetail = $"({item.AyahNumber}:{Chapter.Ayas})",
+                    TranslationText = isTranslationAvailable ? TranslationCollection.Where(x => x.SurahId == Chapter.Id && x.Aya == item.AyahNumber).FirstOrDefault()?.Translation : null
                 });
             }
             quranListView.ItemsSource = QuranCollection;
@@ -769,7 +739,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         var quranItem = quranListView.SelectedItem as QuranItem;
         if (quranItem is not null)
         {
-            mainPage.AddNewSingleTafsirTab(quranItem, ChapterInstance);
+            mainPage.AddNewSingleTafsirTab(quranItem, Chapter);
         }
     }
 
