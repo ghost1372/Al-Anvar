@@ -286,6 +286,10 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         DispatcherQueue.TryEnqueue(() =>
         {
             TranslationCollection = new(GetQuranTranslation(cmbTranslators));
+            if (TranslationCollection.Count == 0)
+            {
+                IsTranslationAvailable = false;
+            }
         });
     }
 

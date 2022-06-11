@@ -46,10 +46,10 @@
 	<PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
 	<PackageReference Include="Downloader" Version="2.3.5" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
-	<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0-preview3" />
+	<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0" />
 	<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.197" />
-	<PackageReference Include="NAudio" Version="2.0.1" />
-	<PackageReference Include="SettingsUI" Version="2.0.2-wasdk1.1.0-preview3" />
+	<PackageReference Include="NAudio" Version="2.1.0" />
+	<PackageReference Include="SettingsUI" Version="2.0.7" />
 	<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.8" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>

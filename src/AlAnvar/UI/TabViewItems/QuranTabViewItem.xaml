@@ -90,16 +90,17 @@
                         <Paragraph>
                             <InlineUIContainer>
                                 <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatForeground}" Text="{x:Bind AyahText}"/>
-                                <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatForeground}" Text="{x:Bind AyahText}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
                                 </TextBlock>
                             </InlineUIContainer>
 
                             <LineBreak/>
+                            
                             <InlineUIContainer>
                                 <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsTranslationAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.TranslationFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.TranslationFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.TranslationForeground}" Text="{x:Bind TranslationText}"/>
-                                <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.TranslationFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.TranslationFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.TranslationForeground}" Text="{x:Bind TranslationText}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
                                 </TextBlock>
                             </InlineUIContainer>
                         </Paragraph>
