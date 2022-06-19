@@ -46,12 +46,12 @@
                         <KeyboardAccelerator Modifiers="Control" Key="S"/>
                     </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
-                <MenuFlyoutItem Text="چاپ">
+                <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="Print" Text="چاپ">
                     <MenuFlyoutItem.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control" Key="P"/>
                     </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
-                <MenuFlyoutItem Text="ذخیره به عنوان PDF">
+                <MenuFlyoutItem Tapped="MenuBarItem_Tapped" Tag="Print" Text="ذخیره به عنوان PDF">
                     <MenuFlyoutItem.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Shift" Key="S"/>
                     </MenuFlyoutItem.KeyboardAccelerators>

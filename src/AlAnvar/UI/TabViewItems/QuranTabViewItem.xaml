@@ -7,6 +7,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:table="using:AlAnvar.Database.Tables"
     mc:Ignorable="d">
+    <TabViewItem.Resources>
+        <DataTemplate x:Name="QuranItemTemplate" x:DataType="table:QuranItem">
+            <RichTextBlock Margin="10" IsTextSelectionEnabled="False">
+                <Paragraph>
+                    <InlineUIContainer>
+                        <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatForeground}" Text="{x:Bind AyahText}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                        </TextBlock>
+                    </InlineUIContainer>
+
+                    <LineBreak/>
+
+                    <InlineUIContainer>
+                        <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsTranslationAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.TranslationFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.TranslationFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.TranslationForeground}" Text="{x:Bind TranslationText}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                        </TextBlock>
+                    </InlineUIContainer>
+                </Paragraph>
+            </RichTextBlock>
+        </DataTemplate>
+    </TabViewItem.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -83,30 +106,18 @@
             <TextBlock Name="txtSoundStart" Text="00:00:00" Grid.Row="3" Margin="10,5" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         </Grid>
         <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <ListView Name="quranListView" Grid.Row="1" RightTapped="quranListView_RightTapped" SelectionChanged="quranListView_SelectionChanged" Margin="10" Style="{StaticResource myListView}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="table:QuranItem">
-                    <RichTextBlock Margin="10" IsTextSelectionEnabled="False">
-                        <Paragraph>
-                            <InlineUIContainer>
-                                <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatForeground}" Text="{x:Bind AyahText}"/>
-                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
-                                </TextBlock>
-                            </InlineUIContainer>
+        <Grid x:Name="Container" Opacity="0" FlowDirection="LeftToRight"/>
+        <ContentDialog Name="printDialog" PrimaryButtonText="ذخیره و ادامه" CloseButtonText="انصراف" Title="لطفا آیه های موردنظر و تعداد آیه ها در صفحه را مشخص کنید">
+            <StackPanel Spacing="10">
+                <StackPanel Orientation="Horizontal">
+                    <NumberBox Name="txtAyaFrom" Margin="10,0" Header="از آیه" SpinButtonPlacementMode="Inline" PlaceholderText="از آیه" Minimum="1" Value="{x:Bind AyaFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <NumberBox Name="txtAyaTo" ValueChanged="txtAyaTo_ValueChanged" Header="تا آیه" SpinButtonPlacementMode="Inline" PlaceholderText="تا آیه" Minimum="1" Value="{x:Bind AyaTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <NumberBox Name="txtAyaCount" Header="تعداد آیه ها در هر صحفه" SpinButtonPlacementMode="Inline" PlaceholderText="تعداد آیه ها" Minimum="1" Value="{x:Bind AyaCountInPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+         </ContentDialog>
 
-                            <LineBreak/>
-                            
-                            <InlineUIContainer>
-                                <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsTranslationAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.TranslationFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.TranslationFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.TranslationForeground}" Text="{x:Bind TranslationText}"/>
-                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
-                                </TextBlock>
-                            </InlineUIContainer>
-                        </Paragraph>
-                    </RichTextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+        <ListView Name="quranListView" Grid.Row="1" Margin="10" ItemTemplate="{StaticResource QuranItemTemplate}" RightTapped="quranListView_RightTapped" SelectionChanged="quranListView_SelectionChanged" Style="{StaticResource myListView}">
             <ListView.Resources>
                 <MenuFlyout x:Name="menuFlyout">
                     <MenuFlyout.Items>

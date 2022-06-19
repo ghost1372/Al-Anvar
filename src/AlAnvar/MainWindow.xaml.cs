@@ -46,6 +46,9 @@ public sealed partial class MainWindow : Window
                     aboutContentDialog.XamlRoot = Content.XamlRoot;
                     await aboutContentDialog.ShowAsyncQueue();
                     break;
+                case "Print":
+                    QuranTabViewItem.Instance.ShowPrintDialog();
+                    break;
                 case "Exit":
                     Application.Current.Exit();
                     break;

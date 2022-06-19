@@ -8,13 +8,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                <ResourceDictionary Source="ms-appx:///SettingsUI/Themes/SettingsUI.xaml"/>
+                <ResourceDictionary Source="ms-appx:///SettingsUI/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <converter:BoolNegationConverter x:Key="BoolNegationConverter"/>
             <localConverter:ThumbToolTipValueConverter x:Key="ThumbToolTipValueConverter"/>
-            
+            <ThemeShadow x:Key="ThemeShadow"/>
             <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
             <FontFamily x:Key="VazirmatnBold">Assets/Fonts/Vazirmatn-Bold.ttf#Vazirmatn</FontFamily>
             <FontFamily x:Key="VazirmatnMedium">Assets/Fonts/Vazirmatn-Medium.ttf#Vazirmatn Medium</FontFamily>

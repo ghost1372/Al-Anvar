@@ -1,5 +1,8 @@
 ﻿using Downloader;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Graphics.Printing;
+using PrintHelper = SettingsUI.Helpers.PrintHelper;
+using PrintHelperOptions = SettingsUI.Helpers.PrintHelperOptions;
 
 namespace AlAnvar.UI.TabViewItems;
 
@@ -159,6 +162,41 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         }
     }
 
+    private int _ayaCountInPage;
+
+    public int AyaCountInPage
+    {
+        get { return _ayaCountInPage; }
+        set
+        {
+            _ayaCountInPage = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private int _ayaFrom;
+
+    public int AyaFrom
+    {
+        get { return _ayaFrom; }
+        set
+        {
+            _ayaFrom = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private int _ayaTo;
+
+    public int AyaTo
+    {
+        get { return _ayaTo; }
+        set
+        {
+            _ayaTo = value;
+            OnPropertyChanged();
+        }
+    }
     #endregion
 
     public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
@@ -166,6 +204,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
     private MainPage mainPage = MainPage.Instance;
     private ShellPage shellPage = ShellPage.Instance;
+    private PrintHelper _printHelper;
     internal static QuranTabViewItem Instance { get; private set; }
 
     #region MediaPlayer
@@ -768,6 +807,110 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             case "Tafsir":
                 GoToTafsir();
                 break;
+        }
+    }
+    #region Print
+    public async void ShowPrintDialog()
+    {
+        printDialog.XamlRoot = this.XamlRoot;
+        AyaTo = quranListView.Items.Count;
+        txtAyaFrom.Maximum = quranListView.Items.Count;
+        txtAyaTo.Maximum = quranListView.Items.Count;
+        txtAyaFrom.Value = 1;
+        txtAyaCount.Value = 7;
+        if (await printDialog.ShowAsyncQueue() == ContentDialogResult.Primary)
+        {
+            Print();
+        }
+    }
+    private async void Print()
+    {
+        if (PrintManager.IsSupported())
+        {
+            _printHelper = new PrintHelper(Container);
+
+            _printHelper.OnPrintCanceled += PrintHelper_OnPrintCanceled;
+            _printHelper.OnPrintFailed += PrintHelper_OnPrintFailed;
+            _printHelper.OnPrintSucceeded += PrintHelper_OnPrintSucceeded;
+
+            for (int i = AyaFrom - 1; i < AyaTo; i = i + AyaCountInPage)
+            {
+                var grid = new Grid();
+                // Main content with layout from data template
+                var listView = new ListView();
+                listView.ItemTemplate = QuranItemTemplate;
+                listView.ItemsSource = quranListView.Items.Skip(i).Take(AyaCountInPage);
+                grid.Children.Add(listView);
+                listView.FlowDirection = FlowDirection.RightToLeft;
+                grid.FlowDirection = FlowDirection.RightToLeft;
+                _printHelper.AddFrameworkElementToPrint(grid);
+            }
+
+            var printHelperOptions = new PrintHelperOptions(false);
+            printHelperOptions.Orientation = PrintOrientation.Default;
+            printHelperOptions.AddDisplayOption(StandardPrintTaskOptions.Orientation);
+
+            await _printHelper.ShowPrintUIAsync(WindowHelper.GetWindowHandleForCurrentWindow(MainWindow.Instance), "AlAnvar", printHelperOptions);
+        }
+        else
+        {
+            // Printing is not supported on this device
+            ContentDialog noPrintingDialog = new ContentDialog()
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "عدم پشتیبانی از پرینت",
+                Content = "\nمتاسفانه دستگاه شما از پرینت پشتیبانی نمی کند",
+                PrimaryButtonText = "تایید"
+            };
+            await noPrintingDialog.ShowAsyncQueue();
+        }
+    }
+    private void ReleasePrintHelper()
+    {
+        _printHelper.Dispose();
+    }
+
+    private async void PrintHelper_OnPrintSucceeded()
+    {
+        ReleasePrintHelper();
+        ContentDialog noPrintingDialog = new ContentDialog()
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "پرینت موفقیت آمیز",
+            Content = "\nپرینت صفحات با موفقیت انجام شد",
+            PrimaryButtonText = "تایید"
+        };
+        await noPrintingDialog.ShowAsyncQueue();
+    }
+
+    private async void PrintHelper_OnPrintFailed()
+    {
+        ReleasePrintHelper();
+        ContentDialog noPrintingDialog = new ContentDialog()
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "خطای پرینت",
+            Content = "\nمتاسفانه پرینت با خطا مواجه شد",
+            PrimaryButtonText = "تایید"
+        };
+        await noPrintingDialog.ShowAsyncQueue();
+    }
+    private void PrintHelper_OnPrintCanceled()
+    {
+        ReleasePrintHelper();
+    }
+    #endregion
+
+    private void txtAyaTo_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+    {
+        if ((int)txtAyaTo.Value < (int)txtAyaCount.Value)
+        {
+            txtAyaCount.Value = (int)txtAyaTo.Value;
+        }
+
+        if ((int) txtAyaTo.Value < (int) txtAyaFrom.Value)
+        {
+            txtAyaFrom.Value = (int) txtAyaTo.Value;
         }
     }
 }
