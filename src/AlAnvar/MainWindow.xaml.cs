@@ -20,6 +20,11 @@ public sealed partial class MainWindow : Window
         Settings.TranslationsPath = Path.Combine(Settings.AppFolderPath, Constants.TranslationsFolderName);
         Settings.AudiosPath = Path.Combine(Settings.AppFolderPath, Constants.AudiosFolderName);
     }
+
+    public void SetMainGridFlowDirection(FlowDirection flowDirection)
+    {
+        mainGrid.FlowDirection = flowDirection;
+    }
     private async void MenuBarItem_Tapped(object sender, TappedRoutedEventArgs e)
     {
         if (sender is MenuFlyoutItem { Tag: string pageName })
@@ -47,7 +52,23 @@ public sealed partial class MainWindow : Window
                     await aboutContentDialog.ShowAsyncQueue();
                     break;
                 case "Print":
-                    QuranTabViewItem.Instance.ShowPrintDialog();
+                    if (MainPage.Instance is null || !ShellPage.Instance.GetFrameContentType().Equals(typeof(MainPage)))
+                        return;
+
+                    var tabItem = MainPage.Instance.GetTabViewItem();
+
+                    if (tabItem is null)
+                        return;
+
+                    if (tabItem.GetType() == typeof(QuranTabViewItem))
+                    {
+                        QuranTabViewItem.Instance.ShowPrintDialog();
+                    }
+                    else if (tabItem.GetType() == typeof(TafsirTabViewItem))
+                    {
+                        TafsirTabViewItem.Instance.Print();
+                    }
+
                     break;
                 case "Exit":
                     Application.Current.Exit();

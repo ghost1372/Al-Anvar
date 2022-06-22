@@ -1,4 +1,8 @@
-﻿namespace AlAnvar.UI.TabViewItems;
+﻿using Microsoft.UI.Xaml.Documents;
+using Windows.Graphics.Printing;
+using PrintHelper = AlAnvar.Common.PrintHelper;
+
+namespace AlAnvar.UI.TabViewItems;
 public sealed partial class TafsirTabViewItem : TabViewItem
 {
     private int SurahId = 1;
@@ -7,10 +11,14 @@ public sealed partial class TafsirTabViewItem : TabViewItem
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
     private List<Tafsir> TafsirCollection { get; set; } = new List<Tafsir>();
     private List<ChapterProperty> ChapterCollection { get; set; } = new List<ChapterProperty>();
+    private PrintHelper printHelper;
+
+    internal static TafsirTabViewItem Instance { get; set; }
 
     public TafsirTabViewItem()
     {
         this.InitializeComponent();
+        Instance = this;
         Loaded += TafsirTabViewItem_Loaded;
     }
 
@@ -71,7 +79,12 @@ public sealed partial class TafsirTabViewItem : TabViewItem
     private async void GetTafsirText()
     {
         TafsirCollection?.Clear();
-        var selectedTafsir = Settings.QuranTafsir ?? GetComboboxFirstElement<TafsirName>(cmbTafsir);
+        TafsirName selectedTafsir = null;
+        if (DispatcherQueue.HasThreadAccess)
+        {
+            selectedTafsir = Settings.QuranTafsir ?? GetComboboxFirstElement<TafsirName>(cmbTafsir);
+        }
+
         if (selectedTafsir is not null)
         {
             using var db = new AlAnvarDBContext();
@@ -172,4 +185,91 @@ public sealed partial class TafsirTabViewItem : TabViewItem
     {
         SetAyaOrTranslationText();
     }
+
+    #region Print
+
+    private void RegisterPrint()
+    {
+        printHelper = new PrintHelper(WindowHelper.GetWindowHandleForCurrentWindow(MainWindow.Instance), this,
+            "نرم افزار الانوار", "Print Tafsir");
+        printHelper.OnPrintSucceeded += PrintHelper_OnPrintSucceeded;
+        printHelper.OnPrintFailed += PrintHelper_OnPrintFailed;
+        printHelper.OnPrintCanceled += PrintHelper_OnPrintCanceled;
+        printHelper.RegisterForPrinting();
+    }
+
+    private void PrintHelper_OnPrintCanceled()
+    {
+        UnRegister();
+        MainWindow.Instance.SetMainGridFlowDirection(FlowDirection.RightToLeft);
+    }
+
+    private void UnRegister()
+    {
+        if (printHelper != null)
+        {
+            printHelper.UnregisterForPrinting();
+        }
+    }
+    public async void Print()
+    {
+        if (PrintManager.IsSupported())
+        {
+            MainWindow.Instance.SetMainGridFlowDirection(FlowDirection.LeftToRight);
+            RegisterPrint();
+            Paragraph paragraph = new Paragraph();
+            Run run = new Run();
+            txtTafsir.Document.GetText(Microsoft.UI.Text.TextGetOptions.None, out string tafsirContent);
+            run.Text = tafsirContent;
+            paragraph.Inlines.Add(run);
+            printHelper.PreparePrintContent(new PageToPrint("تفسیر",
+                new string[] { txtAya.Header?.ToString(), txtAya.Text, ((TafsirName) cmbTafsir.SelectedItem)?.Name },
+                "نرم افزار الانوار", paragraph));
+            await printHelper.ShowPrintUIAsync();
+        }
+        else
+        {
+            // Printing is not supported on this device
+            ContentDialog noPrintingDialog = new ContentDialog()
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "عدم پشتیبانی از پرینت",
+                Content = "\nمتاسفانه دستگاه شما از پرینت پشتیبانی نمی کند",
+                PrimaryButtonText = "تایید"
+            };
+            await noPrintingDialog.ShowAsyncQueue();
+        }
+    }
+
+    private async void PrintHelper_OnPrintFailed()
+    {
+        MainWindow.Instance.SetMainGridFlowDirection(FlowDirection.RightToLeft);
+
+        UnRegister();
+        ContentDialog noPrintingDialog = new ContentDialog()
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "خطای پرینت",
+            Content = "\nمتاسفانه پرینت با خطا مواجه شد",
+            PrimaryButtonText = "تایید"
+        };
+        await noPrintingDialog.ShowAsyncQueue();
+    }
+
+    private async void PrintHelper_OnPrintSucceeded()
+    {
+        MainWindow.Instance.SetMainGridFlowDirection(FlowDirection.RightToLeft);
+
+        UnRegister();
+        ContentDialog noPrintingDialog = new ContentDialog()
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "پرینت موفقیت آمیز",
+            Content = "\nپرینت صفحات با موفقیت انجام شد",
+            PrimaryButtonText = "تایید"
+        };
+        await noPrintingDialog.ShowAsyncQueue();
+    }
+    #endregion
+
 }

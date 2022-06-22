@@ -69,6 +69,10 @@ public sealed partial class MainPage : Page
         return tabView;
     }
 
+    public TabViewItem GetTabViewItem()
+    {
+        return (TabViewItem)tabView.SelectedItem;
+    }
     private void tabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var quranTabViewItem = tabView.SelectedItem as QuranTabViewItem;

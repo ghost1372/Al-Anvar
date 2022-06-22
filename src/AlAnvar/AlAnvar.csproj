@@ -26,6 +26,8 @@
     <None Remove="UI\Pages\SettingsPage.xaml" />
     <None Remove="UI\Pages\ShellPage.xaml" />
     <None Remove="UI\Pages\TranslationPage.xaml" />
+    <None Remove="UI\PrintPages\ContinuationPage.xaml" />
+    <None Remove="UI\PrintPages\PageToPrint.xaml" />
     <None Remove="UI\TabViewItems\QuranTabViewItem.xaml" />
     <None Remove="UI\TabViewItems\SingleTafsirTabViewItem.xaml" />
     <None Remove="UI\TabViewItems\TafsirTabViewItem.xaml" />
@@ -68,6 +70,14 @@
   <ItemGroup>
     <Page Update="UI\Pages\TranslationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="UI\PrintPages\PageToPrint.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\PrintPages\ContinuationPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

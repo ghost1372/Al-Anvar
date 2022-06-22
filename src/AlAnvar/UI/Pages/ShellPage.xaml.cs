@@ -21,6 +21,11 @@ public sealed partial class ShellPage : Page
         return shellFrame;
     }
 
+    public Type GetFrameContentType()
+    {
+        return shellFrame?.Content?.GetType();
+    }
+
     public void DeSelectListView()
     {
         rootListView.SelectedIndex = -1;
@@ -45,8 +50,7 @@ public sealed partial class ShellPage : Page
             DeSelectListView();
         }
 
-        var currentType = shellFrame?.Content?.GetType();
-        if (currentType != pageType)
+        if (GetFrameContentType() != pageType)
         {
             shellFrame.Navigate(pageType, null, transitionInfo);
         }
