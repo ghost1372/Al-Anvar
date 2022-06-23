@@ -68,6 +68,7 @@
             <NavigationViewItemSeparator Grid.ColumnSpan="2" Grid.Row="1" Margin="10,-50,10,0" HorizontalAlignment="Stretch"/>
 
             <CommandBar FlowDirection="LeftToRight" Margin="0,5,0,5" Grid.Row="1" IsOpen="False" DefaultLabelPosition="Right">
+                <AppBarButton Name="btnPrint" Tag="Print" Click="mnuToolbar_Click" Icon="Print" Label="چاپ"/>
                 <AppBarButton Name="btnGoToFontChange" Tag="GoToFont" Click="mnuToolbar_Click" Icon="FontColor" Label="تغییر فونت و رنگ متن"/>
                 <AppBarButton Icon="Add" Tag="AddNote" Click="mnuToolbar_Click" Label="افزودن یادداشت"/>
                 <AppBarButton Icon="Priority" Tag="Subject" Click="mnuToolbar_Click" Label="موضوع بندی آیات"/>
@@ -127,6 +128,7 @@
                         <MenuFlyoutItem x:Name="mnuSubject" Icon="Priority" Tag="Subject" Text="موضوع بندی آیات" Click="menuFlyout_Click"/>
                         <MenuFlyoutItem x:Name="mnuAddNote" Icon="Add" Tag="AddNote" Text="افزودن یادداشت" Click="menuFlyout_Click"/>
                         <MenuFlyoutItem x:Name="mnuTafsir" Icon="ContactInfo" Tag="Tafsir" Text="تفسیر" Click="menuFlyout_Click"/>
+                        <MenuFlyoutItem x:Name="mnuPrint" Icon="Print" Tag="Print" Text="چاپ" Click="menuFlyout_Click"/>
                         <MenuFlyoutSeparator/>
                         <MenuFlyoutSubItem Text="کپی" Icon="Copy">
                             <MenuFlyoutItem x:Name="mnuCopyTranslation" Icon="Copy" Tag="CopyTranslation" Text="ترجمه" Click="menuFlyout_Click"/>

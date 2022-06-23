@@ -68,6 +68,10 @@ public sealed partial class MainWindow : Window
                     {
                         TafsirTabViewItem.Instance.Print();
                     }
+                    else if (tabItem.GetType() == typeof(SingleTafsirTabViewItem))
+                    {
+                        SingleTafsirTabViewItem.Instance.Print();
+                    }
 
                     break;
                 case "Exit":

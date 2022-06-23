@@ -774,6 +774,10 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             case "Tafsir":
                 GoToTafsir();
                 break;
+
+            case "Print":
+                ShowPrintDialog();
+                break;
         }
     }
 
@@ -806,6 +810,9 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                 break;
             case "Tafsir":
                 GoToTafsir();
+                break;
+            case "Print":
+                ShowPrintDialog();
                 break;
         }
     }

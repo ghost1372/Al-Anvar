@@ -271,5 +271,4 @@ public sealed partial class TafsirTabViewItem : TabViewItem
         await noPrintingDialog.ShowAsyncQueue();
     }
     #endregion
-
 }

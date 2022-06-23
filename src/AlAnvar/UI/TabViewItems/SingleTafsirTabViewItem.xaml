@@ -35,6 +35,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <Canvas x:Name="PrintCanvas" Opacity="0"/>
             <RichEditBox x:Name="txtTafsir" FlowDirection="RightToLeft" TextAlignment="Left" Margin="10" Grid.Row="3" Grid.ColumnSpan="2"/>
         </Grid>
     </Border>
