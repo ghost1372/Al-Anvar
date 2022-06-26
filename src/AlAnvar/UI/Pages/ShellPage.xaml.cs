@@ -1,7 +1,11 @@
-﻿namespace AlAnvar.UI.Pages;
+﻿using System.Data;
+using static AlAnvar.Common.ExplorerItem;
+
+namespace AlAnvar.UI.Pages;
 
 public sealed partial class ShellPage : Page
 {
+    public List<ExplorerItem> Subjects = new List<ExplorerItem>();
     public ObservableCollection<ChapterProperty> Chapters { get; set; }
     public AdvancedCollectionView ChaptersACV;
 
@@ -26,18 +30,6 @@ public sealed partial class ShellPage : Page
         return shellFrame?.Content?.GetType();
     }
 
-    public void DeSelectListView()
-    {
-        rootListView.SelectedIndex = -1;
-    }
-    public bool IsListViewItemSelected()
-    {
-        return rootListView.SelectedIndex > -1;
-    }
-    public void SetListViewItem(ChapterProperty chapterProperty)
-    {
-        rootListView.SelectedItem = chapterProperty;
-    }
     public void Navigate(Type pageType, NavigationTransitionInfo transitionInfo = null, object parameter = null)
     {
         if (transitionInfo == null)
@@ -60,18 +52,36 @@ public sealed partial class ShellPage : Page
         await Task.Run(async () =>
         {
             using var db = new AlAnvarDBContext();
-
             Chapters = new(await db.Chapters.ToListAsync());
             currentSortDescription = new SortDescription("Id", SortDirection.Ascending);
+            GetSubjects();
             DispatcherQueue.TryEnqueue(() =>
             {
                 ChaptersACV = new AdvancedCollectionView(Chapters, true);
                 ChaptersACV.SortDescriptions.Add(currentSortDescription);
                 rootListView.ItemsSource = ChaptersACV;
                 suggestListForSurahSearch = ChaptersACV.Select(x => ((ChapterProperty) x).Name).ToList();
+                subjectTreeView.ItemsSource = Subjects;
             });
+
+
         });
         prgLoading.IsActive = false;
+
+    }
+
+    #region Quran TabViewItem
+    public void DeSelectListView()
+    {
+        rootListView.SelectedIndex = -1;
+    }
+    public bool IsListViewItemSelected()
+    {
+        return rootListView.SelectedIndex > -1;
+    }
+    public void SetListViewItem(ChapterProperty chapterProperty)
+    {
+        rootListView.SelectedItem = chapterProperty;
     }
 
     private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -141,4 +151,90 @@ public sealed partial class ShellPage : Page
             MainPage.Instance.AddNewSurahTab(selectedItem);
         }
     }
+    #endregion
+
+    #region Subject
+
+    private async void GetSubjects()
+    {
+        using var db = new AlAnvarDBContext();
+        var rootItems = await db.SubjectNames.Where(x=>x.ParentId == 0).ToListAsync();
+        var subjectNames = await db.SubjectNames.ToListAsync();
+        var subjects = await db.Subjects.ToListAsync();
+
+        foreach (var root in rootItems)
+        {
+            var explorerItem = new ExplorerItem
+            {
+                Name = root.Name,
+                Type = ExplorerItemType.Folder
+            };
+            
+            var subjectNameChilds = subjectNames.Where(x => x.ParentId == root.SubjectId);
+
+            if (subjectNameChilds.Any())
+            {
+                var childs = GetChilds(root, subjectNames, subjects, explorerItem);
+                explorerItem.Children = new ObservableCollection<ExplorerItem>(childs);
+            }
+            Subjects.Add(explorerItem);
+        }
+    }
+    public IEnumerable<ExplorerItem> GetChilds(SubjectName subjectName, List<SubjectName> subjectNameList, List<Subjects> subjectList, ExplorerItem parent)
+    {
+        var subjectNameChilds = subjectNameList.Where(x => x.ParentId == subjectName.SubjectId);
+
+        foreach (var child in subjectNameChilds)
+        {
+            var explorerItem = new ExplorerItem
+            {
+                Name = child.Name,
+                Parent = parent
+            };
+            if (child.Type == 0)
+            {
+                explorerItem.Type = ExplorerItemType.Folder;
+            }
+            else
+            {
+                var asdasd = subjectList.Where(x => x.SubjectId == child.SubjectId).Any();
+                if (asdasd)
+                {
+                    explorerItem.Type = ExplorerItemType.CheckMark;
+                }
+                else
+                {
+                    explorerItem.Type = ExplorerItemType.File;
+                }
+            }
+
+            var childs = subjectNameList.Where(x => x.ParentId == child.SubjectId);
+
+            if (childs.Any())
+            {
+                var chils = GetChilds(child, subjectNameList, subjectList, explorerItem);
+                explorerItem.Children = new ObservableCollection<ExplorerItem>(chils);
+                yield return explorerItem;
+            }
+            else
+            {
+                yield return explorerItem;
+            }
+        }
+    }
+
+    private void TreeViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+    {
+        //var treeViewItem = (sender as TreeViewItem).DataContext as ExplorerItem;
+        //var ayaId = Convert.ToInt32(treeViewItem.Name.Replace("آیه: ", ""));
+
+        //var parent = treeViewItem.Parent.Name;
+        //var surahId = Convert.ToInt32(parent.Substring(0, parent.IndexOf("-")));
+        //SurahId = surahId;
+        //AyaId = ayaId;
+
+        //SetAyaOrTranslationText();
+        //SetTafsirText();
+    }
+    #endregion
 }
