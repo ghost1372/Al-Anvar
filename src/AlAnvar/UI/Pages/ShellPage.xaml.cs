@@ -63,11 +63,9 @@ public sealed partial class ShellPage : Page
                 suggestListForSurahSearch = ChaptersACV.Select(x => ((ChapterProperty) x).Name).ToList();
                 subjectTreeView.ItemsSource = Subjects;
             });
-
-
         });
-        prgLoading.IsActive = false;
 
+        prgLoading.IsActive = false;
     }
 
     #region Quran TabViewItem
@@ -166,6 +164,7 @@ public sealed partial class ShellPage : Page
         {
             var explorerItem = new ExplorerItem
             {
+                Id = root.Id,
                 Name = root.Name,
                 Type = ExplorerItemType.Folder
             };
@@ -188,6 +187,7 @@ public sealed partial class ShellPage : Page
         {
             var explorerItem = new ExplorerItem
             {
+                Id = child.Id,
                 Name = child.Name,
                 Parent = parent
             };
@@ -225,16 +225,9 @@ public sealed partial class ShellPage : Page
 
     private void TreeViewItem_Tapped(object sender, TappedRoutedEventArgs e)
     {
-        //var treeViewItem = (sender as TreeViewItem).DataContext as ExplorerItem;
-        //var ayaId = Convert.ToInt32(treeViewItem.Name.Replace("آیه: ", ""));
-
-        //var parent = treeViewItem.Parent.Name;
-        //var surahId = Convert.ToInt32(parent.Substring(0, parent.IndexOf("-")));
-        //SurahId = surahId;
-        //AyaId = ayaId;
-
-        //SetAyaOrTranslationText();
-        //SetTafsirText();
+        var treeViewItem = (sender as TreeViewItem).DataContext as ExplorerItem;
+        Navigate(typeof(MainPage));
+        MainPage.Instance.AddNewSubjectTab(treeViewItem);
     }
     #endregion
 }

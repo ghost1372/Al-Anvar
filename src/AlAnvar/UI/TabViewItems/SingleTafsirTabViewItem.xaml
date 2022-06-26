@@ -10,7 +10,7 @@
     <TabViewItem.IconSource>
         <BitmapIconSource UriSource="/Assets/Images/tafsir.png" ShowAsMonochrome="False" />
     </TabViewItem.IconSource>
-    <Border Margin="10" Grid.Column="1" Style="{StaticResource BorderPanel}">
+    <Border Margin="10" Style="{StaticResource BorderPanel}">
         <Grid RowSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

@@ -1,6 +1,7 @@
 ﻿namespace AlAnvar.Common;
 public class ExplorerItem : Observable
 {
+    public long Id { get; set; }
     public enum ExplorerItemType { Folder, File, CheckMark };
     public string Name { get; set; }
     public ExplorerItem Parent { get; set; }

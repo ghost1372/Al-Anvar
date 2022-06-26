@@ -37,6 +37,7 @@
     <None Remove="UI\PrintPages\PageToPrint.xaml" />
     <None Remove="UI\TabViewItems\QuranTabViewItem.xaml" />
     <None Remove="UI\TabViewItems\SingleTafsirTabViewItem.xaml" />
+    <None Remove="UI\TabViewItems\SubjectTabViewItem.xaml" />
     <None Remove="UI\TabViewItems\TafsirTabViewItem.xaml" />
   </ItemGroup>
 
@@ -58,7 +59,7 @@
 	<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.1" />
 	<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
 	<PackageReference Include="NAudio" Version="2.1.0" />
-	<PackageReference Include="SettingsUI" Version="2.1.3" />
+	<PackageReference Include="SettingsUI" Version="2.1.4" />
 	<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.8" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -109,6 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Windows\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UI\TabViewItems\SubjectTabViewItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="UI\TabViewItems\SingleTafsirTabViewItem.xaml">

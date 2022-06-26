@@ -6,5 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <TabView Name="tabView" SelectionChanged="tabView_SelectionChanged" IsAddTabButtonVisible="False"/>
+    <TabView Name="tabView" SelectionChanged="tabView_SelectionChanged" TabWidthMode="SizeToContent" IsAddTabButtonVisible="False">
+        <TabView.TabStripHeader>
+            <Button Margin="5,0" Name="btnChangeTabViewWidthMode" Click="btnChangeTabViewWidthMode_Click">
+                <SymbolIcon Symbol="Orientation"/>
+            </Button>
+        </TabView.TabStripHeader>
+
+    </TabView>
 </Page>
