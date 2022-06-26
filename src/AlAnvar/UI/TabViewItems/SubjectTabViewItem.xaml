@@ -1,8 +1,10 @@
 ﻿<TabViewItem
+    Name="rootItem"
     x:Class="AlAnvar.UI.TabViewItems.SubjectTabViewItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AlAnvar.UI.TabViewItems"
+    xmlns:table="using:AlAnvar.Database.Tables"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -10,10 +12,63 @@
     <TabViewItem.IconSource>
         <BitmapIconSource UriSource="/Assets/Images/subject.png" ShowAsMonochrome="False" />
     </TabViewItem.IconSource>
-    
+    <TabViewItem.Resources>
+        <DataTemplate x:Name="QuranItemTemplate" x:DataType="table:QuranItem">
+            <RichTextBlock Margin="10" IsTextSelectionEnabled="False">
+                <Paragraph>
+                    <InlineUIContainer>
+                        <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsSurahTextAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatForeground}" Text="{x:Bind AyahText}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                        </TextBlock>
+                    </InlineUIContainer>
+
+                    <LineBreak/>
+
+                    <InlineUIContainer>
+                        <TextBlock TextWrapping="Wrap" Visibility="{Binding ElementName=rootItem, Path=DataContext.IsTranslationAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.TranslationFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.TranslationFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.TranslationForeground}" Text="{x:Bind TranslationText}"/>
+                                    <Run FontSize="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontSize}" FontFamily="{Binding ElementName=rootItem, Path=DataContext.AyatNumberFontFamily}" Foreground="{Binding ElementName=rootItem, Path=DataContext.AyatNumberForeground}" FontWeight="Bold" Text="{x:Bind AyaDetail}"/>
+                        </TextBlock>
+                    </InlineUIContainer>
+                </Paragraph>
+            </RichTextBlock>
+        </DataTemplate>
+    </TabViewItem.Resources>
     <Border Margin="10" Style="{StaticResource BorderPanel}">
         <Grid>
-            <RichEditBox x:Name="txtSubject" FlowDirection="RightToLeft" TextAlignment="Left" Margin="10"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Margin="10,10,10,20" Style="{ThemeResource GridPanel}" Translation="0, 0, 48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="10" Spacing="10">
+                    <CheckBox x:Name="chkOnlyAyaText" Checked="chkOnlyAyaText_Checked" Unchecked="chkOnlyAyaText_Checked" Content="عدم نمایش آیه"/>
+                    <CheckBox x:Name="chkOnlyTranslationText" Checked="chkOnlyTranslationText_Checked" Unchecked="chkOnlyTranslationText_Checked" Content="عدم نمایش ترجمه"/>
+                </StackPanel>
+
+                <TextBlock HorizontalAlignment="Left" Margin="10,15,10,0" Text="مترجم" Grid.Column="1"/>
+                <ComboBox x:Name="cmbTranslators" PlaceholderText="مترجم" Grid.Column="1" Margin="55,10,10,10" SelectionChanged="cmbTranslators_SelectionChanged" HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="table:QuranTranslation">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind Name}"/>
+                                <TextBlock Text="-"/>
+                                <TextBlock Text="{x:Bind Language}"/>
+                                <TextBlock Text="-"/>
+                                <TextBlock Text="{x:Bind Translator}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+            </Grid>
+            <ListView Name="quranListView" Grid.Row="1" Margin="10" ItemTemplate="{StaticResource QuranItemTemplate}" Style="{StaticResource myListView}"/>
+            <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
     </Border>
 </TabViewItem>
