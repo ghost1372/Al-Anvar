@@ -7,6 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:table="using:AlAnvar.Database.Tables"
     mc:Ignorable="d">
+    <TabViewItem.IconSource>
+        <BitmapIconSource UriSource="/Assets/Images/quran.png" ShowAsMonochrome="False" />
+    </TabViewItem.IconSource>
     <TabViewItem.Resources>
         <DataTemplate x:Name="QuranItemTemplate" x:DataType="table:QuranItem">
             <RichTextBlock Margin="10" IsTextSelectionEnabled="False">

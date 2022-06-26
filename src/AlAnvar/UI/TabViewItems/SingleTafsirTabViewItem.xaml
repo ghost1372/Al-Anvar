@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:table="using:AlAnvar.Database.Tables"
     mc:Ignorable="d">
-
+    <TabViewItem.IconSource>
+        <BitmapIconSource UriSource="/Assets/Images/tafsir.png" ShowAsMonochrome="False" />
+    </TabViewItem.IconSource>
     <Border Margin="10" Grid.Column="1" Style="{StaticResource BorderPanel}">
         <Grid RowSpacing="10">
             <Grid.ColumnDefinitions>

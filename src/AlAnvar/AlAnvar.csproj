@@ -18,9 +18,16 @@
     <Content Remove="Assets\Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\Images\check.png" />
     <None Remove="Assets\Images\file.png" />
+    <None Remove="Assets\Images\file2.png" />
     <None Remove="Assets\Images\folder.png" />
+    <None Remove="Assets\Images\folder2.png" />
+    <None Remove="Assets\Images\quran.png" />
+    <None Remove="Assets\Images\search.png" />
+    <None Remove="Assets\Images\subject.png" />
     <None Remove="Assets\Images\surah.png" />
+    <None Remove="Assets\Images\tafsir.png" />
     <None Remove="UI\Pages\MainPage.xaml" />
     <None Remove="UI\Pages\QariPage.xaml" />
     <None Remove="UI\Pages\SettingsPage.xaml" />

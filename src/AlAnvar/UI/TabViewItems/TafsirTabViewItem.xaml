@@ -8,6 +8,9 @@
     xmlns:table="using:AlAnvar.Database.Tables"
     Name="rootItem"
     mc:Ignorable="d">
+    <TabViewItem.IconSource>
+        <BitmapIconSource UriSource="/Assets/Images/tafsir.png" ShowAsMonochrome="False" />
+    </TabViewItem.IconSource>
     <TabViewItem.Resources>
         <DataTemplate x:Key="FolderTemplate" x:DataType="local:ExplorerItem">
             <TreeViewItem ItemsSource="{x:Bind Children}">
