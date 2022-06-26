@@ -67,7 +67,7 @@
                 </ComboBox>
 
             </Grid>
-            <ListView Name="quranListView" Grid.Row="1" Margin="10" ItemTemplate="{StaticResource QuranItemTemplate}" Style="{StaticResource myListView}"/>
+            <ListView Name="quranListView" Grid.Row="1" Margin="10,0,10,10" ItemTemplate="{StaticResource QuranItemTemplate}" Style="{StaticResource myListView}"/>
             <ProgressRing Name="prgLoading" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
     </Border>
