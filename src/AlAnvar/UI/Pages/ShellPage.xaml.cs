@@ -165,6 +165,7 @@ public sealed partial class ShellPage : Page
             var explorerItem = new ExplorerItem
             {
                 Id = root.Id,
+                SubjectId = root.SubjectId,
                 Name = root.Name,
                 Type = ExplorerItemType.Folder
             };
@@ -183,22 +184,23 @@ public sealed partial class ShellPage : Page
     {
         var subjectNameChilds = subjectNameList.Where(x => x.ParentId == subjectName.SubjectId);
 
-        foreach (var child in subjectNameChilds)
+        foreach (var root in subjectNameChilds)
         {
             var explorerItem = new ExplorerItem
             {
-                Id = child.Id,
-                Name = child.Name,
+                Id = root.Id,
+                SubjectId = root.SubjectId,
+                Name = root.Name,
                 Parent = parent
             };
-            if (child.Type == 0)
+            if (root.Type == 0)
             {
                 explorerItem.Type = ExplorerItemType.Folder;
             }
             else
             {
-                var asdasd = subjectList.Where(x => x.SubjectId == child.SubjectId).Any();
-                if (asdasd)
+                var child = subjectList.Where(x => x.SubjectId == root.SubjectId).Any();
+                if (child)
                 {
                     explorerItem.Type = ExplorerItemType.CheckMark;
                 }
@@ -208,11 +210,11 @@ public sealed partial class ShellPage : Page
                 }
             }
 
-            var childs = subjectNameList.Where(x => x.ParentId == child.SubjectId);
+            var childs = subjectNameList.Where(x => x.ParentId == root.SubjectId);
 
             if (childs.Any())
             {
-                var chils = GetChilds(child, subjectNameList, subjectList, explorerItem);
+                var chils = GetChilds(root, subjectNameList, subjectList, explorerItem);
                 explorerItem.Children = new ObservableCollection<ExplorerItem>(chils);
                 yield return explorerItem;
             }
@@ -226,6 +228,9 @@ public sealed partial class ShellPage : Page
     private void TreeViewItem_Tapped(object sender, TappedRoutedEventArgs e)
     {
         var treeViewItem = (sender as TreeViewItem).DataContext as ExplorerItem;
+        if (treeViewItem.Type == ExplorerItemType.File)
+            return;
+
         Navigate(typeof(MainPage));
         MainPage.Instance.AddNewSubjectTab(treeViewItem);
     }

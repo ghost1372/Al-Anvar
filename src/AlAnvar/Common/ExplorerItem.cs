@@ -2,6 +2,7 @@
 public class ExplorerItem : Observable
 {
     public long Id { get; set; }
+    public long SubjectId { get; set; }
     public enum ExplorerItemType { Folder, File, CheckMark };
     public string Name { get; set; }
     public ExplorerItem Parent { get; set; }

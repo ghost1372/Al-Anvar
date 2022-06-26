@@ -12,6 +12,8 @@
     </TabViewItem.IconSource>
     
     <Border Margin="10" Style="{StaticResource BorderPanel}">
-            
+        <Grid>
+            <RichEditBox x:Name="txtSubject" FlowDirection="RightToLeft" TextAlignment="Left" Margin="10"/>
+        </Grid>
     </Border>
 </TabViewItem>
