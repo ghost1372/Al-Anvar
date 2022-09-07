@@ -5,7 +5,7 @@ public class AlAnvarDBContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         //Todo: db path will be change
-        optionsBuilder.UseSqlite(@"Data Source=D:\Programming\Github\Al-Anvar.db");
+        optionsBuilder.UseSqlite(@"Data Source=D:\Programming\Github\AlAnvar\Al-Anvar.db");
     }
 
     public DbSet<ChapterProperty> Chapters { get; set; }

@@ -192,7 +192,7 @@ public sealed partial class QariPage : Page
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
-        downloadService.CancelAsync();
+        downloadService?.CancelAsync();
         btnDownload.IsEnabled = true;
         btnRefresh.IsEnabled = true;
         rootListView.IsEnabled = true;
