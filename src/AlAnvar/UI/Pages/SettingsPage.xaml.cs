@@ -64,11 +64,11 @@ public sealed partial class SettingsPage : Page
             cmbFonts.Items.Clear();
             if (chkSystemFonts.IsChecked.Value)
             {
-                var systemFonts = System.Drawing.FontFamily.Families;
-                foreach (var item in systemFonts)
-                {
-                    cmbFonts.Items.Add(item.Name);
-                }
+                //var systemFonts = System.Drawing.FontFamily.Families;
+                //foreach (var item in systemFonts)
+                //{
+                //    cmbFonts.Items.Add(item.Name);
+                //}
             }
             else
             {

@@ -10,7 +10,7 @@ public partial class App : Application
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
         m_window = new MainWindow();
-        ThemeHelper.Initialize(m_window, BackdropType.Mica);
+        ThemeHelper.Initialize(m_window, BackdropType.MicaAlt);
         m_window.Activate();
     }
 

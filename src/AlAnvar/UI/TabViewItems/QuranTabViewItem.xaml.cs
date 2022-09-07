@@ -1,6 +1,7 @@
 ﻿using Downloader;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics.Printing;
+using Windows.Media.Core;
 using PrintHelper = SettingsUI.Helpers.PrintHelper;
 using PrintHelperOptions = SettingsUI.Helpers.PrintHelperOptions;
 
@@ -208,15 +209,6 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     internal static QuranTabViewItem Instance { get; private set; }
 
     #region MediaPlayer
-    private enum PlaybackState
-    {
-        Playing, Stopped, Paused
-    }
-
-    private PlaybackState _playbackState;
-    DispatcherTimer timer = new DispatcherTimer();
-    private MediaPlayer mediaPlayer;
-
     List<AudioModel> audioList = new List<AudioModel>();
     private bool CanPlay = true;
     private DownloadService downloadService;
@@ -227,11 +219,9 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
         this.InitializeComponent();
         Instance = this;
         DataContext = this;
-        _playbackState = PlaybackState.Stopped;
-        timer.Interval = TimeSpan.FromSeconds(1);
-        timer.Tick += Timer_Tick;
         Loaded += QuranTabViewItem_Loaded;
         CloseRequested += QuranTabViewItem_CloseRequested;
+        mediaPlayerElement.MediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
     }
 
     private void QuranTabViewItem_CloseRequested(TabViewItem sender, TabViewTabCloseRequestedEventArgs args)
@@ -433,6 +423,10 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     {
         menuFlyout.ShowAt(quranListView, e.GetPosition(quranListView));
     }
+    public int GetListViewLastIndex()
+    {
+        return quranListView.Items.Count - 1;
+    }
     public QuranItem GetListViewSelectedItem()
     {
         return quranListView.SelectedItem as QuranItem;
@@ -449,10 +443,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             quranListView.SelectedIndex += 1;
         }
     }
-    public int GetListViewLastIndex()
-    {
-        return quranListView.Items.Count - 1;
-    }
+
     public int GetListViewSelectedIndex()
     {
         return quranListView.SelectedIndex;
@@ -496,50 +487,9 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
     #endregion
 
     #region MediaPlayer
-    public void SetSurahStatus(string status)
+    private void MediaPlayer_MediaEnded(Windows.Media.Playback.MediaPlayer sender, object args)
     {
-        txtStatus.Text = status;
-    }
-    public string GetLenghtTimeFormat()
-    {
-        if (mediaPlayer is not null)
-        {
-            TimeSpan time = TimeSpan.FromSeconds(mediaPlayer.GetLenghtInSeconds());
-            return time.ToString(@"hh\:mm\:ss");
-        }
-        return null;
-    }
-    public string GetPositionTimeFormat()
-    {
-        if (mediaPlayer is not null)
-        {
-            TimeSpan time = TimeSpan.FromSeconds(mediaPlayer.GetPositionInSeconds());
-            return time.ToString(@"hh\:mm\:ss");
-        }
-        return null;
-    }
-   
-    
-    private void Timer_Tick(object sender, object e)
-    {
-        UpdateSlider();
-    }
-
-    private void chkOnlyAyaText_Checked(object sender, RoutedEventArgs e)
-    {
-        IsSurahTextAvailable = !chkOnlyAyaText.IsChecked.Value;
-    }
-
-    #region MediaPlayer Events
-    private void MediaPlayer_PlaybackStopped()
-    {
-        _playbackState = PlaybackState.Stopped;
-        slider.Value = 0;
-        txtSoundStart.Text = "00:00:00";
-        txtSoundEnd.Text = "00:00:00";
-        btnStop.IsEnabled = false;
-        btnPlay.IsEnabled = true;
-        if (mediaPlayer.PlaybackStopType == MediaPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile)
+        DispatcherQueue.TryEnqueue(() =>
         {
             // Go To Play Next File
             if (!chkRepeat.IsChecked.Value)
@@ -555,77 +505,59 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             {
                 PlayQuran();
             }
-        }
-    }
 
-    private void MediaPlayer_PlaybackResumed()
+            var currentIndex = GetListViewSelectedIndex();
+            var lastIndex = GetListViewLastIndex();
+
+            if (currentIndex == lastIndex)
+            {
+                btnStop.IsEnabled = false;
+                btnPlay.IsEnabled = true;
+            }
+        });
+    }
+    public void SetSurahStatus(string status)
     {
-        _playbackState = PlaybackState.Playing;
-        timer.Start();
+        txtStatus.Text = status;
     }
-    private void MediaPlayer_PlaybackPaused()
+
+    private void chkOnlyAyaText_Checked(object sender, RoutedEventArgs e)
     {
-        _playbackState = PlaybackState.Paused;
-        timer.Stop();
+        IsSurahTextAvailable = !chkOnlyAyaText.IsChecked.Value;
     }
-    #endregion
-
-    #region Slider
-    private void slider_ManipulationStarted(object sender, Microsoft.UI.Xaml.Input.ManipulationStartedRoutedEventArgs e)
-    {
-        if (mediaPlayer != null)
-        {
-            mediaPlayer.Pause();
-
-            timer.Stop();
-        }
-    }
-
-    private void slider_ManipulationCompleted(object sender, Microsoft.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs e)
-    {
-        if (mediaPlayer != null)
-        {
-            timer.Start();
-
-            mediaPlayer.SetPosition(slider.Value);
-            mediaPlayer.Play(NAudio.Wave.PlaybackState.Paused, 1);
-        }
-    }
-
-    private void UpdateSlider()
-    {
-        if (_playbackState == PlaybackState.Playing)
-        {
-            slider.Value = mediaPlayer.GetPositionInSeconds();
-            txtSoundStart.Text = GetPositionTimeFormat();
-        }
-    }
-    #endregion
 
     #region Buttons
+    private void LoadMediaFromString(string path)
+    {
+        try
+        {
+            Uri pathUri = new Uri(path);
+            mediaPlayerElement.Source = MediaSource.CreateFromUri(pathUri);
+        }
+        catch (Exception ex)
+        {
+            if (ex is FormatException)
+            {
+                // handle exception.
+                // For example: Log error or notify user problem with file
+            }
+        }
+    }
     private void btnStop_Click(object sender, RoutedEventArgs e)
     {
-        if (mediaPlayer is not null)
+        mediaPlayerElement.Source = null;
+        if (downloadService is not null)
         {
-            timer.Stop();
-            mediaPlayer.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
-            mediaPlayer.Stop();
-            if (downloadService is not null)
-            {
-                downloadService.CancelAsync();
-            }
+            downloadService.CancelAsync();
         }
 
-        if (Temp.mediaPlayer_Temp is not null)
+        if (Temp.downloadService_Temp is not null)
         {
-            Temp.timer_Temp?.Stop();
-            Temp.mediaPlayer_Temp.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
-            Temp.mediaPlayer_Temp?.Stop();
-            if (Temp.downloadService_Temp is not null)
-            {
-                Temp.downloadService_Temp?.CancelAsync();
-            }
+            Temp.downloadService_Temp?.CancelAsync();
         }
+
+        btnPlay.IsEnabled = true;
+        btnStop.IsEnabled = false;
     }
     private void btnPrevious_Click(object sender, RoutedEventArgs e)
     {
@@ -705,31 +637,18 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
             }
         }
 
+        var currentIndex = GetListViewSelectedIndex();
+        var lastIndex = GetListViewLastIndex();
+
+        if (currentIndex == lastIndex)
+        {
+            CanPlay = false;
+        }
+
         btnStop.IsEnabled = true;
         btnPlay.IsEnabled = false;
-        if (_playbackState == PlaybackState.Stopped)
-        {
-            mediaPlayer = new MediaPlayer(ayaSound.FullPath, 1);
-            mediaPlayer.PlaybackPaused += MediaPlayer_PlaybackPaused;
-            mediaPlayer.PlaybackResumed += MediaPlayer_PlaybackResumed;
-            mediaPlayer.PlaybackStopped += MediaPlayer_PlaybackStopped;
-            mediaPlayer.PlaybackStopType = MediaPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
-            mediaPlayer.TogglePlayPause(1);
-            Temp.mediaPlayer_Temp = mediaPlayer;
-            Temp.timer_Temp = timer;
-            timer.Start();
-            txtSoundStart.Text = GetPositionTimeFormat();
-            txtSoundEnd.Text = GetLenghtTimeFormat();
-            slider.Maximum = mediaPlayer.GetLenghtInSeconds();
-
-            var currentIndex = GetListViewSelectedIndex();
-            var lastIndex = GetListViewLastIndex();
-
-            if (currentIndex == lastIndex)
-            {
-                CanPlay = false;
-            }
-        }
+        LoadMediaFromString(ayaSound.FullPath);
+        mediaPlayerElement.MediaPlayer.Play();
     }
     public void UpdateMediaPlayerButtons(int currentIndex, int lastIndex)
     {
@@ -816,6 +735,7 @@ public sealed partial class QuranTabViewItem : TabViewItem, INotifyPropertyChang
                 break;
         }
     }
+
     #region Print
     public async void ShowPrintDialog()
     {
