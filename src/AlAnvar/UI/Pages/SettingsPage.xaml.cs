@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.WinUI.UI.Controls;
+using Microsoft.UI.Xaml.Media;
 
 namespace AlAnvar.UI.Pages;
 
@@ -64,11 +65,11 @@ public sealed partial class SettingsPage : Page
             cmbFonts.Items.Clear();
             if (chkSystemFonts.IsChecked.Value)
             {
-                //var systemFonts = System.Drawing.FontFamily.Families;
-                //foreach (var item in systemFonts)
-                //{
-                //    cmbFonts.Items.Add(item.Name);
-                //}
+                var systemFonts = Microsoft.Graphics.Canvas.Text.CanvasTextFormat.GetSystemFontFamilies();
+                foreach (var item in systemFonts)
+                {
+                    cmbFonts.Items.Add(item);
+                }
             }
             else
             {
