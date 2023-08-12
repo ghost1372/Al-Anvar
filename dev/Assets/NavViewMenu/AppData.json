@@ -1,0 +1,56 @@
+﻿{
+  "Groups": [
+    {
+      "UniqueId": "AlAnvar",
+      "Title": "AlAnvar",
+      "ImagePath": "ms-appx:///Assets/Fluent/logo.png",
+      "ImageIconPath": "ms-appx:///Assets/Fluent/logo.png",
+      "ShowItemsWithoutGroup": true,
+      "IsExpanded": true,
+      "Items": [
+        {
+          "UniqueId": "AlAnvar.Views.HomeLandingPage",
+          "Title": "الانوار",
+          "Subtitle": "نرم افزار قرآنی الانوار",
+          "ImagePath": "ms-appx:///Assets/Fluent/logo.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/logo.png",
+          "IsNew": true,
+          "HideItem": true
+        },
+        {
+          "UniqueId": "AlAnvar.Views.QuranPage",
+          "Title": "قرآن",
+          "Subtitle": "متن قرآن به همراه ترجمه و صوت",
+          "ImagePath": "ms-appx:///Assets/Fluent/quran.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/quran.png",
+          "IsNew": true
+        },
+        {
+          "UniqueId": "AlAnvar.Views.QariPage",
+          "Title": "مدیریت قاری ها",
+          "Subtitle": "دانلود و حذف قاری های موجود",
+          "ImagePath": "ms-appx:///Assets/Fluent/sound.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/sound.png",
+          "IsNew": true
+        },
+        {
+          "UniqueId": "AlAnvar.Views.TranslationSettingPage",
+          "Title": "مدیریت ترجمه ها",
+          "Subtitle": "از بین ترجمه های موجود یکی را به دلخواه انتخاب کنید",
+          "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/subtitle.png",
+          "IsNew": true
+        },
+        {
+          "UniqueId": "AlAnvar.Views.TafsirPage",
+          "Title": "تفسیر قرآن",
+          "Subtitle": "تفسیر آیه به آیه و موضوعی قرآن",
+          "ImagePath": "ms-appx:///Assets/Fluent/tafsir.png",
+          "ImageIconPath": "ms-appx:///Assets/Fluent/tafsir.png",
+          "IsNew": true,
+          "IncludedInBuild": false
+        }
+      ]
+    }
+  ]
+}

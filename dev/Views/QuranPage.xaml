@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="AlAnvar.Views.QuranPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:tables="using:AlAnvar.Database.Tables"
+      FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+      mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:EventTriggerBehavior.Actions>
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}" />
+            </ic:EventTriggerBehavior.Actions>
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Navigation  -->
+
+        <StackPanel Margin="10"
+                    Spacing="10">
+            <ComboBox x:Name="cmbSort"
+                      HorizontalAlignment="Stretch"
+                      Header="مرتب سازی قران بر اساس"
+                      SelectedIndex="0">
+                <ComboBoxItem Content="مصحف" />
+                <ComboBoxItem Content="نزول" />
+                <ComboBoxItem Content="نام" />
+                <ComboBoxItem Content="بیشترین آیات" />
+                <ComboBoxItem Content="کمترین آیات" />
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="SelectionChanged">
+                        <ic:EventTriggerBehavior.Actions>
+                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.SortItemChangedCommand}"
+                                                    CommandParameter="{Binding ElementName=cmbSort}" />
+                        </ic:EventTriggerBehavior.Actions>
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </ComboBox>
+            <AutoSuggestBox x:Name="txtSearch"
+                            PlaceholderText="جستجو"
+                            TextChanged="txtSearch_TextChanged" />
+        </StackPanel>
+        <ListView x:Name="listview"
+                  Grid.Row="1"
+                  MinWidth="320"
+                  Margin="10,0"
+                  x:DefaultBindMode="OneWay"
+                  ItemsSource="{x:Bind ViewModel.ChaptersACV}"
+                  SelectedIndex="{x:Bind ViewModel.ListViewSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{x:Bind ViewModel.ListViewSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="tables:ChapterProperty">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="ms-appx:///Assets/Images/Surah.png" />
+                        <TextBlock Grid.Column="1"
+                                   Margin="10,0,20,0"
+                                   Text="{x:Bind Id}" />
+                        <TextBlock Grid.Column="2"
+                                   Margin="10,0,0,0"
+                                   Text="{x:Bind Name}" />
+                        <TextBlock Grid.Column="3"
+                                   Margin="10,0,0,0"
+                                   Text="{x:Bind Ayas}" />
+                        <TextBlock Grid.Column="4"
+                                   Text="{x:Bind Type}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Margin="10,0"
+                          HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1"
+                                   Margin="10,0,20,0"
+                                   Text="ردیف" />
+                        <TextBlock Grid.Column="2"
+                                   Text="نام" />
+                        <TextBlock Grid.Column="3"
+                                   Margin="10,0,0,0"
+                                   Text="آیات" />
+                        <TextBlock Grid.Column="4"
+                                   Margin="20,0,0,0"
+                                   Text="محل نزول" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
+                                                CommandParameter="{Binding ElementName=tabView}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ListView>
+
+        <ProgressRing Grid.Row="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+
+        <!--  Media Player  -->
+        <TabView x:Name="tabView"
+                 Grid.RowSpan="2"
+                 Grid.Column="1"
+                 Margin="10"
+                 IsAddTabButtonVisible="False"
+                 TabWidthMode="SizeToContent">
+            <TabView.TabStripHeader>
+                <Button Margin="5,0"
+                        Command="{x:Bind ViewModel.ChangeTabViewWidthModeCommand}"
+                        CommandParameter="{Binding ElementName=tabView}">
+                    <SymbolIcon Symbol="Orientation" />
+                </Button>
+            </TabView.TabStripHeader>
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.TabViewItemChangedCommand}"
+                                                CommandParameter="{Binding ElementName=tabView}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </TabView>
+
+        <!--  FOOTER  -->
+        <ScrollViewer Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      Padding="5"
+                      HorizontalScrollBarVisibility="Auto">
+            <StackPanel Padding="5"
+                        Background="{ThemeResource CardBackgroundFillColorDefault}"
+                        Orientation="Horizontal"
+                        Spacing="5">
+                <TextBlock MinWidth="200"
+                           Margin="10,0"
+                           VerticalAlignment="Center"
+                           Text="{x:Bind ViewModel.StatusText, Mode=OneWay}" />
+
+                <TextBlock VerticalAlignment="Center"
+                           Text="قاری" />
+                <ComboBox ItemsSource="{x:Bind ViewModel.QarisCollection, Mode=OneWay}"
+                          SelectedIndex="{x:Bind ViewModel.QariIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{x:Bind ViewModel.CurrentQari, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="tables:QuranAudio">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind PName}" />
+                                <TextBlock Text="-" />
+                                <TextBlock Text="{x:Bind Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="SelectionChanged">
+                            <ic:EventTriggerBehavior.Actions>
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.QariItemChangedCommand}" />
+                            </ic:EventTriggerBehavior.Actions>
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+                <TextBlock VerticalAlignment="Center"
+                           Text="مترجم" />
+                <ComboBox ItemsSource="{x:Bind ViewModel.TranslationsCollection, Mode=OneWay}"
+                          SelectedIndex="{x:Bind ViewModel.TranslationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{x:Bind ViewModel.CurrentTranslation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="tables:QuranTranslation">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind Name}" />
+                                <TextBlock Text="-" />
+                                <TextBlock Text="{x:Bind Language}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="SelectionChanged">
+                            <ic:EventTriggerBehavior.Actions>
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.TranslationItemChangedCommand}" />
+                            </ic:EventTriggerBehavior.Actions>
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+                <CheckBox Margin="5,0"
+                          Content="عدم نمایش آیه"
+                          IsChecked="{x:Bind ViewModel.IsOriginalTextActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Content="عدم نمایش ترجمه"
+                          IsChecked="{x:Bind ViewModel.IsTranslationActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

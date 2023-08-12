@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabViewItem x:Class="AlAnvar.Views.QuranTabViewItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:table="using:AlAnvar.Database.Tables"
+             xmlns:wuc="using:WinUICommunity"
+             x:Name="tabViewItem"
+             mc:Ignorable="d">
+    <TabViewItem.IconSource>
+        <BitmapIconSource ShowAsMonochrome="False"
+                          UriSource="Assets/Images/quran.png" />
+    </TabViewItem.IconSource>
+    <TabViewItem.Resources>
+        <DataTemplate x:Name="QuranItemTemplate"
+                      x:DataType="table:QuranItem">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Padding="5,10,5,5"
+                           FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatFontFamily}"
+                           FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatFontSize}"
+                           Foreground="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatForeground}"
+                           Text="{x:Bind AyahText}"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.IsOriginalTextActive, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <TextBlock Grid.Row="1"
+                           Padding="5,0,5,5"
+                           FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationFontFamily}"
+                           FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationFontSize}"
+                           Foreground="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationForeground}"
+                           Text="{x:Bind TranslationText}"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.IsTranslationActive, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <TextBlock Grid.RowSpan="2"
+                           Grid.Column="1"
+                           Padding="5,10,5,5"
+                           FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberFontFamily}"
+                           FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberFontSize}"
+                           FontWeight="Bold"
+                           Foreground="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberForeground}"
+                           Text="{x:Bind AyaDetail}" />
+            </Grid>
+        </DataTemplate>
+    </TabViewItem.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10"
+                    VerticalAlignment="Top">
+            <MediaPlayerElement x:Name="mediaPlayerElement"
+                                HorizontalAlignment="Stretch"
+                                AreTransportControlsEnabled="True"
+                                AutoPlay="False" />
+            <CommandBar HorizontalAlignment="Center"
+                        Background="Transparent"
+                        DefaultLabelPosition="Right"
+                        IsOpen="False">
+                <AppBarButton x:Name="btnNext"
+                              Click="AppBarButton_Click"
+                              Icon="Next"
+                              Label="بعدی"
+                              Tag="Next" />
+                <AppBarToggleButton x:Name="btnPlay"
+                                    Click="AppBarToggleButton_Click"
+                                    Icon="Play"
+                                    Label="پخش" />
+                <AppBarButton x:Name="btnPrev"
+                              Click="AppBarButton_Click"
+                              Icon="Previous"
+                              Label="قبلی"
+                              Tag="Previous" />
+
+            </CommandBar>
+        </StackPanel>
+
+        <ListView x:Name="quranListView"
+                  Grid.Row="1"
+                  Margin="10"
+                  ItemTemplate="{StaticResource QuranItemTemplate}"
+                  RightTapped="quranListView_RightTapped"
+                  SelectionChanged="quranListView_SelectionChanged">
+            <ListView.Resources>
+                <MenuFlyout x:Name="menuFlyout">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem x:Name="mnuPlay"
+                                        Click="menuFlyout_Click"
+                                        Icon="Volume"
+                                        Tag="Play"
+                                        Text="قرائت" />
+                        <MenuFlyoutSeparator />
+
+                        <MenuFlyoutItem x:Name="mnuAddNote"
+                                        Click="menuFlyout_Click"
+                                        Icon="Add"
+                                        IsEnabled="False"
+                                        Tag="AddNote"
+                                        Text="افزودن یادداشت" />
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutSubItem Icon="Copy"
+                                           Text="کپی">
+                            <MenuFlyoutItem x:Name="mnuCopyTranslation"
+                                            Click="menuFlyout_Click"
+                                            Icon="Copy"
+                                            Tag="CopyTranslation"
+                                            Text="ترجمه" />
+                            <MenuFlyoutItem x:Name="mnuCopyAya"
+                                            Click="menuFlyout_Click"
+                                            Icon="Copy"
+                                            Tag="CopyAya"
+                                            Text="آیه" />
+                        </MenuFlyoutSubItem>
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+        </ListView>
+        <ProgressRing x:Name="prgLoading"
+                      Grid.Row="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center" />
+
+    </Grid>
+</TabViewItem>
