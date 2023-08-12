@@ -34,9 +34,9 @@
           "IsNew": true
         },
         {
-          "UniqueId": "AlAnvar.Views.TranslationSettingPage",
+          "UniqueId": "AlAnvar.Views.TranslationPage",
           "Title": "مدیریت ترجمه ها",
-          "Subtitle": "از بین ترجمه های موجود یکی را به دلخواه انتخاب کنید",
+          "Subtitle": "دانلود و حذف ترجمه های موجود",
           "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/subtitle.png",
           "IsNew": true

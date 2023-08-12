@@ -109,7 +109,7 @@ public partial class QuranViewModel : ObservableRecipient
         await Task.Run(async () =>
         {
             using var db = new AlAnvarDBContext();
-            var data = await db.Translations.Where(x=>x.IsActive).ToListAsync();
+            var data = await db.Translations.Where(x => x.IsActive).ToListAsync();
             dispatcherQueue.TryEnqueue(() =>
             {
                 TranslationsCollection = new(data);

@@ -47,29 +47,19 @@
             </i:Interaction.Behaviors>
         </ListView>
 
-        <StackPanel Grid.Row="1"
+        <CommandBar Grid.Row="1"
                     Margin="10"
-                    HorizontalAlignment="Center">
-            <labs:Segmented x:Name="segmented"
-                            Margin="0,10"
-                            HorizontalAlignment="Stretch">
-                <labs:SegmentedItem Content="حذف قاری"
-                                    Icon="{wuc:SymbolIcon Symbol=Delete}"
-                                    IsEnabled="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
-                <labs:SegmentedItem Content="رفرش"
-                                    Icon="{wuc:SymbolIcon Symbol=Refresh}" />
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:EventTriggerBehavior.Actions>
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}"
-                                                    CommandParameter="{Binding ElementName=segmented}" />
-                        </ic:EventTriggerBehavior.Actions>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </labs:Segmented>
-            <InfoBar Title="وضعیت"
-                     IsOpen="True"
-                     Severity="Warning" />
-        </StackPanel>
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    DefaultLabelPosition="Right"
+                    IsOpen="False">
+            <AppBarButton Command="{x:Bind ViewModel.RemoveQariCommand}"
+                          Icon="Delete"
+                          IsEnabled="{x:Bind ViewModel.IsActive, Mode=OneWay}"
+                          Label="حذف قاری" />
+            <AppBarButton Command="{x:Bind ViewModel.RefreshCommand}"
+                          Icon="Refresh"
+                          Label="بروزرسانی" />
+        </CommandBar>
     </Grid>
 </Page>

@@ -45,19 +45,13 @@ public partial class App : Application
         });
         services.AddSingleton<IThemeService, ThemeService>();
 
-        services.AddTransient<HomeLandingPage>();
-        services.AddTransient<MainPage>();
-        services.AddTransient<QariPage>();
-        services.AddTransient<DownloadQariPage>();
-        services.AddTransient<OfflineQariPage>();
-        services.AddTransient<SettingsPage>();
-        services.AddTransient<QuranPage>();
-
         services.AddTransient<BreadCrumbBarViewModel>();
         services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<MainViewModel>();
         services.AddTransient<DownloadQariViewModel>();
         services.AddTransient<OfflineQariViewModel>();
+        services.AddTransient<DownloadTranslationViewModel>();
+        services.AddTransient<OfflineTranslationViewModel>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<QuranViewModel>();
 

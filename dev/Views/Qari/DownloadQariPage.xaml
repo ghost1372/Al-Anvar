@@ -56,25 +56,20 @@
                       IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
         <StackPanel Grid.Row="1"
                     Margin="10"
-                    HorizontalAlignment="Center">
-            <labs:Segmented x:Name="segmented"
-                            Margin="0,10"
-                            HorizontalAlignment="Stretch">
-                <labs:SegmentedItem Content="دانلود صوت انتخاب شده"
-                                    Icon="{wuc:SymbolIcon Symbol=Download}"
-                                    IsEnabled="{x:Bind ViewModel.IsDownloadActive, Mode=OneWay}" />
-                <labs:SegmentedItem Content="توقف دانلود"
-                                    Icon="{wuc:SymbolIcon Symbol=Cancel}"
-                                    IsEnabled="{x:Bind ViewModel.IsCancelActive, Mode=OneWay}" />
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:EventTriggerBehavior.Actions>
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.SegmentedItemChangedCommand}"
-                                                    CommandParameter="{Binding ElementName=segmented}" />
-                        </ic:EventTriggerBehavior.Actions>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </labs:Segmented>
+                    HorizontalAlignment="Stretch">
+            <CommandBar HorizontalAlignment="Center"
+                        Background="Transparent"
+                        DefaultLabelPosition="Right"
+                        IsOpen="False">
+                <AppBarButton Command="{x:Bind ViewModel.DownloadQariCommand}"
+                              Icon="Download"
+                              IsEnabled="{x:Bind ViewModel.IsDownloadActive, Mode=OneWay}"
+                              Label="دانلود صوت انتخاب شده" />
+                <AppBarButton Command="{x:Bind ViewModel.CancelDownlaodCommand}"
+                              Icon="Cancel"
+                              IsEnabled="{x:Bind ViewModel.IsCancelActive, Mode=OneWay}"
+                              Label="توقف دانلود" />
+            </CommandBar>
             <InfoBar Title="وضعیت"
                      HorizontalAlignment="Stretch"
                      IsOpen="True"

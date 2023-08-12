@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="AlAnvar.Views.OfflineTranslationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+      xmlns:table="using:AlAnvar.Database.Tables"
+      xmlns:wuc="using:WinUICommunity">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="listview"
+                  Margin="10,20,10,10"
+                  x:DefaultBindMode="OneWay"
+                  ItemsSource="{x:Bind ViewModel.QuranTranslationsACV}"
+                  SelectedItem="{x:Bind ViewModel.ListViewSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectionMode="Multiple">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="table:QuranTranslation">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Name}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{x:Bind Language}" />
+                        <TextBlock Grid.Column="2"
+                                   Text="{x:Bind Translator}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
+                                                CommandParameter="{Binding ElementName=listview}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ListView>
+        <CommandBar Grid.Row="1"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    DefaultLabelPosition="Right"
+                    IsOpen="False">
+            <AppBarButton Command="{x:Bind ViewModel.RemoveTranslationCommand}"
+                          Icon="Delete"
+                          IsEnabled="{x:Bind ViewModel.IsActive, Mode=OneWay}"
+                          Label="حذف ترجمه" />
+            <AppBarButton Command="{x:Bind ViewModel.RefreshCommand}"
+                          Icon="Refresh"
+                          Label="بروزرسانی" />
+        </CommandBar>
+    </Grid>
+</Page>

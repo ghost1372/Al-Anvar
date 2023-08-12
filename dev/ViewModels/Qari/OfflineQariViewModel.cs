@@ -33,19 +33,16 @@ public partial class OfflineQariViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private void OnSegmentedItemChanged(object sender)
+    private void OnRemoveQari()
     {
-        var segmented = sender as Segmented;
-        if (segmented.SelectedIndex == 0)
-        {
-            IsActive = false;
-            DeleteQari();
-        }
-        else
-        {
-            GetLocalAudios();
-        }
-        segmented.SelectedIndex = -1;
+        IsActive = false;
+        DeleteQari();
+    }
+
+    [RelayCommand]
+    private void OnRefresh()
+    {
+        GetLocalAudios();
     }
 
     [RelayCommand]

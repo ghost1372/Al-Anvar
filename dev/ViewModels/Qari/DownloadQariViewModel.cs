@@ -91,21 +91,19 @@ public partial class DownloadQariViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private void OnSegmentedItemChanged(object sender)
+    private void OnDownloadQari()
     {
-        var segmented = sender as Segmented;
-        if (segmented.SelectedIndex == 0)
-        {
-            IsDownloadActive = false;
-            IsCancelActive = true;
-            DownloadQariAsync();
-        }
-        else
-        {
-            IsDownloadActive = true;
-            IsCancelActive = false;
-            CancelDownload();
-        }
+        IsDownloadActive = false;
+        IsCancelActive = true;
+        DownloadQariAsync();
+    }
+
+    [RelayCommand]
+    private void OnCancelDownlaod()
+    {
+        IsDownloadActive = true;
+        IsCancelActive = false;
+        CancelDownload();
     }
 
     private void CancelDownload()
@@ -159,6 +157,11 @@ public partial class DownloadQariViewModel : ObservableRecipient
                     }
                 }
             }
+            else
+            {
+                IsDownloadActive = true;
+                IsCancelActive = false;
+            }
         }
         catch (Exception)
         {
@@ -168,7 +171,7 @@ public partial class DownloadQariViewModel : ObservableRecipient
     }
     private void Downloader_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
     {
-        DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
+        dispatcherQueue.TryEnqueue(() =>
         {
             _downloadedtItemCount += 1;
             ProgressValue2 += 1;
@@ -183,7 +186,7 @@ public partial class DownloadQariViewModel : ObservableRecipient
 
     private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
     {
-        DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
+        dispatcherQueue.TryEnqueue(() =>
         {
             ProgressValue = e.ProgressPercentage;
         });
