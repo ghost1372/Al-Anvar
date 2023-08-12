@@ -25,7 +25,7 @@ jobs:
       with:
         proj-path: ${{ env.PROJECT_PATH }}
         
-    - name: Build and Publish TvTime
+    - name: Build and Publish
       run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x64 -p:Platform=x64 --self-contained true -p:PublishSingleFile=false -p:PublishReadyToRun=true -p:PublishTrimmed=false --output publish
     
     - name: Zip Publish Folder
@@ -33,7 +33,7 @@ jobs:
       with:
         files: ${{ env.DIR_PATH }}
         recursive: true
-        dest: publish/TvTime-v${{steps.get-version.outputs.version-prefix}}.zip
+        dest: publish/App-v${{steps.get-version.outputs.version-prefix}}.zip
   
     - name: Create Github Release
       uses: actions/create-release@v1.1.4
@@ -49,7 +49,7 @@ jobs:
       uses: csexton/release-asset-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        file: publish/TvTime-v${{steps.get-version.outputs.version-prefix}}.zip
+        file: publish/App-v${{steps.get-version.outputs.version-prefix}}.zip
         release-url: ${{ steps.create_release.outputs.upload_url }}
         
   changelog:
