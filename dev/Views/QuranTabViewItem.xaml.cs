@@ -28,6 +28,8 @@ public sealed partial class QuranTabViewItem : TabViewItem
     public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
+    public QuranTranslation CurrentQuranTranslation { get; set; }
+    public QuranAudio CurrentQuranAudio { get; set; }
 
     #region MediaPlayer
     List<AudioModel> audioList = new List<AudioModel>();
@@ -36,7 +38,6 @@ public sealed partial class QuranTabViewItem : TabViewItem
     private AudioModel ayaSound;
     #endregion
 
-    public static QuranTabViewItem Instance { get; private set; }
     public QuranViewModel viewModel { get; set; }
 
     #endregion
@@ -44,7 +45,6 @@ public sealed partial class QuranTabViewItem : TabViewItem
     public QuranTabViewItem()
     {
         this.InitializeComponent();
-        Instance = this;
         DataContext = this;
         viewModel = QuranPage.Instance.ViewModel;
         mediaPlayerElement.TransportControls.IsCompact = true;

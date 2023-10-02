@@ -10,4 +10,19 @@ public sealed partial class QuranPage : Page
         this.InitializeComponent();
         Instance = this;
     }
+
+    public QuranTabViewItem GetTabViewItem()
+    {
+        return tabView.SelectedItem as QuranTabViewItem;
+    }
+
+    private void tabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var tabItem = tabView.SelectedItem as QuranTabViewItem;
+        CmbTranslation.SelectedItem = tabItem.CurrentQuranTranslation;
+        CmbTranslation.SelectedIndex = ViewModel.TranslationsCollection.IndexOf(tabItem.CurrentQuranTranslation);
+
+        CmbQari.SelectedItem = tabItem.CurrentQuranAudio;
+        CmbQari.SelectedIndex = ViewModel.QarisCollection.IndexOf(tabItem.CurrentQuranAudio);
+    }
 }

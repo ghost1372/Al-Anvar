@@ -128,6 +128,7 @@
                  Grid.Column="1"
                  Margin="10"
                  IsAddTabButtonVisible="False"
+                 SelectionChanged="tabView_SelectionChanged"
                  TabWidthMode="SizeToContent">
             <TabView.TabStripHeader>
                 <Button Margin="5,0"
@@ -162,7 +163,8 @@
 
                 <TextBlock VerticalAlignment="Center"
                            Text="قاری" />
-                <ComboBox ItemsSource="{x:Bind ViewModel.QarisCollection, Mode=OneWay}"
+                <ComboBox x:Name="CmbQari"
+                          ItemsSource="{x:Bind ViewModel.QarisCollection, Mode=OneWay}"
                           SelectedIndex="{x:Bind ViewModel.QariIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{x:Bind ViewModel.CurrentQari, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ComboBox.ItemTemplate>
@@ -184,7 +186,8 @@
                 </ComboBox>
                 <TextBlock VerticalAlignment="Center"
                            Text="مترجم" />
-                <ComboBox ItemsSource="{x:Bind ViewModel.TranslationsCollection, Mode=OneWay}"
+                <ComboBox x:Name="CmbTranslation"
+                          ItemsSource="{x:Bind ViewModel.TranslationsCollection, Mode=OneWay}"
                           SelectedIndex="{x:Bind ViewModel.TranslationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{x:Bind ViewModel.CurrentTranslation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ComboBox.ItemTemplate>
