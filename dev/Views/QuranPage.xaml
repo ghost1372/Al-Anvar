@@ -147,10 +147,10 @@
         </TabView>
 
         <!--  FOOTER  -->
-        <ScrollViewer Grid.Row="2"
-                      Grid.ColumnSpan="2"
-                      Padding="5"
-                      HorizontalScrollBarVisibility="Auto">
+        <ScrollView Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Padding="5"
+                    HorizontalScrollBarVisibility="Auto">
             <StackPanel Padding="5"
                         Background="{ThemeResource CardBackgroundFillColorDefault}"
                         Orientation="Horizontal"
@@ -210,6 +210,6 @@
                 <CheckBox Content="عدم نمایش ترجمه"
                           IsChecked="{x:Bind ViewModel.IsTranslationActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-        </ScrollViewer>
+        </ScrollView>
     </Grid>
 </Page>

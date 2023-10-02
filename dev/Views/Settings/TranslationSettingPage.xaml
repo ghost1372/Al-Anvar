@@ -11,7 +11,7 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
 
-    <ScrollViewer>
+    <ScrollView>
         <Grid Margin="10"
               ChildrenTransitions="{StaticResource SettingsCardsAnimations}">
             <Grid.RowDefinitions>
@@ -54,5 +54,5 @@
                           VerticalAlignment="Center"
                           IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
         </Grid>
-    </ScrollViewer>
+    </ScrollView>
 </Page>

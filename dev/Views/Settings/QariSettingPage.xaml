@@ -11,7 +11,7 @@
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
 
-    <ScrollViewer>
+    <ScrollView>
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
@@ -65,5 +65,5 @@
                         Content="انتخاب پوشه" />
             </wuc:SettingsCard>
         </StackPanel>
-    </ScrollViewer>
+    </ScrollView>
 </Page>
