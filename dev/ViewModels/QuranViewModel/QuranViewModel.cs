@@ -2,7 +2,7 @@
 
 namespace AlAnvar.ViewModels;
 
-public partial class QuranViewModel : ObservableRecipient
+public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestBoxAware
 {
     public QuranViewModel()
     {
@@ -124,30 +124,26 @@ public partial class QuranViewModel : ObservableRecipient
         IsActive = false;
     }
 
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    public void Search(AutoSuggestBox sender)
     {
         if (ChaptersACV != null)
         {
-            AutoSuggestBoxHelper.LoadSuggestions(sender, args, suggestListForSurahSearch, "نتیجه ای یافت نشد");
             ChaptersACV.Filter = _ => true;
-            ChaptersACV.Filter = ChapterFilter;
+            ChaptersACV.Filter = chapter =>
+            {
+                var query = chapter as ChapterProperty;
+
+                var name = query.Name ?? "";
+                var tName = query.TName ?? "";
+                var type = query.Type ?? "";
+                var aya = query.Ayas.ToString() ?? "";
+
+                return name.Contains(sender.Text, StringComparison.OrdinalIgnoreCase)
+                        || tName.Contains(sender.Text, StringComparison.OrdinalIgnoreCase)
+                        || aya.Contains(sender.Text, StringComparison.OrdinalIgnoreCase)
+                        || type.Contains(sender.Text, StringComparison.OrdinalIgnoreCase);
+            };
         }
-    }
-
-    private bool ChapterFilter(object chapter)
-    {
-        var query = chapter as ChapterProperty;
-
-        var name = query.Name ?? "";
-        var tName = query.TName ?? "";
-        var type = query.Type ?? "";
-        var aya = query.Ayas.ToString() ?? "";
-        var txtSearch = QuranPage.Instance.GetTxtSearch();
-
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-                || tName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-                || aya.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-                || type.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
     private void AddNewSurahTab(TabView tabView, ChapterProperty chapterProperty)
@@ -172,5 +168,15 @@ public partial class QuranViewModel : ObservableRecipient
     {
         tabview.TabItems.Remove(sender);
         ListViewSelectedIndex = -1;
+    }
+
+    public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        Search(sender);
+    }
+
+    public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        Search(sender);
     }
 }

@@ -27,7 +27,8 @@
                                 FlowDirection="RightToLeft"
                                 PlaceholderText="جستجو"
                                 QueryIcon="Find"
-                                TextChanged="TxtSearch_TextChanged" />
+                                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                                TextChanged="AutoSuggestBox_TextChanged" />
             </wuc:TitleBar.Content>
             <wuc:TitleBar.Footer>
                 <Button x:Name="ThemeButton"

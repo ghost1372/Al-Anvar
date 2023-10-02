@@ -10,14 +10,4 @@ public sealed partial class QuranPage : Page
         this.InitializeComponent();
         Instance = this;
     }
-
-    public AutoSuggestBox GetTxtSearch()
-    {
-        return txtSearch;
-    }
-
-    private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        ViewModel.Search(sender, args);
-    }
 }

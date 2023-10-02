@@ -33,29 +33,53 @@ public sealed partial class MainPage : Page
         settings.Content = "تنظیمات";
     }
 
-    private void TxtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    private void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs textChangedEventArgs, AutoSuggestBoxQuerySubmittedEventArgs querySubmittedEventArgs)
     {
         var rootFrame = ViewModel.JsonNavigationViewService.Frame;
         dynamic root = rootFrame.Content;
         dynamic viewModel = null;
-        TxtSearch.ItemsSource = null;
         if (root is QariPage)
         {
-            var frameContent = QariPage.Instance.GetFrame().Content;
-            if (frameContent is DownloadQariPage)
+            viewModel = QariPage.Instance.GetFrame().GetPageViewModel();
+        }
+        else if (root is TranslationPage)
+        {
+            viewModel = TranslationPage.Instance.GetFrame().GetPageViewModel();
+        }
+
+        if (viewModel != null && viewModel is ITitleBarAutoSuggestBoxAware)
+        {
+            var titleBarAutoSuggestBoxAware = viewModel as ITitleBarAutoSuggestBoxAware;
+            if (textChangedEventArgs != null)
             {
-                viewModel = DownloadQariPage.Instance.ViewModel;
+                titleBarAutoSuggestBoxAware.OnAutoSuggestBoxTextChanged(sender, textChangedEventArgs);
+            }
+            else
+            {
+                titleBarAutoSuggestBoxAware.OnAutoSuggestBoxQuerySubmitted(sender, querySubmittedEventArgs);
             }
         }
-        if (viewModel != null)
+    }
+    private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        var viewModel = NavFrame.GetPageViewModel();
+        if (viewModel != null && viewModel is ITitleBarAutoSuggestBoxAware titleBarAutoSuggestBoxAware)
         {
-            viewModel.Search(sender, args);
+            titleBarAutoSuggestBoxAware.OnAutoSuggestBoxTextChanged(sender, args);
         }
+
+        Search(sender, args, null);
     }
 
-    public AutoSuggestBox GetTxtSearch()
+    private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        return TxtSearch;
+        var viewModel = NavFrame.GetPageViewModel();
+        if (viewModel != null && viewModel is ITitleBarAutoSuggestBoxAware titleBarAutoSuggestBoxAware)
+        {
+            titleBarAutoSuggestBoxAware.OnAutoSuggestBoxQuerySubmitted(sender, args);
+        }
+
+        Search(sender, null, args);
     }
 
     private void appTitleBar_BackButtonClick(object sender, RoutedEventArgs e)

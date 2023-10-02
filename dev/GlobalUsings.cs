@@ -6,7 +6,7 @@ global using AlAnvar.Database.Tables;
 global using AlAnvar.ViewModels;
 global using AlAnvar.Views;
 
-global using CommunityToolkit.Labs.WinUI;
+global using CommunityToolkit.WinUI.Controls;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.WinUI.Helpers;

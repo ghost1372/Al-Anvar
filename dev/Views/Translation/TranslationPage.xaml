@@ -2,8 +2,8 @@
 <Page x:Class="AlAnvar.Views.TranslationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:labs="using:CommunityToolkit.Labs.WinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
@@ -12,13 +12,13 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <labs:Segmented x:Name="segmented"
-                        Margin="10"
-                        HorizontalAlignment="Center"
-                        SelectionChanged="{x:Bind OnSegmentedChanged}">
-            <labs:SegmentedItem Content="دانلود ترجمه" />
-            <labs:SegmentedItem Content="ترجمه های موجود" />
-        </labs:Segmented>
+        <community:Segmented x:Name="segmented"
+                             Margin="10"
+                             HorizontalAlignment="Center"
+                             SelectionChanged="{x:Bind OnSegmentedChanged}">
+            <community:SegmentedItem Content="دانلود ترجمه" />
+            <community:SegmentedItem Content="ترجمه های موجود" />
+        </community:Segmented>
         <Frame x:Name="translationFrame"
                Grid.Row="1" />
     </Grid>

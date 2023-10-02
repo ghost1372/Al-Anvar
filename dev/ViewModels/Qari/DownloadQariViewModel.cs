@@ -5,7 +5,7 @@ using Downloader;
 using Newtonsoft.Json;
 
 namespace AlAnvar.ViewModels;
-public partial class DownloadQariViewModel : ObservableRecipient
+public partial class DownloadQariViewModel : ObservableRecipient, ITitleBarAutoSuggestBoxAware
 {
     private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -62,26 +62,22 @@ public partial class DownloadQariViewModel : ObservableRecipient
         IsDownloadActive = true;
     }
 
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    public void Search(AutoSuggestBox sender)
     {
         if (QuranAudiosACV != null)
         {
-            AutoSuggestBoxHelper.LoadSuggestions(sender, args, autoSuggestBoxSuggestList);
             QuranAudiosACV.Filter = _ => true;
-            QuranAudiosACV.Filter = AudiosFilter;
+            QuranAudiosACV.Filter = audio =>
+            {
+                var query = audio as QuranAudio;
+
+                var name = query.Name ?? "";
+                var pName = query.PName ?? "";
+
+                return name.Contains(sender.Text, StringComparison.OrdinalIgnoreCase)
+                    || pName.Contains(sender.Text, StringComparison.OrdinalIgnoreCase);
+            };
         }
-    }
-
-    private bool AudiosFilter(object audio)
-    {
-        var query = audio as QuranAudio;
-
-        var name = query.Name ?? "";
-        var pName = query.PName ?? "";
-
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || pName.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
     [RelayCommand]
@@ -209,6 +205,7 @@ public partial class DownloadQariViewModel : ObservableRecipient
         }
         return quranAudioIds;
     }
+
     private async Task<string> GetAudioPageSourceAsync(string qariUrl, string dirName)
     {
         using HttpClient client = new HttpClient();
@@ -234,5 +231,15 @@ public partial class DownloadQariViewModel : ObservableRecipient
         }
 
         return filePath;
+    }
+
+    public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        Search(sender);
+    }
+
+    public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        Search(sender);
     }
 }

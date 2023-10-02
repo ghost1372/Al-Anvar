@@ -29,30 +29,25 @@
 
         <!--  Navigation  -->
 
-        <StackPanel Margin="10"
-                    Spacing="10">
-            <ComboBox x:Name="cmbSort"
-                      HorizontalAlignment="Stretch"
-                      Header="مرتب سازی قران بر اساس"
-                      SelectedIndex="0">
-                <ComboBoxItem Content="مصحف" />
-                <ComboBoxItem Content="نزول" />
-                <ComboBoxItem Content="نام" />
-                <ComboBoxItem Content="بیشترین آیات" />
-                <ComboBoxItem Content="کمترین آیات" />
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="SelectionChanged">
-                        <ic:EventTriggerBehavior.Actions>
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.SortItemChangedCommand}"
-                                                    CommandParameter="{Binding ElementName=cmbSort}" />
-                        </ic:EventTriggerBehavior.Actions>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </ComboBox>
-            <AutoSuggestBox x:Name="txtSearch"
-                            PlaceholderText="جستجو"
-                            TextChanged="txtSearch_TextChanged" />
-        </StackPanel>
+        <ComboBox x:Name="cmbSort"
+                  Margin="10"
+                  HorizontalAlignment="Stretch"
+                  Header="مرتب سازی قران بر اساس"
+                  SelectedIndex="0">
+            <ComboBoxItem Content="مصحف" />
+            <ComboBoxItem Content="نزول" />
+            <ComboBoxItem Content="نام" />
+            <ComboBoxItem Content="بیشترین آیات" />
+            <ComboBoxItem Content="کمترین آیات" />
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:EventTriggerBehavior.Actions>
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SortItemChangedCommand}"
+                                                CommandParameter="{Binding ElementName=cmbSort}" />
+                    </ic:EventTriggerBehavior.Actions>
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ComboBox>
         <ListView x:Name="listview"
                   Grid.Row="1"
                   MinWidth="320"

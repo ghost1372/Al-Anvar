@@ -6,7 +6,7 @@ using System.Text.Unicode;
 using Downloader;
 
 namespace AlAnvar.ViewModels;
-public partial class DownloadTranslationViewModel : ObservableRecipient
+public partial class DownloadTranslationViewModel : ObservableRecipient, ITitleBarAutoSuggestBoxAware
 {
     private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -49,27 +49,24 @@ public partial class DownloadTranslationViewModel : ObservableRecipient
         IsDownloadActive = true;
     }
 
-    public void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    public void Search(AutoSuggestBox sender)
     {
         if (QuranTranslationsACV != null)
         {
             QuranTranslationsACV.Filter = _ => true;
-            QuranTranslationsACV.Filter = TranslationFilter;
+            QuranTranslationsACV.Filter = translation =>
+            {
+                var query = translation as QuranTranslation;
+
+                var name = query.Name ?? "";
+                var language = query.Language ?? "";
+                var translator = query.Translator ?? "";
+
+                return name.Contains(sender.Text, StringComparison.OrdinalIgnoreCase)
+                    || language.Contains(sender.Text, StringComparison.OrdinalIgnoreCase)
+                    || translator.Contains(sender.Text, StringComparison.OrdinalIgnoreCase);
+            };
         }
-    }
-
-    private bool TranslationFilter(object translation)
-    {
-        var query = translation as QuranTranslation;
-
-        var name = query.Name ?? "";
-        var language = query.Language ?? "";
-        var translator = query.Translator ?? "";
-
-        var txtSearch = MainPage.Instance.GetTxtSearch();
-        return name.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || language.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase)
-            || translator.Contains(txtSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
     [RelayCommand]
@@ -216,5 +213,15 @@ public partial class DownloadTranslationViewModel : ObservableRecipient
         {
             ProgressValue = e.ProgressPercentage;
         });
+    }
+
+    public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        Search(sender);
+    }
+
+    public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        Search(sender);
     }
 }
