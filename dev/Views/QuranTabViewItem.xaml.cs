@@ -30,6 +30,8 @@ public sealed partial class QuranTabViewItem : TabViewItem
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
     public QuranTranslation CurrentQuranTranslation { get; set; }
     public QuranAudio CurrentQuranAudio { get; set; }
+    public bool CurrentShowTranslation { get; set; } = true;
+    public bool CurrentShowAya { get; set; } = true;
 
     #region MediaPlayer
     List<AudioModel> audioList = new List<AudioModel>();
@@ -502,5 +504,30 @@ public sealed partial class QuranTabViewItem : TabViewItem
     {
         Play,
         Stop
+    }
+
+    private void OnAppBarToggleButtonChanged(object sender, RoutedEventArgs e)
+    {
+        var command = sender as AppBarToggleButton;
+        switch (command?.Tag?.ToString())
+        {
+            case "Translation":
+                viewModel.IsTranslationActive = command.IsChecked.Value;
+                CurrentShowTranslation = command.IsChecked.Value;
+                break;
+
+            case "Aya":
+                viewModel.IsOriginalTextActive = command.IsChecked.Value;
+                CurrentShowAya = command.IsChecked.Value;
+                break;
+        }
+    }
+
+    public void SetAppBarToggleButtonValue()
+    {
+        btnShowTranslation.IsChecked = CurrentShowTranslation;
+        btnShowAya.IsChecked = CurrentShowAya;
+        OnAppBarToggleButtonChanged(btnShowAya, null);
+        OnAppBarToggleButtonChanged(btnShowTranslation, null);
     }
 }

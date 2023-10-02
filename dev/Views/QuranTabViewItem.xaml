@@ -60,26 +60,43 @@
                                 HorizontalAlignment="Stretch"
                                 AreTransportControlsEnabled="True"
                                 AutoPlay="False" />
-            <CommandBar HorizontalAlignment="Center"
-                        Background="Transparent"
-                        DefaultLabelPosition="Right"
-                        IsOpen="False">
-                <AppBarButton x:Name="btnNext"
-                              Click="AppBarButton_Click"
-                              Icon="Next"
-                              Label="بعدی"
-                              Tag="Next" />
-                <AppBarToggleButton x:Name="btnPlay"
-                                    Click="AppBarToggleButton_Click"
-                                    Icon="Play"
-                                    Label="پخش" />
-                <AppBarButton x:Name="btnPrev"
-                              Click="AppBarButton_Click"
-                              Icon="Previous"
-                              Label="قبلی"
-                              Tag="Previous" />
+            <Border Style="{ThemeResource InfoBorderPanelStyle}">
+                <CommandBar HorizontalAlignment="Center"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            IsOpen="False">
+                    <AppBarToggleButton x:Name="btnShowTranslation"
+                                        Checked="OnAppBarToggleButtonChanged"
+                                        Icon="Caption"
+                                        IsChecked="True"
+                                        Label="نمایش ترجمه"
+                                        Tag="Translation"
+                                        Unchecked="OnAppBarToggleButtonChanged" />
+                    <AppBarToggleButton x:Name="btnShowAya"
+                                        Checked="OnAppBarToggleButtonChanged"
+                                        Icon="Caption"
+                                        IsChecked="True"
+                                        Label="نمایش آیه"
+                                        Tag="Aya"
+                                        Unchecked="OnAppBarToggleButtonChanged" />
+                    <AppBarSeparator />
+                    <AppBarButton x:Name="btnNext"
+                                  Click="AppBarButton_Click"
+                                  Icon="Next"
+                                  Label="بعدی"
+                                  Tag="Next" />
+                    <AppBarToggleButton x:Name="btnPlay"
+                                        Click="AppBarToggleButton_Click"
+                                        Icon="Play"
+                                        Label="پخش" />
+                    <AppBarButton x:Name="btnPrev"
+                                  Click="AppBarButton_Click"
+                                  Icon="Previous"
+                                  Label="قبلی"
+                                  Tag="Previous" />
+                </CommandBar>
+            </Border>
 
-            </CommandBar>
         </StackPanel>
 
         <ListView x:Name="quranListView"

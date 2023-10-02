@@ -126,7 +126,7 @@
         <TabView x:Name="tabView"
                  Grid.RowSpan="2"
                  Grid.Column="1"
-                 Margin="10"
+                 Margin="10,10,10,0"
                  IsAddTabButtonVisible="False"
                  SelectionChanged="tabView_SelectionChanged"
                  TabWidthMode="SizeToContent">
@@ -148,13 +148,12 @@
         </TabView>
 
         <!--  FOOTER  -->
-        <ScrollView Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    Padding="5"
-                    HorizontalScrollBarVisibility="Auto">
-            <StackPanel Padding="5"
-                        Background="{ThemeResource CardBackgroundFillColorDefault}"
-                        Orientation="Horizontal"
+        <Border Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Margin="5,0,5,5"
+                Padding="5"
+                Style="{ThemeResource WarningBorderPanelStyle}">
+            <StackPanel Orientation="Horizontal"
                         Spacing="5">
                 <TextBlock MinWidth="200"
                            Margin="10,0"
@@ -207,12 +206,7 @@
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </ComboBox>
-                <CheckBox Margin="5,0"
-                          Content="عدم نمایش آیه"
-                          IsChecked="{x:Bind ViewModel.IsOriginalTextActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <CheckBox Content="عدم نمایش ترجمه"
-                          IsChecked="{x:Bind ViewModel.IsTranslationActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-        </ScrollView>
+        </Border>
     </Grid>
 </Page>

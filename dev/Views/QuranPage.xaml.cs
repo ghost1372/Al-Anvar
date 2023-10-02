@@ -24,5 +24,6 @@ public sealed partial class QuranPage : Page
 
         CmbQari.SelectedItem = tabItem.CurrentQuranAudio;
         CmbQari.SelectedIndex = ViewModel.QarisCollection.IndexOf(tabItem.CurrentQuranAudio);
+        tabItem.SetAppBarToggleButtonValue();
     }
 }
