@@ -90,9 +90,8 @@ public partial class App : Application
 
         rootFrame.Navigate(typeof(MainPage));
 
-        currentWindow.Title = currentWindow.AppWindow.Title = $"TvTime v{AlAnvarVersion}";
-        currentWindow.AppWindow.SetIcon("Assets/Fluent/icon.ico");
-
+        currentWindow.Title = currentWindow.AppWindow.Title = $"AlAnvar v{AlAnvarVersion}";
+        currentWindow.AppWindow.SetIcon("Assets/icon.ico");
         currentWindow.Activate();
     }
 }

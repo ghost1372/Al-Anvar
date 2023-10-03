@@ -20,7 +20,7 @@
                       Subtitle="{x:Bind AlAnvarVersion}">
             <wuc:TitleBar.Icon>
                 <BitmapIcon ShowAsMonochrome="False"
-                            UriSource="ms-appx:///Assets/Fluent/icon.png" />
+                            UriSource="ms-appx:///Assets/icon.png" />
             </wuc:TitleBar.Icon>
             <wuc:TitleBar.Content>
                 <AutoSuggestBox x:Name="TxtSearch"

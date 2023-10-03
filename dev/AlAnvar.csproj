@@ -15,6 +15,7 @@
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <Version>2.1.0</Version>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+  	<ApplicationIcon>Assets\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
