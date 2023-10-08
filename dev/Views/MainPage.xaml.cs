@@ -33,6 +33,11 @@ public sealed partial class MainPage : Page
         settings.Content = "تنظیمات";
     }
 
+    public void RefreshPaneDisplayMode()
+    {
+        NavView.PaneDisplayMode = Settings.PaneDisplayMode;
+    }
+
     private void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs textChangedEventArgs, AutoSuggestBoxQuerySubmittedEventArgs querySubmittedEventArgs)
     {
         var rootFrame = ViewModel.JsonNavigationViewService.Frame;
@@ -60,6 +65,7 @@ public sealed partial class MainPage : Page
             }
         }
     }
+
     private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         var viewModel = NavFrame.GetPageViewModel();
@@ -111,6 +117,18 @@ public sealed partial class MainPage : Page
         else if (element.ActualTheme == ElementTheme.Dark)
         {
             element.RequestedTheme = ElementTheme.Light;
+        }
+    }
+
+    private void NavView_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
+    {
+        if (NavView.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
+        {
+            appTitleBar.IsPaneButtonVisible = false;
+        }
+        else
+        {
+            appTitleBar.IsPaneButtonVisible = true;
         }
     }
 }

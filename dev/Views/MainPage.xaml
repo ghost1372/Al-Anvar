@@ -4,6 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:settings="using:AlAnvar.Helpers"
       xmlns:wuc="using:WinUICommunity"
       mc:Ignorable="d">
     <Grid>
@@ -46,9 +47,11 @@
         </wuc:TitleBar>
         <NavigationView x:Name="NavView"
                         Grid.Row="1"
+                        DisplayModeChanged="NavView_DisplayModeChanged"
                         FlowDirection="RightToLeft"
                         IsBackButtonVisible="Collapsed"
-                        IsPaneToggleButtonVisible="False">
+                        IsPaneToggleButtonVisible="False"
+                        PaneDisplayMode="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=OneWay}">
 
             <Frame x:Name="NavFrame"
                    Navigated="NavFrame_Navigated" />

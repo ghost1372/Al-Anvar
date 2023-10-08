@@ -3,6 +3,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:settings="using:AlAnvar.Helpers"
       xmlns:views="using:AlAnvar.Views"
@@ -21,6 +23,22 @@
                 <ToggleSwitch IsOn="{x:Bind settings:AlAnvarHelper.Settings.IsAutoDownloadSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               OffContent="غیر فعال"
                               OnContent="فعال" />
+            </wuc:SettingsCard>
+            <wuc:SettingsCard Description="حالت نمایش منوی اصلی برنامه را مشخص کنید"
+                              Header="حالت نمایش منو"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}">
+                <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
+                          xmlns:ui="using:CommunityToolkit.WinUI"
+                          ItemsSource="{ui:EnumValues Type=enums:NavigationViewPaneDisplayMode}"
+                          SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="SelectionChanged">
+                            <ic:EventTriggerBehavior.Actions>
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PaneDisplayModeChangedCommand}" />
+                            </ic:EventTriggerBehavior.Actions>
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
             </wuc:SettingsCard>
         </StackPanel>
     </ScrollView>
