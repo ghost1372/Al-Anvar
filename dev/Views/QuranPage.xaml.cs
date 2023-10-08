@@ -18,6 +18,15 @@ public sealed partial class QuranPage : Page
 
     private void tabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        if (tabView.TabItems.Count > 0)
+        {
+            LogoImage.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            LogoImage.Visibility = Visibility.Visible;
+        }
+
         var tabItem = tabView.SelectedItem as QuranTabViewItem;
         if (tabItem != null)
         {

@@ -7,6 +7,7 @@
       xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:tables="using:AlAnvar.Database.Tables"
+      xmlns:wuc="using:WinUICommunity"
       FontFamily="{ThemeResource ContentControlThemeFontFamily}"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
@@ -146,6 +147,15 @@
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </TabView>
+
+        <wuc:ImageEx x:Name="LogoImage"
+                     Grid.RowSpan="2"
+                     Grid.Column="1"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     EnableLazyLoading="True"
+                     IsCacheEnabled="True"
+                     Source="Assets/icon.png" />
 
         <!--  FOOTER  -->
         <Border Grid.Row="2"
