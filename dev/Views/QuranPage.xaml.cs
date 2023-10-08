@@ -19,11 +19,14 @@ public sealed partial class QuranPage : Page
     private void tabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var tabItem = tabView.SelectedItem as QuranTabViewItem;
-        CmbTranslation.SelectedItem = tabItem.CurrentQuranTranslation;
-        CmbTranslation.SelectedIndex = ViewModel.TranslationsCollection.IndexOf(tabItem.CurrentQuranTranslation);
+        if (tabItem != null)
+        {
+            CmbTranslation.SelectedItem = tabItem.CurrentQuranTranslation;
+            CmbTranslation.SelectedIndex = ViewModel.TranslationsCollection.IndexOf(tabItem.CurrentQuranTranslation);
 
-        CmbQari.SelectedItem = tabItem.CurrentQuranAudio;
-        CmbQari.SelectedIndex = ViewModel.QarisCollection.IndexOf(tabItem.CurrentQuranAudio);
-        tabItem.SetAppBarToggleButtonValue();
+            CmbQari.SelectedItem = tabItem.CurrentQuranAudio;
+            CmbQari.SelectedIndex = ViewModel.QarisCollection.IndexOf(tabItem.CurrentQuranAudio);
+            tabItem.SetAppBarToggleButtonValue();
+        }
     }
 }
