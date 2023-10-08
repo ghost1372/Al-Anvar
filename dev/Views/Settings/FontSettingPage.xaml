@@ -27,7 +27,7 @@
                                       Header="رنگ متن آیات (کلیک کنید)"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
                                       IsClickEnabled="True">
-                        <TextBlock Foreground="{x:Bind ViewModel.TxtAyaForeground, Mode=OneWay}"
+                        <TextBlock x:Name="TxtAyat"
                                    Text="بسم الله الرحمن الرحیم" />
                     </wuc:SettingsCard>
                     <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
@@ -36,7 +36,7 @@
                                       Header="رنگ متن شماره آیات (کلیک کنید)"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
                                       IsClickEnabled="True">
-                        <TextBlock Foreground="{x:Bind ViewModel.TxtAyaNumberForeground, Mode=OneWay}"
+                        <TextBlock x:Name="TxtAyatNumber"
                                    Text="(1:7)" />
                     </wuc:SettingsCard>
                     <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
@@ -45,7 +45,7 @@
                                       Header="رنگ متن ترجمه آیات (کلیک کنید)"
                                       HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
                                       IsClickEnabled="True">
-                        <TextBlock Foreground="{x:Bind ViewModel.TxtTranslationForeground, Mode=OneWay}"
+                        <TextBlock x:Name="TxtTranslation"
                                    Text="بنام خداوند بخشنده مهربان" />
                     </wuc:SettingsCard>
                 </wuc:SettingsExpander.Items>

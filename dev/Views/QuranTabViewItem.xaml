@@ -26,7 +26,8 @@
                 <TextBlock Padding="5,10,5,5"
                            FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatFontFamily}"
                            FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatFontSize}"
-                           Foreground="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatForeground}"
+                           Loaded="TextBlock_Loaded"
+                           Tag="Ayat"
                            Text="{x:Bind AyahText}"
                            TextWrapping="Wrap"
                            Visibility="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.IsOriginalTextActive, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -34,7 +35,8 @@
                            Padding="5,0,5,5"
                            FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationFontFamily}"
                            FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationFontSize}"
-                           Foreground="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationForeground}"
+                           Loaded="TextBlock_Loaded"
+                           Tag="Translation"
                            Text="{x:Bind TranslationText}"
                            TextWrapping="Wrap"
                            Visibility="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.IsTranslationActive, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -44,7 +46,8 @@
                            FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberFontFamily}"
                            FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberFontSize}"
                            FontWeight="Bold"
-                           Foreground="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberForeground}"
+                           Loaded="TextBlock_Loaded"
+                           Tag="AyatNumber"
                            Text="{x:Bind AyaDetail}" />
             </Grid>
         </DataTemplate>

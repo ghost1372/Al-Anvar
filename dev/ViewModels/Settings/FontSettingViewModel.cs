@@ -34,7 +34,7 @@ public partial class FontSettingViewModel : ObservableObject
 
     #region Change Color
     [RelayCommand]
-    private async void OnChooseColor(string settingType)
+    private async Task OnChooseColor(string settingType)
     {
         var scrollViewer = new ScrollViewer { Margin = new Thickness(10) };
         var colorPicker = new ColorPicker
@@ -43,7 +43,7 @@ public partial class FontSettingViewModel : ObservableObject
             IsMoreButtonVisible = false,
             IsColorSliderVisible = true,
             IsColorChannelTextInputVisible = false,
-            IsHexInputVisible = false,
+            IsHexInputVisible = true,
             IsAlphaEnabled = false,
             IsAlphaSliderVisible = false,
             IsAlphaTextInputVisible = false,
@@ -52,21 +52,29 @@ public partial class FontSettingViewModel : ObservableObject
 
         colorPicker.ColorChanged += (s, e) =>
         {
-            var selectedColor = new SolidColorBrush(e.NewColor);
-            switch (settingType)
+            try
             {
-                case "Aya":
-                    TxtAyaForeground = selectedColor;
-                    Settings.AyatForeground = e.NewColor.ToString();
-                    break;
-                case "AyaNumber":
-                    TxtAyaNumberForeground = selectedColor;
-                    Settings.AyatNumberForeground = e.NewColor.ToString();
-                    break;
-                case "Translation":
-                    TxtTranslationForeground = selectedColor;
-                    Settings.TranslationForeground = e.NewColor.ToString();
-                    break;
+                var selectedColor = new SolidColorBrush(e.NewColor);
+                switch (settingType)
+                {
+                    case "Aya":
+                        TxtAyaForeground = selectedColor;
+                        Settings.AyatForeground = e.NewColor.ToString();
+                        break;
+                    case "AyaNumber":
+                        TxtAyaNumberForeground = selectedColor;
+                        Settings.AyatNumberForeground = e.NewColor.ToString();
+                        break;
+                    case "Translation":
+                        TxtTranslationForeground = selectedColor;
+                        Settings.TranslationForeground = e.NewColor.ToString();
+                        break;
+                }
+
+                FontSettingPage.Instance.RefreshTextBlockForeground();
+            }
+            catch (Exception)
+            {
             }
         };
 
@@ -79,6 +87,8 @@ public partial class FontSettingViewModel : ObservableObject
         };
         contentDialog.Title = "انتخاب رنگ";
         contentDialog.PrimaryButtonText = "تایید";
+        contentDialog.SecondaryButtonText = "انصراف";
+        contentDialog.PrimaryButtonStyle = (Style) Application.Current.Resources["AccentButtonStyle"];
         contentDialog.FlowDirection = FlowDirection.RightToLeft;
         await contentDialog.ShowAsyncQueue();
     }
@@ -90,6 +100,7 @@ public partial class FontSettingViewModel : ObservableObject
         Settings.AyatNumberForeground = null;
         Settings.TranslationForeground = null;
         GetDefaultColors();
+        FontSettingPage.Instance.RefreshTextBlockForeground2();
     }
 
     private void GetDefaultColors()

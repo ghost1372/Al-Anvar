@@ -623,4 +623,30 @@ public sealed partial class QuranTabViewItem : TabViewItem
             ScrollIntoView(itemIndex);
         }
     }
+
+    private void TextBlock_Loaded(object sender, RoutedEventArgs e)
+    {
+        var textblock = sender as TextBlock;
+        switch (textblock?.Tag?.ToString())
+        {
+            case "Ayat":
+                if (Settings.AyatForeground != null)
+                {
+                    textblock.Foreground = viewModel.AyatForeground;
+                }
+                break;
+            case "AyatNumber":
+                if (Settings.AyatNumberForeground != null)
+                {
+                    textblock.Foreground = viewModel.AyatNumberForeground;
+                }
+                break;
+            case "Translation":
+                if (Settings.TranslationForeground != null)
+                {
+                    textblock.Foreground = viewModel.TranslationForeground;
+                }
+                break;
+        }
+    }
 }
