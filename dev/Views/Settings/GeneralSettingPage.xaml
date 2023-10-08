@@ -26,7 +26,7 @@
             </wuc:SettingsCard>
             <wuc:SettingsCard Description="حالت نمایش منوی اصلی برنامه را مشخص کنید"
                               Header="حالت نمایش منو"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}">
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/displayMode.png}">
                 <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
                           xmlns:ui="using:CommunityToolkit.WinUI"
                           ItemsSource="{ui:EnumValues Type=enums:NavigationViewPaneDisplayMode}"

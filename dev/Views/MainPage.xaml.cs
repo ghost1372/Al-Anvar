@@ -131,4 +131,26 @@ public sealed partial class MainPage : Page
             appTitleBar.IsPaneButtonVisible = true;
         }
     }
+
+    private void PaneDisplayModeButton_Click(object sender, RoutedEventArgs e)
+    {
+        switch (NavView.PaneDisplayMode)
+        {
+            case NavigationViewPaneDisplayMode.Auto:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+                break;
+            case NavigationViewPaneDisplayMode.Left:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Top;
+                break;
+            case NavigationViewPaneDisplayMode.Top:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
+                break;
+            case NavigationViewPaneDisplayMode.LeftCompact:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
+                break;
+            case NavigationViewPaneDisplayMode.LeftMinimal:
+                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Auto;
+                break;
+        }
+    }
 }
