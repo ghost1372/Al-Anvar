@@ -11,6 +11,7 @@
       xmlns:tables="using:AlAnvar.Database.Tables"
       xmlns:wuc="using:WinUICommunity"
       FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+      NavigationCacheMode="Required"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">

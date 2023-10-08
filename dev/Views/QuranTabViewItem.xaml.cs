@@ -58,9 +58,11 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     #endregion
 
+    public static QuranTabViewItem Instance { get; private set; }
     public QuranTabViewItem()
     {
         this.InitializeComponent();
+        Instance = this;
         DataContext = this;
         viewModel = QuranPage.Instance.ViewModel;
         mediaPlayerElement.TransportControls.IsCompact = true;
@@ -621,32 +623,6 @@ public sealed partial class QuranTabViewItem : TabViewItem
             GetTranslationText();
             GetSuraText();
             ScrollIntoView(itemIndex);
-        }
-    }
-
-    private void TextBlock_Loaded(object sender, RoutedEventArgs e)
-    {
-        var textblock = sender as TextBlock;
-        switch (textblock?.Tag?.ToString())
-        {
-            case "Ayat":
-                if (Settings.AyatForeground != null)
-                {
-                    textblock.Foreground = viewModel.AyatForeground;
-                }
-                break;
-            case "AyatNumber":
-                if (Settings.AyatNumberForeground != null)
-                {
-                    textblock.Foreground = viewModel.AyatNumberForeground;
-                }
-                break;
-            case "Translation":
-                if (Settings.TranslationForeground != null)
-                {
-                    textblock.Foreground = viewModel.TranslationForeground;
-                }
-                break;
         }
     }
 }

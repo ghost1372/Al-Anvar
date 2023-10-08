@@ -152,5 +152,7 @@ public sealed partial class MainPage : Page
                 NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Auto;
                 break;
         }
+
+        Settings.PaneDisplayMode = NavView.PaneDisplayMode;
     }
 }

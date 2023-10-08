@@ -40,6 +40,14 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </wuc:SettingsCard>
+            <wuc:SettingsCard Description="حالت نمایش متن و ترجمه قرآن را مشخص کنید"
+                              Header="حالت نمایش متن"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/textAlignment.png}">
+                <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
+                          xmlns:ui="using:CommunityToolkit.WinUI"
+                          ItemsSource="{ui:EnumValues Type=enums:TextAlignment}"
+                          SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.TextAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wuc:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

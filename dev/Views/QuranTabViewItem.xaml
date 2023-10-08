@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:table="using:AlAnvar.Database.Tables"
+             xmlns:views="using:AlAnvar.Views"
              x:Name="tabViewItem"
              mc:Ignorable="d">
     <TabViewItem.IconSource>
@@ -14,42 +15,9 @@
     <TabViewItem.Resources>
         <DataTemplate x:Name="QuranItemTemplate"
                       x:DataType="table:QuranItem">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock Padding="5,10,5,5"
-                           FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatFontFamily}"
-                           FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatFontSize}"
-                           Loaded="TextBlock_Loaded"
-                           Tag="Ayat"
-                           Text="{x:Bind AyahText}"
-                           TextWrapping="Wrap"
-                           Visibility="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.IsOriginalTextActive, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <TextBlock Grid.Row="1"
-                           Padding="5,0,5,5"
-                           FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationFontFamily}"
-                           FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.TranslationFontSize}"
-                           Loaded="TextBlock_Loaded"
-                           Tag="Translation"
-                           Text="{x:Bind TranslationText}"
-                           TextWrapping="Wrap"
-                           Visibility="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.IsTranslationActive, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <TextBlock Grid.RowSpan="2"
-                           Grid.Column="1"
-                           Padding="5,10,5,5"
-                           FontFamily="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberFontFamily}"
-                           FontSize="{Binding ElementName=tabViewItem, Path=DataContext.viewModel.AyatNumberFontSize}"
-                           FontWeight="Bold"
-                           Loaded="TextBlock_Loaded"
-                           Tag="AyatNumber"
-                           Text="{x:Bind AyaDetail}" />
-            </Grid>
+            <views:QuranItemUC AyaDetail="{x:Bind AyaDetail}"
+                               AyahText="{x:Bind AyahText}"
+                               TranslationText="{x:Bind TranslationText}" />
         </DataTemplate>
     </TabViewItem.Resources>
     <Grid>
