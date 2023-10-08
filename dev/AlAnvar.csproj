@@ -19,6 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Labs.WinUI.Controls.DataTable" Version="0.1.230830" />
+    <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.0.230907" />
