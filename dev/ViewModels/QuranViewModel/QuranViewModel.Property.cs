@@ -55,7 +55,5 @@ public partial class QuranViewModel : ObservableRecipient
 
     private SortDescription currentSortDescription;
 
-    private List<string> suggestListForSurahSearch = new List<string>();
-
     private TabView tabview;
 }

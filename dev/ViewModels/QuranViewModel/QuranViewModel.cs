@@ -58,7 +58,6 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
             {
                 ChaptersACV = new AdvancedCollectionView(Chapters, true);
                 ChaptersACV.SortDescriptions.Add(currentSortDescription);
-                suggestListForSurahSearch = ChaptersACV.Select(x => ((ChapterProperty) x).Name).ToList();
             });
         });
         IsActive = false;
