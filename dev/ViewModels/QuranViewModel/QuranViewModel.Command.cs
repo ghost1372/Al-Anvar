@@ -8,35 +8,6 @@ public partial class QuranViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private void OnTranslationItemChanged()
-    {
-        var instance = QuranPage.Instance.GetTabViewItem();
-        if (CurrentTranslation != null && instance != null)
-        {
-            var itemIndex = instance.GetListViewSelectedIndex();
-            Settings.QuranTranslation = CurrentTranslation;
-            instance.CurrentQuranTranslation = CurrentTranslation;
-            instance.GetTranslationText();
-            instance.GetSuraText();
-            instance.ScrollIntoView(itemIndex);
-        }
-    }
-
-    [RelayCommand]
-    private void OnQariItemChanged()
-    {
-        var instance = QuranPage.Instance.GetTabViewItem();
-
-        if (CurrentQari != null && instance != null)
-        {
-            Settings.QuranAudio = CurrentQari;
-            instance.CurrentQuranAudio = CurrentQari;
-            var qariPath = Path.Combine(Settings.AudiosPath, CurrentQari.DirName);
-            instance.GetAudios(qariPath);
-        }
-    }
-
-    [RelayCommand]
     private void OnSortItemChanged(object sender)
     {
         var cmbSort = sender as ComboBox;

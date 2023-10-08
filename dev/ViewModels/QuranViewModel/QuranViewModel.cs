@@ -1,17 +1,13 @@
-﻿using Newtonsoft.Json;
-
-namespace AlAnvar.ViewModels;
+﻿namespace AlAnvar.ViewModels;
 
 public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestBoxAware
 {
     public QuranViewModel()
     {
         LoadQuranAsync();
-        LoadTranslationAsync();
 
         Task.Run(() =>
         {
-            LoadQaris();
             GetDefaultFont();
             GetDefaultForeground();
         });
@@ -63,62 +59,6 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
                 ChaptersACV = new AdvancedCollectionView(Chapters, true);
                 ChaptersACV.SortDescriptions.Add(currentSortDescription);
                 suggestListForSurahSearch = ChaptersACV.Select(x => ((ChapterProperty) x).Name).ToList();
-            });
-        });
-        IsActive = false;
-    }
-
-    private void LoadQaris()
-    {
-        dispatcherQueue.TryEnqueue(() =>
-        {
-            if (Directory.Exists(Settings.AudiosPath))
-            {
-                var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
-                if (files.Any())
-                {
-                    foreach (var file in files)
-                    {
-                        try
-                        {
-                            var audios = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
-                            if (audios is not null)
-                            {
-                                QarisCollection.Add(audios);
-                            }
-                        }
-                        catch (JsonException)
-                        {
-                            continue;
-                        }
-                    }
-                }
-
-                if (QarisCollection.Any())
-                {
-                    CurrentQari = QarisCollection.Where(audio => ((QuranAudio) audio).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
-                    QariIndex = QarisCollection.IndexOf(CurrentQari);
-                }
-            }
-        });
-    }
-
-    private async void LoadTranslationAsync()
-    {
-        IsActive = true;
-        await Task.Run(async () =>
-        {
-            using var db = new AlAnvarDBContext();
-            var data = await db.Translations.Where(x => x.IsActive).ToListAsync();
-            dispatcherQueue.TryEnqueue(() =>
-            {
-                TranslationsCollection = new(data);
-
-                if (Settings.QuranTranslation != null)
-                {
-                    CurrentTranslation = TranslationsCollection.FirstOrDefault(x => x.Id == Settings.QuranTranslation.Id);
-                    TranslationIndex = TranslationsCollection.IndexOf(CurrentTranslation);
-                }
             });
         });
         IsActive = false;

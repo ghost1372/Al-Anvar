@@ -7,6 +7,8 @@ using Downloader;
 
 using Microsoft.UI.Xaml.Input;
 
+using Newtonsoft.Json;
+
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Media.Core;
 
@@ -32,6 +34,18 @@ public sealed partial class QuranTabViewItem : TabViewItem
     public QuranAudio CurrentQuranAudio { get; set; }
     public bool CurrentShowTranslation { get; set; } = true;
     public bool CurrentShowAya { get; set; } = true;
+
+    public ObservableCollection<QuranAudio> QarisCollection = new();
+
+    public QuranAudio CurrentQari = Settings.QuranAudio;
+
+    public int QariIndex = -1;
+
+    public ObservableCollection<QuranTranslation> TranslationsCollection = new();
+
+    public QuranTranslation CurrentTranslation = Settings.QuranTranslation;
+
+    public int TranslationIndex = -1;
 
     #region MediaPlayer
     List<AudioModel> audioList = new List<AudioModel>();
@@ -67,18 +81,75 @@ public sealed partial class QuranTabViewItem : TabViewItem
     {
         await Task.Run(() =>
         {
+            LoadTranslationAsync();
+            LoadQaris();
             GetSurahFromDB();
             GetTranslationText();
             GetSuraText();
-            if (viewModel.CurrentQari != null)
+            if (CurrentQari != null)
             {
-                var qariPath = Path.Combine(Settings.AudiosPath, viewModel.CurrentQari.DirName);
+                var qariPath = Path.Combine(Settings.AudiosPath, CurrentQari.DirName);
                 GetAudios(qariPath);
             }
         });
+
+        SetAppBarToggleButtonValue();
         prgLoading.IsActive = false;
     }
 
+    private void LoadQaris()
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            if (Directory.Exists(Settings.AudiosPath))
+            {
+                var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
+                if (files.Any())
+                {
+                    foreach (var file in files)
+                    {
+                        try
+                        {
+                            var audios = JsonConvert.DeserializeObject<QuranAudio>(File.ReadAllText(file));
+                            if (audios is not null)
+                            {
+                                QarisCollection.Add(audios);
+                            }
+                        }
+                        catch (JsonException)
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+                if (QarisCollection.Any())
+                {
+                    CmbQari.SelectedItem = QarisCollection.Where(audio => ((QuranAudio) audio).DirName == Settings.QuranAudio?.DirName).FirstOrDefault();
+                    CmbQari.SelectedIndex = QarisCollection.IndexOf(CurrentQari);
+                }
+            }
+        });
+    }
+
+    private async void LoadTranslationAsync()
+    {
+        await Task.Run(async () =>
+        {
+            using var db = new AlAnvarDBContext();
+            var data = await db.Translations.Where(x => x.IsActive).ToListAsync();
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                TranslationsCollection.AddRange(data);
+
+                if (TranslationCollection.Any())
+                {
+                    CmbTranslation.SelectedItem = TranslationsCollection.FirstOrDefault(x => x.Id == Settings.QuranTranslation.Id);
+                    CmbTranslation.SelectedIndex = TranslationsCollection.IndexOf(CurrentTranslation);
+                }
+            });
+        });
+    }
 
     private void GetSurahFromDB()
     {
@@ -121,11 +192,10 @@ public sealed partial class QuranTabViewItem : TabViewItem
     {
         DispatcherQueue.TryEnqueue(async () =>
         {
-            var currentTranslation = viewModel.CurrentTranslation;
-            if (currentTranslation != null)
+            if (CurrentTranslation != null)
             {
                 using var db = new AlAnvarDBContext();
-                var translationItem = await db.TranslationsText.Where(x => x.TranslationId == currentTranslation.TranslationId).FirstOrDefaultAsync();
+                var translationItem = await db.TranslationsText.Where(x => x.TranslationId == CurrentTranslation.TranslationId).FirstOrDefaultAsync();
                 if (translationItem != null)
                 {
                     var translations = System.Text.Json.JsonSerializer.Deserialize<List<TranslationItem>>(translationItem.Text);
@@ -324,8 +394,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
     private async void PlayPlayer()
     {
         StopPlayer();
-        var qari = viewModel.CurrentQari;
-        if (qari is not null)
+        if (CurrentQari is not null)
         {
             if (GetListViewSelectedIndex() == -1)
             {
@@ -529,5 +598,29 @@ public sealed partial class QuranTabViewItem : TabViewItem
         btnShowAya.IsChecked = CurrentShowAya;
         OnAppBarToggleButtonChanged(btnShowAya, null);
         OnAppBarToggleButtonChanged(btnShowTranslation, null);
+    }
+
+    private void CmbQari_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (CurrentQari != null)
+        {
+            Settings.QuranAudio = CurrentQari;
+            CurrentQuranAudio = CurrentQari;
+            var qariPath = Path.Combine(Settings.AudiosPath, CurrentQari.DirName);
+            GetAudios(qariPath);
+        }
+    }
+
+    private void CmbTranslation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (CurrentTranslation != null)
+        {
+            var itemIndex = GetListViewSelectedIndex();
+            Settings.QuranTranslation = CurrentTranslation;
+            CurrentQuranTranslation = CurrentTranslation;
+            GetTranslationText();
+            GetSuraText();
+            ScrollIntoView(itemIndex);
+        }
     }
 }

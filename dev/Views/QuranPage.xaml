@@ -159,63 +159,15 @@
 
         <!--  FOOTER  -->
         <Border Grid.Row="2"
-                Grid.ColumnSpan="2"
+                Grid.Column="1"
                 Margin="5,0,5,5"
                 Padding="5"
                 Style="{ThemeResource WarningBorderPanelStyle}">
             <StackPanel Orientation="Horizontal"
                         Spacing="5">
-                <TextBlock MinWidth="200"
-                           Margin="10,0"
+                <TextBlock Margin="10,0"
                            VerticalAlignment="Center"
                            Text="{x:Bind ViewModel.StatusText, Mode=OneWay}" />
-
-                <TextBlock VerticalAlignment="Center"
-                           Text="قاری" />
-                <ComboBox x:Name="CmbQari"
-                          ItemsSource="{x:Bind ViewModel.QarisCollection, Mode=OneWay}"
-                          SelectedIndex="{x:Bind ViewModel.QariIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{x:Bind ViewModel.CurrentQari, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="tables:QuranAudio">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Bind PName}" />
-                                <TextBlock Text="-" />
-                                <TextBlock Text="{x:Bind Name}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.QariItemChangedCommand}" />
-                            </ic:EventTriggerBehavior.Actions>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ComboBox>
-                <TextBlock VerticalAlignment="Center"
-                           Text="مترجم" />
-                <ComboBox x:Name="CmbTranslation"
-                          ItemsSource="{x:Bind ViewModel.TranslationsCollection, Mode=OneWay}"
-                          SelectedIndex="{x:Bind ViewModel.TranslationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{x:Bind ViewModel.CurrentTranslation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="tables:QuranTranslation">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Bind Name}" />
-                                <TextBlock Text="-" />
-                                <TextBlock Text="{x:Bind Language}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.TranslationItemChangedCommand}" />
-                            </ic:EventTriggerBehavior.Actions>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ComboBox>
             </StackPanel>
         </Border>
     </Grid>

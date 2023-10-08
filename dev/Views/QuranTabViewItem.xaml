@@ -54,47 +54,110 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Margin="10"
+
+        <StackPanel Margin="5,0,5,0"
                     VerticalAlignment="Top">
-            <MediaPlayerElement x:Name="mediaPlayerElement"
-                                HorizontalAlignment="Stretch"
-                                AreTransportControlsEnabled="True"
-                                AutoPlay="False" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <MediaPlayerElement x:Name="mediaPlayerElement"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Stretch"
+                                    AreTransportControlsEnabled="True"
+                                    AutoPlay="False" />
+                <TextBlock Grid.Column="0"
+                           Margin="10,0"
+                           VerticalAlignment="Center"
+                           Text="قاری" />
+                <ComboBox x:Name="CmbQari"
+                          Grid.Column="1"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          ItemsSource="{x:Bind QarisCollection, Mode=OneWay}"
+                          SelectedIndex="{x:Bind QariIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{x:Bind CurrentQari, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectionChanged="CmbQari_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="table:QuranAudio">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind PName}" />
+                                <TextBlock Text="-" />
+                                <TextBlock Text="{x:Bind Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Grid>
+
             <Border Style="{ThemeResource InfoBorderPanelStyle}">
-                <CommandBar HorizontalAlignment="Center"
-                            Background="Transparent"
-                            DefaultLabelPosition="Right"
-                            IsOpen="False">
-                    <AppBarToggleButton x:Name="btnShowTranslation"
-                                        Checked="OnAppBarToggleButtonChanged"
-                                        Icon="Caption"
-                                        IsChecked="True"
-                                        Label="نمایش ترجمه"
-                                        Tag="Translation"
-                                        Unchecked="OnAppBarToggleButtonChanged" />
-                    <AppBarToggleButton x:Name="btnShowAya"
-                                        Checked="OnAppBarToggleButtonChanged"
-                                        Icon="Caption"
-                                        IsChecked="True"
-                                        Label="نمایش آیه"
-                                        Tag="Aya"
-                                        Unchecked="OnAppBarToggleButtonChanged" />
-                    <AppBarSeparator />
-                    <AppBarButton x:Name="btnNext"
-                                  Click="AppBarButton_Click"
-                                  Icon="Next"
-                                  Label="بعدی"
-                                  Tag="Next" />
-                    <AppBarToggleButton x:Name="btnPlay"
-                                        Click="AppBarToggleButton_Click"
-                                        Icon="Play"
-                                        Label="پخش" />
-                    <AppBarButton x:Name="btnPrev"
-                                  Click="AppBarButton_Click"
-                                  Icon="Previous"
-                                  Label="قبلی"
-                                  Tag="Previous" />
-                </CommandBar>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="10,0"
+                               VerticalAlignment="Center"
+                               Text="مترجم" />
+                    <ComboBox x:Name="CmbTranslation"
+                              Grid.Column="1"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              ItemsSource="{x:Bind TranslationsCollection, Mode=OneWay}"
+                              SelectedIndex="{x:Bind TranslationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{x:Bind CurrentTranslation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectionChanged="CmbTranslation_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="table:QuranTranslation">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{x:Bind Name}" />
+                                    <TextBlock Text="-" />
+                                    <TextBlock Text="{x:Bind Language}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <CommandBar Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Background="Transparent"
+                                DefaultLabelPosition="Right"
+                                IsOpen="False">
+                        <AppBarToggleButton x:Name="btnShowTranslation"
+                                            Checked="OnAppBarToggleButtonChanged"
+                                            Icon="Caption"
+                                            IsChecked="True"
+                                            Label="نمایش ترجمه"
+                                            Tag="Translation"
+                                            Unchecked="OnAppBarToggleButtonChanged" />
+                        <AppBarToggleButton x:Name="btnShowAya"
+                                            Checked="OnAppBarToggleButtonChanged"
+                                            Icon="Caption"
+                                            IsChecked="True"
+                                            Label="نمایش آیه"
+                                            Tag="Aya"
+                                            Unchecked="OnAppBarToggleButtonChanged" />
+                        <AppBarSeparator />
+                        <AppBarButton x:Name="btnNext"
+                                      Click="AppBarButton_Click"
+                                      Icon="Next"
+                                      Label="بعدی"
+                                      Tag="Next" />
+                        <AppBarToggleButton x:Name="btnPlay"
+                                            Click="AppBarToggleButton_Click"
+                                            Icon="Play"
+                                            Label="پخش" />
+                        <AppBarButton x:Name="btnPrev"
+                                      Click="AppBarButton_Click"
+                                      Icon="Previous"
+                                      Label="قبلی"
+                                      Tag="Previous" />
+                    </CommandBar>
+
+                </Grid>
             </Border>
 
         </StackPanel>

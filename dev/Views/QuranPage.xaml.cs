@@ -26,16 +26,5 @@ public sealed partial class QuranPage : Page
         {
             LogoImage.Visibility = Visibility.Visible;
         }
-
-        var tabItem = tabView.SelectedItem as QuranTabViewItem;
-        if (tabItem != null)
-        {
-            CmbTranslation.SelectedItem = tabItem.CurrentQuranTranslation;
-            CmbTranslation.SelectedIndex = ViewModel.TranslationsCollection.IndexOf(tabItem.CurrentQuranTranslation);
-
-            CmbQari.SelectedItem = tabItem.CurrentQuranAudio;
-            CmbQari.SelectedIndex = ViewModel.QarisCollection.IndexOf(tabItem.CurrentQuranAudio);
-            tabItem.SetAppBarToggleButtonValue();
-        }
     }
 }

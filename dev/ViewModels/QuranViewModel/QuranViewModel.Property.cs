@@ -10,24 +10,6 @@ public partial class QuranViewModel : ObservableRecipient
     public AdvancedCollectionView chaptersACV;
 
     [ObservableProperty]
-    public ObservableCollection<QuranTranslation> translationsCollection = new();
-
-    [ObservableProperty]
-    public QuranTranslation currentTranslation = Settings.QuranTranslation;
-
-    [ObservableProperty]
-    public int translationIndex = -1;
-
-    [ObservableProperty]
-    public ObservableCollection<QuranAudio> qarisCollection = new();
-
-    [ObservableProperty]
-    public QuranAudio currentQari = Settings.QuranAudio;
-
-    [ObservableProperty]
-    public int qariIndex = -1;
-
-    [ObservableProperty]
     public int listViewSelectedIndex;
 
     [ObservableProperty]
