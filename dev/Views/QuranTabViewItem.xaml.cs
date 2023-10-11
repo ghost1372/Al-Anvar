@@ -623,4 +623,9 @@ public sealed partial class QuranTabViewItem : TabViewItem
             ScrollIntoView(itemIndex);
         }
     }
+
+    private void btnJumpToAyah_Click(object sender, RoutedEventArgs e)
+    {
+        ScrollIntoView((int)nbxJumpAyah.Value - 1);
+    }
 }

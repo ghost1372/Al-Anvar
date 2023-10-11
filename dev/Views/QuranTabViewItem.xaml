@@ -133,6 +133,50 @@
                 </Grid>
             </Border>
 
+            <Expander Margin="0,5,0,0"
+                      HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch"
+                      Header="بیشتر">
+                <StackPanel Spacing="10">
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="5">
+                        <Button x:Name="btnJumpToAyah"
+                                Click="btnJumpToAyah_Click"
+                                Content="پرش به آیه" />
+                        <NumberBox x:Name="nbxJumpAyah"
+                                   Maximum="286"
+                                   Minimum="1"
+                                   PlaceholderText="شماره آیه"
+                                   SpinButtonPlacementMode="Inline"
+                                   Value="1" />
+                        <AppBarSeparator />
+                        <CheckBox x:Name="chkSoundRange"
+                                  Margin="10,0"
+                                  Content="قرائت از آیه دلخواه" />
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="5">
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="قرائت از آیه" />
+                            <NumberBox x:Name="nbxRange1"
+                                       IsEnabled="{x:Bind chkSoundRange.IsChecked.Value, Mode=OneWay}"
+                                       Maximum="286"
+                                       Minimum="1"
+                                       PlaceholderText="شماره آیه"
+                                       SpinButtonPlacementMode="Inline"
+                                       Value="1" />
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="تا آیه" />
+                            <NumberBox x:Name="nbxRange2"
+                                       IsEnabled="{x:Bind chkSoundRange.IsChecked.Value, Mode=OneWay}"
+                                       Maximum="286"
+                                       Minimum="1"
+                                       PlaceholderText="شماره آیه"
+                                       SpinButtonPlacementMode="Inline"
+                                       Value="1" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Expander>
         </StackPanel>
 
         <ListView x:Name="quranListView"
