@@ -159,19 +159,19 @@
                                        Text="قرائت از آیه" />
                             <NumberBox x:Name="nbxRange1"
                                        IsEnabled="{x:Bind chkSoundRange.IsChecked.Value, Mode=OneWay}"
-                                       Maximum="286"
                                        Minimum="1"
                                        PlaceholderText="شماره آیه"
                                        SpinButtonPlacementMode="Inline"
+                                       ValueChanged="nbxRange_ValueChanged"
                                        Value="1" />
                             <TextBlock VerticalAlignment="Center"
                                        Text="تا آیه" />
                             <NumberBox x:Name="nbxRange2"
                                        IsEnabled="{x:Bind chkSoundRange.IsChecked.Value, Mode=OneWay}"
-                                       Maximum="286"
                                        Minimum="1"
                                        PlaceholderText="شماره آیه"
                                        SpinButtonPlacementMode="Inline"
+                                       ValueChanged="nbxRange_ValueChanged"
                                        Value="1" />
                         </StackPanel>
                     </StackPanel>

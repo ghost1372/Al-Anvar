@@ -95,6 +95,8 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
         SetAppBarToggleButtonValue();
         prgLoading.IsActive = false;
+        nbxRange1.Maximum = Chapter.Ayas;
+        nbxRange2.Maximum = Chapter.Ayas;
     }
 
     private void LoadQaris()
@@ -326,6 +328,17 @@ public sealed partial class QuranTabViewItem : TabViewItem
     {
         DispatcherQueue.TryEnqueue(() =>
         {
+            if (chkSoundRange.IsChecked.Value)
+            {
+                if (GetListViewSelectedIndex() == ((int) nbxRange2.Value) - 1 || GetListViewSelectedIndex() == ((int) nbxRange1.Value) - 1)
+                {
+                    CanPlay = false;
+                    SetPlayCommandState(PlayCommand.Play);
+                    btnPlay.IsChecked = false;
+                    return;
+                }
+            }
+
             // Go To Play Next File
             GoToListViewNextItem();
 
@@ -339,6 +352,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
             if (currentIndex == lastIndex)
             {
+                CanPlay = false;
                 SetPlayCommandState(PlayCommand.Play);
                 btnPlay.IsChecked = false;
             }
@@ -379,6 +393,15 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     private void PreviousTrack()
     {
+        if (chkSoundRange.IsChecked.Value)
+        {
+            if (GetListViewSelectedIndex() == ((int) nbxRange1.Value) - 1)
+            {
+                CanPlay = false;
+                return;
+            }
+        }
+
         StopPlayer();
         GoToListViewPreviousItem();
         PlayQuran();
@@ -386,6 +409,14 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     private void NextTrack()
     {
+        if (chkSoundRange.IsChecked.Value)
+        {
+            if (GetListViewSelectedIndex() == ((int)nbxRange2.Value) - 1)
+            {
+                CanPlay = false;
+                return;
+            }
+        }
         StopPlayer();
         GoToListViewNextItem();
         PlayQuran();
@@ -400,7 +431,10 @@ public sealed partial class QuranTabViewItem : TabViewItem
             {
                 GoToListViewNextItem();
             }
-
+            if (chkSoundRange.IsChecked.Value)
+            {
+                ScrollIntoView((int) nbxRange1.Value - 1);
+            }
             PlayQuran();
         }
         else
@@ -426,6 +460,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     public async void PlayQuran()
     {
+        CanPlay = true;
         var selectedItem = GetListViewSelectedItem();
         ayaSound = audioList.Where(x => x.SurahId == selectedItem.SurahId && x.AyaId == selectedItem.AyahNumber)?.FirstOrDefault();
 
@@ -465,6 +500,8 @@ public sealed partial class QuranTabViewItem : TabViewItem
         if (currentIndex == lastIndex)
         {
             CanPlay = false;
+            SetPlayCommandState(PlayCommand.Play);
+            btnPlay.IsChecked = false;
         }
 
         if (ayaSound != null)
@@ -627,5 +664,17 @@ public sealed partial class QuranTabViewItem : TabViewItem
     private void btnJumpToAyah_Click(object sender, RoutedEventArgs e)
     {
         ScrollIntoView((int)nbxJumpAyah.Value - 1);
+    }
+
+    private void nbxRange_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+    {
+        if (nbxRange1 == null || nbxRange2 == null)
+        {
+            return;
+        }
+        if (nbxRange2.Value < nbxRange1.Value)
+        {
+            nbxRange2.Value = nbxRange1.Value;
+        }
     }
 }
