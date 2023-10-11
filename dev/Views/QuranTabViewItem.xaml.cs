@@ -330,7 +330,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
         {
             if (chkSoundRange.IsChecked.Value)
             {
-                if (GetListViewSelectedIndex() == ((int) nbxRange2.Value) - 1 || GetListViewSelectedIndex() == ((int) nbxRange1.Value) - 1)
+                if (GetListViewSelectedIndex() == ((int) nbxRange2.Value) - 1)
                 {
                     CanPlay = false;
                     SetPlayCommandState(PlayCommand.Play);
