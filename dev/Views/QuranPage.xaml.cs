@@ -27,4 +27,14 @@ public sealed partial class QuranPage : Page
             LogoImage.Visibility = Visibility.Visible;
         }
     }
+
+    private void txtSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        ViewModel.SearchSurah(sender);
+    }
+
+    private void txtSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        ViewModel.SearchSurah(sender);
+    }
 }

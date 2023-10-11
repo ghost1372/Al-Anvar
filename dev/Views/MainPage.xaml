@@ -26,7 +26,7 @@
             <wuc:TitleBar.Content>
                 <AutoSuggestBox x:Name="TxtSearch"
                                 FlowDirection="RightToLeft"
-                                PlaceholderText="جستجو"
+                                PlaceholderText="جستجوی قاری، مترجم، ترجمه آیات و متن قرآن"
                                 QueryIcon="Find"
                                 QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                                 TextChanged="AutoSuggestBox_TextChanged" />

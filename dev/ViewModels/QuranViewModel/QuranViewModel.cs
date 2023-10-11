@@ -63,7 +63,7 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
         IsActive = false;
     }
 
-    public void Search(AutoSuggestBox sender)
+    public void SearchSurah(AutoSuggestBox sender)
     {
         if (ChaptersACV != null)
         {
@@ -111,11 +111,11 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
 
     public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
-        Search(sender);
+        //Search(sender);
     }
 
     public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        Search(sender);
+        //Search(sender);
     }
 }

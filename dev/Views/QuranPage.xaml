@@ -27,13 +27,22 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <!--  Navigation  -->
-
+        <AutoSuggestBox x:Name="txtSearch"
+                        Margin="10"
+                        HorizontalAlignment="Stretch"
+                        FlowDirection="RightToLeft"
+                        PlaceholderText="جستجو در نام سوره ها"
+                        QueryIcon="Find"
+                        QuerySubmitted="txtSearch_QuerySubmitted"
+                        TextChanged="txtSearch_TextChanged" />
         <ComboBox x:Name="cmbSort"
+                  Grid.Row="1"
                   Margin="10"
                   HorizontalAlignment="Stretch"
                   Header="مرتب سازی قران بر اساس"
@@ -53,7 +62,7 @@
             </i:Interaction.Behaviors>
         </ComboBox>
         <ListView x:Name="listview"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   Width="320"
                   Margin="10,0"
                   x:DefaultBindMode="OneWay"
@@ -102,17 +111,17 @@
             </i:Interaction.Behaviors>
         </ListView>
 
-        <ProgressRing Grid.Row="1"
+        <ProgressRing Grid.Row="2"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
-        <community:GridSplitter Grid.RowSpan="3"
+        <community:GridSplitter Grid.RowSpan="4"
                                 HorizontalAlignment="Right" />
 
         <!--  Media Player  -->
         <TabView x:Name="tabView"
-                 Grid.RowSpan="2"
+                 Grid.RowSpan="3"
                  Grid.Column="1"
                  Margin="10,10,10,0"
                  IsAddTabButtonVisible="False"
@@ -136,7 +145,7 @@
         </TabView>
 
         <wuc:ImageEx x:Name="LogoImage"
-                     Grid.RowSpan="2"
+                     Grid.RowSpan="3"
                      Grid.Column="1"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
@@ -145,7 +154,7 @@
                      Source="Assets/icon.png" />
 
         <!--  FOOTER  -->
-        <Border Grid.Row="2"
+        <Border Grid.Row="3"
                 Grid.Column="1"
                 Margin="5,0,5,5"
                 Padding="5"
