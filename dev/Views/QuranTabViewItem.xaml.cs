@@ -69,8 +69,6 @@ public sealed partial class QuranTabViewItem : TabViewItem
         mediaPlayerElement.TransportControls.IsZoomButtonVisible = false;
         mediaPlayerElement.TransportControls.IsRepeatButtonVisible = true;
         mediaPlayerElement.TransportControls.IsRepeatEnabled = true;
-        Loaded += QuranTabViewItem_Loaded;
-        CloseRequested += QuranTabViewItem_CloseRequested;
         mediaPlayerElement.MediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
     }
 
