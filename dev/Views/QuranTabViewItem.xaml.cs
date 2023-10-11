@@ -163,7 +163,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
         });
     }
 
-    public void GetSuraText(bool isTranslationAvailable = true)
+    public void GetSuraText(bool isTranslationAvailable = true, int defaultItemIndex = -1)
     {
         DispatcherQueue.TryEnqueue(() =>
         {
@@ -187,6 +187,11 @@ public sealed partial class QuranTabViewItem : TabViewItem
                 });
             }
             quranListView.ItemsSource = QuranCollection;
+
+            if (defaultItemIndex != -1)
+            {
+                ScrollIntoView(defaultItemIndex);
+            }
         });
     }
 
@@ -299,6 +304,10 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     public void ScrollIntoView(int index)
     {
+        if (index == -1)
+        {
+            return;
+        }
         quranListView.SelectedIndex = index;
         quranListView.ScrollIntoView(quranListView.SelectedItem);
     }
@@ -656,8 +665,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
             Settings.QuranTranslation = CurrentTranslation;
             CurrentQuranTranslation = CurrentTranslation;
             GetTranslationText();
-            GetSuraText();
-            ScrollIntoView(itemIndex);
+            GetSuraText(true, itemIndex);
         }
     }
 
