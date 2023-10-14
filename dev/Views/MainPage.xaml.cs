@@ -28,14 +28,23 @@ public sealed partial class MainPage : Page
 
     private void MainPage_Loaded(object sender, RoutedEventArgs e)
     {
+        UpdateSettingItem();
+    }
+
+    private void UpdateSettingItem()
+    {
         var settings = (NavigationViewItem) NavView.SettingsItem;
-        settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/settings.png"), ShowAsMonochrome = false }; settings.Content = "Help";
-        settings.Content = "تنظیمات";
+        if (settings != null)
+        {
+            settings.Icon = new BitmapIcon { UriSource = new Uri("ms-appx:///Assets/Fluent/settings.png"), ShowAsMonochrome = false };
+            settings.Content = "تنظیمات";
+        }
     }
 
     public void RefreshPaneDisplayMode()
     {
         NavView.PaneDisplayMode = Settings.PaneDisplayMode;
+        UpdateSettingItem();
     }
 
     private void Search(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs textChangedEventArgs, AutoSuggestBoxQuerySubmittedEventArgs querySubmittedEventArgs)
@@ -154,5 +163,6 @@ public sealed partial class MainPage : Page
         }
 
         Settings.PaneDisplayMode = NavView.PaneDisplayMode;
+        UpdateSettingItem();
     }
 }
