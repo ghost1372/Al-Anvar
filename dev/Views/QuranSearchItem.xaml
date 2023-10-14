@@ -9,6 +9,7 @@
              xmlns:local="using:AlAnvar.Common"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:tables="using:AlAnvar.Database.Tables"
+             xmlns:wuc="using:WinUICommunity"
              Loaded="TabViewItem_Loaded"
              mc:Ignorable="d">
     <TabViewItem.IconSource>
@@ -18,7 +19,10 @@
     <TabViewItem.Resources>
         <DataTemplate x:Key="QuranTemplate"
                       x:DataType="tables:QuranSearch2">
-            <community:DataRow HorizontalAlignment="Left">
+            <community:DataRow HorizontalAlignment="Left"
+                               DoubleTapped="DataRow_DoubleTapped"
+                               IsDoubleTapEnabled="True"
+                               Tag="{x:Bind}">
                 <TextBlock VerticalAlignment="Center"
                            Text="{x:Bind Id}" />
                 <TextBlock VerticalAlignment="Center"
@@ -27,12 +31,25 @@
                            Text="{x:Bind AyahNumber}" />
                 <TextBlock VerticalAlignment="Center"
                            Text="{x:Bind Text}" />
+                <community:DataRow.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Margin="5"
+                                        Click="MenuGoToSurah_Click"
+                                        CornerRadius="{ThemeResource ControlCornerRadius}"
+                                        Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
+                                        Tag="{x:Bind}"
+                                        Text="برو به سوره موردنظر" />
+                    </MenuFlyout>
+                </community:DataRow.ContextFlyout>
             </community:DataRow>
         </DataTemplate>
         <DataTemplate x:Key="TranslationTemplate"
                       x:DataType="tables:QuranSearch2">
             <community:DataRow HorizontalAlignment="Left"
-                               Background="{ThemeResource InfoBarWarningSeverityBackgroundBrush}">
+                               Background="{ThemeResource InfoBarWarningSeverityBackgroundBrush}"
+                               DoubleTapped="DataRow_DoubleTapped"
+                               IsDoubleTapEnabled="True"
+                               Tag="{x:Bind}">
                 <TextBlock VerticalAlignment="Center"
                            Text="{x:Bind Id}" />
                 <TextBlock VerticalAlignment="Center"
@@ -41,6 +58,16 @@
                            Text="{x:Bind AyahNumber}" />
                 <TextBlock VerticalAlignment="Center"
                            Text="{x:Bind Text}" />
+                <community:DataRow.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Margin="5"
+                                        Click="MenuGoToSurah_Click"
+                                        CornerRadius="{ThemeResource ControlCornerRadius}"
+                                        Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
+                                        Tag="{x:Bind}"
+                                        Text="برو به سوره موردنظر" />
+                    </MenuFlyout>
+                </community:DataRow.ContextFlyout>
             </community:DataRow>
         </DataTemplate>
 

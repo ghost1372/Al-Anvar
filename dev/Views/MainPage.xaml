@@ -36,6 +36,7 @@
                                     QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                                     TextChanged="AutoSuggestBox_TextChanged" />
                     <CommandBar x:Name="cmbSearch"
+                                Background="Transparent"
                                 DefaultLabelPosition="Collapsed"
                                 Visibility="Collapsed">
                         <CommandBar.SecondaryCommands>

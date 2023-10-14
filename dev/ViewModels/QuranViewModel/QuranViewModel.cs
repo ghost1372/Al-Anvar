@@ -85,7 +85,7 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
         }
     }
 
-    private void AddNewSurahTab(TabView tabView, ChapterProperty chapterProperty)
+    public void AddNewSurahTab(TabView tabView, ChapterProperty chapterProperty, QuranSearch2 quranSearch2 = null)
     {
         this.tabview = tabView;
         var currentTabViewItem = tabView.TabItems?.Where(tabViewItem => (tabViewItem as QuranTabViewItem)?.Chapter?.Id == chapterProperty.Id)?.FirstOrDefault();
@@ -98,6 +98,7 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
         var item = new QuranTabViewItem();
         item.Header = $"{chapterProperty.Id} - {chapterProperty.Name} - {chapterProperty.Ayas} آیه - {chapterProperty.Type}";
         item.Chapter = chapterProperty;
+        item.QuranSearch2 = quranSearch2;
         tabView.TabItems.Add(item);
         item.CloseRequested += TabViewItem_CloseRequested;
         tabView.SelectedIndex = tabView.TabItems.Count - 1;

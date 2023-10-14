@@ -103,4 +103,38 @@ public sealed partial class QuranSearchItem : TabViewItem
             });
         });
     }
+
+    private void MenuGoToSurah_Click(object sender, RoutedEventArgs e)
+    {
+        var menu = sender as MenuFlyoutItem;
+        if (menu != null && menu.Tag != null)
+        {
+            GoToSurah(menu.Tag as QuranSearch2);
+        }
+    }
+
+    private void DataRow_DoubleTapped(object sender, Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+    {
+        var dataRow = sender as DataRow;
+        if (dataRow != null && dataRow.Tag != null)
+        {
+            GoToSurah(dataRow.Tag as QuranSearch2);
+        }
+    }
+
+    private async void GoToSurah(QuranSearch2 quranSearch2)
+    {
+        if (quranSearch2 != null)
+        {
+            if (QuranPage.Instance != null)
+            {
+                using var db = new AlAnvarDBContext();
+                var chapter = await db.Chapters.Where(x=> x.Name == quranSearch2.SurahName).FirstOrDefaultAsync();
+                if (chapter != null)
+                {
+                    QuranPage.Instance.ViewModel.AddNewSurahTab(QuranPage.Instance.GetTabView(), chapter, quranSearch2);
+                }
+            }
+        }
+    }
 }

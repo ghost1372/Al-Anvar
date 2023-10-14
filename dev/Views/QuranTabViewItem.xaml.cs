@@ -27,6 +27,16 @@ public sealed partial class QuranTabViewItem : TabViewItem
         set => SetValue(ChapterProperty, value);
     }
 
+    public static readonly DependencyProperty QuranSearch2Property =
+        DependencyProperty.Register("QuranSearch2", typeof(QuranSearch2), typeof(QuranTabViewItem),
+        new PropertyMetadata(null));
+
+    public QuranSearch2 QuranSearch2
+    {
+        get => (QuranSearch2) GetValue(QuranSearch2Property);
+        set => SetValue(QuranSearch2Property, value);
+    }
+
     public ObservableCollection<QuranItem> QuranCollection { get; set; } = new ObservableCollection<QuranItem>();
     private List<TranslationItem> TranslationCollection { get; set; } = new List<TranslationItem>();
     private List<Quran> AyahCollection { get; set; } = new List<Quran>();
@@ -97,6 +107,11 @@ public sealed partial class QuranTabViewItem : TabViewItem
         prgLoading.IsActive = false;
         nbxRange1.Maximum = Chapter.Ayas;
         nbxRange2.Maximum = Chapter.Ayas;
+
+        if (QuranSearch2 != null)
+        {
+            ScrollIntoView(QuranSearch2.AyahNumber - 1);
+        }
     }
 
     private void LoadQaris()
