@@ -1,4 +1,6 @@
-﻿namespace AlAnvar.Views;
+﻿using Microsoft.UI.Xaml.Navigation;
+
+namespace AlAnvar.Views;
 
 public sealed partial class QuranPage : Page
 {
@@ -9,6 +11,32 @@ public sealed partial class QuranPage : Page
         ViewModel = App.GetService<QuranViewModel>();
         this.InitializeComponent();
         Instance = this;
+        if (MainPage.Instance != null)
+        {
+            MainPage.Instance.ActivateQuranSearchOption(true);
+        }
+    }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        base.OnNavigatedFrom(e);
+        if (MainPage.Instance != null)
+        {
+            MainPage.Instance.ActivateQuranSearchOption(false);
+        }
+    }
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        if (MainPage.Instance != null)
+        {
+            MainPage.Instance.ActivateQuranSearchOption(true);
+        }
+    }
+
+    public TabView GetTabView()
+    {
+        return tabView;
     }
 
     public QuranTabViewItem GetTabViewItem()

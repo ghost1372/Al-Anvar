@@ -31,6 +31,29 @@ public sealed partial class MainPage : Page
         UpdateSettingItem();
     }
 
+    public void ActivateQuranSearchOption(bool isActive)
+    {
+        if (isActive)
+        {
+            cmbSearch.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            cmbSearch.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    /// <summary>
+    /// 0: All
+    /// 1: Quran
+    /// 2: Translation
+    /// </summary>
+    /// <returns></returns>
+    public int GetQuranSearchOptionIndex()
+    {
+        return rbSearch.SelectedIndex;
+    }
+
     private void UpdateSettingItem()
     {
         var settings = (NavigationViewItem) NavView.SettingsItem;

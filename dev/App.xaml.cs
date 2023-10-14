@@ -51,10 +51,10 @@ public partial class App : Application
         services.AddTransient<OfflineQariViewModel>();
         services.AddTransient<DownloadTranslationViewModel>();
         services.AddTransient<OfflineTranslationViewModel>();
-        services.AddTransient<SettingsViewModel>();
         services.AddTransient<QuranViewModel>();
 
         //Settings
+        services.AddTransient<SettingsViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();
         services.AddTransient<FontSettingViewModel>();
         services.AddTransient<QariSettingViewModel>();
@@ -62,15 +62,6 @@ public partial class App : Application
         services.AddTransient<TranslationSettingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AboutViewModel>();
-
-        services.AddTransient<AppUpdateSettingPage>();
-        services.AddTransient<FontSettingPage>();
-        services.AddTransient<QariSettingPage>();
-        services.AddTransient<ThemeSettingPage>();
-        services.AddTransient<TranslationSettingPage>();
-        services.AddTransient<GeneralSettingPage>();
-        services.AddTransient<AboutSettingPage>();
-
 
         return services.BuildServiceProvider();
     }

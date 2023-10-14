@@ -253,6 +253,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
             viewModel.StatusText = $"سوره: {item.SurahName} - آیه: {item.AyahNumber}";
             UpdateMediaPlayerButtons(quranListView.SelectedIndex, quranListView.Items.Count - 1);
         }
+
         ScrollIntoView(quranListView.SelectedIndex);
     }
 

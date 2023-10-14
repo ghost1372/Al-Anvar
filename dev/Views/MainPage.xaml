@@ -24,12 +24,33 @@
                             UriSource="ms-appx:///Assets/icon.png" />
             </wuc:TitleBar.Icon>
             <wuc:TitleBar.Content>
-                <AutoSuggestBox x:Name="TxtSearch"
-                                FlowDirection="RightToLeft"
-                                PlaceholderText="جستجوی قاری، مترجم، ترجمه آیات و متن قرآن"
-                                QueryIcon="Find"
-                                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                                TextChanged="AutoSuggestBox_TextChanged" />
+                <StackPanel HorizontalAlignment="Stretch"
+                            Orientation="Horizontal">
+                    <AutoSuggestBox x:Name="TxtSearch"
+                                    MinWidth="350"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    FlowDirection="RightToLeft"
+                                    PlaceholderText="جستجوی قاری، ترجمه و قرآن"
+                                    QueryIcon="Find"
+                                    QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                                    TextChanged="AutoSuggestBox_TextChanged" />
+                    <CommandBar x:Name="cmbSearch"
+                                DefaultLabelPosition="Collapsed"
+                                Visibility="Collapsed">
+                        <CommandBar.SecondaryCommands>
+                            <AppBarElementContainer Margin="10,0,10,5"
+                                                    FlowDirection="RightToLeft">
+                                <RadioButtons x:Name="rbSearch"
+                                              SelectedIndex="0">
+                                    <RadioButton Content="جستجوی همه" />
+                                    <RadioButton Content="جستجو در متن قرآن" />
+                                    <RadioButton Content="جستجو در متن ترجمه" />
+                                </RadioButtons>
+                            </AppBarElementContainer>
+                        </CommandBar.SecondaryCommands>
+                    </CommandBar>
+                </StackPanel>
             </wuc:TitleBar.Content>
             <wuc:TitleBar.Footer>
                 <StackPanel Orientation="Horizontal"

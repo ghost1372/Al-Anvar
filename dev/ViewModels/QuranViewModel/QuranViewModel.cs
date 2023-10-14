@@ -111,11 +111,54 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
 
     public void OnAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
-        //Search(sender);
+
     }
 
     public void OnAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        //Search(sender);
+        SearchQuran(sender);
+    }
+    private void SearchQuran(AutoSuggestBox sender)
+    {
+        if (QuranPage.Instance != null)
+        {
+            int searchOptionIndex = 0;
+            if (MainPage.Instance != null)
+            {
+                searchOptionIndex = MainPage.Instance.GetQuranSearchOptionIndex();
+            }
+            var tabView = QuranPage.Instance.GetTabView();
+            var currentTabViewItem = tabView.TabItems?.Where(tabViewItem => (tabViewItem as QuranSearchItem)?.Tag?.ToString() == sender?.Text + searchOptionIndex.ToString())?.FirstOrDefault();
+            if (currentTabViewItem is not null)
+            {
+                tabView.SelectedItem = currentTabViewItem;
+                return;
+            }
+
+            var item = new QuranSearchItem();
+
+            if (searchOptionIndex == 0)
+            {
+                item.Header = $"جستجو همه: {sender?.Text}";
+            }
+            else if (searchOptionIndex == 1)
+            {
+                item.Header = $"جستجو متن قرآن: {sender?.Text}";
+            }
+            else if (searchOptionIndex == 2)
+            {
+                item.Header = $"جستجو ترجمه قرآن: {sender?.Text}";
+            }
+
+            item.Tag = sender?.Text + searchOptionIndex.ToString();
+            tabView.TabItems.Add(item);
+            item.CloseRequested += TabViewItem_CloseRequested;
+            tabView.SelectedIndex = tabView.TabItems.Count - 1;
+
+            if (QuranTabViewItem.Instance != null)
+            {
+                QuranTabViewItem.Instance.viewModel.StatusText = "";
+            }
+        }
     }
 }
