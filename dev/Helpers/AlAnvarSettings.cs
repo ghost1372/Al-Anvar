@@ -4,10 +4,11 @@ using Nucs.JsonSettings.Modulation;
 namespace AlAnvar.Helpers;
 public class AlAnvarSettings : JsonSettings, IVersionable
 {
-    [EnforcedVersion("2.0.0.0")]
-    public virtual Version Version { get; set; } = new Version(2, 0, 0, 0);
+    [EnforcedVersion("2.2.0.0")]
+    public virtual Version Version { get; set; } = new Version(2, 2, 0, 0);
     public override string FileName { get; set; } = AppConfigPath;
 
+    public virtual bool UseDeveloperMode { get; set; }
     public virtual bool IsUsingSystemFonts { get; set; } = false;
     public virtual string AyatForeground { get; set; }
     public virtual string TranslationForeground { get; set; }

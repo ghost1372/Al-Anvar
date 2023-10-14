@@ -3,11 +3,14 @@ public static class Constants
 {
     public const string ALAnvar_Repo = "https://github.com/ghost1372/Al-Anvar/releases";
 
-    public static readonly string AppName = "AlAnvar2.0";
-    public static readonly string RootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppName);
+    public static readonly string AppName = ApplicationHelper.GetAppNameAndVersion().NameAndVersion;
+    public static readonly string RootDirectoryPath = Path.Combine(ApplicationHelper.GetLocalFolderPath(), AppName);
+    public static readonly string LogDirectoryPath = Path.Combine(RootDirectoryPath, "Log");
+    public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Log.txt");
+    public static readonly string AppConfigPath = Path.Combine(RootDirectoryPath, "AppConfig.json");
+
     public static readonly string AudiosFolderName = "Audio";
-    public static readonly string AudiosPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), AppName, AudiosFolderName);
-    public static readonly string AppConfigPath = Path.Combine(RootPath, "AppConfig.json");
+    public static readonly string AudiosPath = Path.Combine(RootDirectoryPath, AudiosFolderName);
     public static readonly string AppGithubPage = "https://github.com/ghost1372/Al-Anvar";
     public static readonly string TafsirTabViewItemHeader = "تفسیر قرآن";
 

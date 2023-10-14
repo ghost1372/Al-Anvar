@@ -7,9 +7,9 @@ public sealed partial class MainPage : Page
     public MainViewModel ViewModel { get; }
     public string AlAnvarVersion { get; set; } =
 #if DEBUG
-        $"v{App.Current.AlAnvarVersion} - Preview";
+        $"v{App.Current.AppVersion} - Preview";
 #else
-        $"v{App.Current.AlAnvarVersion}";
+        $"v{App.Current.AppVersion}";
 #endif
 
     public static MainPage Instance { get; set; }

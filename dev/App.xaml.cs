@@ -5,7 +5,7 @@ namespace AlAnvar;
 public partial class App : Application
 {
     public static Window currentWindow = Window.Current;
-    public string AlAnvarVersion { get; set; }
+    public string AppVersion { get; set; } = ApplicationHelper.GetAppVersion();
     public IServiceProvider Services { get; }
     public ResourceHelper ResourceHelper { get; set; }
     public new static App Current => (App) Application.Current;
@@ -25,7 +25,6 @@ public partial class App : Application
     {
         Services = ConfigureServices();
         this.InitializeComponent();
-        AlAnvarVersion = VersionHelper.GetVersion();
         if (!Directory.Exists(Settings.AudiosPath))
         {
             Directory.CreateDirectory(Settings.AudiosPath);
@@ -90,7 +89,7 @@ public partial class App : Application
 
         rootFrame.Navigate(typeof(MainPage));
 
-        currentWindow.Title = currentWindow.AppWindow.Title = $"AlAnvar v{AlAnvarVersion}";
+        currentWindow.Title = currentWindow.AppWindow.Title = $"AlAnvar v{AppVersion}";
         currentWindow.AppWindow.SetIcon("Assets/icon.ico");
         currentWindow.Activate();
     }

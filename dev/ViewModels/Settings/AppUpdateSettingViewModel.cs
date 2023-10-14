@@ -23,12 +23,12 @@ public partial class AppUpdateSettingViewModel : ObservableObject
 
     public AppUpdateSettingViewModel()
     {
-        currentVersion = $"نسخه فعلی v{App.Current.AlAnvarVersion}";
+        currentVersion = $"نسخه فعلی v{App.Current.AppVersion}";
         lastUpdateCheck = Settings.LastUpdateCheck;
     }
 
     [RelayCommand]
-    private async void CheckForUpdateAsync()
+    private async Task CheckForUpdateAsync()
     {
         IsLoading = true;
         IsUpdateAvailable = false;
@@ -41,7 +41,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
             try
             {
                 //TODO: Fix Project Name
-                var update = await UpdateHelper.CheckUpdateAsync("winUICommunity", "common", new Version(App.Current.AlAnvarVersion));
+                var update = await UpdateHelper.CheckUpdateAsync("ghost1372", "Al-Anvar", new Version(App.Current.AppVersion));
                 if (update.IsExistNewVersion)
                 {
                     IsUpdateAvailable = true;
@@ -66,7 +66,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void GetReleaseNotesAsync()
+    private async Task GetReleaseNotesAsync()
     {
         ContentDialog dialog = new ContentDialog()
         {
@@ -91,7 +91,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void GoToUpdateAsync()
+    private async Task GoToUpdateAsync()
     {
         await Launcher.LaunchUriAsync(new Uri(ALAnvar_Repo));
     }
