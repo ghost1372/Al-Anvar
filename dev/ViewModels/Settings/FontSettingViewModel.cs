@@ -131,14 +131,20 @@ public partial class FontSettingViewModel : ObservableObject
     {
         switch (fontname)
         {
-            case "وزیرمتن رگولار":
-                return new FontFamily(FONT_REGULAR);
-            case "وزیرمتن مدیوم":
-                return new FontFamily(FONT_MEDIUM);
-            case "وزیرمتن بولد":
-                return new FontFamily(FONT_BOLD);
+            case IRANSANS_FONT_PERSIAN:
+                return new FontFamily(IRANSANS_FONT_ASSET);
+            case VAZIRMATN_FONT_PERSIAN:
+                return new FontFamily(VAZIRMATN_FONT_ASSET);
+            case IRANYEKAN_FONT_PERSIAN:
+                return new FontFamily(IRANYEKAN_FONT_ASSET);
+            case NABI_FONT_PERSIAN:
+                return new FontFamily(NABI_FONT_ASSET);
+            case NEIRIZI_FONT_PERSIAN:
+                return new FontFamily(NEIRIZI_FONT_ASSET);
+            case QURANTAHA_FONT_PERSIAN:
+                return new FontFamily(QURANTAHA_FONT_ASSET);
         }
-        return new FontFamily(FONT_REGULAR);
+        return new FontFamily(IRANSANS_FONT_PERSIAN);
     }
 
     [RelayCommand]

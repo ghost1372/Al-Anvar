@@ -3,12 +3,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
-    <FontFamily x:Key="VazirmatnBold">Assets/Fonts/Vazirmatn-Bold.ttf#Vazirmatn</FontFamily>
-    <FontFamily x:Key="VazirmatnMedium">Assets/Fonts/Vazirmatn-Medium.ttf#Vazirmatn Medium</FontFamily>
     <FontFamily x:Key="VazirmatnRegular">Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
-    <FontFamily x:Key="IRANSansXBold">Assets/Fonts/IRANSansX-Bold.ttf#IRANSansX</FontFamily>
-    <FontFamily x:Key="IRANSansXMedium">Assets/Fonts/IRANSansX-Medium.ttf#IRANSansX Medium</FontFamily>
     <FontFamily x:Key="IRANSansXRegular">Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
+    <FontFamily x:Key="NabiFont">Assets/Fonts/Nabi.ttf#Nabi</FontFamily>
+    <FontFamily x:Key="NeiriziFont">Assets/Fonts/Neirizi.ttf#Neirizi</FontFamily>
+    <FontFamily x:Key="QuranTahaFont">Assets/Fonts/QuranTaha.ttf#QuranTaha</FontFamily>
+    <FontFamily x:Key="IRANYekanFont">Assets/Fonts/IRANYekanRegular.ttf#IRANYekan</FontFamily>
 
     <Style TargetType="InfoBar">
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
