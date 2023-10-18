@@ -118,6 +118,11 @@ public sealed partial class QuranTabViewItem : TabViewItem
     {
         DispatcherQueue.TryEnqueue(() =>
         {
+            if (QarisCollection.Count > 0)
+            {
+                return;
+            }
+
             if (Directory.Exists(Settings.AudiosPath))
             {
                 var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
@@ -151,6 +156,14 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     private async void LoadTranslationAsync()
     {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            if (TranslationCollection.Count > 0)
+            {
+                return;
+            }
+        });
+
         await Task.Run(async () =>
         {
             using var db = new AlAnvarDBContext();
