@@ -48,6 +48,8 @@
           "ImagePath": "ms-appx:///Assets/Fluent/tafsir.png",
           "ImageIconPath": "ms-appx:///Assets/Fluent/tafsir.png",
           "IsNew": true,
+          "HideItem": true,
+          "HideNavigationViewItem":  true,
           "IncludedInBuild": false
         }
       ]
