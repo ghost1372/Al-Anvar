@@ -3,8 +3,10 @@
 public partial class MainViewModel
 {
     public IJsonNavigationViewService JsonNavigationViewService;
+    public IThemeService ThemeService;
     public MainViewModel(IJsonNavigationViewService jsonNavigationViewService, IThemeService themeService)
     {
+        ThemeService = themeService;
         JsonNavigationViewService = jsonNavigationViewService;
         themeService.Initialize(App.currentWindow);
         themeService.ConfigBackdrop();

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="AlAnvar.Views.ChangeFontContentDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               Title="انتخاب قلم"
+               CornerRadius="{ThemeResource OverlayCornerRadius}"
+               FlowDirection="RightToLeft"
+               PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+               PrimaryButtonText="تایید"
+               mc:Ignorable="d">
+
+    <ScrollView Grid.Row="1"
+                Width="400"
+                Height="300"
+                Margin="10,0">
+        <StackPanel Margin="10"
+                    ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
+                    Spacing="10">
+            <CheckBox x:Name="chkSystemFont"
+                      Checked="chkSystemFont_Checked"
+                      Content="استفاده از فونت های پیشفرض ویندوز"
+                      Unchecked="chkSystemFont_Checked" />
+            <ComboBox x:Name="cmbFont"
+                      HorizontalAlignment="Stretch"
+                      Header="قلم های موجود"
+                      MaxDropDownHeight="200"
+                      SelectionChanged="cmbFont_SelectionChanged" />
+            <NumberBox x:Name="nbSize"
+                       Header="اندازه قلم"
+                       Maximum="48"
+                       Minimum="6"
+                       SpinButtonPlacementMode="Inline"
+                       ValueChanged="nbSize_ValueChanged" />
+            <TextBlock x:Name="txtResult"
+                       Margin="0,10,0,0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom" />
+
+        </StackPanel>
+    </ScrollView>
+</ContentDialog>

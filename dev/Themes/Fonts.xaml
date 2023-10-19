@@ -2,13 +2,13 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
-    <FontFamily x:Key="VazirmatnRegular">Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
-    <FontFamily x:Key="IRANSansXRegular">Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
-    <FontFamily x:Key="NabiFont">Assets/Fonts/Nabi.ttf#Nabi</FontFamily>
-    <FontFamily x:Key="NeiriziFont">Assets/Fonts/Neirizi.ttf#Neirizi</FontFamily>
-    <FontFamily x:Key="QuranTahaFont">Assets/Fonts/QuranTaha.ttf#QuranTaha</FontFamily>
-    <FontFamily x:Key="IRANYekanFont">Assets/Fonts/IRANYekanRegular.ttf#IRANYekan</FontFamily>
+    <FontFamily x:Key="ContentControlThemeFontFamily">ms-appx:///Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
+    <FontFamily x:Key="VazirmatnRegular">ms-appx:///Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
+    <FontFamily x:Key="IRANSansXRegular">ms-appx:///Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
+    <FontFamily x:Key="NabiFont">ms-appx:///Assets/Fonts/Nabi.ttf#Nabi</FontFamily>
+    <FontFamily x:Key="NeiriziFont">ms-appx:///Assets/Fonts/Neirizi.ttf#Neirizi</FontFamily>
+    <FontFamily x:Key="QuranTahaFont">ms-appx:///Assets/Fonts/QuranTaha.ttf#QuranTaha</FontFamily>
+    <FontFamily x:Key="IRANYekanFont">ms-appx:///Assets/Fonts/IRANYekanRegular.ttf#IRANYekan</FontFamily>
 
     <Style TargetType="InfoBar">
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />

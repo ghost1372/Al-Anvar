@@ -127,166 +127,26 @@ public partial class FontSettingViewModel : ObservableObject
     #endregion
 
     #region Change Font
-    private FontFamily GetFontFamilyFromFontName(string fontname)
-    {
-        switch (fontname)
-        {
-            case IRANSANS_FONT_PERSIAN:
-                return new FontFamily(IRANSANS_FONT_ASSET);
-            case VAZIRMATN_FONT_PERSIAN:
-                return new FontFamily(VAZIRMATN_FONT_ASSET);
-            case IRANYEKAN_FONT_PERSIAN:
-                return new FontFamily(IRANYEKAN_FONT_ASSET);
-            case NABI_FONT_PERSIAN:
-                return new FontFamily(NABI_FONT_ASSET);
-            case NEIRIZI_FONT_PERSIAN:
-                return new FontFamily(NEIRIZI_FONT_ASSET);
-            case QURANTAHA_FONT_PERSIAN:
-                return new FontFamily(QURANTAHA_FONT_ASSET);
-        }
-        return new FontFamily(IRANSANS_FONT_PERSIAN);
-    }
 
     [RelayCommand]
-    private async void OnChooseFont(string settingType)
+    private async Task OnChooseFont(string settingType)
     {
-        var scrollViewer = new ScrollViewer { Margin = new Thickness(10) };
-        var stackPanel = new StackPanel { Margin = new Thickness(10), Spacing = 10 };
-        var textBlock = new TextBlock { HorizontalAlignment = HorizontalAlignment.Center };
-        var comboBox = new ComboBox
-        {
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            Header = "قلم های موجود"
-        };
-        var checkBox = new CheckBox
-        {
-            Content = "استفاده از فونت های پیشفرض ویندوز",
-            IsChecked = Settings.IsUsingSystemFonts
-        };
-        var numberBox = new NumberBox
-        {
-            Minimum = 6,
-            Height = 34,
-            Maximum = 48,
-            SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline
-        };
-        void loadComboBoxItems()
-        {
-            DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
-            {
-                comboBox.Items.Clear();
-                if (checkBox.IsChecked.Value)
-                {
-                    var systemFonts = Microsoft.Graphics.Canvas.Text.CanvasTextFormat.GetSystemFontFamilies();
-                    foreach (var item in systemFonts)
-                    {
-                        comboBox.Items.Add(item);
-                    }
-                }
-                else
-                {
-                    //Todo:
-                    comboBox.Items.Add("وزیرمتن رگولار");
-                    comboBox.Items.Add("وزیرمتن مدیوم");
-                    comboBox.Items.Add("وزیرمتن بولد");
-                }
-            });
-        }
-        loadComboBoxItems();
+        var changeFont = new ChangeFontContentDialog();
         switch (settingType)
         {
             case "Aya":
-                textBlock.Text = "بسم الله الرحمن الرحیم";
-                numberBox.Value = textBlock.FontSize = Settings.AyatFontSize;
+                changeFont.FontType = FontType.Aya;
                 break;
             case "AyaNumber":
-                textBlock.Text = "(1:7)";
-                numberBox.Value = textBlock.FontSize = Settings.AyatNumberFontSize;
+                changeFont.FontType = FontType.AyaNumber;
                 break;
             case "Translation":
-                textBlock.Text = "بنام خداوند بخشنده مهربان";
-                numberBox.Value = textBlock.FontSize = Settings.TranslationFontSize;
+                changeFont.FontType = FontType.Translation;
                 break;
         }
+        await changeFont.ShowAsync();
+        GetDefaultFonts();
 
-        comboBox.SelectionChanged += (s, e) =>
-        {
-            var selectedFont = comboBox.SelectedItem;
-            if (selectedFont != null)
-            {
-                FontFamily fontFamily;
-                if (Settings.IsUsingSystemFonts)
-                {
-                    fontFamily = new FontFamily(selectedFont as string);
-                }
-                else
-                {
-                    fontFamily = GetFontFamilyFromFontName(selectedFont as string);
-                }
-                switch (settingType)
-                {
-                    case "Aya":
-                        TxtAyaFontFamily = fontFamily;
-                        Settings.AyatFontFamilyName = selectedFont as string;
-                        break;
-                    case "AyaNumber":
-                        TxtAyaNumberFontFamily = fontFamily;
-                        Settings.AyatNumberFontFamilyName = selectedFont as string;
-                        break;
-                    case "Translation":
-                        TxtTranslationFontFamily = fontFamily;
-                        Settings.TranslationFontFamilyName = selectedFont as string;
-                        break;
-                }
-                textBlock.FontFamily = fontFamily;
-            }
-        };
-
-        checkBox.Checked += (s, e) =>
-        {
-            Settings.IsUsingSystemFonts = checkBox.IsChecked.Value;
-            loadComboBoxItems();
-        };
-        checkBox.Unchecked += (s, e) =>
-        {
-            Settings.IsUsingSystemFonts = checkBox.IsChecked.Value;
-            loadComboBoxItems();
-        };
-
-        numberBox.ValueChanged += (s, e) =>
-        {
-            textBlock.FontSize = e.NewValue;
-
-            switch (settingType)
-            {
-                case "Aya":
-                    Settings.AyatFontSize = e.NewValue;
-                    break;
-                case "AyaNumber":
-                    Settings.AyatNumberFontSize = e.NewValue;
-                    break;
-                case "Translation":
-                    Settings.TranslationFontSize = e.NewValue;
-                    break;
-            }
-        };
-
-        stackPanel.Children.Add(checkBox);
-        stackPanel.Children.Add(comboBox);
-        stackPanel.Children.Add(numberBox);
-        stackPanel.Children.Add(textBlock);
-
-        scrollViewer.Content = stackPanel;
-        ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
-        contentDialog.Loaded += (s, e) =>
-        {
-            contentDialog.Content = scrollViewer;
-        };
-        contentDialog.Title = "انتخاب قلم";
-        contentDialog.PrimaryButtonText = "تایید";
-        contentDialog.FlowDirection = FlowDirection.RightToLeft;
-        await contentDialog.ShowAsyncQueue();
     }
 
     [RelayCommand]
@@ -303,12 +163,9 @@ public partial class FontSettingViewModel : ObservableObject
 
     private void GetDefaultFonts()
     {
-        DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
-        {
-            TxtAyaFontFamily = new FontFamily(Settings.AyatFontFamilyName);
-            TxtAyaNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
-            TxtTranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
-        });
+        TxtAyaFontFamily = new FontFamily(Settings.AyatFontFamilyName);
+        TxtAyaNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
+        TxtTranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
     }
     #endregion
 }
