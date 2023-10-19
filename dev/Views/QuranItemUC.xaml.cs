@@ -56,10 +56,6 @@ public sealed partial class QuranItemUC : UserControl
             return;
         }
         var textblock = sender as TextBlock;
-        if (string.IsNullOrEmpty(textblock.Text))
-        {
-            textblock.Visibility = Visibility.Collapsed;
-        }
         switch (textblock?.Tag?.ToString())
         {
             case "Ayat":
