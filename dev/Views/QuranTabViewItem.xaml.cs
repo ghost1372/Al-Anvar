@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using AlAnvar.Helpers;
 
 using Downloader;
-
 using Microsoft.UI.Xaml.Input;
 
 using Newtonsoft.Json;
@@ -283,6 +282,11 @@ public sealed partial class QuranTabViewItem : TabViewItem
         }
 
         ScrollIntoView(quranListView.SelectedIndex);
+
+        if (quranListView.SelectedItem != null)
+        {
+            quranListView.Focus(Settings.FocusState);
+        }
     }
 
     private void quranListView_RightTapped(object sender, RightTappedRoutedEventArgs e)

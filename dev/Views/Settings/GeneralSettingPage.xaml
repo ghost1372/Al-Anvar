@@ -48,6 +48,14 @@
                           ItemsSource="{ui:EnumValues Type=enums:TextAlignment}"
                           SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.TextAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wuc:SettingsCard>
+            <wuc:SettingsCard Description="حالت نمایش فوکوس برای آیه انتخاب شده را مشخص کنید"
+                              Header="حالت نمایش آیه"
+                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/focus.png}">
+                <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
+                          xmlns:ui="using:CommunityToolkit.WinUI"
+                          ItemsSource="{ui:EnumValues Type=enums:FocusState}"
+                          SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.FocusState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wuc:SettingsCard>
             <wuc:SettingsExpander Description="با فعال سازی این گزینه، اگر خطایی رخ دهد یا برنامه بصورت ناگهانی بسته شود اطلاعات خطا در فایلی به نام Log{YYYYMMDD}.txt ذخیره خواهد شد"
                                   Header="حالت توسعه دهنده (نیاز به راه اندازی مجدد)"
                                   HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">

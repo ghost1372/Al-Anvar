@@ -137,4 +137,12 @@ public sealed partial class QuranSearchItem : TabViewItem
             }
         }
     }
+
+    private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (listView.SelectedItem != null)
+        {
+            listView.Focus(Settings.FocusState);
+        }
+    }
 }

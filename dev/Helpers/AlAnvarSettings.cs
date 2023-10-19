@@ -26,4 +26,5 @@ public class AlAnvarSettings : JsonSettings, IVersionable
     public virtual string AudiosPath { get; set; } = Constants.AudiosPath;
     public virtual NavigationViewPaneDisplayMode PaneDisplayMode { get; set; } = NavigationViewPaneDisplayMode.Top;
     public virtual TextAlignment TextAlignment { get; set; } = TextAlignment.Center;
+    public virtual FocusState FocusState { get; set; } = FocusState.Keyboard;
 }
