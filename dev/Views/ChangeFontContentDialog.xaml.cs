@@ -3,10 +3,16 @@
 public sealed partial class ChangeFontContentDialog : ContentDialog
 {
     public FontType FontType { get; set; }
+    
     public ChangeFontContentDialog()
     {
         this.InitializeComponent();
         XamlRoot = App.currentWindow.Content.XamlRoot;
+        Loaded += ChangeFontContentDialog_Loaded;
+    }
+
+    private void ChangeFontContentDialog_Loaded(object sender, RoutedEventArgs e)
+    {
         RequestedTheme = MainPage.Instance.ViewModel.ThemeService.GetCurrentTheme();
         LoadComboBoxItems();
         switch (FontType)
@@ -14,7 +20,7 @@ public sealed partial class ChangeFontContentDialog : ContentDialog
             case FontType.Aya:
                 txtResult.Text = "بسم الله الرحمن الرحیم";
                 nbSize.Value = txtResult.FontSize = Settings.AyatFontSize;
-                cmbFont.SelectedItem = cmbFont.Items.Where(x => ((ComboBoxItem)x).Tag.ToString().Equals(Settings.AyatFontFamilyName)).FirstOrDefault();
+                cmbFont.SelectedItem = cmbFont.Items.Where(x => ((ComboBoxItem) x).Tag.ToString().Equals(Settings.AyatFontFamilyName)).FirstOrDefault();
                 break;
             case FontType.AyaNumber:
                 txtResult.Text = "(1:7)";
@@ -27,7 +33,6 @@ public sealed partial class ChangeFontContentDialog : ContentDialog
                 cmbFont.SelectedItem = cmbFont.Items.Where(x => ((ComboBoxItem) x).Tag.ToString().Equals(Settings.TranslationFontFamilyName)).FirstOrDefault();
                 break;
         }
-
     }
 
     public void LoadComboBoxItems()
