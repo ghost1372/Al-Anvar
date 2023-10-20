@@ -2,8 +2,35 @@
 
 public sealed partial class ChangeFontContentDialog : ContentDialog
 {
+    public class FontType2
+    {
+        public string Name { get; set; }
+        public string Path { get; set; }
+
+        public FontType2(string name, string path)
+        {
+            this.Name = name;
+            this.Path = path;
+        }
+    }
+
     public FontType FontType { get; set; }
-    
+
+    List<FontType2> BuiltInFonts { get; set; } = new List<FontType2>
+    {
+        new FontType2("ایران سنس", "ms-appx:///Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX"),
+        new FontType2("وزیر متن", "ms-appx:///Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn"),
+        new FontType2("ایران یکان", "ms-appx:///Assets/Fonts/IRANYekanRegular.ttf#IRANYekan"),
+        new FontType2("نبی", "ms-appx:///Assets/Fonts/Nabi.ttf#Nabi"),
+        new FontType2("نیریزی", "ms-appx:///Assets/Fonts/Neirizi.ttf#Neirizi"),
+        new FontType2("قرآن طه", "ms-appx:///Assets/Fonts/QuranTaha.ttf#QuranTaha"),
+        new FontType2("الکلامی", "ms-appx:///Assets/Fonts/Alkalami-Regular.ttf#Alkalami"),
+        new FontType2("هرمتان", "ms-appx:///Assets/Fonts/Harmattan-Regular.ttf#Harmattan"),
+        new FontType2("روودو", "ms-appx:///Assets/Fonts/Ruwudu-Regular.ttf#Ruwudu"),
+        new FontType2("عثمان طه نسخ", "ms-appx:///Assets/Fonts/UthmanTN_v2-0.ttf#KFGQPC Uthman Taha Naskh"),
+        new FontType2("کوفی", "ms-appx:///Assets/Fonts/KFGQPC KufiStyV13.ttf#KFGQPC Kufi Stylistic"),
+        new FontType2("حفس", "ms-appx:///Assets/Fonts/UthmanicHafs_v2-1.ttf#KFGQPC HAFS Uthmanic Script")
+    };
     public ChangeFontContentDialog()
     {
         this.InitializeComponent();
@@ -48,36 +75,14 @@ public sealed partial class ChangeFontContentDialog : ContentDialog
         }
         else
         {
-            cmbFont.Items.Add(new ComboBoxItem
+            foreach (var item in BuiltInFonts)
             {
-                Content = IRANSANS_FONT_PERSIAN,
-                Tag = IRANSANS_FONT_ASSET
-            });
-            cmbFont.Items.Add(new ComboBoxItem
-            {
-                Content = VAZIRMATN_FONT_PERSIAN,
-                Tag = VAZIRMATN_FONT_ASSET
-            });
-            cmbFont.Items.Add(new ComboBoxItem
-            {
-                Content = IRANYEKAN_FONT_PERSIAN,
-                Tag = IRANYEKAN_FONT_ASSET
-            });
-            cmbFont.Items.Add(new ComboBoxItem
-            {
-                Content = NABI_FONT_PERSIAN,
-                Tag = NABI_FONT_ASSET
-            });
-            cmbFont.Items.Add(new ComboBoxItem
-            {
-                Content = NEIRIZI_FONT_PERSIAN,
-                Tag = NEIRIZI_FONT_ASSET
-            });
-            cmbFont.Items.Add(new ComboBoxItem
-            {
-                Content = QURANTAHA_FONT_PERSIAN,
-                Tag = QURANTAHA_FONT_ASSET
-            });
+                cmbFont.Items.Add(new ComboBoxItem
+                {
+                    Content = item.Name,
+                    Tag = item.Path
+                });
+            }
         }
     }
 

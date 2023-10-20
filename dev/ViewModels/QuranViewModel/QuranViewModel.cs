@@ -5,45 +5,35 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
     public QuranViewModel()
     {
         LoadQuranAsync();
-
-        Task.Run(() =>
-        {
-            GetDefaultFont();
-            GetDefaultForeground();
-        });
+        GetDefaultFont();
+        GetDefaultForeground();
     }
 
-    private void GetDefaultForeground()
+    public void GetDefaultForeground()
     {
-        dispatcherQueue.TryEnqueue(() =>
+        if (Settings.AyatForeground is not null)
         {
-            if (Settings.AyatForeground is not null)
-            {
-                AyatForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatForeground));
-            }
-            if (Settings.AyatNumberForeground is not null)
-            {
-                AyatNumberForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatNumberForeground));
-            }
-            if (Settings.TranslationForeground is not null)
-            {
-                TranslationForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.TranslationForeground));
-            }
-        });
+            AyatForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatForeground));
+        }
+        if (Settings.AyatNumberForeground is not null)
+        {
+            AyatNumberForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.AyatNumberForeground));
+        }
+        if (Settings.TranslationForeground is not null)
+        {
+            TranslationForeground = new SolidColorBrush(ColorHelper.ToColor(Settings.TranslationForeground));
+        }
     }
 
-    private void GetDefaultFont()
+    public void GetDefaultFont()
     {
-        dispatcherQueue.TryEnqueue(() =>
-        {
-            AyatFontFamily = new FontFamily(Settings.AyatFontFamilyName);
-            AyatNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
-            TranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
+        AyatFontFamily = new FontFamily(Settings.AyatFontFamilyName);
+        AyatNumberFontFamily = new FontFamily(Settings.AyatNumberFontFamilyName);
+        TranslationFontFamily = new FontFamily(Settings.TranslationFontFamilyName);
 
-            AyatFontSize = Settings.AyatFontSize;
-            AyatNumberFontSize = Settings.AyatNumberFontSize;
-            TranslationFontSize = Settings.TranslationFontSize;
-        });
+        AyatFontSize = Settings.AyatFontSize;
+        AyatNumberFontSize = Settings.AyatNumberFontSize;
+        TranslationFontSize = Settings.TranslationFontSize;
     }
 
     private async void LoadQuranAsync()

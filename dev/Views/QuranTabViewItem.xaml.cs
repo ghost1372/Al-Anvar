@@ -88,6 +88,8 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     private async void QuranTabViewItem_Loaded(object sender, RoutedEventArgs e)
     {
+        viewModel?.GetDefaultFont();
+        viewModel?.GetDefaultForeground();
         await Task.Run(() =>
         {
             LoadTranslationAsync();
