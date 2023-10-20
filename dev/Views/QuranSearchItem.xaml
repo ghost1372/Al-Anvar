@@ -30,6 +30,7 @@
                 <TextBlock VerticalAlignment="Center"
                            Text="{x:Bind AyahNumber}" />
                 <TextBlock VerticalAlignment="Center"
+                           IsTextSelectionEnabled="True"
                            Text="{x:Bind Text}" />
                 <community:DataRow.ContextFlyout>
                     <MenuFlyout>
@@ -57,6 +58,7 @@
                 <TextBlock VerticalAlignment="Center"
                            Text="{x:Bind AyahNumber}" />
                 <TextBlock VerticalAlignment="Center"
+                           IsTextSelectionEnabled="True"
                            Text="{x:Bind Text}" />
                 <community:DataRow.ContextFlyout>
                     <MenuFlyout>
