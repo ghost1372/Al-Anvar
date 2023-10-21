@@ -151,7 +151,7 @@
                      VerticalAlignment="Center"
                      EnableLazyLoading="True"
                      IsCacheEnabled="True"
-                     Source="Assets/icon.png" />
+                     Source="Assets/icon2.png" />
 
         <!--  FOOTER  -->
         <Border Grid.Row="3"
