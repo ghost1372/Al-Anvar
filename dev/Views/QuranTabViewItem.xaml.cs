@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-
 using AlAnvar.Helpers;
 
 using Downloader;
@@ -587,21 +586,24 @@ public sealed partial class QuranTabViewItem : TabViewItem
     private void menuFlyout_Click(object sender, RoutedEventArgs e)
     {
         var selectedItem = quranListView.SelectedItem as QuranItem;
-        DataPackage dataPackage = new DataPackage();
-        dataPackage.RequestedOperation = DataPackageOperation.Copy;
-        switch ((sender as MenuFlyoutItem).Tag)
+        if (selectedItem != null)
         {
-            case "Play":
-                PlayPlayer();
-                break;
-            case "CopyTranslation":
-                dataPackage.SetText(selectedItem.TranslationText);
-                Clipboard.SetContent(dataPackage);
-                break;
-            case "CopyAya":
-                dataPackage.SetText(selectedItem.AyahText);
-                Clipboard.SetContent(dataPackage);
-                break;
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            switch ((sender as MenuFlyoutItem).Tag)
+            {
+                case "Play":
+                    PlayPlayer();
+                    break;
+                case "CopyTranslation":
+                    dataPackage.SetText(selectedItem.TranslationText);
+                    Clipboard.SetContent(dataPackage);
+                    break;
+                case "CopyAya":
+                    dataPackage.SetText(selectedItem.AyahText);
+                    Clipboard.SetContent(dataPackage);
+                    break;
+            }
         }
     }
 
