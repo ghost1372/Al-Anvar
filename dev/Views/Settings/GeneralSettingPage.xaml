@@ -16,71 +16,82 @@
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
             <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
+            <wuc:SettingsGroup Description="حالت نمایش منوی برنامه و آیات قرآن را مشخص کنید"
+                               FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                               Header="حالت نمایش">
+                <wuc:SettingsGroup.Items>
+                    <wuc:SettingsCard Description="حالت نمایش منوی اصلی برنامه را مشخص کنید"
+                                      Header="حالت نمایش منو"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/displayMode.png}">
+                        <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
+                                  xmlns:ui="using:CommunityToolkit.WinUI"
+                                  ItemsSource="{ui:EnumValues Type=enums:NavigationViewPaneDisplayMode}"
+                                  SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                                    <ic:EventTriggerBehavior.Actions>
+                                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.PaneDisplayModeChangedCommand}" />
+                                    </ic:EventTriggerBehavior.Actions>
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </ComboBox>
+                    </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="حالت نمایش متن و ترجمه قرآن را مشخص کنید"
+                                      Header="حالت نمایش متن"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/textAlignment.png}">
+                        <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
+                                  xmlns:ui="using:CommunityToolkit.WinUI"
+                                  ItemsSource="{ui:EnumValues Type=enums:TextAlignment}"
+                                  SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.TextAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="enums:TextAlignment">
+                                    <TextBlock Text="{x:Bind}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </wuc:SettingsCard>
+                    <wuc:SettingsCard Description="حالت نمایش فوکوس برای آیه انتخاب شده را مشخص کنید"
+                                      Header="حالت نمایش آیه"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/focus.png}">
+                        <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
+                                  xmlns:ui="using:CommunityToolkit.WinUI"
+                                  ItemsSource="{ui:EnumValues Type=enums:FocusState}"
+                                  SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.FocusState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="enums:FocusState">
+                                    <TextBlock Text="{x:Bind}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </wuc:SettingsCard>
+                </wuc:SettingsGroup.Items>
+            </wuc:SettingsGroup>
+            <wuc:SettingsGroup FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                               Header="سایر تنظیمات">
+                <wuc:SettingsGroup.Items>
+                    <wuc:SettingsCard Description="هنگام پخش آیه، بخش های دانلود نشده بصورت خودکار دانلود خواهند شد."
+                                      Header="دانلود خودکار صوت"
+                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}">
+                        <ToggleSwitch IsOn="{x:Bind settings:AlAnvarHelper.Settings.IsAutoDownloadSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      OffContent="غیر فعال"
+                                      OnContent="فعال" />
+                    </wuc:SettingsCard>
 
-            <wuc:SettingsCard Description="هنگام پخش آیه، بخش های دانلود نشده بصورت خودکار دانلود خواهند شد."
-                              Header="دانلود خودکار صوت"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}">
-                <ToggleSwitch IsOn="{x:Bind settings:AlAnvarHelper.Settings.IsAutoDownloadSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              OffContent="غیر فعال"
-                              OnContent="فعال" />
-            </wuc:SettingsCard>
-            <wuc:SettingsCard Description="حالت نمایش منوی اصلی برنامه را مشخص کنید"
-                              Header="حالت نمایش منو"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/displayMode.png}">
-                <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
-                          xmlns:ui="using:CommunityToolkit.WinUI"
-                          ItemsSource="{ui:EnumValues Type=enums:NavigationViewPaneDisplayMode}"
-                          SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PaneDisplayModeChangedCommand}" />
-                            </ic:EventTriggerBehavior.Actions>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </ComboBox>
-            </wuc:SettingsCard>
-            <wuc:SettingsCard Description="حالت نمایش متن و ترجمه قرآن را مشخص کنید"
-                              Header="حالت نمایش متن"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/textAlignment.png}">
-                <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
-                          xmlns:ui="using:CommunityToolkit.WinUI"
-                          ItemsSource="{ui:EnumValues Type=enums:TextAlignment}"
-                          SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.TextAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="enums:TextAlignment">
-                            <TextBlock Text="{x:Bind}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </wuc:SettingsCard>
-            <wuc:SettingsCard Description="حالت نمایش فوکوس برای آیه انتخاب شده را مشخص کنید"
-                              Header="حالت نمایش آیه"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/focus.png}">
-                <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
-                          xmlns:ui="using:CommunityToolkit.WinUI"
-                          ItemsSource="{ui:EnumValues Type=enums:FocusState}"
-                          SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.FocusState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="enums:FocusState">
-                            <TextBlock Text="{x:Bind}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </wuc:SettingsCard>
-            <wuc:SettingsExpander Description="با فعال سازی این گزینه، اگر خطایی رخ دهد یا برنامه بصورت ناگهانی بسته شود اطلاعات خطا در فایلی به نام Log{YYYYMMDD}.txt ذخیره خواهد شد"
-                                  Header="حالت توسعه دهنده (نیاز به راه اندازی مجدد)"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">
-                <ToggleSwitch IsOn="{x:Bind settings:AlAnvarHelper.Settings.UseDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              OffContent="غیر فعال"
-                              OnContent="فعال" />
-                <wuc:SettingsExpander.ItemsHeader>
-                    <HyperlinkButton HorizontalAlignment="Stretch"
-                                     HorizontalContentAlignment="Right"
-                                     Click="NavigateToLogPath_Click"
-                                     Content="{x:Bind settings:Constants.LogDirectoryPath}" />
-                </wuc:SettingsExpander.ItemsHeader>
-            </wuc:SettingsExpander>
+                    <wuc:SettingsExpander Description="با فعال سازی این گزینه، اگر خطایی رخ دهد یا برنامه بصورت ناگهانی بسته شود اطلاعات خطا در فایلی به نام Log{YYYYMMDD}.txt ذخیره خواهد شد"
+                                          Header="حالت توسعه دهنده (نیاز به راه اندازی مجدد)"
+                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">
+                        <ToggleSwitch IsOn="{x:Bind settings:AlAnvarHelper.Settings.UseDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      OffContent="غیر فعال"
+                                      OnContent="فعال" />
+                        <wuc:SettingsExpander.ItemsHeader>
+                            <HyperlinkButton HorizontalAlignment="Stretch"
+                                             HorizontalContentAlignment="Right"
+                                             Click="NavigateToLogPath_Click"
+                                             Content="{x:Bind settings:Constants.LogDirectoryPath}" />
+                        </wuc:SettingsExpander.ItemsHeader>
+                    </wuc:SettingsExpander>
+                </wuc:SettingsGroup.Items>
+            </wuc:SettingsGroup>
         </StackPanel>
     </ScrollView>
 </Page>

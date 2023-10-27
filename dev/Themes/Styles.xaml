@@ -8,23 +8,4 @@
     <Thickness x:Key="SettingsCardMargin">0,0,0,4</Thickness>
 
     <x:Double x:Key="ControlContentThemeFontSize">16</x:Double>
-
-    <Style x:Key="BaseBorderInfoPanelStyle"
-           TargetType="Border">
-        <Setter Property="BorderBrush" Value="{ThemeResource InfoBarBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource InfoBarBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-    </Style>
-
-    <Style x:Key="InfoBorderPanelStyle"
-           BasedOn="{StaticResource BaseBorderInfoPanelStyle}"
-           TargetType="Border">
-        <Setter Property="Background" Value="{ThemeResource InfoBarInformationalSeverityBackgroundBrush}" />
-    </Style>
-
-    <Style x:Key="WarningBorderPanelStyle"
-           BasedOn="{StaticResource BaseBorderInfoPanelStyle}"
-           TargetType="Border">
-        <Setter Property="Background" Value="{ThemeResource InfoBarWarningSeverityBackgroundBrush}" />
-    </Style>
 </ResourceDictionary>

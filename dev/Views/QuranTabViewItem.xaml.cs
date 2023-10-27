@@ -83,10 +83,17 @@ public sealed partial class QuranTabViewItem : TabViewItem
     private void QuranTabViewItem_CloseRequested(TabViewItem sender, TabViewTabCloseRequestedEventArgs args)
     {
         StopPlayer();
+        Temp.OpenedTabViewItem.DeleteIfExistsKey(Header?.ToString());
     }
 
     private async void QuranTabViewItem_Loaded(object sender, RoutedEventArgs e)
     {
+        if (Temp.OpenedTabViewItem == null)
+        {
+            Temp.OpenedTabViewItem = new Dictionary<string, QuranTabViewItem>();
+        }
+        Temp.OpenedTabViewItem.TryAdd(Header?.ToString(), this);
+
         viewModel?.GetDefaultFont();
         viewModel?.GetDefaultForeground();
         await Task.Run(() =>
@@ -467,7 +474,12 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     private async void PlayPlayer()
     {
-        StopPlayer();
+        foreach (var item in Temp.OpenedTabViewItem.Values)
+        {
+            item?.SetPlayCommandState(PlayCommand.Play);
+            item?.StopPlayer();
+        }
+
         if (CurrentQari is not null)
         {
             if (GetListViewSelectedIndex() == -1)
@@ -643,11 +655,13 @@ public sealed partial class QuranTabViewItem : TabViewItem
             case PlayCommand.Play:
                 btnPlay.Label = "پخش";
                 btnPlay.Icon = new SymbolIcon { Symbol = Symbol.Play };
+                btnPlay.IsChecked = false;
                 break;
 
             case PlayCommand.Stop:
                 btnPlay.Label = "توقف";
                 btnPlay.Icon = new SymbolIcon { Symbol = Symbol.Stop };
+                btnPlay.IsChecked = true;
                 break;
         }
     }
