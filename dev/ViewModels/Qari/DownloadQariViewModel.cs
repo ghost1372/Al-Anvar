@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-
+using System.Text.RegularExpressions;
+using ColorCode.Compilation.Languages;
 using Downloader;
-
 using Newtonsoft.Json;
 
 namespace AlAnvar.ViewModels;
@@ -50,7 +50,7 @@ public partial class DownloadQariViewModel : ObservableRecipient, ITitleBarAutoS
         await Task.Run(async () =>
         {
             using var db = new AlAnvarDBContext();
-            var data = await db.Audios.OrderBy(x=>x.Name).ToListAsync();
+            var data = await db.Audios.OrderBy(x => x.Name).ToListAsync();
             QuranAudios = new(data);
             dispatcherQueue.TryEnqueue(() =>
             {
@@ -137,8 +137,18 @@ public partial class DownloadQariViewModel : ObservableRecipient, ITitleBarAutoS
                     }
                     else
                     {
-                        var audioUrl = Path.Combine(audioItem.Url, id);
-                        var audioFilePath = Path.Combine(dirPath, id);
+                        var audioUrlPath = id;
+                        if (audioItem.Url.EndsWith("/") && audioUrlPath.StartsWith("/"))
+                        {
+                            audioUrlPath = audioUrlPath.Remove(0, 1);
+                        }
+                        else if (!audioItem.Url.EndsWith("/") && !audioUrlPath.StartsWith("/"))
+                        {
+                            audioUrlPath = audioUrlPath.Insert(0, "/");
+                        }
+
+                        var finalAudioUrlPath = Path.Combine(audioItem.Url, audioUrlPath);
+                        var audioFilePath = Path.Combine(dirPath, finalAudioUrlPath);
                         if (File.Exists(audioFilePath))
                         {
                             _downloadedtItemCount += 1;
@@ -149,7 +159,7 @@ public partial class DownloadQariViewModel : ObservableRecipient, ITitleBarAutoS
                         downloadService = new DownloadService();
                         downloadService.DownloadProgressChanged += Downloader_DownloadProgressChanged;
                         downloadService.DownloadFileCompleted += Downloader_DownloadFileCompleted;
-                        await downloadService.DownloadFileTaskAsync(audioUrl, new DirectoryInfo(dirPath));
+                        await downloadService.DownloadFileTaskAsync(finalAudioUrlPath, new DirectoryInfo(dirPath));
                     }
                 }
             }
@@ -191,18 +201,28 @@ public partial class DownloadQariViewModel : ObservableRecipient, ITitleBarAutoS
     private List<string> GetAudioIds(string fileName)
     {
         List<string> quranAudioIds = new List<string>();
-        using var streamReader = File.OpenText(fileName);
-        string line = String.Empty;
-        while ((line = streamReader.ReadLine()) != null)
+
+        string content;
+        using (StreamReader sr = new StreamReader(fileName))
         {
-            if (line.Contains("href"))
-            {
-                var audioId = line.Replace("<a href=\"", "");
-                var lastIndex = audioId.IndexOf("\">");
-                audioId = audioId.Substring(0, lastIndex);
-                quranAudioIds.Add(audioId);
-            }
+            content = sr.ReadToEnd();
         }
+
+        if (string.IsNullOrEmpty(content))
+        {
+            return null;
+        }
+
+        string pattern = "href=\"(.*?\\.mp3)\"";
+        Regex regex = new Regex(pattern);
+
+        foreach (Match match in regex.Matches(content))
+        {
+            string mp3Link = match.Groups[1].Value;
+            mp3Link = Path.GetFileName(mp3Link);
+            quranAudioIds.Add(mp3Link);
+        }
+
         return quranAudioIds;
     }
 
