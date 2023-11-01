@@ -13,7 +13,7 @@
     <LangVersion>latest</LangVersion>
 	  <ImplicitUsings>enable</ImplicitUsings>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-    <Version>2.3.1</Version>
+    <Version>2.3.2</Version>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   	<ApplicationIcon>Assets\icon.ico</ApplicationIcon>
   </PropertyGroup>
@@ -25,7 +25,7 @@
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.0.230907" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
 	  <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
     <PackageReference Include="Downloader" Version="3.0.6" />

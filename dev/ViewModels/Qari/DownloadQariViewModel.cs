@@ -50,7 +50,7 @@ public partial class DownloadQariViewModel : ObservableRecipient, ITitleBarAutoS
         await Task.Run(async () =>
         {
             using var db = new AlAnvarDBContext();
-            var data = await db.Audios.ToListAsync();
+            var data = await db.Audios.OrderBy(x=>x.Name).ToListAsync();
             QuranAudios = new(data);
             dispatcherQueue.TryEnqueue(() =>
             {
