@@ -40,6 +40,7 @@ public partial class QariSettingViewModel : ObservableRecipient
     {
         Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
         {
+            QarisCollection?.Clear();
             if (Directory.Exists(Settings.AudiosPath))
             {
                 var files = Directory.GetFiles(Settings.AudiosPath, "*.ini", SearchOption.AllDirectories);
@@ -100,6 +101,7 @@ public partial class QariSettingViewModel : ObservableRecipient
         {
             Settings.AudiosPath = folder.Path;
             AudioFolderPath = folder.Path;
+            LoadQaris();
         }
     }
 }
