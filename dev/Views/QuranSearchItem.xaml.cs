@@ -74,27 +74,29 @@ public sealed partial class QuranSearchItem : TabViewItem
                     }
                 }
 
-
                 if (searchOptionIndex == 0 || searchOptionIndex == 2)
                 {
-                    var translationItem = await db.TranslationsText.Where(x => x.TranslationId == Settings.QuranTranslation.TranslationId).FirstOrDefaultAsync();
-                    if (translationItem != null)
+                    if (Settings.QuranTranslation != null)
                     {
-                        var translations = System.Text.Json.JsonSerializer.Deserialize<List<TranslationItem>>(translationItem.Text);
-                        var translationResult = translations.Where(x => x.Translation.ToLower().Contains(tag.ToLower())).ToList();
-                        foreach (var item in translationResult)
+                        var translationItem = await db.TranslationsText.Where(x => x.TranslationId == Settings.QuranTranslation.TranslationId).FirstOrDefaultAsync();
+                        if (translationItem != null)
                         {
-                            var searchItem = new QuranSearch2
+                            var translations = System.Text.Json.JsonSerializer.Deserialize<List<TranslationItem>>(translationItem.Text);
+                            var translationResult = translations.Where(x => x.Translation.ToLower().Contains(tag.ToLower())).ToList();
+                            foreach (var item in translationResult)
                             {
-                                Id = index++,
-                                SurahId = item.SurahId,
-                                AyahNumber = item.Aya,
-                                Text = item.Translation,
-                                SurahName = db.Chapters.Where(x => x.Id == item.SurahId).Select(x => x.Name).FirstOrDefault(),
-                                IsTranslation = true
-                            };
+                                var searchItem = new QuranSearch2
+                                {
+                                    Id = index++,
+                                    SurahId = item.SurahId,
+                                    AyahNumber = item.Aya,
+                                    Text = item.Translation,
+                                    SurahName = db.Chapters.Where(x => x.Id == item.SurahId).Select(x => x.Name).FirstOrDefault(),
+                                    IsTranslation = true
+                                };
 
-                            items.Add(searchItem);
+                                items.Add(searchItem);
+                            }
                         }
                     }
                 }
