@@ -80,8 +80,19 @@ public partial class App : Application
 
         rootFrame.Navigate(typeof(MainPage));
 
+        if (Settings.UseDeveloperMode)
+        {
+            ConfigureLogger();
+        }
+        UnhandledException += App_UnhandledException;
+
         currentWindow.Title = currentWindow.AppWindow.Title = $"AlAnvar v{AppVersion}";
         currentWindow.AppWindow.SetIcon("Assets/icon.ico");
         currentWindow.Activate();
+    }
+
+    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        Logger?.Error(e.Exception, "UnhandledException");
     }
 }

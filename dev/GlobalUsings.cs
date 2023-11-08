@@ -24,3 +24,4 @@ global using WinUICommunity;
 
 global using static AlAnvar.Helpers.AlAnvarHelper;
 global using static AlAnvar.Helpers.Constants;
+global using static AlAnvar.Helpers.LoggerSetup;

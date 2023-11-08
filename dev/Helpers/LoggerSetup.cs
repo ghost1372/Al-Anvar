@@ -1,7 +1,6 @@
-﻿using AlAnvar.Helpers;
-using Serilog;
+﻿using Serilog;
 
-namespace AlAnvar.Common;
+namespace AlAnvar.Helpers;
 public static class LoggerSetup
 {
     public static ILogger Logger { get; private set; }
