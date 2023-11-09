@@ -607,6 +607,9 @@ public sealed partial class QuranTabViewItem : TabViewItem
                 case "Play":
                     PlayPlayer();
                     break;
+                case "Export":
+                    ExportAudio();
+                    break;
                 case "CopyTranslation":
                     dataPackage.SetText(selectedItem.TranslationText);
                     Clipboard.SetContent(dataPackage);
@@ -615,6 +618,28 @@ public sealed partial class QuranTabViewItem : TabViewItem
                     dataPackage.SetText(selectedItem.AyahText);
                     Clipboard.SetContent(dataPackage);
                     break;
+            }
+        }
+    }
+
+    private async void ExportAudio()
+    {
+        var selectedItem = GetListViewSelectedItem();
+
+        if (Settings.QuranAudio == null || quranListView.SelectedIndex == -1 || selectedItem == null)
+        {
+            return;
+        }
+        var extensions = new Dictionary<string, IList<string>>();
+        extensions.Add("MP3 Audio",new List<string> { ".mp3" });
+        var storageFile = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, extensions, $"{Chapter.Name}-{selectedItem.Audio}-{Settings.QuranAudio.Name}");
+        if (storageFile != null)
+        {
+            var dirPath = Path.Combine(Settings.AudiosPath, Settings.QuranAudio.DirName);
+            var fileFullPath = $@"{dirPath}\{selectedItem.Audio}.mp3";
+            if (File.Exists(fileFullPath))
+            {
+                File.Copy(fileFullPath, storageFile.Path, true);
             }
         }
     }

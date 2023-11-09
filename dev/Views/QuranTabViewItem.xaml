@@ -193,6 +193,11 @@
                                         Icon="Volume"
                                         Tag="Play"
                                         Text="قرائت" />
+                        <MenuFlyoutItem x:Name="mnuExportAudio"
+                                        Click="menuFlyout_Click"
+                                        Icon="Save"
+                                        Tag="Export"
+                                        Text="استخراج فایل صوتی" />
                         <MenuFlyoutSeparator />
 
                         <MenuFlyoutItem x:Name="mnuAddNote"
