@@ -9,7 +9,7 @@
              xmlns:local="using:AlAnvar.Common"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:tables="using:AlAnvar.Database.Tables"
-             xmlns:wuc="using:WinUICommunity"
+             xmlns:dev="using:DevWinUI"
              Loaded="TabViewItem_Loaded"
              mc:Ignorable="d">
     <TabViewItem.IconSource>
@@ -36,7 +36,7 @@
                         <MenuFlyoutItem Margin="5"
                                         Click="MenuGoToSurah_Click"
                                         CornerRadius="{ThemeResource ControlCornerRadius}"
-                                        Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
+                                        Icon="{dev:BitmapIcon Source=Assets/Fluent/external.png}"
                                         Tag="{x:Bind}"
                                         Text="برو به سوره موردنظر" />
                     </MenuFlyout>
@@ -63,7 +63,7 @@
                         <MenuFlyoutItem Margin="5"
                                         Click="MenuGoToSurah_Click"
                                         CornerRadius="{ThemeResource ControlCornerRadius}"
-                                        Icon="{wuc:BitmapIcon Source=Assets/Fluent/external.png}"
+                                        Icon="{dev:BitmapIcon Source=Assets/Fluent/external.png}"
                                         Tag="{x:Bind}"
                                         Text="برو به سوره موردنظر" />
                     </MenuFlyout>

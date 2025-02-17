@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Window x:Class="AlAnvar.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dev="using:DevWinUI"
+        xmlns:local="using:AlAnvar"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:settings="using:AlAnvar.Common"
+        mc:Ignorable="d">
+    <Grid Loaded="Grid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TitleBar x:Name="AppTitleBar"
+                  Title="الانوار"
+                  IconSource="{dev:BitmapIconSource Source=ms-appx:///Assets/icon.png}"
+                  IsBackButtonVisible="True"
+                  IsPaneToggleButtonVisible="True"
+                  Subtitle="{x:Bind dev:ProcessInfoHelper.VersionWithPrefix}">
+            <StackPanel HorizontalAlignment="Stretch"
+                        Orientation="Horizontal">
+                <AutoSuggestBox x:Name="HeaderAutoSuggestBox"
+                                MinWidth="320"
+                                VerticalAlignment="Center"
+                                FlowDirection="RightToLeft"
+                                PlaceholderText="جستجوی قاری، ترجمه و قرآن"
+                                QueryIcon="Find"
+                                QuerySubmitted="OnQuerySubmitted"
+                                TextChanged="OnTextChanged">
+                    <AutoSuggestBox.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F"
+                                             Invoked="KeyboardAccelerator_Invoked"
+                                             Modifiers="Control" />
+                    </AutoSuggestBox.KeyboardAccelerators>
+                </AutoSuggestBox>
+                <CommandBar x:Name="cmbSearch"
+                            Background="Transparent"
+                            DefaultLabelPosition="Collapsed"
+                            Visibility="Collapsed">
+                    <CommandBar.SecondaryCommands>
+                        <AppBarElementContainer Margin="10,0,10,5"
+                                                FlowDirection="RightToLeft">
+                            <RadioButtons x:Name="rbSearch"
+                                          SelectedIndex="0">
+                                <RadioButton Content="جستجوی همه" />
+                                <RadioButton Content="جستجو در متن قرآن" />
+                                <RadioButton Content="جستجو در متن ترجمه" />
+                            </RadioButtons>
+                        </AppBarElementContainer>
+                    </CommandBar.SecondaryCommands>
+                </CommandBar>
+            </StackPanel>
+
+            <TitleBar.RightContent>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="5">
+                    <Button x:Name="PaneDisplayModeButton"
+                            Width="38"
+                            Height="32"
+                            Click="PaneDisplayModeButton_Click"
+                            Style="{ThemeResource SubtleButtonStyle}"
+                            ToolTipService.ToolTip="تغییر حالت نمایش منو">
+                        <Button.Content>
+                            <FontIcon FontSize="16"
+                                      Glyph="&#xF594;" />
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="ThemeButton"
+                            Height="32"
+                            Margin="0,0,4,0"
+                            Click="ThemeButton_Click"
+                            Content="{dev:FontIcon GlyphCode=E793,
+                                                   FontSize=16}"
+                            Style="{ThemeResource SubtleButtonStyle}"
+                            ToolTipService.ToolTip="تغییر پوسته" />
+                </StackPanel>
+            </TitleBar.RightContent>
+        </TitleBar>
+        <NavigationView x:Name="NavView"
+                        Grid.Row="1"
+                        DisplayModeChanged="NavView_DisplayModeChanged"
+                        FlowDirection="RightToLeft"
+                        IsBackButtonVisible="Collapsed"
+                        IsPaneToggleButtonVisible="False"
+                        PaneDisplayMode="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=OneWay}">
+            <NavigationView.Header>
+                <dev:BreadcrumbNavigator x:Name="BreadCrumbNav" />
+            </NavigationView.Header>
+            <Frame x:Name="NavFrame" />
+        </NavigationView>
+    </Grid>
+</Window>

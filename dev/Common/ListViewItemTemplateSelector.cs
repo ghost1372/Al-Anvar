@@ -9,9 +9,9 @@ public class ListViewItemTemplateSelector : DataTemplateSelector
         if (item == null) return null;
         var search = item as QuranSearch2;
         var searchOptionIndex = 0;
-        if (MainPage.Instance != null)
+        if (MainWindow.Instance != null)
         {
-            searchOptionIndex = MainPage.Instance.GetQuranSearchOptionIndex();
+            searchOptionIndex = MainWindow.Instance.GetQuranSearchOptionIndex();
         }
 
         if (searchOptionIndex == 0 && search.IsTranslation)

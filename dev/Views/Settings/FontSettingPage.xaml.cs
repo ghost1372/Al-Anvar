@@ -5,7 +5,6 @@ namespace AlAnvar.Views;
 public sealed partial class FontSettingPage : Page
 {
     public FontSettingViewModel ViewModel { get; }
-    public string BreadCrumbBarItemText { get; set; }
     public static FontSettingPage Instance { get; set; }
     public FontSettingPage()
     {
@@ -43,11 +42,5 @@ public sealed partial class FontSettingPage : Page
         TxtAyat.Foreground = null;
         TxtAyatNumber.Foreground = null;
         TxtTranslation.Foreground = null;
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        BreadCrumbBarItemText = e.Parameter as string;
     }
 }

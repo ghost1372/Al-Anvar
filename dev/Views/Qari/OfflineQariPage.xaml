@@ -6,7 +6,6 @@
       xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:table="using:AlAnvar.Database.Tables"
       mc:Ignorable="d">
@@ -51,12 +50,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
             <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="SelectionChanged">
-                    <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
-                                                CommandParameter="{Binding ElementName=listview}" />
-                    </ic:EventTriggerBehavior.Actions>
-                </ic:EventTriggerBehavior>
+                <i:EventTriggerBehavior EventName="SelectionChanged">
+                    <i:EventTriggerBehavior.Actions>
+                        <i:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
+                                               CommandParameter="{Binding ElementName=listview}" />
+                    </i:EventTriggerBehavior.Actions>
+                </i:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </ListView>
 

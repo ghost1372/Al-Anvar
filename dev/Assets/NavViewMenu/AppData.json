@@ -1,20 +1,16 @@
 ﻿{
+  "$schema": "https://raw.githubusercontent.com/Ghost1372/DevWinUI/refs/heads/main/AppData.Schema.json",
   "Groups": [
     {
       "UniqueId": "AlAnvar",
       "Title": "AlAnvar",
-      "ImagePath": "ms-appx:///Assets/icon.png",
-      "ImageIconPath": "ms-appx:///Assets/icon.png",
       "ShowItemsWithoutGroup": true,
-      "IsExpanded": true,
       "Items": [
         {
           "UniqueId": "AlAnvar.Views.HomeLandingPage",
           "Title": "الانوار",
           "Subtitle": "نرم افزار قرآنی الانوار",
           "ImagePath": "ms-appx:///Assets/icon.png",
-          "ImageIconPath": "ms-appx:///Assets/icon.png",
-          "IsNew": true,
           "HideItem": true
         },
         {
@@ -22,7 +18,6 @@
           "Title": "قرآن",
           "Subtitle": "متن قرآن به همراه ترجمه و صوت",
           "ImagePath": "ms-appx:///Assets/Fluent/quran.png",
-          "ImageIconPath": "ms-appx:///Assets/Fluent/quran.png",
           "IsNew": true
         },
         {
@@ -30,7 +25,6 @@
           "Title": "مدیریت قاری ها",
           "Subtitle": "دانلود و حذف قاری های موجود",
           "ImagePath": "ms-appx:///Assets/Fluent/sound.png",
-          "ImageIconPath": "ms-appx:///Assets/Fluent/sound.png",
           "IsNew": true
         },
         {
@@ -38,7 +32,6 @@
           "Title": "مدیریت ترجمه ها",
           "Subtitle": "دانلود و حذف ترجمه های موجود",
           "ImagePath": "ms-appx:///Assets/Fluent/subtitle.png",
-          "ImageIconPath": "ms-appx:///Assets/Fluent/subtitle.png",
           "IsNew": true
         },
         {
@@ -46,10 +39,9 @@
           "Title": "تفسیر قرآن",
           "Subtitle": "تفسیر آیه به آیه و موضوعی قرآن",
           "ImagePath": "ms-appx:///Assets/Fluent/tafsir.png",
-          "ImageIconPath": "ms-appx:///Assets/Fluent/tafsir.png",
           "IsNew": true,
           "HideItem": true,
-          "HideNavigationViewItem":  true,
+          "HideNavigationViewItem": true,
           "IncludedInBuild": false
         }
       ]

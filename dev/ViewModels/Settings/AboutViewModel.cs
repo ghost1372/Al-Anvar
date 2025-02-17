@@ -3,5 +3,5 @@
 public partial class AboutViewModel : ObservableObject
 {
     [ObservableProperty]
-    public string alAnvarVersion = $"الانوار v{App.Current.AppVersion}";
+    public string alAnvarVersion = $"الانوار {ProcessInfoHelper.VersionWithPrefix}";
 }

@@ -1,14 +1,13 @@
-﻿using Microsoft.UI;
-
-namespace AlAnvar;
+﻿namespace AlAnvar;
 
 public partial class App : Application
 {
-    public static Window currentWindow = Window.Current;
-    public string AppVersion { get; set; } = ApplicationHelper.GetAppVersion();
-    public IServiceProvider Services { get; }
-    public ResourceHelper ResourceHelper { get; set; }
+    public static Window MainWindow = Window.Current;
     public new static App Current => (App) Application.Current;
+    public IServiceProvider Services { get; }
+    public IJsonNavigationService NavService => GetService<IJsonNavigationService>();
+    public IThemeService ThemeService => GetService<IThemeService>();
+    public ResourceHelper ResourceHelper { get; set; }
 
     public static T GetService<T>()
         where T : class
@@ -35,18 +34,9 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<IJsonNavigationViewService>(factory =>
-        {
-            var json = new JsonNavigationViewService();
-            json.ConfigDefaultPage(typeof(HomeLandingPage));
-            json.ConfigSettingsPage(typeof(SettingsPage));
-            return json;
-        });
+        services.AddSingleton<IJsonNavigationService, JsonNavigationService>();
         services.AddSingleton<IThemeService, ThemeService>();
 
-        services.AddTransient<BreadCrumbBarViewModel>();
-        services.AddTransient<HomeLandingViewModel>();
-        services.AddTransient<MainViewModel>();
         services.AddTransient<DownloadQariViewModel>();
         services.AddTransient<OfflineQariViewModel>();
         services.AddTransient<DownloadTranslationViewModel>();
@@ -54,11 +44,9 @@ public partial class App : Application
         services.AddTransient<QuranViewModel>();
 
         //Settings
-        services.AddTransient<SettingsViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();
         services.AddTransient<FontSettingViewModel>();
         services.AddTransient<QariSettingViewModel>();
-        services.AddTransient<ThemeSettingViewModel>();
         services.AddTransient<TranslationSettingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AboutViewModel>();
@@ -68,17 +56,16 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        currentWindow = new Window();
+        MainWindow = new MainWindow();
 
-        currentWindow.AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-        currentWindow.AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-
-        if (currentWindow.Content is not Frame rootFrame)
+        if (this.ThemeService != null)
         {
-            currentWindow.Content = rootFrame = new Frame();
+            this.ThemeService.AutoInitialize(MainWindow)
+                .ConfigureTintColor();
         }
 
-        rootFrame.Navigate(typeof(MainPage));
+        MainWindow.Title = MainWindow.AppWindow.Title = ProcessInfoHelper.ProductNameAndVersion;
+        MainWindow.AppWindow.SetIcon("Assets/icon.ico");
 
         if (Settings.UseDeveloperMode)
         {
@@ -86,9 +73,7 @@ public partial class App : Application
         }
         UnhandledException += App_UnhandledException;
 
-        currentWindow.Title = currentWindow.AppWindow.Title = $"AlAnvar v{AppVersion}";
-        currentWindow.AppWindow.SetIcon("Assets/icon.ico");
-        currentWindow.Activate();
+        MainWindow.Activate();
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)

@@ -1,4 +1,6 @@
-﻿namespace AlAnvar.ViewModels;
+﻿using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
+
+namespace AlAnvar.ViewModels;
 
 public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestBoxAware
 {
@@ -114,9 +116,9 @@ public partial class QuranViewModel : ObservableRecipient, ITitleBarAutoSuggestB
         if (QuranPage.Instance != null)
         {
             int searchOptionIndex = 0;
-            if (MainPage.Instance != null)
+            if (MainWindow.Instance != null)
             {
-                searchOptionIndex = MainPage.Instance.GetQuranSearchOptionIndex();
+                searchOptionIndex = MainWindow.Instance.GetQuranSearchOptionIndex();
             }
             var tabView = QuranPage.Instance.GetTabView();
             var currentTabViewItem = tabView.TabItems?.Where(tabViewItem => (tabViewItem as QuranSearchItem)?.Tag?.ToString() == sender?.Text + searchOptionIndex.ToString())?.FirstOrDefault();

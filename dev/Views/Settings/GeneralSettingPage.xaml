@@ -3,42 +3,41 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:settings="using:AlAnvar.Helpers"
+      xmlns:settings="using:AlAnvar.Common"
       xmlns:views="using:AlAnvar.Views"
-      xmlns:wuc="using:WinUICommunity"
+      dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
 
     <ScrollView>
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
-            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
-            <wuc:SettingsGroup Description="حالت نمایش منوی برنامه و آیات قرآن را مشخص کنید"
+            <dev:SettingsGroup Description="حالت نمایش منوی برنامه و آیات قرآن را مشخص کنید"
                                FontFamily="{ThemeResource ContentControlThemeFontFamily}"
                                Header="حالت نمایش">
-                <wuc:SettingsGroup.Items>
-                    <wuc:SettingsCard Description="حالت نمایش منوی اصلی برنامه را مشخص کنید"
+                <dev:SettingsGroup.Items>
+                    <dev:SettingsCard Description="حالت نمایش منوی اصلی برنامه را مشخص کنید"
                                       Header="حالت نمایش منو"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/displayMode.png}">
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/displayMode.png}">
                         <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
                                   xmlns:ui="using:CommunityToolkit.WinUI"
                                   ItemsSource="{ui:EnumValues Type=enums:NavigationViewPaneDisplayMode}"
                                   SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="SelectionChanged">
-                                    <ic:EventTriggerBehavior.Actions>
-                                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.PaneDisplayModeChangedCommand}" />
-                                    </ic:EventTriggerBehavior.Actions>
-                                </ic:EventTriggerBehavior>
+                                <i:EventTriggerBehavior EventName="SelectionChanged">
+                                    <i:EventTriggerBehavior.Actions>
+                                        <i:InvokeCommandAction Command="{x:Bind ViewModel.PaneDisplayModeChangedCommand}" />
+                                    </i:EventTriggerBehavior.Actions>
+                                </i:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </ComboBox>
-                    </wuc:SettingsCard>
-                    <wuc:SettingsCard Description="حالت نمایش متن و ترجمه قرآن را مشخص کنید"
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Description="حالت نمایش متن و ترجمه قرآن را مشخص کنید"
                                       Header="حالت نمایش متن"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/textAlignment.png}">
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/textAlignment.png}">
                         <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
                                   xmlns:ui="using:CommunityToolkit.WinUI"
                                   ItemsSource="{ui:EnumValues Type=enums:TextAlignment}"
@@ -49,10 +48,10 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                    </wuc:SettingsCard>
-                    <wuc:SettingsCard Description="حالت نمایش فوکوس برای آیه انتخاب شده را مشخص کنید"
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Description="حالت نمایش فوکوس برای آیه انتخاب شده را مشخص کنید"
                                       Header="حالت نمایش آیه"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/focus.png}">
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/focus.png}">
                         <ComboBox xmlns:enums="using:Microsoft.UI.Xaml"
                                   xmlns:ui="using:CommunityToolkit.WinUI"
                                   ItemsSource="{ui:EnumValues Type=enums:FocusState}"
@@ -63,35 +62,35 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                    </wuc:SettingsCard>
-                </wuc:SettingsGroup.Items>
-            </wuc:SettingsGroup>
-            <wuc:SettingsGroup FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                    </dev:SettingsCard>
+                </dev:SettingsGroup.Items>
+            </dev:SettingsGroup>
+            <dev:SettingsGroup FontFamily="{ThemeResource ContentControlThemeFontFamily}"
                                Header="سایر تنظیمات">
-                <wuc:SettingsGroup.Items>
-                    <wuc:SettingsCard Description="هنگام پخش آیه، بخش های دانلود نشده بصورت خودکار دانلود خواهند شد."
+                <dev:SettingsGroup.Items>
+                    <dev:SettingsCard Description="هنگام پخش آیه، بخش های دانلود نشده بصورت خودکار دانلود خواهند شد."
                                       Header="دانلود خودکار صوت"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}">
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/download.png}">
                         <ToggleSwitch IsOn="{x:Bind settings:AlAnvarHelper.Settings.IsAutoDownloadSound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       OffContent="غیر فعال"
                                       OnContent="فعال" />
-                    </wuc:SettingsCard>
+                    </dev:SettingsCard>
 
-                    <wuc:SettingsExpander Description="با فعال سازی این گزینه، اگر خطایی رخ دهد یا برنامه بصورت ناگهانی بسته شود اطلاعات خطا در فایلی به نام Log{YYYYMMDD}.txt ذخیره خواهد شد"
+                    <dev:SettingsExpander Description="با فعال سازی این گزینه، اگر خطایی رخ دهد یا برنامه بصورت ناگهانی بسته شود اطلاعات خطا در فایلی به نام Log{YYYYMMDD}.txt ذخیره خواهد شد"
                                           Header="حالت توسعه دهنده (نیاز به راه اندازی مجدد)"
-                                          HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/devMode.png}">
+                                          HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/devMode.png}">
                         <ToggleSwitch IsOn="{x:Bind settings:AlAnvarHelper.Settings.UseDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       OffContent="غیر فعال"
                                       OnContent="فعال" />
-                        <wuc:SettingsExpander.ItemsHeader>
+                        <dev:SettingsExpander.ItemsHeader>
                             <HyperlinkButton HorizontalAlignment="Stretch"
                                              HorizontalContentAlignment="Right"
                                              Click="NavigateToLogPath_Click"
                                              Content="{x:Bind settings:Constants.LogDirectoryPath}" />
-                        </wuc:SettingsExpander.ItemsHeader>
-                    </wuc:SettingsExpander>
-                </wuc:SettingsGroup.Items>
-            </wuc:SettingsGroup>
+                        </dev:SettingsExpander.ItemsHeader>
+                    </dev:SettingsExpander>
+                </dev:SettingsGroup.Items>
+            </dev:SettingsGroup>
         </StackPanel>
     </ScrollView>
 </Page>

@@ -19,9 +19,9 @@ public sealed partial class QuranSearchItem : TabViewItem
         infoBar.Message = "";
 
         int searchOptionIndex = 0;
-        if (MainPage.Instance != null)
+        if (MainWindow.Instance != null)
         {
-            searchOptionIndex = MainPage.Instance.GetQuranSearchOptionIndex();
+            searchOptionIndex = MainWindow.Instance.GetQuranSearchOptionIndex();
         }
 
         await SearchQuran(searchOptionIndex);

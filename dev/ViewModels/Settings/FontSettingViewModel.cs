@@ -1,4 +1,6 @@
-﻿namespace AlAnvar.ViewModels;
+﻿using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
+
+namespace AlAnvar.ViewModels;
 
 public partial class FontSettingViewModel : ObservableObject
 {
@@ -80,7 +82,7 @@ public partial class FontSettingViewModel : ObservableObject
 
         scrollViewer.Content = colorPicker;
         ContentDialog contentDialog = new ContentDialog();
-        contentDialog.XamlRoot = App.currentWindow.Content.XamlRoot;
+        contentDialog.XamlRoot = App.MainWindow.Content.XamlRoot;
         contentDialog.Loaded += (s, e) =>
         {
             contentDialog.Content = scrollViewer;
@@ -90,7 +92,7 @@ public partial class FontSettingViewModel : ObservableObject
         contentDialog.SecondaryButtonText = "انصراف";
         contentDialog.PrimaryButtonStyle = (Style) Application.Current.Resources["AccentButtonStyle"];
         contentDialog.FlowDirection = FlowDirection.RightToLeft;
-        await contentDialog.ShowAsyncQueue();
+        await contentDialog.ShowAsync();
     }
 
     [RelayCommand]

@@ -3,30 +3,29 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:table="using:AlAnvar.Database.Tables"
       xmlns:views="using:AlAnvar.Views"
-      xmlns:wuc="using:WinUICommunity"
+      dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
 
     <ScrollView>
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
-            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsCard ActionIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily},
+            <dev:SettingsCard ActionIcon="{dev:FontIcon FontFamily={StaticResource SymbolThemeFontFamily},
                                                         Glyph=&#xE76B;}"
                               Command="{x:Bind ViewModel.GoToQariPageCommand}"
                               Description="دانلود صوت های بیشتر"
                               Header="دانلود صوت های بیشتر"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/download.png}"
+                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/download.png}"
                               IsClickEnabled="True" />
-            <wuc:SettingsCard Description="از صوت های موجود یکی را به دلخواه انتخاب کنید و یا صوت موردنظر را دانلود کنید"
+            <dev:SettingsCard Description="از صوت های موجود یکی را به دلخواه انتخاب کنید و یا صوت موردنظر را دانلود کنید"
                               Header="صوت آیات"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/sound.png}">
+                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/sound.png}">
                 <ComboBox x:Name="cmbQari"
                           HorizontalContentAlignment="Center"
                           ItemsSource="{x:Bind ViewModel.QarisCollection, Mode=OneWay}"
@@ -42,28 +41,28 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                     <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:EventTriggerBehavior.Actions>
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.QariItemChangedCommand}"
-                                                        CommandParameter="{Binding ElementName=cmbQari}" />
-                            </ic:EventTriggerBehavior.Actions>
-                        </ic:EventTriggerBehavior>
+                        <i:EventTriggerBehavior EventName="SelectionChanged">
+                            <i:EventTriggerBehavior.Actions>
+                                <i:InvokeCommandAction Command="{x:Bind ViewModel.QariItemChangedCommand}"
+                                                       CommandParameter="{Binding ElementName=cmbQari}" />
+                            </i:EventTriggerBehavior.Actions>
+                        </i:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </ComboBox>
-            </wuc:SettingsCard>
-            <wuc:SettingsCard ActionIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily},
+            </dev:SettingsCard>
+            <dev:SettingsCard ActionIcon="{dev:FontIcon FontFamily={StaticResource SymbolThemeFontFamily},
                                                         Glyph=&#xE76B;}"
                               Command="{x:Bind ViewModel.GoToQariPageCommand}"
                               Header="محل ذخیره فایل ها"
-                              HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/folder.png}">
-                <wuc:SettingsCard.Description>
+                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/folder.png}">
+                <dev:SettingsCard.Description>
                     <HyperlinkButton Padding="5,0"
                                      Command="{x:Bind ViewModel.LaunchAudioPathCommand}"
                                      Content="{x:Bind ViewModel.AudioFolderPath, Mode=OneWay}" />
-                </wuc:SettingsCard.Description>
+                </dev:SettingsCard.Description>
                 <Button Command="{x:Bind ViewModel.ChooseAudioPathCommand}"
                         Content="انتخاب پوشه" />
-            </wuc:SettingsCard>
+            </dev:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

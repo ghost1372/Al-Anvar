@@ -20,8 +20,8 @@ global using Microsoft.UI.Xaml;
 global using Microsoft.UI.Xaml.Controls;
 global using Microsoft.UI.Xaml.Media;
 
-global using WinUICommunity;
+global using DevWinUI;
 
-global using static AlAnvar.Helpers.AlAnvarHelper;
-global using static AlAnvar.Helpers.Constants;
-global using static AlAnvar.Helpers.LoggerSetup;
+global using static AlAnvar.Common.AlAnvarHelper;
+global using static AlAnvar.Common.Constants;
+global using static AlAnvar.Common.LoggerSetup;

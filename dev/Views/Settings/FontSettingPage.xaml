@@ -3,89 +3,89 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:AlAnvar.Views"
-      xmlns:wuc="using:WinUICommunity"
+      dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
 
     <ScrollView>
         <StackPanel Margin="10"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
                     Spacing="5">
-            <views:BreadcrumbBarUserControl SingleItem="{x:Bind BreadCrumbBarItemText, Mode=OneWay}" />
 
-            <wuc:SettingsExpander Description="میتوانید رنگ آیات و ترجمه ها را به دلخواه خود تغییر دهید"
+            <dev:SettingsExpander Description="میتوانید رنگ آیات و ترجمه ها را به دلخواه خود تغییر دهید"
                                   Header="رنگ آیات و ترجمه ها"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/palette.png}">
+                                  HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/palette.png}">
                 <Button Command="{x:Bind ViewModel.ResetColorsCommand}"
                         Content="بازگشت به رنگ های پیشفرض"
                         Style="{ThemeResource AccentButtonStyle}" />
-                <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
+                <dev:SettingsExpander.Items>
+                    <dev:SettingsCard ActionIcon="{dev:SymbolIcon Symbol=FontColor}"
                                       Command="{x:Bind ViewModel.ChooseColorCommand}"
                                       CommandParameter="Aya"
                                       Header="رنگ متن آیات (کلیک کنید)"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/color.png}"
                                       IsClickEnabled="True">
                         <TextBlock x:Name="TxtAyat"
                                    Text="بسم الله الرحمن الرحیم" />
-                    </wuc:SettingsCard>
-                    <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
+                    </dev:SettingsCard>
+                    <dev:SettingsCard ActionIcon="{dev:SymbolIcon Symbol=FontColor}"
                                       Command="{x:Bind ViewModel.ChooseColorCommand}"
                                       CommandParameter="AyaNumber"
                                       Header="رنگ متن شماره آیات (کلیک کنید)"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/color.png}"
                                       IsClickEnabled="True">
                         <TextBlock x:Name="TxtAyatNumber"
                                    Text="(1:7)" />
-                    </wuc:SettingsCard>
-                    <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
+                    </dev:SettingsCard>
+                    <dev:SettingsCard ActionIcon="{dev:SymbolIcon Symbol=FontColor}"
                                       Command="{x:Bind ViewModel.ChooseColorCommand}"
                                       CommandParameter="Translation"
                                       Header="رنگ متن ترجمه آیات (کلیک کنید)"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/color.png}"
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/color.png}"
                                       IsClickEnabled="True">
                         <TextBlock x:Name="TxtTranslation"
                                    Text="بنام خداوند بخشنده مهربان" />
-                    </wuc:SettingsCard>
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
-            <wuc:SettingsExpander Description="میتوانید نوع قلم آیات و ترجمه ها را به دلخواه خود تغییر دهید"
+                    </dev:SettingsCard>
+                </dev:SettingsExpander.Items>
+            </dev:SettingsExpander>
+            <dev:SettingsExpander Description="میتوانید نوع قلم آیات و ترجمه ها را به دلخواه خود تغییر دهید"
                                   Header="قلم آیات و ترجمه ها"
-                                  HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/font.png}">
+                                  HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/font.png}">
                 <Button Command="{x:Bind ViewModel.ResetFontsCommand}"
                         Content="بازگشت به قلم های پیشفرض"
                         Style="{ThemeResource AccentButtonStyle}" />
-                <wuc:SettingsExpander.Items>
-                    <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
+                <dev:SettingsExpander.Items>
+                    <dev:SettingsCard ActionIcon="{dev:SymbolIcon Symbol=FontColor}"
                                       Command="{x:Bind ViewModel.ChooseFontCommand}"
                                       CommandParameter="Aya"
                                       Header="قلم متن آیات (کلیک کنید)"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/font2.png}"
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/font2.png}"
                                       IsClickEnabled="True">
                         <TextBlock FontFamily="{x:Bind ViewModel.TxtAyaFontFamily, Mode=OneWay}"
                                    Text="بسم الله الرحمن الرحیم" />
-                    </wuc:SettingsCard>
-                    <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
+                    </dev:SettingsCard>
+                    <dev:SettingsCard ActionIcon="{dev:SymbolIcon Symbol=FontColor}"
                                       Command="{x:Bind ViewModel.ChooseFontCommand}"
                                       CommandParameter="AyaNumber"
                                       Header="قلم متن شماره آیات (کلیک کنید)"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/font2.png}"
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/font2.png}"
                                       IsClickEnabled="True">
                         <TextBlock FontFamily="{x:Bind ViewModel.TxtAyaNumberFontFamily, Mode=OneWay}"
                                    Text="(1:7)" />
-                    </wuc:SettingsCard>
-                    <wuc:SettingsCard ActionIcon="{wuc:SymbolIcon Symbol=FontColor}"
+                    </dev:SettingsCard>
+                    <dev:SettingsCard ActionIcon="{dev:SymbolIcon Symbol=FontColor}"
                                       Command="{x:Bind ViewModel.ChooseFontCommand}"
                                       CommandParameter="Translation"
                                       Header="قلم متن ترجمه آیات (کلیک کنید)"
-                                      HeaderIcon="{wuc:BitmapIcon Source=Assets/Fluent/font2.png}"
+                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/font2.png}"
                                       IsClickEnabled="True">
                         <TextBlock FontFamily="{x:Bind ViewModel.TxtTranslationFontFamily, Mode=OneWay}"
                                    Text="بنام خداوند بخشنده مهربان" />
-                    </wuc:SettingsCard>
-                </wuc:SettingsExpander.Items>
-            </wuc:SettingsExpander>
+                    </dev:SettingsCard>
+                </dev:SettingsExpander.Items>
+            </dev:SettingsExpander>
         </StackPanel>
     </ScrollView>
 </Page>

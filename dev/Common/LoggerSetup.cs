@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace AlAnvar.Helpers;
+namespace AlAnvar.Common;
 public static class LoggerSetup
 {
     public static ILogger Logger { get; private set; }
@@ -13,7 +13,7 @@ public static class LoggerSetup
         }
 
         Logger = new LoggerConfiguration()
-            .Enrich.WithProperty("Version", App.Current.AppVersion)
+            .Enrich.WithProperty("Version", ProcessInfoHelper.Version)
             .WriteTo.File(Constants.LogFilePath, rollingInterval: RollingInterval.Day)
             .WriteTo.Debug()
             .CreateLogger();

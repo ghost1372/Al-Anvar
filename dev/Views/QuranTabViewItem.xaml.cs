@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-using AlAnvar.Helpers;
+using AlAnvar.Common;
 
 using Downloader;
 using Microsoft.UI.Xaml.Input;
@@ -502,13 +502,13 @@ public sealed partial class QuranTabViewItem : TabViewItem
                 Content = new ScrollViewer { Content = "به صفحه قاری ها رفته و حداقل صوت یک قاری را دانلود کنید.", Margin = new Thickness(10) },
                 DefaultButton = ContentDialogButton.Primary,
                 PrimaryButtonText = "دانلود صوت قاری",
-                XamlRoot = App.currentWindow.Content.XamlRoot
+                XamlRoot = App.MainWindow.Content.XamlRoot
             };
 
-            var result = await dialog.ShowAsyncQueue();
+            var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                MainPage.Instance.ViewModel.JsonNavigationViewService.NavigateTo(typeof(QariPage));
+                App.Current.NavService.NavigateTo(typeof(QariPage));
             }
         }
     }
@@ -521,7 +521,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
         if (ayaSound is null)
         {
-            if (Settings.IsAutoDownloadSound && ApplicationHelper.IsNetworkAvailable())
+            if (Settings.IsAutoDownloadSound && NetworkHelper.IsNetworkAvailable())
             {
                 if (downloadService is not null && downloadService.IsCancelled)
                 {
@@ -632,7 +632,7 @@ public sealed partial class QuranTabViewItem : TabViewItem
         }
         var extensions = new Dictionary<string, IList<string>>();
         extensions.Add("MP3 Audio",new List<string> { ".mp3" });
-        var storageFile = await ApplicationHelper.PickSaveFileAsync(App.currentWindow, extensions, $"{Chapter.Name}-{selectedItem.Audio}-{Settings.QuranAudio.Name}");
+        var storageFile = await FileAndFolderPickerHelper.PickSaveFileAsync(App.MainWindow, extensions, $"{Chapter.Name}-{selectedItem.Audio}-{Settings.QuranAudio.Name}");
         if (storageFile != null)
         {
             var dirPath = Path.Combine(Settings.AudiosPath, Settings.QuranAudio.DirName);

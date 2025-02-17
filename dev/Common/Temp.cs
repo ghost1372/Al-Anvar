@@ -1,6 +1,6 @@
 ﻿using Downloader;
 
-namespace AlAnvar.Helpers;
+namespace AlAnvar.Common;
 public static class Temp
 {
     public static DownloadService downloadService_Temp = null;

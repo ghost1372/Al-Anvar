@@ -1,13 +1,16 @@
-﻿namespace AlAnvar.Helpers;
+﻿using DevWinUI;
+
+namespace AlAnvar.Common;
 public static class Constants
 {
     public const string ALAnvar_Repo = "https://github.com/ghost1372/Al-Anvar/releases";
 
-    public static readonly string AppName = ApplicationHelper.GetAppNameAndVersion().NameAndVersion;
-    public static readonly string RootDirectoryPath = Path.Combine(ApplicationHelper.GetLocalFolderPath(), AppName);
+    public static readonly string AppName = ProcessInfoHelper.ProductNameAndVersion;
+    public static readonly string RootDirectoryPath = Path.Combine(PathHelper.GetAppDataFolderPath(), ProcessInfoHelper.ProductNameAndVersion);
+    public static readonly string AppConfigPath = Path.Combine(RootDirectoryPath, "AppConfig.json");
+
     public static readonly string LogDirectoryPath = Path.Combine(RootDirectoryPath, "Log");
     public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Log.txt");
-    public static readonly string AppConfigPath = Path.Combine(RootDirectoryPath, "AppConfig.json");
 
     public static readonly string AudiosFolderName = "Audio";
     public static readonly string AudiosPath = Path.Combine(RootDirectoryPath, AudiosFolderName);

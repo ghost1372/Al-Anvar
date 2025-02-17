@@ -5,7 +5,6 @@
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
       xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:table="using:AlAnvar.Database.Tables">
 
     <Grid>
@@ -54,12 +53,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
             <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="SelectionChanged">
-                    <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
-                                                CommandParameter="{Binding ElementName=listview}" />
-                    </ic:EventTriggerBehavior.Actions>
-                </ic:EventTriggerBehavior>
+                <i:EventTriggerBehavior EventName="SelectionChanged">
+                    <i:EventTriggerBehavior.Actions>
+                        <i:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
+                                               CommandParameter="{Binding ElementName=listview}" />
+                    </i:EventTriggerBehavior.Actions>
+                </i:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </ListView>
         <CommandBar Grid.Row="1"

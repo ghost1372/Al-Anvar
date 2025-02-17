@@ -11,26 +11,26 @@ public sealed partial class QuranPage : Page
         ViewModel = App.GetService<QuranViewModel>();
         this.InitializeComponent();
         Instance = this;
-        if (MainPage.Instance != null)
+        if (MainWindow.Instance != null)
         {
-            MainPage.Instance.ActivateQuranSearchOption(true);
+            MainWindow.Instance.ActivateQuranSearchOption(true);
         }
     }
 
     protected override void OnNavigatedFrom(NavigationEventArgs e)
     {
         base.OnNavigatedFrom(e);
-        if (MainPage.Instance != null)
+        if (MainWindow.Instance != null)
         {
-            MainPage.Instance.ActivateQuranSearchOption(false);
+            MainWindow.Instance.ActivateQuranSearchOption(false);
         }
     }
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        if (MainPage.Instance != null)
+        if (MainWindow.Instance != null)
         {
-            MainPage.Instance.ActivateQuranSearchOption(true);
+            MainWindow.Instance.ActivateQuranSearchOption(true);
         }
     }
 

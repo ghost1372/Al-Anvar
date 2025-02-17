@@ -23,7 +23,7 @@ public partial class AppUpdateSettingViewModel : ObservableObject
 
     public AppUpdateSettingViewModel()
     {
-        currentVersion = $"نسخه فعلی v{App.Current.AppVersion}";
+        currentVersion = $"نسخه فعلی {ProcessInfoHelper.VersionWithPrefix}";
         lastUpdateCheck = Settings.LastUpdateCheck;
     }
 
@@ -33,24 +33,31 @@ public partial class AppUpdateSettingViewModel : ObservableObject
         IsLoading = true;
         IsUpdateAvailable = false;
         LoadingStatus = "درحال بررسی برای نسخه جدید";
-        if (ApplicationHelper.IsNetworkAvailable())
+        if (NetworkHelper.IsNetworkAvailable())
         {
             LastUpdateCheck = DateTime.Now.ToShortDateString();
             Settings.LastUpdateCheck = DateTime.Now.ToShortDateString();
 
             try
             {
-                //TODO: Fix Project Name
-                var update = await UpdateHelper.CheckUpdateAsync("ghost1372", "Al-Anvar", new Version(App.Current.AppVersion));
-                if (update.IsExistNewVersion)
+                string username = "Ghost1372";
+                string repo = "Al-Anvar";
+                var update = await UpdateHelper.CheckUpdateAsync(username, repo, new Version(ProcessInfoHelper.Version));
+                if (update.StableRelease.IsExistNewVersion)
                 {
                     IsUpdateAvailable = true;
-                    changeLog = update.Changelog;
-                    LoadingStatus = $"ما یک نسخه جدید پیدا کردیم {update.TagName} در تاریخ {update.CreatedAt} ایجاد و در تاریخ {update.PublishedAt} منتشر شده است.";
+                    changeLog = update.StableRelease.Changelog;
+                    LoadingStatus = $"ما یک نسخه جدید پیدا کردیم {update.StableRelease.TagName} در تاریخ {update.StableRelease.CreatedAt} ایجاد و در تاریخ {update.StableRelease.PublishedAt} منتشر شده است.";
+                }
+                else if (update.PreRelease.IsExistNewVersion)
+                {
+                    IsUpdateAvailable = true;
+                    changeLog = update.PreRelease.Changelog;
+                    LoadingStatus = $"ما یک نسخه پیشنمایش جدید پیدا کردیم {update.PreRelease.TagName} در تاریخ {update.PreRelease.CreatedAt} ایجاد و در تاریخ {update.PreRelease.PublishedAt} منتشر شده است.";
                 }
                 else
                 {
-                    LoadingStatus = "نسخه جدیدی پیدا نشد";
+                    LoadingStatus = "شما از آخرین نسخه استفاده می کنید";
                 }
             }
             catch (Exception ex)
@@ -84,10 +91,10 @@ public partial class AppUpdateSettingViewModel : ObservableObject
             },
             Margin = new Thickness(10),
             DefaultButton = ContentDialogButton.Close,
-            XamlRoot = App.currentWindow.Content.XamlRoot
+            XamlRoot = App.MainWindow.Content.XamlRoot
         };
 
-        await dialog.ShowAsyncQueue();
+        await dialog.ShowAsync();
     }
 
     [RelayCommand]

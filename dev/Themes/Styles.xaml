@@ -4,8 +4,8 @@
 
     <x:Double x:Key="TitleBarCompactHeight">48</x:Double>
 
-    <Thickness x:Key="ContentPageMargin">40,48,40,0</Thickness>
-    <Thickness x:Key="SettingsCardMargin">0,0,0,4</Thickness>
+    <Thickness x:Key="ContentPageMargin">40,48,0,0</Thickness>
+    <Thickness x:Key="ContentPagePadding">0,0,40,0</Thickness>
 
     <x:Double x:Key="ControlContentThemeFontSize">16</x:Double>
 </ResourceDictionary>

@@ -5,20 +5,19 @@
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
       xmlns:community="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:tables="using:AlAnvar.Database.Tables"
-      xmlns:wuc="using:WinUICommunity"
       FontFamily="{ThemeResource ContentControlThemeFontFamily}"
       NavigationCacheMode="Required"
       mc:Ignorable="d">
     <i:Interaction.Behaviors>
-        <ic:EventTriggerBehavior EventName="Loaded">
-            <ic:EventTriggerBehavior.Actions>
-                <ic:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}" />
-            </ic:EventTriggerBehavior.Actions>
-        </ic:EventTriggerBehavior>
+        <i:EventTriggerBehavior EventName="Loaded">
+            <i:EventTriggerBehavior.Actions>
+                <i:InvokeCommandAction Command="{x:Bind ViewModel.PageLoadedCommand}" />
+            </i:EventTriggerBehavior.Actions>
+        </i:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -53,12 +52,12 @@
             <ComboBoxItem Content="بیشترین آیات" />
             <ComboBoxItem Content="کمترین آیات" />
             <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="SelectionChanged">
-                    <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.SortItemChangedCommand}"
-                                                CommandParameter="{Binding ElementName=cmbSort}" />
-                    </ic:EventTriggerBehavior.Actions>
-                </ic:EventTriggerBehavior>
+                <i:EventTriggerBehavior EventName="SelectionChanged">
+                    <i:EventTriggerBehavior.Actions>
+                        <i:InvokeCommandAction Command="{x:Bind ViewModel.SortItemChangedCommand}"
+                                               CommandParameter="{Binding ElementName=cmbSort}" />
+                    </i:EventTriggerBehavior.Actions>
+                </i:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </ComboBox>
         <ListView x:Name="listview"
@@ -102,12 +101,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
             <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="SelectionChanged">
-                    <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
-                                                CommandParameter="{Binding ElementName=tabView}" />
-                    </ic:EventTriggerBehavior.Actions>
-                </ic:EventTriggerBehavior>
+                <i:EventTriggerBehavior EventName="SelectionChanged">
+                    <i:EventTriggerBehavior.Actions>
+                        <i:InvokeCommandAction Command="{x:Bind ViewModel.ListViewItemChangedCommand}"
+                                               CommandParameter="{Binding ElementName=tabView}" />
+                    </i:EventTriggerBehavior.Actions>
+                </i:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </ListView>
 
@@ -135,16 +134,16 @@
                 </Button>
             </TabView.TabStripHeader>
             <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="SelectionChanged">
-                    <ic:EventTriggerBehavior.Actions>
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.TabViewItemChangedCommand}"
-                                                CommandParameter="{Binding ElementName=tabView}" />
-                    </ic:EventTriggerBehavior.Actions>
-                </ic:EventTriggerBehavior>
+                <i:EventTriggerBehavior EventName="SelectionChanged">
+                    <i:EventTriggerBehavior.Actions>
+                        <i:InvokeCommandAction Command="{x:Bind ViewModel.TabViewItemChangedCommand}"
+                                               CommandParameter="{Binding ElementName=tabView}" />
+                    </i:EventTriggerBehavior.Actions>
+                </i:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </TabView>
 
-        <wuc:ImageEx x:Name="LogoImage"
+        <dev:ImageEx x:Name="LogoImage"
                      Grid.RowSpan="3"
                      Grid.Column="1"
                      HorizontalAlignment="Center"

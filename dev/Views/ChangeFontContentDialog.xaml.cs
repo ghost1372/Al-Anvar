@@ -34,13 +34,13 @@ public sealed partial class ChangeFontContentDialog : ContentDialog
     public ChangeFontContentDialog()
     {
         this.InitializeComponent();
-        XamlRoot = App.currentWindow.Content.XamlRoot;
+        XamlRoot = App.MainWindow.Content.XamlRoot;
         Loaded += ChangeFontContentDialog_Loaded;
     }
 
     private void ChangeFontContentDialog_Loaded(object sender, RoutedEventArgs e)
     {
-        RequestedTheme = MainPage.Instance.ViewModel.ThemeService.GetCurrentTheme();
+        RequestedTheme = App.Current.ThemeService.GetElementTheme();
         LoadComboBoxItems();
         switch (FontType)
         {
