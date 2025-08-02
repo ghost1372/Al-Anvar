@@ -4,7 +4,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dev="using:DevWinUI"
-      xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:settings="using:AlAnvar.Common"
       xmlns:views="using:AlAnvar.Views"
@@ -19,22 +18,6 @@
                                FontFamily="{ThemeResource ContentControlThemeFontFamily}"
                                Header="حالت نمایش">
                 <dev:SettingsGroup.Items>
-                    <dev:SettingsCard Description="حالت نمایش منوی اصلی برنامه را مشخص کنید"
-                                      Header="حالت نمایش منو"
-                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/displayMode.png}">
-                        <ComboBox xmlns:enums="using:Microsoft.UI.Xaml.Controls"
-                                  xmlns:ui="using:CommunityToolkit.WinUI"
-                                  ItemsSource="{ui:EnumValues Type=enums:NavigationViewPaneDisplayMode}"
-                                  SelectedItem="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <i:Interaction.Behaviors>
-                                <i:EventTriggerBehavior EventName="SelectionChanged">
-                                    <i:EventTriggerBehavior.Actions>
-                                        <i:InvokeCommandAction Command="{x:Bind ViewModel.PaneDisplayModeChangedCommand}" />
-                                    </i:EventTriggerBehavior.Actions>
-                                </i:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </ComboBox>
-                    </dev:SettingsCard>
                     <dev:SettingsCard Description="حالت نمایش متن و ترجمه قرآن را مشخص کنید"
                                       Header="حالت نمایش متن"
                                       HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/textAlignment.png}">

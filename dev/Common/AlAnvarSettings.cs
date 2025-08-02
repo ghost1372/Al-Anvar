@@ -7,8 +7,8 @@ namespace AlAnvar.Common;
 [GenerateAutoSaveOnChange]
 public partial class AlAnvarSettings : NotifiyingJsonSettings, IVersionable
 {
-    [EnforcedVersion("2.3.0.0")]
-    public virtual Version Version { get; set; } = new Version(2, 3, 0, 0);
+    [EnforcedVersion("2.4.0.0")]
+    public virtual Version Version { get; set; } = new Version(2, 4, 0, 0);
     private string fileName { get; set; } = AppConfigPath;
 
     private bool useDeveloperMode { get; set; }
@@ -27,7 +27,6 @@ public partial class AlAnvarSettings : NotifiyingJsonSettings, IVersionable
     private string lastUpdateCheck { get; set; } = "هرگز";
     private bool isAutoDownloadSound { get; set; } = true;
     private string audiosPath { get; set; } = Constants.AudiosPath;
-    private NavigationViewPaneDisplayMode paneDisplayMode { get; set; } = NavigationViewPaneDisplayMode.Top;
     private TextAlignment textAlignment { get; set; } = TextAlignment.Center;
     private FocusState focusState { get; set; } = FocusState.Keyboard;
 }

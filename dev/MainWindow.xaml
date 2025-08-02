@@ -15,10 +15,15 @@
         </Grid.RowDefinitions>
         <TitleBar x:Name="AppTitleBar"
                   Title="الانوار"
-                  IconSource="{dev:BitmapIconSource Source=ms-appx:///Assets/icon.png}"
                   IsBackButtonVisible="True"
-                  IsPaneToggleButtonVisible="True"
+                  IsPaneToggleButtonVisible="False"
                   Subtitle="{x:Bind dev:ProcessInfoHelper.VersionWithPrefix}">
+            <TitleBar.LeftHeader>
+                <ImageIcon Width="16"
+                           Height="16"
+                           Margin="2,0,14,0"
+                           Source="ms-appx:///Assets/icon.png" />
+            </TitleBar.LeftHeader>
             <StackPanel HorizontalAlignment="Stretch"
                         Orientation="Horizontal">
                 <AutoSuggestBox x:Name="HeaderAutoSuggestBox"
@@ -53,41 +58,31 @@
                 </CommandBar>
             </StackPanel>
 
-            <TitleBar.RightContent>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="5">
-                    <Button x:Name="PaneDisplayModeButton"
-                            Width="38"
-                            Height="32"
-                            Click="PaneDisplayModeButton_Click"
-                            Style="{ThemeResource SubtleButtonStyle}"
-                            ToolTipService.ToolTip="تغییر حالت نمایش منو">
-                        <Button.Content>
-                            <FontIcon FontSize="16"
-                                      Glyph="&#xF594;" />
-                        </Button.Content>
-                    </Button>
-                    <Button x:Name="ThemeButton"
-                            Height="32"
-                            Margin="0,0,4,0"
-                            Click="ThemeButton_Click"
-                            Content="{dev:FontIcon GlyphCode=E793,
-                                                   FontSize=16}"
-                            Style="{ThemeResource SubtleButtonStyle}"
-                            ToolTipService.ToolTip="تغییر پوسته" />
-                </StackPanel>
-            </TitleBar.RightContent>
+            <TitleBar.RightHeader>
+                <Button x:Name="ThemeButton"
+                        Height="32"
+                        Margin="0,0,4,0"
+                        Click="ThemeButton_Click"
+                        Content="{dev:FontIcon GlyphCode=E793,
+                                               FontSize=16}"
+                        Style="{ThemeResource SubtleButtonStyle}"
+                        ToolTipService.ToolTip="تغییر پوسته" />
+            </TitleBar.RightHeader>
         </TitleBar>
         <NavigationView x:Name="NavView"
                         Grid.Row="1"
-                        DisplayModeChanged="NavView_DisplayModeChanged"
                         FlowDirection="RightToLeft"
                         IsBackButtonVisible="Collapsed"
                         IsPaneToggleButtonVisible="False"
-                        PaneDisplayMode="{x:Bind settings:AlAnvarHelper.Settings.PaneDisplayMode, Mode=OneWay}">
+                        IsSettingsVisible="True"
+                        Style="{StaticResource NavigationViewStoreStyle}">
             <NavigationView.Header>
                 <dev:BreadcrumbNavigator x:Name="BreadCrumbNav" />
             </NavigationView.Header>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem IsEnabled="False"
+                                    SelectsOnInvoked="False" />
+            </NavigationView.FooterMenuItems>
             <Frame x:Name="NavFrame" />
         </NavigationView>
     </Grid>

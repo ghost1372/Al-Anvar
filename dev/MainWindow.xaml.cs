@@ -79,47 +79,4 @@ public sealed partial class MainWindow : Window
             settings.Content = "تنظیمات";
         }
     }
-
-    public void RefreshPaneDisplayMode()
-    {
-        NavView.PaneDisplayMode = Settings.PaneDisplayMode;
-        UpdateSettingItem();
-    }
-
-    private void NavView_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
-    {
-        if (NavView.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
-        {
-            AppTitleBar.IsPaneToggleButtonVisible = false;
-        }
-        else
-        {
-            AppTitleBar.IsPaneToggleButtonVisible = true;
-        }
-    }
-
-    private void PaneDisplayModeButton_Click(object sender, RoutedEventArgs e)
-    {
-        switch (NavView.PaneDisplayMode)
-        {
-            case NavigationViewPaneDisplayMode.Auto:
-                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
-                break;
-            case NavigationViewPaneDisplayMode.Left:
-                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Top;
-                break;
-            case NavigationViewPaneDisplayMode.Top:
-                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
-                break;
-            case NavigationViewPaneDisplayMode.LeftCompact:
-                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
-                break;
-            case NavigationViewPaneDisplayMode.LeftMinimal:
-                NavView.PaneDisplayMode = NavigationViewPaneDisplayMode.Auto;
-                break;
-        }
-
-        Settings.PaneDisplayMode = NavView.PaneDisplayMode;
-        UpdateSettingItem();
-    }
 }

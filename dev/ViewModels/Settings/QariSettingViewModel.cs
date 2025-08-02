@@ -3,9 +3,7 @@
 using Newtonsoft.Json;
 
 using Windows.Storage;
-using Windows.Storage.Pickers;
 using Windows.System;
-using WinRT.Interop;
 
 namespace AlAnvar.ViewModels;
 
@@ -89,11 +87,7 @@ public partial class QariSettingViewModel : ObservableRecipient
     [RelayCommand]
     private async void OnChooseAudioPath()
     {
-        FolderPicker folderPicker = new();
-        folderPicker.FileTypeFilter.Add("*");
-
-        WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, WindowNative.GetWindowHandle(App.MainWindow));
-
+        FolderPicker folderPicker = new(MainWindow.Instance);
         StorageFolder folder = await folderPicker.PickSingleFolderAsync();
         if (folder is not null)
         {
