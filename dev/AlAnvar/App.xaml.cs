@@ -66,6 +66,12 @@ public partial class App : Application
     {
         MainWindow = new MainWindow();
 
+
+#if DEBUG
+        ProcessInfoHelper.IsDebug = true;
+#else
+        ProcessInfoHelper.IsDebug = false;
+#endif
         MainWindow.Title = MainWindow.AppWindow.Title = ProcessInfoHelper.ProductNameAndVersion;
 
         MainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");

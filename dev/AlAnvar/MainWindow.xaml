@@ -16,7 +16,7 @@
                   Title="{x:Bind dev:ProcessInfoHelper.ProductNameDisplay}"
                   IsBackButtonVisible="True"
                   IsPaneToggleButtonVisible="False"
-                  Subtitle="{x:Bind AppSubtitle}">
+                  Subtitle="{x:Bind dev:ProcessInfoHelper.VersionWithPrefixDev}">
             <AutoSuggestBox x:Uid="MainWindow_AutoSuggestBox"
                             MinWidth="320"
                             VerticalAlignment="Center"

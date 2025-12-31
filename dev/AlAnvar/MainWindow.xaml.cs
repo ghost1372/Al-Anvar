@@ -6,12 +6,6 @@ public sealed partial class MainWindow : Window
 {
     public MainViewModel ViewModel { get; }
 
-#if DEBUG
-    public string AppSubtitle => "Dev";
-#else
-    public string AppSubtitle => ProcessInfoHelper.VersionWithPrefix;
-#endif
-
     public MainWindow()
     {
         ViewModel = App.GetService<MainViewModel>();
