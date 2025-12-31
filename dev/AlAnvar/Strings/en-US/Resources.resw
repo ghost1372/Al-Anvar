@@ -1,0 +1,1086 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Main_FlowDirection.FlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+  </data>
+  <data name="Main_ReverseFlowDirection.FlowDirection" xml:space="preserve">
+    <value>RightToLeft</value>
+  </data>
+  <data name="MainWindow_AutoSuggestBox.FlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+  </data>
+  <data name="SettingsPage_ActionIcon" xml:space="preserve">
+    <value>E974</value>
+  </data>
+  <data name="Main_GoToCardActionIcon" xml:space="preserve">
+    <value>F0AF</value>
+  </data>
+  <data name="HomeLandingPage_AppTitle.Text" xml:space="preserve">
+    <value>Al-Anvar</value>
+  </data>
+  <data name="HomeLandingPage_AppSubtitle.Text" xml:space="preserve">
+    <value>Al-Anwar is an open-source software for reading and reciting the Holy Quran.</value>
+  </data>
+  <data name="HomeLandingPage_Update.LastUpdateCheckTitle" xml:space="preserve">
+    <value>Last Update:</value>
+  </data>
+  <data name="HomeLandingPage_Update.UpdateAvailableTitle" xml:space="preserve">
+    <value>An update is available.</value>
+  </data>
+  <data name="HomeLandingPage_Update.UpdateAvailableVersionTitle" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="HomeLandingPage_Update.UpdateNotAvailableTitle" xml:space="preserve">
+    <value>You are using the latest version.</value>
+  </data>
+  <data name="HomeLandingPage_TileGallery.CategoryDescription" xml:space="preserve">
+    <value>Access the chapters of the Quran, recite the verses, and listen to them with the voices of prominent reciters.</value>
+  </data>
+  <data name="HomeLandingPage_TileGallery.CategoryHeader" xml:space="preserve">
+    <value>Connection with the Quran</value>
+  </data>
+  <data name="HomeLandingPage_RowSample.Title" xml:space="preserve">
+    <value>Advanced Search</value>
+  </data>
+  <data name="DownloadTranslationsPage_TableViewTranslator.Header" xml:space="preserve">
+    <value>Translator</value>
+  </data>
+  <data name="DownloadTranslationsPage_TableViewLanguage.Header" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="DownloadTranslationsPage_TableViewName.Header" xml:space="preserve">
+    <value>Extra</value>
+  </data>
+  <data name="DownloadTranslationsPage_FileAlreadyDownloaded" xml:space="preserve">
+    <value>This translation has already been downloaded.</value>
+  </data>
+  <data name="DownloadTranslationsPage_DialogTitle" xml:space="preserve">
+    <value>Download Translation</value>
+  </data>
+  <data name="DownloadTranslationsPage_DialogPrimaryButtonText" xml:space="preserve">
+    <value>Download Translation</value>
+  </data>
+  <data name="DownloadTranslationsPage_DialogSecondaryButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="DownloadTranslationsPage_DialogCancelText" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="DownloadTranslationsPage_FileDownloaded" xml:space="preserve">
+    <value>Download Completed</value>
+  </data>
+  <data name="LocalTranslationsPage_OpenFolder.Text" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="LocalTranslationsPage_TableViewLanguage.Header" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LocalTranslationsPage_TableViewName.Header" xml:space="preserve">
+    <value>Extra</value>
+  </data>
+  <data name="LocalTranslationsPage_TableViewTranslator.Header" xml:space="preserve">
+    <value>Translator</value>
+  </data>
+  <data name="AppHelper_DatabaseDialogTitle" xml:space="preserve">
+    <value>Database not found</value>
+  </data>
+  <data name="AppHelper_DatabaseDialogContent" xml:space="preserve">
+    <value>Database file not found. Please ensure the file exists or specify the database location through the settings.</value>
+  </data>
+  <data name="AppHelper_DatabaseDialogPrimaryButtonText" xml:space="preserve">
+    <value>Go To Settings</value>
+  </data>
+  <data name="AppHelper_DatabaseDialogCloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AppHelper_DatabaseDialogSecondaryButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_CurrentVersion" xml:space="preserve">
+    <value>Current Version</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_CheckVersion" xml:space="preserve">
+    <value>Check for new version</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_FoundPreReleaseVersion" xml:space="preserve">
+    <value>We have found a new preview version {0}, created on {1} and released on {2}.</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_ErrorConnection" xml:space="preserve">
+    <value>Connection Error</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_ReleaseNoteClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="DownloadTranslationsViewModel_SuccessDelete" xml:space="preserve">
+    <value>Selected translations were successfully deleted.</value>
+  </data>
+  <data name="AboutUsSettingPage_About.Header" xml:space="preserve">
+    <value>AlAnvar</value>
+  </data>
+  <data name="AboutUsSettingPage_About.Description" xml:space="preserve">
+    <value>Al-Anwar is an open-source software for reading and reciting the Holy Quran.</value>
+  </data>
+  <data name="AboutUsSettingPage_SourceCode.Content" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
+  <data name="AboutUsSettingPage_RelatedLink.Text" xml:space="preserve">
+    <value>Related Links</value>
+  </data>
+  <data name="AboutUsSettingPage_ReleaseNote.Content" xml:space="preserve">
+    <value>Release notes</value>
+  </data>
+  <data name="AppUpdateSettingPage_LastUpdate.Text" xml:space="preserve">
+    <value>Last Update Check</value>
+  </data>
+  <data name="AppUpdateSettingPage_CheckForUpdate.Content" xml:space="preserve">
+    <value>Check or new version</value>
+  </data>
+  <data name="AppUpdateSettingPage_ReleaseNote.Content" xml:space="preserve">
+    <value>Release notes</value>
+  </data>
+  <data name="AppUpdateSettingPage_DownloadUpdate.Content" xml:space="preserve">
+    <value>Download Update</value>
+  </data>
+  <data name="ThemeSettingPage_Theme.Description" xml:space="preserve">
+    <value>Select the theme that suits your mood and preference. You can choose from dark, light, or system themes.</value>
+  </data>
+  <data name="ThemeSettingPage_Theme.Header" xml:space="preserve">
+    <value>App Theme</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeLight.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeDark.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeSystem.Content" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeBackdrop.Description" xml:space="preserve">
+    <value>Change the appearance of the backdrop material behind your app. You can choose from mica, acrylic, or transparent options.</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeBackdrop.Header" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeBackdropMica.Content" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeBackdropMicaAlt.Content" xml:space="preserve">
+    <value>Mica Alt</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeBackdropAcrylic.Content" xml:space="preserve">
+    <value>Acrylic</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeBackdropAcrylicThin.Content" xml:space="preserve">
+    <value>Acrylic Thin</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeAccentColor.Description" xml:space="preserve">
+    <value>Sync your app’s color with your Windows accent color. You can open the Windows accent color setting by clicking this card.</value>
+  </data>
+  <data name="ThemeSettingPage_ThemeAccentColor.Header" xml:space="preserve">
+    <value>Accent Color</value>
+  </data>
+  <data name="TranslationSettingPage_Translator.Header" xml:space="preserve">
+    <value>Select Translator</value>
+  </data>
+  <data name="TranslationSettingPage_Translator.Description" xml:space="preserve">
+    <value>Select your preferred translator.</value>
+  </data>
+  <data name="TranslationSettingPage_SaveLocation.Description" xml:space="preserve">
+    <value>Specify the storage location for translation files.</value>
+  </data>
+  <data name="TranslationSettingPage_SaveLocation.Header" xml:space="preserve">
+    <value>Translation Files Storage Location</value>
+  </data>
+  <data name="TranslationSettingPage_SaveLocationBrowse.Content" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="TranslationSettingPage_DownloadTranslation.Description" xml:space="preserve">
+    <value>To access additional languages and translations, you can download more translation packages.</value>
+  </data>
+  <data name="TranslationSettingPage_DownloadTranslation.Header" xml:space="preserve">
+    <value>Download More Translations</value>
+  </data>
+  <data name="TranslationSettingPage_DownloadTranslationButton.Content" xml:space="preserve">
+    <value>Get Translations</value>
+  </data>
+  <data name="SampleRow_Explore.Content" xml:space="preserve">
+    <value>Explore</value>
+  </data>
+  <data name="SampleRow_Search.Content" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="QuranPage_AutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>Search Surah...</value>
+  </data>
+  <data name="QuranPage_TableViewName.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="QuranPage_TableViewRow.Header" xml:space="preserve">
+    <value>Row</value>
+  </data>
+  <data name="QuranPage_TableViewType.Header" xml:space="preserve">
+    <value>Revelation Type</value>
+  </data>
+  <data name="QuranPage_TableViewAya.Header" xml:space="preserve">
+    <value>Verses</value>
+  </data>
+  <data name="TranslationsPage_DownloadTranslations.Text" xml:space="preserve">
+    <value>Download Translation</value>
+  </data>
+  <data name="TranslationsPage_LocalTranslations.Text" xml:space="preserve">
+    <value>Available Translations</value>
+  </data>
+  <data name="SettingsPage_General.Description" xml:space="preserve">
+    <value>Change Application Settings</value>
+  </data>
+  <data name="SettingsPage_General.Header" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SettingsPage_Translations.Description" xml:space="preserve">
+    <value>Manage Translators</value>
+  </data>
+  <data name="SettingsPage_Translations.Header" xml:space="preserve">
+    <value>Translations</value>
+  </data>
+  <data name="SettingsPage_Theme.Description" xml:space="preserve">
+    <value>Explore the different ways to customize the appearance and behavior of your app. You can change the material, theme, accent, and more options to suit your style and preference.</value>
+  </data>
+  <data name="SettingsPage_Theme.Header" xml:space="preserve">
+    <value>Appearance &amp; behavior</value>
+  </data>
+  <data name="SettingsPage_Update.Description" xml:space="preserve">
+    <value>Check for and download new versions</value>
+  </data>
+  <data name="SettingsPage_Update.Header" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SettingsPage_About.Description" xml:space="preserve">
+    <value>About AlAnvar and Developer</value>
+  </data>
+  <data name="SettingsPage_About.Header" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="MainWindow_AutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="MainWindow_NavigationViewSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsPage_Audios.Description" xml:space="preserve">
+    <value>Change Quran Audio Files</value>
+  </data>
+  <data name="SettingsPage_Audios.Header" xml:space="preserve">
+    <value>Audios</value>
+  </data>
+  <data name="LocalAudiosPage_OpenFolder.Text" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="LocalAudiosPage_TableViewName.Header" xml:space="preserve">
+    <value>Extra</value>
+  </data>
+  <data name="LocalAudiosPage_TableViewPName.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DownloadAudiosPage_TableViewPName.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DownloadAudiosPage_TableViewName.Header" xml:space="preserve">
+    <value>Extra</value>
+  </data>
+  <data name="DownloadAudiosPage_Download.Content" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="DownloadAudioWindow_AudioStorageLocation.Header" xml:space="preserve">
+    <value>Audio Storage Location</value>
+  </data>
+  <data name="DownloadAudioWindow_ChangeFolder.Content" xml:space="preserve">
+    <value>Choose Folder</value>
+  </data>
+  <data name="DownloadAudioWindow_AvailableSpace.Text" xml:space="preserve">
+    <value>Available Space</value>
+  </data>
+  <data name="DownloadAudioWindow_Calc.Text" xml:space="preserve">
+    <value>Calculating</value>
+  </data>
+  <data name="DownloadAudioWindow_AvailableFiles.Text" xml:space="preserve">
+    <value>Available Files</value>
+  </data>
+  <data name="DownloadAudioWindow_RequiredSpace.Text" xml:space="preserve">
+    <value>Required Space</value>
+  </data>
+  <data name="DownloadAudioWindow_DownloadAudio" xml:space="preserve">
+    <value>Download Audio</value>
+  </data>
+  <data name="DownloadAudioWindow_SufficientSpaceMessage" xml:space="preserve">
+    <value>There is enough free space on the selected drive to download the audio files.</value>
+  </data>
+  <data name="DownloadAudioWindow_ReadyToDownload" xml:space="preserve">
+    <value>Ready to Download</value>
+  </data>
+  <data name="DownloadAudioWindow_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DownloadAudioWindow_DownloadCompleted" xml:space="preserve">
+    <value>Download Completed</value>
+  </data>
+  <data name="DownloadAudioWindow_Downloading" xml:space="preserve">
+    <value>Downloading</value>
+  </data>
+  <data name="DownloadAudioWindow_DownloadCanceled" xml:space="preserve">
+    <value>Download Canceled</value>
+  </data>
+  <data name="DownloadAudioWindow_StartDownload.Content" xml:space="preserve">
+    <value>Start Download</value>
+  </data>
+  <data name="DownloadAudioWindow_StartDownloadCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DownloadAudioWindow_DownloadOperation.Title" xml:space="preserve">
+    <value>Download Operation</value>
+  </data>
+  <data name="DownloadAudioWindow_GoToCard.Title" xml:space="preserve">
+    <value>Download the desired audio files directly from the links.</value>
+  </data>
+  <data name="DownloadAudioWindow_GoToCard.ActionTitle" xml:space="preserve">
+    <value>Directly Download Audios</value>
+  </data>
+  <data name="GeneralSettingPage_UIFont.Header" xml:space="preserve">
+    <value>User Interface Font</value>
+  </data>
+  <data name="GeneralSettingPage_UIFont.Description" xml:space="preserve">
+    <value>Change the Al-Anwar interface font to your preferred font.</value>
+  </data>
+  <data name="GeneralSettingPage_QuranFont.Header" xml:space="preserve">
+    <value>Quran Verse Font</value>
+  </data>
+  <data name="HomeLandingPage_RowSample.Description" xml:space="preserve">
+    <value>Easily search Quranic verses, translations, and interpretations, and quickly access related content.</value>
+  </data>
+  <data name="DownloadAudiosPage_TableViewActive.Header" xml:space="preserve">
+    <value>Download Status</value>
+  </data>
+  <data name="DownloadTranslationsPage_TableViewActive.Header" xml:space="preserve">
+    <value>Download Status</value>
+  </data>
+  <data name="QuranPage_MainSelectorHome.Text" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="QuranPage_MainSelectorAudio.Text" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="QuranPage_MainSelectorTranslation.Text" xml:space="preserve">
+    <value>Translation</value>
+  </data>
+  <data name="QuranPage_MainSelectorNote.Text" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupOption.Label" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupShowAya.Label" xml:space="preserve">
+    <value>Show Verses</value>
+  </data>
+  <data name="QuranPage_AudioRibbonGroup.Label" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="QuranPage_TranslationRibbonGroup.Label" xml:space="preserve">
+    <value>Translation</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupShowTranslation.Label" xml:space="preserve">
+    <value>Show Translation</value>
+  </data>
+  <data name="QuranPage_AudioComboBox.Header" xml:space="preserve">
+    <value>Select Reciter</value>
+  </data>
+  <data name="QuranPage_TranslationComboBox.Header" xml:space="preserve">
+    <value>Choose Translation</value>
+  </data>
+  <data name="QuranPage_AudioButtonDownload.Label" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="QuranPage_AudioButtonOpenFolder.Label" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="QuranPage_TranslationButtonDownload.Label" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="QuranPage_TranslationButtonOpenFolder.Label" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="QuranPage_MediaNotFoundTitle" xml:space="preserve">
+    <value>Translation or Audio Not Found</value>
+  </data>
+  <data name="QuranPage_MediaNotFound" xml:space="preserve">
+    <value>No translation or audio found! Please download the translations or audios first. or select correct folders from settings</value>
+  </data>
+  <data name="QuranPage_Aya" xml:space="preserve">
+    <value>Aya</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupPlay.Label" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupAutoPlayNext.Label" xml:space="preserve">
+    <value>Auto Play Next Verse</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupPlayGoToAya.Header" xml:space="preserve">
+    <value>Go To Verse</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupPlayGoToAya.PlaceholderText" xml:space="preserve">
+    <value>Go To Verse</value>
+  </data>
+  <data name="HomeLandingRowSample.Description" xml:space="preserve">
+    <value>Search through Quranic chapters, verses, and words with quick access to audio recitations.</value>
+  </data>
+  <data name="LocalTranslationsPage_DeleteSelection.Text" xml:space="preserve">
+    <value>Delete Selected Items</value>
+  </data>
+  <data name="LocalTranslationsPage_MessageBoxConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the selected items?</value>
+  </data>
+  <data name="LocalTranslationsPage_MessageBoxFileNotFound" xml:space="preserve">
+    <value>The file was not found.</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_FoundVersion" xml:space="preserve">
+    <value>We have found a new version {0}, created on {1} and released on {2}.</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_NoNewVersion" xml:space="preserve">
+    <value>You are using the latest version.</value>
+  </data>
+  <data name="AppUpdateSettingViewModel_ReleaseNoteTitle" xml:space="preserve">
+    <value>Release Notes</value>
+  </data>
+  <data name="GeneralSettingPage_Debug.Header" xml:space="preserve">
+    <value>Diagnostics &amp; feedback (Restart Required)</value>
+  </data>
+  <data name="GeneralSettingPage_Debug.Description" xml:space="preserve">
+    <value>Help us improve this app by sharing optional diagnostics data to inform bug fixes, performance, and feature enhancements</value>
+  </data>
+  <data name="AudioSettingPage_AudioChoose.Header" xml:space="preserve">
+    <value>Select Reciter</value>
+  </data>
+  <data name="AudioSettingPage_AudioChoose.Description" xml:space="preserve">
+    <value>Select your preferred reciter for Quran audio playback.</value>
+  </data>
+  <data name="AudioSettingPage_AudioSaveLocation.Description" xml:space="preserve">
+    <value>Select the folder where downloaded recitations will be saved.</value>
+  </data>
+  <data name="AudioSettingPage_AudioSaveLocation.Header" xml:space="preserve">
+    <value>Audio Storage Location</value>
+  </data>
+  <data name="AudioSettingPage_DownloadAudio.Description" xml:space="preserve">
+    <value>Browse the recitations page to download more Quranic recitations.</value>
+  </data>
+  <data name="AudioSettingPage_DownloadAudio.Header" xml:space="preserve">
+    <value>Get More Recitations</value>
+  </data>
+  <data name="AudioSettingPage_ViewMoreAudio.Content" xml:space="preserve">
+    <value>View More Recitations</value>
+  </data>
+  <data name="AudioSettingPage_ChooseFolder.Content" xml:space="preserve">
+    <value>Select Folder</value>
+  </data>
+  <data name="AudiosPage_DownloadAudios.Text" xml:space="preserve">
+    <value>Download Audio</value>
+  </data>
+  <data name="AudiosPage_LocalAudios.Text" xml:space="preserve">
+    <value>Available Audios</value>
+  </data>
+  <data name="LocalAudiosPage_DeleteSelection.Text" xml:space="preserve">
+    <value>Delete Selected Items</value>
+  </data>
+  <data name="AudiosViewModel_DirNotFoundMessageBoxTitle" xml:space="preserve">
+    <value>Folder not found</value>
+  </data>
+  <data name="AudiosViewModel_DirNotFoundMessageBoxMessage" xml:space="preserve">
+    <value>The selected audio folder was not found. It may have been deleted or moved.</value>
+  </data>
+  <data name="AudiosViewModel_DeleteMessageBoxSuccessMessage" xml:space="preserve">
+    <value>Audio file(s) were successfully deleted.</value>
+  </data>
+  <data name="AudiosViewModel_DeleteMessageBoxSuccessTitle" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="LocalAudiosPage_MessageBoxConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the selected items?</value>
+  </data>
+  <data name="LocalAudiosPage_MessageBoxFileNotFound" xml:space="preserve">
+    <value>The specified file was not found.</value>
+  </data>
+  <data name="DownloadAudioWindow_NoSpaceTitle" xml:space="preserve">
+    <value>Insufficient Space</value>
+  </data>
+  <data name="DownloadAudioWindow_NoSpaceMessage" xml:space="preserve">
+    <value>There is not enough free space on the selected drive to download the audio files. Please free up some space or choose a different location.</value>
+  </data>
+  <data name="DownloadAudioWindow_SufficientSpaceTitle" xml:space="preserve">
+    <value>There is enough disk space available!</value>
+  </data>
+  <data name="DownloadAudioWindow_NoInternetMessageBoxTitle" xml:space="preserve">
+    <value>Internet is not available</value>
+  </data>
+  <data name="DownloadAudioWindow_NoInternetMessageBoxMessage" xml:space="preserve">
+    <value>Please check your internet connection and try again.</value>
+  </data>
+  <data name="GeneralSettingPage_QuranFont.Description" xml:space="preserve">
+    <value>Select Quran Verse Font</value>
+  </data>
+  <data name="QuranPage_MainSelectorView.Text" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="QuranPage_ViewFontRibbonGroup.Label" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="QuranPage_ViewFontColorRibbonGroup.Label" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="QuranPage_ViewOptionsRibbonGroup.Label" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="QuranPage_ViewRibbonGroupShowTools.Label" xml:space="preserve">
+    <value>Show Operation Buttons</value>
+  </data>
+  <data name="QuranPage_ViewTextAlignmentRibbonGroup.Label" xml:space="preserve">
+    <value>Text Alignment</value>
+  </data>
+  <data name="QuranPage_ViewTextAlignmentRibbonGroupAyaAlignment.Text" xml:space="preserve">
+    <value>Verse Text Alignment</value>
+  </data>
+  <data name="QuranPage_ViewTextAlignmentRibbonGroupTranslationAlignment.Text" xml:space="preserve">
+    <value>Translation Text Alignment</value>
+  </data>
+  <data name="QuranPage_ViewVersesFontSize.Header" xml:space="preserve">
+    <value>Verses Font Size</value>
+  </data>
+  <data name="QuranPage_ViewTranslationsFontSize.Header" xml:space="preserve">
+    <value>Translations Font Size</value>
+  </data>
+  <data name="QuranPage_ViewVersesFontFamily.Header" xml:space="preserve">
+    <value>Verses Font</value>
+  </data>
+  <data name="QuranPage_ViewTranslationsFontFamily.Header" xml:space="preserve">
+    <value>Translations Font</value>
+  </data>
+  <data name="GeneralSettingPage_TranslationFont.Header" xml:space="preserve">
+    <value>Quran Translation Font</value>
+  </data>
+  <data name="GeneralSettingPage_TranslationFont.Description" xml:space="preserve">
+    <value>Select Quran Translation Font</value>
+  </data>
+  <data name="QuranPage_ViewQuranFontColor.Text" xml:space="preserve">
+    <value>Verses Color</value>
+  </data>
+  <data name="QuranPage_ViewTranslationFontColor.Text" xml:space="preserve">
+    <value>Translations Color</value>
+  </data>
+  <data name="QuranPage_ViewVerseNumberFontColor.Text" xml:space="preserve">
+    <value>Verse Number Color</value>
+  </data>
+  <data name="QuranPage_ViewResetColors.Label" xml:space="preserve">
+    <value>Reset Colors</value>
+  </data>
+  <data name="GeneralSettingPage_AutoDownloadAudios.Header" xml:space="preserve">
+    <value>Auto Audio Download</value>
+  </data>
+  <data name="GeneralSettingPage_AutoDownloadAudios.Description" xml:space="preserve">
+    <value>When a verse is played, any parts that have not been downloaded will be downloaded automatically.</value>
+  </data>
+  <data name="GeneralSettingPage_FontExpander.Header" xml:space="preserve">
+    <value>Font Settings</value>
+  </data>
+  <data name="GeneralSettingPage_FontExpander.Description" xml:space="preserve">
+    <value>Choose the fonts used for the interface, Quran text, and translations.</value>
+  </data>
+  <data name="QuranTabViewItem_Dialog.Title" xml:space="preserve">
+    <value>Add New Note</value>
+  </data>
+  <data name="QuranTabViewItem_Dialog.PrimaryButtonText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="QuranTabViewItem_Dialog.CloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentSura.Header" xml:space="preserve">
+    <value>Sura</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentSura.PlaceholderText" xml:space="preserve">
+    <value>Sura</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentVerse.Header" xml:space="preserve">
+    <value>Verse</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentVerse.PlaceholderText" xml:space="preserve">
+    <value>Verse</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentTitle.Header" xml:space="preserve">
+    <value>Note Title</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentTitle.PlaceholderText" xml:space="preserve">
+    <value>Enter a short title for this note</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentNote.Header" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="QuranTabViewItem_DialogContentNote.PlaceholderText" xml:space="preserve">
+    <value>Write your note or reflection about this verse or surah</value>
+  </data>
+  <data name="QuranTabViewItem_Dialog.ContentFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+  </data>
+  <data name="QuranPage_NoteFavRibbonGroup.Label" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="QuranPage_NoteFavRibbonGroupGoToFav.Label" xml:space="preserve">
+    <value>Favorite List</value>
+  </data>
+  <data name="QuranPage_NoteRibbonGroup.Label" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="QuranPage_NoteRibbonGroupGoToNote.Label" xml:space="preserve">
+    <value>Note List</value>
+  </data>
+  <data name="QuranPage_NoteRibbonGroupAddNote.Label" xml:space="preserve">
+    <value>Add New Note</value>
+  </data>
+  <data name="QuranPage_DialogAddNoteError" xml:space="preserve">
+    <value>Please Select Sura and Verse</value>
+  </data>
+  <data name="AppData_AppName.Title" xml:space="preserve">
+    <value>Al-Anvar</value>
+  </data>
+  <data name="AppData_HomeLandingPage.Title" xml:space="preserve">
+    <value>Al-Anvar</value>
+  </data>
+  <data name="AppData_HomeLandingPage.Subtitle" xml:space="preserve">
+    <value>Al-Anvar</value>
+  </data>
+  <data name="AppData_QuranPage.Title" xml:space="preserve">
+    <value>Quran</value>
+  </data>
+  <data name="AppData_QuranPage.Subtitle" xml:space="preserve">
+    <value>Read and listen to the full Quran with easy navigation by surah and verse.</value>
+  </data>
+  <data name="AppData_TranslationsPage.Title" xml:space="preserve">
+    <value>Translations</value>
+  </data>
+  <data name="AppData_TranslationsPage.Subtitle" xml:space="preserve">
+    <value>Download, manage, and organize your Quran translations. You can add new translations or remove the ones you no longer need.</value>
+  </data>
+  <data name="AppData_AudiosPage.Title" xml:space="preserve">
+    <value>Audios</value>
+  </data>
+  <data name="AppData_AudiosPage.Subtitle" xml:space="preserve">
+    <value>Download, manage, and organize your Quran audios. You can add new audios or remove the ones you no longer need.</value>
+  </data>
+  <data name="AppData_NotePage.Title" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="AppData_NotePage.Subtitle" xml:space="preserve">
+    <value>See and Manage Your Notes.</value>
+  </data>
+  <data name="FavoriteTabItem_MessageBoxConfirmDeleteTitle" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="FavoriteTabItem_MessageBoxConfirmDeleteMessage" xml:space="preserve">
+    <value>Are you sure you want to delete the selected item?</value>
+  </data>
+  <data name="QuranPage_FavoriteTabViewItem" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="QuranTabViewItem_MenuCopy.Text" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="QuranTabViewItem_MenuCopyVerse.Text" xml:space="preserve">
+    <value>Copy Verse</value>
+  </data>
+  <data name="QuranTabViewItem_MenuCopyTranslation.Text" xml:space="preserve">
+    <value>Copy Translation</value>
+  </data>
+  <data name="QuranTabViewItem_MenuCopyAll.Text" xml:space="preserve">
+    <value>Copy All</value>
+  </data>
+  <data name="QuranTabViewItem_MenuFavorite.Text" xml:space="preserve">
+    <value>Add/Remove Favorite</value>
+  </data>
+  <data name="QuranTabViewItem_MenuPlay.Text" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="QuranTabViewItem_MenuNote.Text" xml:space="preserve">
+    <value>Add New Note</value>
+  </data>
+  <data name="QuranTabViewItem_MenuTafsir.Text" xml:space="preserve">
+    <value>Interpretation</value>
+  </data>
+  <data name="QuranTabViewItem_MenuExport.Text" xml:space="preserve">
+    <value>Extract Audio</value>
+  </data>
+  <data name="QuranTabViewItem_MenuExportSingle.Text" xml:space="preserve">
+    <value>Extract Audio</value>
+  </data>
+  <data name="QuranTabViewItem_MenuExportAll.Text" xml:space="preserve">
+    <value>Extract All</value>
+  </data>
+  <data name="QuranTabViewItem_MenuExportCustom.Text" xml:space="preserve">
+    <value>Extract Range</value>
+  </data>
+  <data name="QuranTabViewItem_MessageBoxExportError" xml:space="preserve">
+    <value>No reciter or audio file is available. Please download them first or select them from the settings.</value>
+  </data>
+  <data name="QuranTabViewItem_MessageBoxExportFileError" xml:space="preserve">
+    <value>The requested file was not found.</value>
+  </data>
+  <data name="QuranTabViewItem_DialogTitle" xml:space="preserve">
+    <value>Export Audios</value>
+  </data>
+  <data name="QuranTabViewItem_DialogPrimaryButtonText" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="QuranTabViewItem_DialogSecondaryButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="QuranTabViewItem_DialogExportFromHeader" xml:space="preserve">
+    <value>From Verse</value>
+  </data>
+  <data name="QuranTabViewItem_DialogExportToHeader" xml:space="preserve">
+    <value>To Verse</value>
+  </data>
+  <data name="QuranPage_HomeRibbonGroupShowDiacritics.Label" xml:space="preserve">
+    <value>Show Diacritics</value>
+  </data>
+  <data name="FavoriteTabViewItem_MenuDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="FavoriteTabViewItem_MenuGoToSura.Text" xml:space="preserve">
+    <value>Go To Sura</value>
+  </data>
+  <data name="NotePage_CollapsedGlyph.CollapsedGlyph" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="NotePage_Delete.Text" xml:space="preserve">
+    <value>Delete Note(s)</value>
+  </data>
+  <data name="NotePage_Save.Text" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="NotePage_Title.Header" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="NotePage_Title.PlaceholderText" xml:space="preserve">
+    <value>Enter a title for your note</value>
+  </data>
+  <data name="NotePage_Note.Header" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="NotePage_Note.PlaceholderText" xml:space="preserve">
+    <value>Write your note here…</value>
+  </data>
+  <data name="NotePage_CreatedDate.Subject" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="NotePage_UpdatedDate.Subject" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="NotePage_Add.Text" xml:space="preserve">
+    <value>Add New Note</value>
+  </data>
+  <data name="NotePage_InfoBarAddSuccess.Title" xml:space="preserve">
+    <value>Note Added</value>
+  </data>
+  <data name="NotePage_InfoBarAddSuccess.Message" xml:space="preserve">
+    <value>Your note has been successfully added.</value>
+  </data>
+  <data name="NotePage_InfoBarAddError.Message" xml:space="preserve">
+    <value>Unable to add your note. Please try again.</value>
+  </data>
+  <data name="NotePage_InfoBarAddError.Title" xml:space="preserve">
+    <value>Add Failed</value>
+  </data>
+  <data name="NotePage_InfoBarUpdateSuccess.Title" xml:space="preserve">
+    <value>Note Updated</value>
+  </data>
+  <data name="NotePage_InfoBarUpdateSuccess.Message" xml:space="preserve">
+    <value>Your note has been successfully updated.</value>
+  </data>
+  <data name="NotePage_InfoBarUpdateError.Title" xml:space="preserve">
+    <value>Update Failed</value>
+  </data>
+  <data name="NotePage_InfoBarUpdateError.Message" xml:space="preserve">
+    <value>Unable to update your note. Please try again.</value>
+  </data>
+  <data name="MessageBoxErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="NotePage_InfoBarDeleteError.Message" xml:space="preserve">
+    <value>Unable to delete your note. Please try again.</value>
+  </data>
+  <data name="NotePage_InfoBarDeleteError.Title" xml:space="preserve">
+    <value>Delete Failed</value>
+  </data>
+  <data name="NotePage_InfoBarDeleteSuccess.Message" xml:space="preserve">
+    <value>Your note has been successfully deleted.</value>
+  </data>
+  <data name="NotePage_InfoBarDeleteSuccess.Title" xml:space="preserve">
+    <value>Note Deleted</value>
+  </data>
+  <data name="QuranPage_DialogAddNoteEmptyError" xml:space="preserve">
+    <value>Title and note cannot be empty. Please enter the required information.</value>
+  </data>
+  <data name="NotePage_AddNoteEmptyError" xml:space="preserve">
+    <value>Title and note cannot be empty. Please enter the required information.</value>
+  </data>
+  <data name="NotePage_AddNoteEmptyErrorTitle" xml:space="preserve">
+    <value>Invalid Input</value>
+  </data>
+  <data name="NotePage_AddNoteNoSelectedError" xml:space="preserve">
+    <value>Please select both a sura and a verse.</value>
+  </data>
+  <data name="NotePage_AddNoteNoSelectedErrorTitle" xml:space="preserve">
+    <value>Selection Required</value>
+  </data>
+  <data name="GeneralSettingPage_Language.Header" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="GeneralSettingPage_Language.Description" xml:space="preserve">
+    <value>Change the language used in the application interface.</value>
+  </data>
+  <data name="SettingsPage_Database.Header" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="SettingsPage_Database.Description" xml:space="preserve">
+    <value>Manage backups, restore data, and change where the database is stored.</value>
+  </data>
+  <data name="DatabaseSettingPage_SaveLocation.Header" xml:space="preserve">
+    <value>Database Storage Location</value>
+  </data>
+  <data name="DatabaseSettingPage_SaveLocation.Description" xml:space="preserve">
+    <value>Specify the storage location for database</value>
+  </data>
+  <data name="DatabaseSettingPage_SaveLocationBrowse.Content" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="DatabaseSettingPage_BackupRestoreExpander.Header" xml:space="preserve">
+    <value>Backup and Restore</value>
+  </data>
+  <data name="DatabaseSettingPage_BackupRestoreExpander.Description" xml:space="preserve">
+    <value>Create backups of your data or restore it from an existing backup.</value>
+  </data>
+  <data name="DatabaseSettingPage_Backup.Content" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="DatabaseSettingPage_Restore.Content" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="DatabaseSettingPage_BackupCard.Header" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="DatabaseSettingPage_BackupCard.Description" xml:space="preserve">
+    <value>Create a backup copy of the current data.</value>
+  </data>
+  <data name="DatabaseSettingPage_RestoreCard.Header" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="DatabaseSettingPage_RestoreCard.Description" xml:space="preserve">
+    <value>Replace current data by restoring it from a backup file.</value>
+  </data>
+  <data name="DatabaseSettingViewModel_MessageBoxFileNotFound" xml:space="preserve">
+    <value>The file was not found</value>
+  </data>
+  <data name="Language_Persian" xml:space="preserve">
+    <value>Persian</value>
+  </data>
+  <data name="Language_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="DownloadTranslationsViewModel_SuccessDeleteTitle" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="DownloadTranslationsPage_FileAlreadyDownloadedTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="QuranPage_TafsirTabViewItem" xml:space="preserve">
+    <value>{0}: Sura {1} - Verse {2}</value>
+  </data>
+  <data name="QuranTabViewItem_MenuTafsirAlMizan.Text" xml:space="preserve">
+    <value>Tafsir Al-Mizan</value>
+  </data>
+  <data name="QuranTabViewItem_MenuTafsirNemone.Text" xml:space="preserve">
+    <value>Tafsir Nemone</value>
+  </data>
+  <data name="AppData_TafsirPage.Title" xml:space="preserve">
+    <value>Tafsir</value>
+  </data>
+  <data name="AppData_TafsirPage.Subtitle" xml:space="preserve">
+    <value>Tafsir Quran</value>
+  </data>
+  <data name="TafsirPage_Tafsir.Header" xml:space="preserve">
+    <value>Tafsir</value>
+  </data>
+  <data name="TafsirPage_Tafsir.PlaceholderText" xml:space="preserve">
+    <value>Tafsir</value>
+  </data>
+  <data name="QuranPage_MediaNotFoundPrimaryButtonText" xml:space="preserve">
+    <value>Go To Settings</value>
+  </data>
+  <data name="QuranPage_MediaNotFoundCloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="RestartNotificationText.Subtitle" xml:space="preserve">
+    <value>The application needs to be restarted in order to apply these settings, would you like to restart the app?</value>
+  </data>
+  <data name="YesButton.Content" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="NoButton.Content" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoteNotFoundNotificationText.Subtitle" xml:space="preserve">
+    <value>There are no notes to display.</value>
+  </data>
+  <data name="TranslationNotFoundNotificationText.Subtitle" xml:space="preserve">
+    <value>There are no translations to display.</value>
+  </data>
+  <data name="AudioNotFoundNotificationText.Subtitle" xml:space="preserve">
+    <value>There are no audios to display.</value>
+  </data>
+  <data name="FavoriteNotFoundNotificationText.Subtitle" xml:space="preserve">
+    <value>There are no favorites to display.</value>
+  </data>
+  <data name="AppData_SearchPage.Title" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="AppData_SearchPage.Subtitle" xml:space="preserve">
+    <value>Search Quran</value>
+  </data>
+  <data name="SearchPage_SuraName.Header" xml:space="preserve">
+    <value>Sura</value>
+  </data>
+  <data name="SearchPage_AyaId.Header" xml:space="preserve">
+    <value>Verse</value>
+  </data>
+  <data name="SearchPage_AyaText.Header" xml:space="preserve">
+    <value>Verse Text</value>
+  </data>
+  <data name="SearchPage_Translation.Header" xml:space="preserve">
+    <value>Translation</value>
+  </data>
+</root>

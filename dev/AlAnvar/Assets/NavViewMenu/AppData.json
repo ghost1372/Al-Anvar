@@ -1,0 +1,59 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/Ghost1372/DevWinUI/refs/heads/main/tools/AppData.Schema.json",
+  "Groups": [
+    {
+      "UniqueId": "AlAnvar",
+      "UsexUid": true,
+      "LocalizeId": "AppData_AppName",
+      "ImagePath": "ms-appx:///Assets/AppIcon.png",
+      "IsSpecialSection": false,
+      "ShowItemsWithoutGroup": true,
+      "IsExpanded": false,
+      "Items": [
+        {
+          "UniqueId": "AlAnvar.Views.HomeLandingPage",
+          "UsexUid": true,
+          "LocalizeId": "AppData_HomeLandingPage",
+          "ImagePath": "ms-appx:///Assets/AppIcon.png",
+          "HideItem": true
+        },
+        {
+          "UniqueId": "AlAnvar.Views.QuranPage",
+          "UsexUid": true,
+          "LocalizeId": "AppData_QuranPage",
+          "ImagePath": "ms-appx:///Assets/Fluent/Quran.png"
+        },
+        {
+          "UniqueId": "AlAnvar.Views.TranslationsPage",
+          "UsexUid": true,
+          "LocalizeId": "AppData_TranslationsPage",
+          "ImagePath": "ms-appx:///Assets/Fluent/Translation.png"
+        },
+        {
+          "UniqueId": "AlAnvar.Views.AudiosPage",
+          "UsexUid": true,
+          "LocalizeId": "AppData_AudiosPage",
+          "ImagePath": "ms-appx:///Assets/Fluent/Audio.png"
+        },
+        {
+          "UniqueId": "AlAnvar.Views.TafsirPage",
+          "UsexUid": true,
+          "LocalizeId": "AppData_TafsirPage",
+          "ImagePath": "ms-appx:///Assets/Fluent/Library.png"
+        },
+        {
+          "UniqueId": "AlAnvar.Views.NotePage",
+          "UsexUid": true,
+          "LocalizeId": "AppData_NotePage",
+          "ImagePath": "ms-appx:///Assets/Fluent/Reciep.png"
+        },
+        {
+          "UniqueId": "AlAnvar.Views.SearchPage",
+          "UsexUid": true,
+          "LocalizeId": "AppData_SearchPage",
+          "ImagePath": "ms-appx:///Assets/Fluent/Search.png"
+        }
+      ]
+    }
+  ]
+}

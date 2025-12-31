@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="AlAnvar.Views.HomeLandingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
+      xmlns:local="using:AlAnvar"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:uc="using:AlAnvar.Views"
+      mc:Ignorable="d">
+    <dev:OutOfBoxPage>
+        <dev:OutOfBoxPage.Title>
+            <StackPanel Spacing="5">
+                <TextBlock x:Uid="HomeLandingPage_AppTitle"
+                           HorizontalAlignment="Center"
+                           CharacterSpacing="48"
+                           FontSize="40"
+                           FontWeight="Bold"
+                           Foreground="{ThemeResource HomeLandingTitleBackgroundGradient}"
+                           Opacity="0.8"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap">
+                </TextBlock>
+                <Grid HorizontalAlignment="Center" RequestedTheme="Light">
+                    <Grid Background="{ThemeResource AcrylicBackgroundFillColorBaseBrush}" CornerRadius="12" Opacity="0.6" />
+                    <TextBlock Margin="10,4,10,4"
+                               HorizontalAlignment="Center"
+                               FontSize="14"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap">
+                        <Run x:Uid="HomeLandingPage_AppSubtitle" />
+                    </TextBlock>
+                </Grid>
+            </StackPanel>
+        </dev:OutOfBoxPage.Title>
+        <dev:OutOfBoxPage.ActionContent>
+            <dev:CheckUpdateControl x:Uid="HomeLandingPage_Update"
+                                    Click="OnCheckUpdateControl"
+                                    IsUpdateAvailable="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}"
+                                    LastUpdateCheckDate="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}"
+                                    UpdateAvailableVersion="{x:Bind ViewModel.NewUpdateVersion, Mode=OneWay}" />
+        </dev:OutOfBoxPage.ActionContent>
+        <uc:TileGallery>
+            <uc:TileGallery.Source>
+                <uc:SampleRow x:Uid="HomeLandingPage_TileGallery"
+                              CategoryImageUrl="ms-appx:///Assets/Fluent/Moon.png">
+                    <uc:SampleRow.SampleCards>
+                        <uc:RowSample x:Uid="HomeLandingPage_RowSample"
+                                      Icon="{dev:FontIcon Glyph=&#xE721;}" />
+                    </uc:SampleRow.SampleCards>
+                </uc:SampleRow>
+            </uc:TileGallery.Source>
+        </uc:TileGallery>
+    </dev:OutOfBoxPage>
+</Page>
+

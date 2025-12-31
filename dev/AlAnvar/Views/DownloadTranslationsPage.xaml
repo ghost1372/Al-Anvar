@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="AlAnvar.Views.DownloadTranslationsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
+      xmlns:local="using:AlAnvar.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:tv="using:WinUI.TableView"
+      NavigationCacheMode="Required"
+      mc:Ignorable="d">
+    <Grid x:Uid="Main_FlowDirection" RowSpacing="10">
+        <tv:TableView x:Name="TranslationsTableView"
+                      AutoGenerateColumns="False"
+                      CanFilterColumns="False"
+                      CanSortColumns="True"
+                      CornerButtonMode="None"
+                      CornerRadius="8,8,0,0"
+                      GridLinesVisibility="Horizontal"
+                      HeaderGridLinesVisibility="Horizontal"
+                      IsReadOnly="True"
+                      ItemsSource="{x:Bind ViewModel.TranslationItems, Mode=OneWay}"
+                      SelectionChanged="TranslationsTableView_SelectionChanged"
+                      SelectionMode="Single"
+                      SelectionUnit="Row">
+            <tv:TableView.Columns>
+                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewLanguage"
+                                        Width="100"
+                                        Binding="{Binding Language}" />
+                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewTranslator"
+                                        Width="300"
+                                        Binding="{Binding Translator}" />
+                <tv:TableViewCheckBoxColumn x:Uid="DownloadTranslationsPage_TableViewActive"
+                                            Binding="{Binding IsActive}" />
+                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewName"
+                                        Binding="{Binding Name}" />
+
+            </tv:TableView.Columns>
+
+            <ProgressRing IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        </tv:TableView>
+    </Grid>
+</Page>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="AlAnvar.Views.AudiosPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
+      xmlns:local="using:AlAnvar.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <animations:ImplicitAnimationSet x:Name="ShowTransitions">
+            <animations:OffsetAnimation EasingMode="EaseOut"
+                                        From="0,24,0"
+                                        To="0"
+                                        Duration="0:0:0.4" />
+            <animations:OpacityAnimation EasingMode="EaseOut"
+                                         From="0"
+                                         To="1"
+                                         Duration="0:0:0.2" />
+        </animations:ImplicitAnimationSet>
+        <animations:ImplicitAnimationSet x:Name="HideTransitions">
+            <animations:OffsetAnimation EasingMode="EaseOut"
+                                        From="0"
+                                        To="0,24,0"
+                                        Duration="0:0:0.2" />
+            <animations:OpacityAnimation EasingMode="EaseOut"
+                                         From="1"
+                                         To="0"
+                                         Duration="0:0:0.1" />
+        </animations:ImplicitAnimationSet>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                CornerRadius="0,0,8,8">
+            <dev:SelectorBarSegmented x:Name="AudioSelectorBar"
+                                      Margin="10"
+                                      HorizontalAlignment="Center">
+                <SelectorBarItem x:Uid="AudiosPage_DownloadAudios"
+                                 MinWidth="200"
+                                 HorizontalContentAlignment="Center"
+                                 Tag="{x:Bind DownloadTag}">
+                    <SelectorBarItem.Icon>
+                        <FontIcon Glyph="&#xE896;" />
+                    </SelectorBarItem.Icon>
+                </SelectorBarItem>
+                <SelectorBarItem x:Uid="AudiosPage_LocalAudios"
+                                 MinWidth="200"
+                                 HorizontalContentAlignment="Center"
+                                 Tag="Local">
+                    <SelectorBarItem.Icon>
+                        <FontIcon Glyph="&#xE838;" />
+                    </SelectorBarItem.Icon>
+                </SelectorBarItem>
+            </dev:SelectorBarSegmented>
+        </Border>
+
+        <Border Grid.Row="1"
+                Margin="10,10,10,0"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                CornerRadius="8,8,0,0">
+            <dev:SwitchPresenter Value="{x:Bind AudioSelectorBar.SelectedItem.Tag, Mode=OneWay}">
+                <dev:Case IsDefault="True"
+                          Value="{x:Bind DownloadTag}">
+                    <local:DownloadAudiosPage animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                                              animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}" />
+                </dev:Case>
+                <dev:Case Value="Local">
+                    <local:LocalAudiosPage animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                                           animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}" />
+                </dev:Case>
+            </dev:SwitchPresenter>
+        </Border>
+    </Grid>
+</Page>

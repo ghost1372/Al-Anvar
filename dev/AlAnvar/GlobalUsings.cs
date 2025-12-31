@@ -1,0 +1,12 @@
+﻿global using AlAnvar.Common;
+global using AlAnvar.ViewModels;
+global using AlAnvar.Views;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using DevWinUI;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.UI;
+global using Microsoft.UI.Xaml;
+global using Microsoft.UI.Xaml.Controls;
+global using static AlAnvar.Common.AppHelper;
+global using static AlAnvar.Common.LoggerSetup;

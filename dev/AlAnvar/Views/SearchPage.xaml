@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="AlAnvar.Views.SearchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:common="using:AlAnvar.Common"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
+      xmlns:local="using:AlAnvar.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:AlAnvar.Models"
+      xmlns:tv="using:WinUI.TableView"
+      mc:Ignorable="d">
+
+    <Grid x:Uid="Main_FlowDirection">
+        <tv:TableView x:Name="QuranTableView"
+                      Margin="10"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{x:Bind ViewModel.Quran, Mode=OneWay}"
+                      ShowExportOptions="True">
+            <tv:TableView.RowContextFlyout>
+                <MenuFlyout>
+                    <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuCopy"
+                                         Click="OnMenuClicked"
+                                         Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
+                                         Tag="CopyVerse">
+                        <SplitMenuFlyoutItem.Items>
+                            <MenuFlyoutItem x:Name="MnuCopyVerse"
+                                            x:Uid="QuranTabViewItem_MenuCopyVerse"
+                                            Click="OnMenuClicked"
+                                            Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
+                                            Tag="CopyVerse" />
+                            <MenuFlyoutItem x:Name="MnuCopyTranslation"
+                                            x:Uid="QuranTabViewItem_MenuCopyTranslation"
+                                            Click="OnMenuClicked"
+                                            Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
+                                            Tag="CopyTranslation"
+                                            Visibility="{x:Bind Translation, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}" />
+                            <MenuFlyoutItem x:Name="MnuCopyAll"
+                                            x:Uid="QuranTabViewItem_MenuCopyAll"
+                                            Click="OnMenuClicked"
+                                            Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/CopyAll.png}"
+                                            Tag="CopyAll" />
+                        </SplitMenuFlyoutItem.Items>
+                    </SplitMenuFlyoutItem>
+                </MenuFlyout>
+            </tv:TableView.RowContextFlyout>
+            <tv:TableView.Columns>
+                <tv:TableViewTextColumn Width="80"
+                                        Binding="{Binding SuraId}" />
+                <tv:TableViewTextColumn x:Uid="SearchPage_SuraName"
+                                        Width="100"
+                                        Binding="{Binding SuraName}" />
+                <tv:TableViewTextColumn x:Uid="SearchPage_AyaId"
+                                        Width="80"
+                                        Binding="{Binding AyaId}" />
+                <tv:TableViewTemplateColumn x:Uid="SearchPage_AyaText"
+                                            Width="500"
+                                            CanFilter="True"
+                                            CanSort="True">
+                    <tv:TableViewTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
+                                       FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
+                                       Foreground="{x:Bind common:ProxyService.Instance.QuranColor, Mode=OneWay}"
+                                       Text="{Binding Aya, Mode=OneWay}"
+                                       TextAlignment="{x:Bind common:ProxyService.Instance.VerseTextAlignment, Mode=OneWay}"
+                                       TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </tv:TableViewTemplateColumn.CellTemplate>
+                </tv:TableViewTemplateColumn>
+                <tv:TableViewTemplateColumn x:Uid="SearchPage_Translation"
+                                            Width="500"
+                                            CanFilter="True"
+                                            CanSort="True">
+                    <tv:TableViewTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock FontFamily="{x:Bind common:ProxyService.Instance.TranslationFontFamily, Mode=OneWay}"
+                                       FontSize="{x:Bind common:ProxyService.Instance.TranslationFontSize, Mode=OneWay}"
+                                       Foreground="{x:Bind common:ProxyService.Instance.TranslationColor, Mode=OneWay}"
+                                       Text="{Binding Translation, Mode=OneWay}"
+                                       TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}"
+                                       TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </tv:TableViewTemplateColumn.CellTemplate>
+                </tv:TableViewTemplateColumn>
+            </tv:TableView.Columns>
+        </tv:TableView>
+        <ProgressRing Grid.Row="1"
+                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+    </Grid>
+</Page>

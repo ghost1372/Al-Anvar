@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Window x:Class="AlAnvar.Views.DownloadAudioWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dev="using:DevWinUI"
+        xmlns:local="using:AlAnvar.Views"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+    <Grid x:Name="RootGrid" Loaded="Grid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TitleBar x:Name="AppTitleBar"
+                  IsBackButtonVisible="False"
+                  IsPaneToggleButtonVisible="False">
+            <TitleBar.LeftHeader>
+                <ImageIcon Width="16"
+                           Height="16"
+                           Margin="14,0,0,0"
+                           Source="ms-appx:///Assets/AppIcon.png" />
+            </TitleBar.LeftHeader>
+        </TitleBar>
+        <Grid x:Uid="Main_FlowDirection" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="10,0">
+                <dev:SettingsCard x:Name="AudioPathCard"
+                                  x:Uid="DownloadAudioWindow_AudioStorageLocation"
+                                  HeaderIcon="{dev:FontIcon GlyphName=Folder}">
+                    <Button x:Name="BtnChangeFolder"
+                            x:Uid="DownloadAudioWindow_ChangeFolder"
+                            Click="BtnChangeFolder_Click" />
+                </dev:SettingsCard>
+                <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
+                    <Grid HorizontalAlignment="Stretch">
+                        <dev:StorageRing x:Name="AvailableSpaceStorageRing"
+                                         Width="150"
+                                         Height="150"
+                                         HorizontalAlignment="Stretch"
+                                         Maximum="100" />
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+                            <TextBlock x:Uid="DownloadAudioWindow_AvailableSpace"
+                                       HorizontalAlignment="Center"
+                                       Style="{ThemeResource BaseTextBlockStyle}" />
+                            <TextBlock x:Name="TxtAvailableSpace"
+                                       x:Uid="DownloadAudioWindow_Calc"
+                                       HorizontalAlignment="Center"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid>
+                        <dev:StorageRing x:Name="RequiredSpaceStorageRing"
+                                         Width="150"
+                                         Height="150"
+                                         HorizontalAlignment="Stretch"
+                                         Maximum="100"
+                                         PercentCaution="1001"
+                                         PercentCritical="1002"
+                                         Value="100" />
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+                            <TextBlock x:Uid="DownloadAudioWindow_RequiredSpace"
+                                       HorizontalAlignment="Center"
+                                       Style="{ThemeResource BaseTextBlockStyle}" />
+                            <TextBlock x:Name="TxtRequiredSpace"
+                                       x:Uid="DownloadAudioWindow_Calc"
+                                       HorizontalAlignment="Center"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid>
+                        <dev:StorageRing x:Name="AvailableFilesStorageRing"
+                                         Width="150"
+                                         Height="150"
+                                         HorizontalAlignment="Stretch"
+                                         Maximum="100"
+                                         PercentCaution="1001"
+                                         PercentCritical="1002"
+                                         Value="100" />
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+                            <TextBlock x:Uid="DownloadAudioWindow_AvailableFiles"
+                                       HorizontalAlignment="Center"
+                                       Style="{ThemeResource BaseTextBlockStyle}" />
+                            <TextBlock x:Name="TxtAvailableFiles"
+                                       x:Uid="DownloadAudioWindow_Calc"
+                                       HorizontalAlignment="Center"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <AppBarSeparator Grid.RowSpan="2"
+                             Grid.Column="1" />
+            <StackPanel Grid.Column="2" Margin="10,0" Spacing="5">
+                <dev:Card x:Uid="DownloadAudioWindow_DownloadOperation">
+                    <dev:Card.TitleContent>
+                        <Button x:Name="BtnDownload"
+                                x:Uid="DownloadAudioWindow_StartDownload"
+                                Margin="10,0"
+                                Click="Button_Click"
+                                IsEnabled="False" />
+                    </dev:Card.TitleContent>
+                    <StackPanel x:Name="DownloadCardStackPanel" Spacing="5" Visibility="Collapsed">
+                        <dev:SettingsCard HeaderIcon="{dev:FontIcon GlyphName=Download}"
+                                          IsActionIconVisible="False"
+                                          IsClickEnabled="True">
+                            <dev:SettingsCard.Header>
+                                <TextBlock x:Name="TxtTotalStatus"
+                                           Style="{ThemeResource BaseTextBlockStyle}" />
+                            </dev:SettingsCard.Header>
+                            <dev:SettingsCard.Description>
+                                <dev:StorageBar x:Name="TotalDownloadFileStorageBar"
+                                                Margin="0,10,0,0"
+                                                PercentCaution="1001"
+                                                PercentCritical="1002"
+                                                Value="0" />
+                            </dev:SettingsCard.Description>
+                        </dev:SettingsCard>
+                        <dev:SettingsCard HeaderIcon="{dev:FontIcon GlyphName=Download}"
+                                          IsActionIconVisible="False"
+                                          IsClickEnabled="True">
+                            <dev:SettingsCard.Header>
+                                <TextBlock x:Name="TxtStatus"
+                                           Style="{ThemeResource BaseTextBlockStyle}" />
+                            </dev:SettingsCard.Header>
+                            <dev:SettingsCard.Description>
+                                <dev:StorageBar x:Name="DownloadFileStorageBar"
+                                                Margin="0,10,0,0"
+                                                PercentCaution="1001"
+                                                PercentCritical="1002"
+                                                Value="0" />
+                            </dev:SettingsCard.Description>
+                        </dev:SettingsCard>
+                    </StackPanel>
+                </dev:Card>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Spacing="10">
+                <dev:GoToCard x:Name="GoToCardAudio"
+                              x:Uid="DownloadAudioWindow_GoToCard"
+                              Margin="10,0"
+                              Icon="{dev:BitmapIconSource Source=ms-appx:///Assets/Fluent/External.png}"
+                              LaunchUri="{x:Bind AudioItem.Url, Mode=OneWay}" />
+                <InfoBar x:Name="StatusInfoBar"
+                         Title=""
+                         IsClosable="False"
+                         IsOpen="True"
+                         Message=""
+                         Severity="Warning" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dev="using:DevWinUI">
+
+    <FontFamily x:Key="AlkalamiFont">ms-appx:///Assets/Fonts/Alkalami-Regular.ttf#Alkalami</FontFamily>
+    <FontFamily x:Key="HarmattanFont">ms-appx:///Assets/Fonts/Harmattan-Regular.ttf#Harmattan</FontFamily>
+    <FontFamily x:Key="NabiFont">ms-appx:///Assets/Fonts/Nabi.ttf#Nabi</FontFamily>
+    <FontFamily x:Key="NeiriziFont">ms-appx:///Assets/Fonts/Neirizi.ttf#Neirizi</FontFamily>
+    <FontFamily x:Key="QuranTahaFont">ms-appx:///Assets/Fonts/QuranTaha.ttf#QuranTaha</FontFamily>
+    <FontFamily x:Key="RuwuduFont">ms-appx:///Assets/Fonts/Ruwudu-Regular.ttf#Ruwudu</FontFamily>
+    <FontFamily x:Key="KufiFont">ms-appx:///Assets/Fonts/Kufi.ttf#KFGQPC Kufi Stylistic</FontFamily>
+    <FontFamily x:Key="UthmanicHafsFont">ms-appx:///Assets/Fonts/UthmanicHafs_v2-1.ttf#KFGQPC HAFS Uthmanic Script</FontFamily>
+    <FontFamily x:Key="UthmanTNFont">ms-appx:///Assets/Fonts/UthmanTN_v2-0.ttf#KFGQPC Uthman Taha Naskh</FontFamily>
+
+    <FontFamily x:Key="IRANSansXFont">ms-appx:///Assets/Fonts/IRANSansX-Regular.ttf#IRANSansX</FontFamily>
+    <FontFamily x:Key="IRANYekanFont">ms-appx:///Assets/Fonts/IRANYekanRegular.ttf#IRANYekan</FontFamily>
+    <FontFamily x:Key="VazirmatnFont">ms-appx:///Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
+
+    <FontFamily x:Key="AlAnvarUIFont">ms-appx:///Assets/Fonts/Vazirmatn-Regular.ttf#Vazirmatn</FontFamily>
+
+</ResourceDictionary>

@@ -21,7 +21,11 @@ In the name of God
 الانوار یک نرم افزار قرآنی بازنویسی شده از روی نسخه کلاسیک، بصورت متن باز و برپایه WinUI 3 می باشد.
 </div>
 
-![AlAnvar](https://raw.githubusercontent.com/ghost1372/Resources/main/AlAnvar/1.png)
-![AlAnvar](https://raw.githubusercontent.com/ghost1372/Resources/main/AlAnvar/2.png)
-![AlAnvar](https://raw.githubusercontent.com/ghost1372/Resources/main/AlAnvar/3.png)
-![AlAnvar](https://raw.githubusercontent.com/ghost1372/Resources/main/AlAnvar/4.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/1.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/2.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/3.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/4.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/5.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/6.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/7.png)
+![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/8.png)

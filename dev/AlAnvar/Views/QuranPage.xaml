@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="AlAnvar.Views.QuranPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+      xmlns:common="using:AlAnvar.Common"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:database="using:AlAnvar.Database.Tables"
+      xmlns:dev="using:DevWinUI"
+      xmlns:local="using:AlAnvar.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:AlAnvar.Models"
+      xmlns:tv="using:WinUI.TableView"
+      xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+      Loaded="Page_Loaded"
+      Unloaded="Page_Unloaded"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <dev:WindowedContentDialog x:Key="AddNoteDialog"
+                                   x:Uid="QuranTabViewItem_Dialog"
+                                   ContentMinWidth="700"
+                                   DefaultButton="Primary"
+                                   IsPrimaryButtonEnabled="{x:Bind ViewModel.CanSaveNote, Mode=OneWay}"
+                                   IsResizable="True"
+                                   Underlay="SmokeLayer">
+            <dev:WindowedContentDialog.SystemBackdrop>
+                <MicaBackdrop />
+            </dev:WindowedContentDialog.SystemBackdrop>
+            <Grid x:Uid="Main_FlowDirection" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Width="250" Spacing="10">
+                    <ComboBox x:Name="CmbQuranSura"
+                              x:Uid="QuranTabViewItem_DialogContentSura"
+                              HorizontalAlignment="Stretch"
+                              ItemsSource="{x:Bind ViewModel.QuranMetaItems, Mode=OneWay}"
+                              SelectedIndex="-1"
+                              SelectionChanged="CmbQuranSura_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="database:QuranMetadataTable">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                               Text="{x:Bind Id}" />
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                               Text=" - " />
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                               Text="{x:Bind Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="CmbQuranVerse"
+                              x:Uid="QuranTabViewItem_DialogContentVerse"
+                              HorizontalAlignment="Stretch"
+                              ItemsSource="{x:Bind ViewModel.QuranVerses, Mode=OneWay}"
+                              SelectedIndex="-1">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:FinalQuran">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                               Text="{x:Bind AyaId}" />
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                               Text=" - " />
+                                    <TextBlock Width="200"
+                                               Style="{ThemeResource BaseTextBlockStyle}"
+                                               Text="{x:Bind DisplayAya}"
+                                               TextWrapping="NoWrap" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <AppBarSeparator Grid.Column="1" />
+                <StackPanel Grid.Column="2" Spacing="10">
+                    <TextBox x:Uid="QuranTabViewItem_DialogContentTitle"
+                             Text="{x:Bind ViewModel.TitleNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox x:Uid="QuranTabViewItem_DialogContentNote"
+                             MinHeight="200"
+                             AcceptsReturn="True"
+                             Text="{x:Bind ViewModel.DescriptionNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </dev:WindowedContentDialog>
+        <animations:ImplicitAnimationSet x:Name="ShowTransitions">
+            <animations:OffsetAnimation EasingMode="EaseOut"
+                                        From="0,24,0"
+                                        To="0"
+                                        Duration="0:0:0.4" />
+            <animations:OpacityAnimation EasingMode="EaseOut"
+                                         From="0"
+                                         To="1"
+                                         Duration="0:0:0.2" />
+        </animations:ImplicitAnimationSet>
+        <animations:ImplicitAnimationSet x:Name="HideTransitions">
+            <animations:OffsetAnimation EasingMode="EaseOut"
+                                        From="0"
+                                        To="0,24,0"
+                                        Duration="0:0:0.2" />
+            <animations:OpacityAnimation EasingMode="EaseOut"
+                                         From="1"
+                                         To="0"
+                                         Duration="0:0:0.1" />
+        </animations:ImplicitAnimationSet>
+    </Page.Resources>
+    <Grid x:Uid="Main_ReverseFlowDirection">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid x:Uid="Main_FlowDirection" Grid.RowSpan="2" Grid.Column="1" Margin="0,5,0,0" Padding="5" Background="{ThemeResource LayerFillColorDefaultBrush}" CornerRadius="0,8,0,0" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <AutoSuggestBox x:Name="TxtMetaSearch"
+                            x:Uid="QuranPage_AutoSuggestBox"
+                            QueryIcon="Find"
+                            TextChanged="OnSearchTextChanged" />
+            <tv:TableView x:Name="MetaTableView"
+                          Grid.Row="1"
+                          AutoGenerateColumns="False"
+                          CanFilterColumns="False"
+                          CanSortColumns="True"
+                          CornerButtonMode="None"
+                          GridLinesVisibility="None"
+                          HeaderGridLinesVisibility="Horizontal"
+                          IsReadOnly="True"
+                          ItemsSource="{x:Bind ViewModel.QuranMetaItems, Mode=OneWay}"
+                          SelectionChanged="MetaTableView_SelectionChanged"
+                          SelectionMode="Single"
+                          SelectionUnit="Row">
+                <tv:TableView.Columns>
+                    <tv:TableViewTextColumn x:Uid="QuranPage_TableViewRow"
+                                            Binding="{Binding Id}" />
+                    <tv:TableViewTextColumn x:Uid="QuranPage_TableViewName"
+                                            Binding="{Binding Name}" />
+                    <tv:TableViewTextColumn x:Uid="QuranPage_TableViewType"
+                                            Binding="{Binding Type}" />
+                    <tv:TableViewTextColumn x:Uid="QuranPage_TableViewAya"
+                                            Binding="{Binding Aya}" />
+                </tv:TableView.Columns>
+            </tv:TableView>
+
+            <ProgressRing Grid.RowSpan="2"
+                          IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        </Grid>
+        <StackPanel>
+            <SelectorBar x:Name="MainSelectorBar"
+                         x:Uid="Main_FlowDirection"
+                         HorizontalAlignment="Stretch">
+                <SelectorBarItem x:Uid="QuranPage_MainSelectorHome"
+                                 IsSelected="True"
+                                 Tag="Home" />
+                <SelectorBarItem x:Uid="QuranPage_MainSelectorView"
+                                 Tag="View" />
+                <SelectorBarItem x:Uid="QuranPage_MainSelectorNote"
+                                 Tag="Note" />
+                <SelectorBarItem x:Uid="QuranPage_MainSelectorAudio"
+                                 Tag="Audio" />
+                <SelectorBarItem x:Uid="QuranPage_MainSelectorTranslation"
+                                 Tag="Translation" />
+            </SelectorBar>
+            <wct:Ribbon x:Uid="Main_FlowDirection"
+                        HorizontalAlignment="Stretch"
+                        FontFamily="{StaticResource AlAnvarUIFont}">
+                <dev:SwitchPresenter TargetType="x:String"
+                                     Value="{x:Bind MainSelectorBar.SelectedItem.Tag, Mode=OneWay}">
+                    <dev:Case Value="Home">
+                        <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}" animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}" Orientation="Horizontal">
+                            <wct:RibbonGroup x:Uid="QuranPage_HomeRibbonGroupOption">
+                                <StackPanel Orientation="Horizontal">
+                                    <AppBarToggleButton x:Uid="QuranPage_HomeRibbonGroupShowTranslation"
+                                                        MinWidth="120"
+                                                        Checked="OnToggleButtonChecked"
+                                                        Icon="{dev:FontIcon GlyphCode=ED1A}"
+                                                        IsChecked="{x:Bind ViewModel.IsTranslationVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Unchecked="OnToggleButtonChecked" />
+                                    <AppBarToggleButton x:Uid="QuranPage_HomeRibbonGroupShowAya"
+                                                        MinWidth="120"
+                                                        Checked="OnToggleButtonChecked"
+                                                        Icon="{dev:FontIcon GlyphCode=ED1A}"
+                                                        IsChecked="{x:Bind ViewModel.IsAyaVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Unchecked="OnToggleButtonChecked" />
+                                    <AppBarToggleButton x:Uid="QuranPage_HomeRibbonGroupShowDiacritics"
+                                                        MinWidth="120"
+                                                        Checked="OnToggleButtonChecked"
+                                                        Icon="{dev:FontIcon GlyphCode=ED1A}"
+                                                        IsChecked="{x:Bind ViewModel.IsDiacriticsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Unchecked="OnToggleButtonChecked" />
+                                    <AppBarSeparator />
+                                    <NumberBox x:Name="GoToAyaNumberBox"
+                                               x:Uid="QuranPage_HomeRibbonGroupPlayGoToAya"
+                                               Width="100"
+                                               Margin="5,0"
+                                               Minimum="1"
+                                               SpinButtonPlacementMode="Compact"
+                                               ValueChanged="GoToAyaNumberBox_ValueChanged" />
+                                </StackPanel>
+                            </wct:RibbonGroup>
+                            <AppBarSeparator />
+
+                            <wct:RibbonGroup x:Uid="QuranPage_HomeRibbonGroupPlay">
+                                <StackPanel Orientation="Horizontal">
+                                    <AppBarToggleButton x:Uid="QuranPage_HomeRibbonGroupAutoPlayNext"
+                                                        MinWidth="120"
+                                                        Checked="OnAutoPlayNextToggleButtonChecked"
+                                                        Icon="{dev:FontIcon GlyphCode=EC57}"
+                                                        IsChecked="{x:Bind ViewModel.IsAutoPlayNextFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Unchecked="OnAutoPlayNextToggleButtonChecked" />
+                                </StackPanel>
+                            </wct:RibbonGroup>
+                        </StackPanel>
+                    </dev:Case>
+                    <dev:Case Value="View">
+                        <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}" animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}" Orientation="Horizontal">
+                            <wct:RibbonGroup x:Uid="QuranPage_ViewOptionsRibbonGroup">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <AppBarToggleButton x:Uid="QuranPage_ViewRibbonGroupShowTools"
+                                                        MinWidth="150"
+                                                        Checked="OnToggleButtonChecked"
+                                                        Icon="{dev:FontIcon GlyphCode=ED1A}"
+                                                        IsChecked="{x:Bind ViewModel.IsOperationButtonVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Unchecked="OnToggleButtonChecked" />
+                                </StackPanel>
+                            </wct:RibbonGroup>
+                            <AppBarSeparator />
+
+                            <wct:RibbonGroup x:Uid="QuranPage_ViewTextAlignmentRibbonGroup">
+                                <StackPanel Spacing="5">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <TextBlock x:Uid="QuranPage_ViewTextAlignmentRibbonGroupAyaAlignment"
+                                                   MinWidth="200"
+                                                   VerticalAlignment="Center" />
+                                        <dev:SelectorBarSegmented x:Name="VerseSelectorBar"
+                                                                  FlowDirection="RightToLeft"
+                                                                  SelectionChanged="OnVerseSelectorBarSelectionChanged">
+                                            <SelectorBarItem Tag="Right">
+                                                <SelectorBarItem.Icon>
+                                                    <FontIcon Glyph="&#xE8E2;" />
+                                                </SelectorBarItem.Icon>
+                                            </SelectorBarItem>
+                                            <SelectorBarItem Tag="Center">
+                                                <SelectorBarItem.Icon>
+                                                    <FontIcon Glyph="&#xE8E3;" />
+                                                </SelectorBarItem.Icon>
+                                            </SelectorBarItem>
+                                            <SelectorBarItem Tag="Left">
+                                                <SelectorBarItem.Icon>
+                                                    <FontIcon Glyph="&#xE8E4;" />
+                                                </SelectorBarItem.Icon>
+                                            </SelectorBarItem>
+                                        </dev:SelectorBarSegmented>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <TextBlock x:Uid="QuranPage_ViewTextAlignmentRibbonGroupTranslationAlignment"
+                                                   MinWidth="200"
+                                                   VerticalAlignment="Center" />
+                                        <dev:SelectorBarSegmented x:Name="TranslationSelectorBar"
+                                                                  FlowDirection="RightToLeft"
+                                                                  SelectionChanged="OnTranslationSelectorBarSelectionChanged">
+                                            <SelectorBarItem Tag="Right">
+                                                <SelectorBarItem.Icon>
+                                                    <FontIcon Glyph="&#xE8E2;" />
+                                                </SelectorBarItem.Icon>
+                                            </SelectorBarItem>
+                                            <SelectorBarItem Tag="Center">
+                                                <SelectorBarItem.Icon>
+                                                    <FontIcon Glyph="&#xE8E3;" />
+                                                </SelectorBarItem.Icon>
+                                            </SelectorBarItem>
+                                            <SelectorBarItem Tag="Left">
+                                                <SelectorBarItem.Icon>
+                                                    <FontIcon Glyph="&#xE8E4;" />
+                                                </SelectorBarItem.Icon>
+                                            </SelectorBarItem>
+                                        </dev:SelectorBarSegmented>
+                                    </StackPanel>
+                                </StackPanel>
+                            </wct:RibbonGroup>
+                            <AppBarSeparator />
+                            <wct:RibbonGroup x:Uid="QuranPage_ViewFontRibbonGroup">
+                                <StackPanel Spacing="5">
+                                    <StackPanel Orientation="Horizontal" Spacing="20">
+                                        <ComboBox x:Name="CmbQuranFontSize"
+                                                  x:Uid="QuranPage_ViewVersesFontSize"
+                                                  Width="140"
+                                                  ItemsSource="{x:Bind common:FontHelper.FontSize, Mode=OneWay}"
+                                                  SelectionChanged="OnQuranFontSizeSelectionChanged" />
+                                        <ComboBox x:Name="CmbQuranFont"
+                                                  x:Uid="QuranPage_ViewVersesFontFamily"
+                                                  Width="140"
+                                                  ItemsSource="{x:Bind common:FontHelper.QuranFonts, Mode=OneWay}"
+                                                  SelectionChanged="OnQuranFontSelectionChanged" />
+                                    </StackPanel>
+                                    <AppBarSeparator />
+                                    <StackPanel Orientation="Horizontal" Spacing="20">
+                                        <ComboBox x:Name="CmbTranslationFontSize"
+                                                  x:Uid="QuranPage_ViewTranslationsFontSize"
+                                                  Width="140"
+                                                  ItemsSource="{x:Bind common:FontHelper.FontSize, Mode=OneWay}"
+                                                  SelectionChanged="OnTranslationFontSizeSelectionChanged" />
+                                        <ComboBox x:Name="CmbTranslationFont"
+                                                  x:Uid="QuranPage_ViewTranslationsFontFamily"
+                                                  Width="140"
+                                                  ItemsSource="{x:Bind common:FontHelper.TranslationFonts, Mode=OneWay}"
+                                                  SelectionChanged="OnTranslationFontSelectionChanged" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </wct:RibbonGroup>
+
+                            <AppBarSeparator />
+
+                            <wct:RibbonGroup x:Uid="QuranPage_ViewFontColorRibbonGroup">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Spacing="5">
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <TextBlock x:Uid="QuranPage_ViewQuranFontColor"
+                                                       Width="140"
+                                                       VerticalAlignment="Center" />
+                                            <dev:DropdownColorPicker x:Name="DCPQuran"
+                                                                     ColorChanged="OnQuranColorChanged" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <TextBlock x:Uid="QuranPage_ViewTranslationFontColor"
+                                                       Width="140"
+                                                       VerticalAlignment="Center" />
+                                            <dev:DropdownColorPicker x:Name="DCPTranslation"
+                                                                     ColorChanged="OnTranslationColorChanged" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <TextBlock x:Uid="QuranPage_ViewVerseNumberFontColor"
+                                                       Width="140"
+                                                       VerticalAlignment="Center" />
+                                            <dev:DropdownColorPicker x:Name="DCPQuranNumber"
+                                                                     ColorChanged="OnQuranNumberColorChanged" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <AppBarSeparator Grid.Column="1"
+                                                     Margin="5,0" />
+                                    <StackPanel Grid.Column="2" Spacing="5">
+                                        <AppBarButton x:Name="BtnResetColors"
+                                                      x:Uid="QuranPage_ViewResetColors"
+                                                      Width="150"
+                                                      Click="BtnResetColors_Click">
+                                            <AppBarButton.Icon>
+                                                <FontIcon Glyph="&#xED62;" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </StackPanel>
+                                </Grid>
+                            </wct:RibbonGroup>
+                        </StackPanel>
+
+                    </dev:Case>
+                    <dev:Case Value="Note">
+                        <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}" animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}" Orientation="Horizontal">
+                            <wct:RibbonGroup x:Uid="QuranPage_NoteFavRibbonGroup">
+                                <AppBarButton x:Name="BtnGoToFav"
+                                              x:Uid="QuranPage_NoteFavRibbonGroupGoToFav"
+                                              MinWidth="150"
+                                              Click="BtnGoToFav_Click"
+                                              Icon="{dev:FontIcon GlyphCode=E728}" />
+                            </wct:RibbonGroup>
+                            <AppBarSeparator />
+                            <wct:RibbonGroup x:Uid="QuranPage_NoteRibbonGroup">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <AppBarButton x:Name="BtnGoToNote"
+                                                  x:Uid="QuranPage_NoteRibbonGroupGoToNote"
+                                                  MinWidth="150"
+                                                  Click="BtnGoToNote_Click"
+                                                  Icon="{dev:FontIcon GlyphCode=E70B}" />
+                                    <AppBarButton x:Name="BtnAddNote"
+                                                  x:Uid="QuranPage_NoteRibbonGroupAddNote"
+                                                  MinWidth="150"
+                                                  Click="BtnAddNote_Click"
+                                                  Icon="{dev:FontIcon GlyphCode=E710}" />
+                                </StackPanel>
+                            </wct:RibbonGroup>
+                        </StackPanel>
+
+                    </dev:Case>
+                    <dev:Case Value="Audio">
+                        <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}" animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}" Orientation="Horizontal">
+                            <wct:RibbonGroup x:Uid="QuranPage_AudioRibbonGroup"
+                                             Style="{StaticResource RibbonLeftGroupStyle}">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <ComboBox x:Name="CmbAudio"
+                                              x:Uid="QuranPage_AudioComboBox"
+                                              Width="300"
+                                              VerticalAlignment="Center"
+                                              ItemsSource="{x:Bind ViewModel.ExistingAudioItems, Mode=OneWay}"
+                                              SelectedIndex="{x:Bind common:AppHelper.Settings.AudioIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedItem="{x:Bind common:AppHelper.Settings.Audio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectionChanged="CmbAudio_SelectionChanged" />
+                                    <AppBarSeparator Margin="5,0,0,0" />
+                                    <AppBarButton x:Uid="QuranPage_AudioButtonDownload"
+                                                  MinWidth="100"
+                                                  Command="{x:Bind ViewModel.GoToAudiosPageCommand}"
+                                                  Icon="{dev:FontIcon GlyphName=Download}" />
+                                    <AppBarButton x:Uid="QuranPage_AudioButtonOpenFolder"
+                                                  MinWidth="100"
+                                                  Command="{x:Bind ViewModel.OpenAudiosFolderCommand}"
+                                                  Icon="{dev:FontIcon GlyphName=Folder}" />
+                                </StackPanel>
+                            </wct:RibbonGroup>
+                        </StackPanel>
+
+                    </dev:Case>
+                    <dev:Case Value="Translation">
+                        <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}" animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}" Orientation="Horizontal">
+                            <wct:RibbonGroup x:Uid="QuranPage_TranslationRibbonGroup"
+                                             Style="{StaticResource RibbonLeftGroupStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox x:Name="CmbTranslation"
+                                              x:Uid="QuranPage_TranslationComboBox"
+                                              Width="300"
+                                              VerticalAlignment="Center"
+                                              HorizontalContentAlignment="Center"
+                                              ItemsSource="{x:Bind ViewModel.ExistingTranslationItems, Mode=OneWay}"
+                                              SelectedIndex="{x:Bind common:AppHelper.Settings.TranslationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedItem="{x:Bind common:AppHelper.Settings.Translation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectionChanged="CmbTranslation_SelectionChanged" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                                        <AppBarSeparator Margin="10,0,0,0" />
+
+                                        <AppBarButton x:Uid="QuranPage_TranslationButtonDownload"
+                                                      MinWidth="100"
+                                                      Command="{x:Bind ViewModel.GoToTranslationsPageCommand}"
+                                                      Icon="{dev:FontIcon GlyphName=Download}" />
+                                        <AppBarButton x:Uid="QuranPage_TranslationButtonOpenFolder"
+                                                      MinWidth="100"
+                                                      Command="{x:Bind ViewModel.OpenTranslationsFolderCommand}"
+                                                      Icon="{dev:FontIcon GlyphName=Folder}" />
+                                    </StackPanel>
+                                </Grid>
+                            </wct:RibbonGroup>
+                        </StackPanel>
+
+                    </dev:Case>
+                </dev:SwitchPresenter>
+            </wct:Ribbon>
+        </StackPanel>
+        <TabView x:Name="MainTabView"
+                 x:Uid="Main_FlowDirection"
+                 Grid.Row="1"
+                 Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}"
+                 IsAddTabButtonVisible="False"
+                 SelectionChanged="MainTabView_SelectionChanged"
+                 TabWidthMode="{x:Bind common:AppHelper.Settings.TabWidthMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabView.TabStripHeader>
+                <Button x:Name="BtnTabWidthMode"
+                        Command="{x:Bind ViewModel.ChangeTabWidthModeCommand}"
+                        CommandParameter="{x:Bind MainTabView}"
+                        Style="{ThemeResource SubtleButtonStyle}"
+                        Visibility="{x:Bind ViewModel.HasTabItems, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <FontIcon Glyph="&#xE8B4;" />
+                </Button>
+            </TabView.TabStripHeader>
+        </TabView>
+    </Grid>
+</Page>
