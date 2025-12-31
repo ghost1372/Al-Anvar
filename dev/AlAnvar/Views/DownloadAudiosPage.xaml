@@ -44,7 +44,9 @@
             </tv:TableView.Columns>
         </tv:TableView>
 
-        <ProgressRing IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <ProgressRing HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
     </Grid>
 </Page>

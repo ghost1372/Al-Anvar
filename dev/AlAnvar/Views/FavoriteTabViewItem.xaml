@@ -11,10 +11,6 @@
              xmlns:tv="using:WinUI.TableView"
              mc:Ignorable="d">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
         <tv:TableView x:Name="FavoriteTableView"
                       Margin="10"
                       AutoGenerateColumns="False"
@@ -141,7 +137,8 @@
             </tv:TableView.ItemTemplate>
         </tv:TableView>
 
-        <ProgressRing Grid.RowSpan="2"
+        <ProgressRing HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
         <TeachingTip x:Uid="FavoriteNotFoundNotificationText"

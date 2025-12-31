@@ -68,7 +68,9 @@
             </tv:TableView.Columns>
         </tv:TableView>
 
-        <ProgressRing Grid.RowSpan="2"
+        <ProgressRing Grid.Row="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
         <TeachingTip x:Uid="AudioNotFoundNotificationText"

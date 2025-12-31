@@ -9,13 +9,7 @@
              mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-
-        <ScrollViewer Grid.Row="1"
-                      Padding="10">
+        <ScrollViewer Padding="10">
             <RichTextBlock x:Name="TafsirRichTextBlock"
                            common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}"
                            common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}"
@@ -23,7 +17,8 @@
                            TextAlignment="Justify" />
         </ScrollViewer>
 
-        <ProgressRing Grid.RowSpan="2"
+        <ProgressRing HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
     </Grid>
 </TabViewItem>

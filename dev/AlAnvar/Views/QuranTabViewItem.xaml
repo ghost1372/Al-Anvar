@@ -256,7 +256,8 @@
             </StackPanel>
         </Border>
 
-        <ProgressRing Grid.RowSpan="2"
+        <ProgressRing HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
     </Grid>
 </TabViewItem>

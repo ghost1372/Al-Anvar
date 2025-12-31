@@ -91,7 +91,9 @@
                                TextAlignment="Justify" />
             </ScrollViewer>
 
-            <ProgressRing IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+            <ProgressRing HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
         </Grid>
     </Grid>
 </Page>
