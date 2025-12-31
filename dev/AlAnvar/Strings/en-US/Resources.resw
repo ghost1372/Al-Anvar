@@ -1083,4 +1083,7 @@
   <data name="SearchPage_Translation.Header" xml:space="preserve">
     <value>Translation</value>
   </data>
+  <data name="SearchPage_SuraId" xml:space="preserve">
+    <value>Sura Id</value>
+  </data>
 </root>

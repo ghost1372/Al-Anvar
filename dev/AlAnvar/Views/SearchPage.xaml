@@ -45,7 +45,8 @@
                 </MenuFlyout>
             </tv:TableView.RowContextFlyout>
             <tv:TableView.Columns>
-                <tv:TableViewTextColumn Width="80"
+                <tv:TableViewTextColumn x:Uid="SearchPage_SuraId"
+                                        Width="80"
                                         Binding="{Binding SuraId}" />
                 <tv:TableViewTextColumn x:Uid="SearchPage_SuraName"
                                         Width="100"
@@ -85,7 +86,8 @@
                 </tv:TableViewTemplateColumn>
             </tv:TableView.Columns>
         </tv:TableView>
-        <ProgressRing Grid.Row="1"
+        <ProgressRing HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
     </Grid>
 </Page>
