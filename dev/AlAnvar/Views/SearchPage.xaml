@@ -9,6 +9,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="using:AlAnvar.Models"
       xmlns:tv="using:WinUI.TableView"
+      x:Name="Root"
       mc:Ignorable="d">
 
     <Grid x:Uid="Main_FlowDirection">
@@ -60,12 +61,13 @@
                                             CanSort="True">
                     <tv:TableViewTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
-                                       FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
-                                       Foreground="{x:Bind common:ProxyService.Instance.QuranColor, Mode=OneWay}"
-                                       Text="{Binding Aya, Mode=OneWay}"
-                                       TextAlignment="{x:Bind common:ProxyService.Instance.VerseTextAlignment, Mode=OneWay}"
-                                       TextWrapping="Wrap" />
+                            <common:TextBlockEx FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
+                                                FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
+                                                Foreground="{x:Bind common:ProxyService.Instance.QuranColor, Mode=OneWay}"
+                                                HighlightingText="{Binding ElementName=Root, Path=ViewModel.Query}"
+                                                Text="{Binding Aya, Mode=OneWay}"
+                                                TextAlignment="{x:Bind common:ProxyService.Instance.VerseTextAlignment, Mode=OneWay}"
+                                                TextWrapping="Wrap" />
                         </DataTemplate>
                     </tv:TableViewTemplateColumn.CellTemplate>
                 </tv:TableViewTemplateColumn>
@@ -75,12 +77,13 @@
                                             CanSort="True">
                     <tv:TableViewTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock FontFamily="{x:Bind common:ProxyService.Instance.TranslationFontFamily, Mode=OneWay}"
-                                       FontSize="{x:Bind common:ProxyService.Instance.TranslationFontSize, Mode=OneWay}"
-                                       Foreground="{x:Bind common:ProxyService.Instance.TranslationColor, Mode=OneWay}"
-                                       Text="{Binding Translation, Mode=OneWay}"
-                                       TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}"
-                                       TextWrapping="Wrap" />
+                            <common:TextBlockEx FontFamily="{x:Bind common:ProxyService.Instance.TranslationFontFamily, Mode=OneWay}"
+                                                FontSize="{x:Bind common:ProxyService.Instance.TranslationFontSize, Mode=OneWay}"
+                                                Foreground="{x:Bind common:ProxyService.Instance.TranslationColor, Mode=OneWay}"
+                                                HighlightingText="{Binding ElementName=Root, Path=ViewModel.Query}"
+                                                Text="{Binding Translation, Mode=OneWay}"
+                                                TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}"
+                                                TextWrapping="Wrap" />
                         </DataTemplate>
                     </tv:TableViewTemplateColumn.CellTemplate>
                 </tv:TableViewTemplateColumn>
