@@ -64,7 +64,7 @@
                           ItemsSource="{x:Bind ViewModel.AppLanguages}"
                           SelectedIndex="{x:Bind ViewModel.SelectedAppLanguageIndex, Mode=TwoWay}">
                     <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="models:AppLanguageItem">
+                        <DataTemplate x:DataType="dev:AppLanguageItem">
                             <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
                                        Text="{x:Bind Name}" />
                         </DataTemplate>

@@ -76,8 +76,8 @@
     <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.2.251219" />
     <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.2.251219" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.Ribbon" Version="0.1.250826-build.2212" />
-    <PackageReference Include="DevWinUI" Version="9.9.3-Preview" />
-    <PackageReference Include="DevWinUI.Controls" Version="9.9.3-Preview" />
+    <PackageReference Include="DevWinUI" Version="9.9.4-Preview" />
+    <PackageReference Include="DevWinUI.Controls" Version="9.9.4-Preview" />
     <PackageReference Include="Downloader" Version="3.3.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.1" />
