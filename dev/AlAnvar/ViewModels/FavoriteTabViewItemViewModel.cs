@@ -80,7 +80,10 @@ public partial class FavoriteTabViewItemViewModel : ObservableObject
             {
                 IsActive = false;
                 Logger?.Error(ex, ex.Message);
-                await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                dispatcherQueue.TryEnqueue(async () =>
+                {
+                    await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                });
             }
         });
 
