@@ -114,27 +114,8 @@ public partial class QuranViewModel : ObservableObject, ITitleBarAutoSuggestBoxA
             try
             {
                 using var db = new AlAnvarDBContext();
-                var result = await (from q in db.Qurans
-                                    where q.SuraId == quranMetadataTable.Id
-                                    join qc in db.QuransClean
-                                    on new { q.SuraId, q.AyaId }
-                                    equals new { qc.SuraId, qc.AyaId } into cleanJoin
-                                    from qc in cleanJoin.DefaultIfEmpty()
-                                    orderby q.AyaId
-                                    select new FinalQuran
-                                    {
-                                        Id = q.Id,
-                                        SuraId = q.SuraId,
-                                        AyaId = q.AyaId,
-                                        Aya = q.Aya,
-                                        CleanAya = qc.Aya,
-                                        SuraName = quranMetadataTable.Name,
-                                        SuraFinglishName = quranMetadataTable.FinglishName,
-                                        JuzId = q.JuzId,
-                                        HizbId = q.HizbId,
-                                        AudioFileName = q.AudioFileName
-                                    }).ToListAsync();
-
+                var result = await Queries.GetMixedQuranByIdQueryAsync(db, quranMetadataTable.Id, quranMetadataTable.Name, quranMetadataTable.FinglishName).ToListAsync();
+                
                 dispatcherQueue.TryEnqueue(() =>
                 {
                     QuranVerses = new(result);
@@ -158,7 +139,7 @@ public partial class QuranViewModel : ObservableObject, ITitleBarAutoSuggestBoxA
             try
             {
                 using var db = new AlAnvarDBContext();
-                var chapters = await db.Chapters.ToListAsync();
+                var chapters = await Queries.GetAllChaptersQueryAsync(db).ToListAsync();
 
                 dispatcherQueue.TryEnqueue(() =>
                 {
@@ -209,7 +190,7 @@ public partial class QuranViewModel : ObservableObject, ITitleBarAutoSuggestBoxA
             try
             {
                 using var db = new AlAnvarDBContext();
-                var allTranslations = await db.Translations
+                var allTranslations = await Queries.GetAllTranslationsQueryAsync(db)
                     .Select(t => new TranslationItem
                     {
                         Id = t.TranslationId,
@@ -246,7 +227,7 @@ public partial class QuranViewModel : ObservableObject, ITitleBarAutoSuggestBoxA
             try
             {
                 using var db = new AlAnvarDBContext();
-                var allAudios = await db.Audios
+                var allAudios = await Queries.GetAllAudiosQueryAsync(db)
                     .Select(t => new AudioItem
                     {
                         Id = t.Id,

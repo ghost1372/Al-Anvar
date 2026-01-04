@@ -49,30 +49,7 @@ public partial class QuranTabViewItemViewModel : ObservableObject
             try
             {
                 using var db = new AlAnvarDBContext();
-                var result = await (from q in db.Qurans
-                                    where q.SuraId == metadataTable.Id
-                                    join qc in db.QuransClean
-                                    on new { q.SuraId, q.AyaId }
-                                    equals new { qc.SuraId, qc.AyaId } into cleanJoin
-                                    from qc in cleanJoin.DefaultIfEmpty()
-                                    join f in db.Favorites
-                                    on new { q.SuraId, q.AyaId }
-                                    equals new { f.SuraId, f.AyaId } into favJoin
-                                    orderby q.AyaId
-                                    select new FinalQuran
-                                    {
-                                        Id = q.Id,
-                                        SuraId = q.SuraId,
-                                        AyaId = q.AyaId,
-                                        Aya = q.Aya,
-                                        CleanAya = qc.Aya,
-                                        SuraName = metadataTable.Name,
-                                        SuraFinglishName = metadataTable.FinglishName,
-                                        JuzId = q.JuzId,
-                                        HizbId = q.HizbId,
-                                        AudioFileName = q.AudioFileName,
-                                        IsFavorite = favJoin.Any()
-                                    }).ToListAsync();
+                var result = await Queries.GetMixedQuranWithFavoriteByIdQueryAsync(db, metadataTable.Id, metadataTable.Name, metadataTable.FinglishName).ToListAsync();
 
                 var translationFile = await LoadTranslationFileAsync(Settings.Translation?.Id);
 

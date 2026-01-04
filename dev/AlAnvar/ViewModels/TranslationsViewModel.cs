@@ -58,7 +58,7 @@ public partial class TranslationsViewModel : ObservableObject, ITitleBarAutoSugg
             try
             {
                 using var db = new AlAnvarDBContext();
-                var allTranslations = await db.Translations
+                var allTranslations = await Queries.GetAllTranslationsQueryAsync(db)
                     .Select(t => new TranslationItem
                     {
                         Id = t.TranslationId,
@@ -104,7 +104,7 @@ public partial class TranslationsViewModel : ObservableObject, ITitleBarAutoSugg
             try
             {
                 using var db = new AlAnvarDBContext();
-                var allTranslations = await db.Translations.Select(t => new TranslationItem
+                var allTranslations = await Queries.GetAllTranslationsQueryAsync(db).Select(t => new TranslationItem
                 {
                     Id = t.TranslationId,
                     Name = t.Name,

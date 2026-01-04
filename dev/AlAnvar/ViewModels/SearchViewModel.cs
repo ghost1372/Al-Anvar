@@ -30,7 +30,7 @@ public partial class SearchViewModel : ObservableObject, ITitleBarAutoSuggestBox
             try
             {
                 using var db = new AlAnvarDBContext();
-                var result = await Queries.GetQuranSearchQueryAsync(db).ToListAsync();
+                var result = await Queries.GetAllMixedQuranForSearchQueryAsync(db).ToListAsync();
 
                 var translationFile = await LoadTranslationFileAsync(Settings.Translation?.Id);
 

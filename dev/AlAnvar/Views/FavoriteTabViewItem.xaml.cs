@@ -49,11 +49,16 @@ public sealed partial class FavoriteTabViewItem : TabViewItem
         var button = sender as Button;
         if (button != null && button.DataContext is FinalQuran finalQuran)
         {
-            var result = await MessageBox.ShowWarningAsync(Strings.FavoriteTabItem_MessageBoxConfirmDeleteMessage.GetLocalizedResource(), Strings.FavoriteTabItem_MessageBoxConfirmDeleteTitle.GetLocalizedResource(), MessageBoxButtons.YesNo);
-            if (result == MessageBoxResult.YES)
+            var dialogResult = await MessageBox.ShowWarningAsync(Strings.FavoriteTabItem_MessageBoxConfirmDeleteMessage.GetLocalizedResource(), Strings.FavoriteTabItem_MessageBoxConfirmDeleteTitle.GetLocalizedResource(), MessageBoxButtons.YesNo);
+            if (dialogResult == MessageBoxResult.YES)
             {
                 using var db = new AlAnvarDBContext();
-                await db.Favorites.Where(x => x.SuraId == finalQuran.SuraId && x.AyaId == finalQuran.AyaId).ExecuteDeleteAsync();
+                var result = await Queries.GetFavoriteByIdsQueryAsync(db, finalQuran.SuraId, finalQuran.AyaId).FirstOrDefaultAsync();
+                if (result != null)
+                {
+                    db.Favorites.Remove(result);
+                    await db.SaveChangesAsync();
+                }
 
                 FavoriteTableView.CollectionView.Remove(button.DataContext);
             }

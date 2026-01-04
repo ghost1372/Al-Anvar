@@ -182,7 +182,7 @@ public sealed partial class NotePage : Page
             else if (NoteTreeView.SelectedNode.Content is AyaNode ayaNode)
             {
                 var noteIds = ayaNode.Notes.Select(n => n.NoteId).ToList();
-                var result = await Queries.GetNotesByIdsAsync(db, noteIds).ToListAsync();
+                var result = await Queries.GetNotesByIdAsync(db, noteIds).ToListAsync();
                 if (result != null)
                 {
                     db.Notes.RemoveRange(result);
@@ -192,7 +192,7 @@ public sealed partial class NotePage : Page
             else if (NoteTreeView.SelectedNode.Content is SuraNode suraNode)
             {
                 var noteIds = suraNode.Ayas.SelectMany(a => a.Notes).Select(n => n.NoteId).ToList();
-                var result = await Queries.GetNotesByIdsAsync(db, noteIds).ToListAsync();
+                var result = await Queries.GetNotesByIdAsync(db, noteIds).ToListAsync();
                 if (result != null)
                 {
                     db.Notes.RemoveRange(result);

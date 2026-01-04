@@ -19,7 +19,7 @@ public partial class AudioSettingViewModel : ObservableObject
         try
         {
             using var db = new AlAnvarDBContext();
-            var allAudios = await db.Audios
+            var allAudios = await Queries.GetAllAudiosQueryAsync(db)
                 .Select(t => new AudioItem
                 {
                     Id = t.Id,

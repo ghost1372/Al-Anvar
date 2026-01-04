@@ -34,7 +34,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
             try
             {
                 using var db = new AlAnvarDBContext();
-                var selectedQuranId = await Queries.GetQuranByIdsQueryAsync(db, FinalQuran.SuraId, FinalQuran.AyaId).Select(x => x.Id).FirstOrDefaultAsync();
+                var selectedQuranId = await Queries.GetQuranByIdQueryAsync(db, FinalQuran.SuraId, FinalQuran.AyaId).Select(x => x.Id).FirstOrDefaultAsync();
                 int selectedExplanationId = 0;
                 switch (TafsirType)
                 {

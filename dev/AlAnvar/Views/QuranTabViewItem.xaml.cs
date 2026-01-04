@@ -284,7 +284,12 @@ public sealed partial class QuranTabViewItem : TabViewItem
                 }
                 else
                 {
-                    await db.Favorites.Where(x => x.SuraId == finalQuran.SuraId && x.AyaId == finalQuran.AyaId).ExecuteDeleteAsync();
+                    var result = await Queries.GetFavoriteByIdsQueryAsync(db, finalQuran.SuraId, finalQuran.AyaId).FirstOrDefaultAsync();
+                    if (result != null)
+                    {
+                        db.Favorites.Remove(result);
+                        await db.SaveChangesAsync();
+                    }
                     tg.Content = new FontIcon() { Glyph = "\uE734", FontSize = 16 };
                 }
             }

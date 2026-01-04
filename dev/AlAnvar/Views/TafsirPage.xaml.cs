@@ -51,7 +51,7 @@ public sealed partial class TafsirPage : Page
             try
             {
                 using var db = new AlAnvarDBContext();
-                var selectedQuranId = await Queries.GetQuranQueryAsync(db).Where(x => x.SuraId == ayaNode.SuraId && x.AyaId == ayaNode.AyaId).Select(x => x.Id).FirstOrDefaultAsync();
+                var selectedQuranId = await Queries.GetAllQuranQueryAsync(db).Where(x => x.SuraId == ayaNode.SuraId && x.AyaId == ayaNode.AyaId).Select(x => x.Id).FirstOrDefaultAsync();
                 var tafsirs = await Queries.GetTafsirByIdQueryAsync(db, selectedExplanationId)
                     .ToListAsync();
 

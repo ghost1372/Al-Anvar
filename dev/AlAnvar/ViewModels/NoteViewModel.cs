@@ -34,12 +34,7 @@ public partial class NoteViewModel : ObservableObject
             try
             {
                 using var db = new AlAnvarDBContext();
-                var result = await Queries.GetQuranWithCleanBySuraQueryAsync(db, quranMetadataTable.Id).ToListAsync();
-                foreach (var item in result)
-                {
-                    item.SuraName = quranMetadataTable.Name;
-                    item.SuraFinglishName = quranMetadataTable.FinglishName;
-                }
+                var result = await Queries.GetMixedQuranByIdQueryAsync(db, quranMetadataTable.Id, quranMetadataTable.Name, quranMetadataTable.FinglishName).ToListAsync();
                
                 dispatcherQueue.TryEnqueue(() =>
                 {
@@ -71,7 +66,7 @@ public partial class NoteViewModel : ObservableObject
                 using var db = new AlAnvarDBContext();
                 var notes = await Queries.GetAllNotesQueryAsync(db).ToListAsync();
                 var chapters = await Queries.GetAllChaptersQueryAsync(db).ToListAsync();
-                var quran = await Queries.GetQuranCleanQueryAsync(db).ToListAsync();
+                var quran = await Queries.GetAllQuranCleanQueryAsync(db).ToListAsync();
                 var result = notes.GroupBy(n => n.SuraId).Select(suraGroup =>
                 {
                     var suraId = suraGroup.Key;

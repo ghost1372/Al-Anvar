@@ -19,7 +19,7 @@ public partial class TranslationSettingViewModel : ObservableObject
         try
         {
             using var db = new AlAnvarDBContext();
-            var allTranslations = await db.Translations
+            var allTranslations = await Queries.GetAllTranslationsQueryAsync(db)
                 .Select(t => new TranslationItem
                 {
                     Id = t.TranslationId,

@@ -6,36 +6,41 @@ namespace AlAnvar.Database;
 
 public partial class Queries
 {
-    public static readonly Func<AlAnvarDBContext, int, IAsyncEnumerable<QuranTafsirTable>> GetTafsirByIdQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context, int explanationId) => context.QuranTafsirs.Where(x => x.ExplanationId == explanationId));
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranAudioTable>> GetAllAudiosQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Audios);
 
-    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranTafsirNameTable>> GetAllTafsirNamesQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context) => context.QuranTafsirNames);
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranTranslationTable>> GetAllTranslationsQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Translations);
 
-    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranNoteTable>> GetAllNotesQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Notes);
-
-    public static readonly Func<AlAnvarDBContext, int, IAsyncEnumerable<QuranNoteTable>> GetNoteByIdQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context, int noteId) => context.Notes.Where(x => x.Id == noteId));
-
-    public static readonly Func<AlAnvarDBContext, IReadOnlyCollection<int>, IAsyncEnumerable<QuranNoteTable>> GetNotesByIdsAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context, IReadOnlyCollection<int> noteIds) => context.Notes.Where(x => noteIds.Contains(x.Id)));
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranMetadataTable>> GetAllChaptersQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Chapters);
 
 
-    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranMetadataTable>> GetAllChaptersQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Chapters);
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranNoteTable>> GetAllNotesQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Notes);
 
-    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranTable>> GetQuranQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Qurans);
+    public static readonly Func<AlAnvarDBContext, int, IAsyncEnumerable<QuranNoteTable>> GetNoteByIdQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, int noteId) => context.Notes.Where(x => x.Id == noteId));
 
-    public static readonly Func<AlAnvarDBContext, int, int, IAsyncEnumerable<QuranTable>> GetQuranByIdsQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context, int suraId, int verseId) => context.Qurans.Where(x => x.SuraId == suraId && x.AyaId == verseId));
+    public static readonly Func<AlAnvarDBContext, IReadOnlyCollection<int>, IAsyncEnumerable<QuranNoteTable>> GetNotesByIdAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, IReadOnlyCollection<int> noteIds) => context.Notes.Where(x => noteIds.Contains(x.Id)));
 
-    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranCleanTable>> GetQuranCleanQueryAsync =
-       EF.CompileAsyncQuery((AlAnvarDBContext context) => context.QuransClean);
 
-    public static readonly Func<AlAnvarDBContext, int, IAsyncEnumerable<FinalQuran>> GetQuranWithCleanBySuraQueryAsync =
-        EF.CompileAsyncQuery((AlAnvarDBContext context, int suraId) =>
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranFavoriteTable>> GetAllFavoritesQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Favorites);
+
+    public static readonly Func<AlAnvarDBContext, int, int, IAsyncEnumerable<QuranFavoriteTable>> GetFavoriteByIdsQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, int suraId, int verseId) => context.Favorites.Where(x => x.SuraId == suraId && x.AyaId == verseId));
+
+
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranTafsirNameTable>> GetAllTafsirNamesQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.QuranTafsirNames);
+
+    public static readonly Func<AlAnvarDBContext, int, IAsyncEnumerable<QuranTafsirTable>> GetTafsirByIdQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, int explanationId) => context.QuranTafsirs.Where(x => x.ExplanationId == explanationId));
+
+
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranTable>> GetAllQuranQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.Qurans);
+
+    public static readonly Func<AlAnvarDBContext, int, int, IAsyncEnumerable<QuranTable>> GetQuranByIdQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, int suraId, int verseId) => context.Qurans.Where(x => x.SuraId == suraId && x.AyaId == verseId));
+
+
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranCleanTable>> GetAllQuranCleanQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) => context.QuransClean);
+
+    public static readonly Func<AlAnvarDBContext, int, int, IAsyncEnumerable<QuranCleanTable>> GetQuranCleanByIdQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, int suraId, int verseId) => context.QuransClean.Where(x => x.SuraId == suraId && x.AyaId == verseId));
+
+
+    public static readonly Func<AlAnvarDBContext, int, string, string, IAsyncEnumerable<FinalQuran>> GetMixedQuranByIdQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, int suraId, string suraName, string suraFinglishName) =>
         from q in context.Qurans
         where q.SuraId == suraId
         join qc in context.QuransClean
@@ -49,16 +54,39 @@ public partial class Queries
             AyaId = q.AyaId,
             Aya = q.Aya,
             CleanAya = qc.Aya,
-            // These will be set outside the query since EF can't access quranMetadataTable here
-            SuraName = "",
-            SuraFinglishName = "",
+            SuraName = suraName,
+            SuraFinglishName = suraFinglishName,
             JuzId = q.JuzId,
             HizbId = q.HizbId,
             AudioFileName = q.AudioFileName
         });
 
-    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranSearchModel>> GetQuranSearchQueryAsync =
-        EF.CompileAsyncQuery((AlAnvarDBContext context) =>
+    public static readonly Func<AlAnvarDBContext, int, string, string, IAsyncEnumerable<FinalQuran>> GetMixedQuranWithFavoriteByIdQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context, int suraId, string suraName, string suraFinglishName) =>
+        from q in context.Qurans
+        where q.SuraId == suraId
+        join qc in context.QuransClean
+        on new { q.SuraId, q.AyaId }
+        equals new { qc.SuraId, qc.AyaId } into cleanJoin
+        from qc in cleanJoin.DefaultIfEmpty()
+        join f in context.Favorites
+        on new { q.SuraId, q.AyaId }
+        equals new { f.SuraId, f.AyaId } into favJoin
+        orderby q.AyaId
+        select new FinalQuran
+        {
+            Id = q.Id,
+            SuraId = q.SuraId,
+            AyaId = q.AyaId,
+            Aya = q.Aya,
+            CleanAya = qc.Aya,
+            SuraName = suraName,
+            SuraFinglishName = suraFinglishName,
+            JuzId = q.JuzId,
+            HizbId = q.HizbId,
+            AudioFileName = q.AudioFileName
+        });
+
+    public static readonly Func<AlAnvarDBContext, IAsyncEnumerable<QuranSearchModel>> GetAllMixedQuranForSearchQueryAsync = EF.CompileAsyncQuery((AlAnvarDBContext context) =>
         from q in context.Qurans
         join m in context.Chapters
         on q.SuraId equals m.Id

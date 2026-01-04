@@ -40,7 +40,7 @@ public partial class TafsirViewModel : ObservableObject, ITitleBarAutoSuggestBox
             try
             {
                 using var db = new AlAnvarDBContext();
-                var suras = await Queries.GetQuranCleanQueryAsync(db).GroupBy(q => q.SuraId)
+                var suras = await Queries.GetAllQuranCleanQueryAsync(db).GroupBy(q => q.SuraId)
                     .Select(g => new { SuraId = g.Key, Ayas = g.OrderBy(a => a.AyaId).ToList() }).ToListAsync();
                 
                 var suraNodes = new List<SuraNode>();

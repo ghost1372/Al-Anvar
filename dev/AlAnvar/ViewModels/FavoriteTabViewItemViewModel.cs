@@ -31,12 +31,12 @@ public partial class FavoriteTabViewItemViewModel : ObservableObject
                 var temp = new ObservableCollection<FinalQuran>();
 
                 using var db = new AlAnvarDBContext();
-                var plain = await db.Favorites.ToListAsync();
+                var plain = await Queries.GetAllFavoritesQueryAsync(db).ToListAsync();
 
                 foreach (var q in plain)
                 {
-                    var item = await db.Qurans.Where(x => x.SuraId == q.SuraId && x.AyaId == q.AyaId).FirstOrDefaultAsync();
-                    var cleanItem = await db.QuransClean.Where(x => x.SuraId == q.SuraId && x.AyaId == q.AyaId).FirstOrDefaultAsync();
+                    var item = await Queries.GetQuranByIdQueryAsync(db, q.SuraId, q.AyaId).FirstOrDefaultAsync();
+                    var cleanItem = await Queries.GetQuranCleanByIdQueryAsync(db, q.SuraId, q.AyaId).FirstOrDefaultAsync();
                     var itemChapter = quranMetadata.Where(x => x.Id == q.SuraId).FirstOrDefault();
                     temp.Add(new FinalQuran
                     {
