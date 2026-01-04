@@ -1,18 +1,16 @@
-﻿using AlAnvar.Database.Tables;
+﻿using AlAnvar.Database.CompiledModels;
+using AlAnvar.Database.Tables;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlAnvar.Database;
 
 public partial class AlAnvarDBContext : DbContext
-{
+{    
+    public static string DatabasePath { get; set; } = string.Empty;
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string filename = Constants.DatabaseFilePath;
-        if (!string.IsNullOrEmpty(Settings.DBPath))
-        {
-            filename = $"{Settings.DBPath}";
-        }
-        optionsBuilder.UseSqlite($"Data Source={filename}");
+        optionsBuilder.UseModel(AlAnvarDBContextModel.Instance).UseSqlite($"Data Source={DatabasePath}");
     }
 
     public DbSet<QuranMetadataTable> Chapters { get; set; }

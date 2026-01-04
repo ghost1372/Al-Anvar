@@ -1,4 +1,6 @@
-﻿namespace AlAnvar;
+﻿using AlAnvar.Database;
+
+namespace AlAnvar;
 
 public partial class App : Application
 {
@@ -66,6 +68,13 @@ public partial class App : Application
     {
         MainWindow = new MainWindow();
 
+        string filename = Constants.DatabaseFilePath;
+        if (!string.IsNullOrEmpty(Settings.DBPath))
+        {
+            filename = $"{Settings.DBPath}";
+        }
+
+        AlAnvarDBContext.DatabasePath = filename;
 
 #if DEBUG
         ProcessInfoHelper.IsDebug = true;

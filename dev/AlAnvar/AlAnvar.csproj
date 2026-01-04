@@ -79,8 +79,6 @@
     <PackageReference Include="DevWinUI" Version="9.9.1" />
     <PackageReference Include="DevWinUI.Controls" Version="9.9.1" />
     <PackageReference Include="Downloader" Version="3.3.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.3.0-prerelease.251115.2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
