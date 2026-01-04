@@ -34,7 +34,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
             try
             {
                 using var db = new AlAnvarDBContext();
-                var selectedQuranId = await db.Qurans.Where(x => x.SuraId == FinalQuran.SuraId && x.AyaId == FinalQuran.AyaId).Select(x => x.Id).FirstOrDefaultAsync();
+                var selectedQuranId = await Queries.GetQuranByIdsQueryAsync(db, FinalQuran.SuraId, FinalQuran.AyaId).Select(x => x.Id).FirstOrDefaultAsync();
                 int selectedExplanationId = 0;
                 switch (TafsirType)
                 {
@@ -46,7 +46,7 @@ public sealed partial class TafsirTabViewItem : TabViewItem
                         break;
                 }
 
-                var result = await db.QuranTafsirs.Where(x => x.ExplanationId == selectedExplanationId).AsAsyncEnumerable().Where(x => VerseContains(x.VerseIds, selectedQuranId)).ToListAsync();
+                var result = await Queries.GetTafsirByIdQueryAsync(db, selectedExplanationId).Where(x => VerseContains(x.VerseIds, selectedQuranId)).ToListAsync();
 
                 DispatcherQueue.TryEnqueue(() =>
                 {
@@ -68,7 +68,10 @@ public sealed partial class TafsirTabViewItem : TabViewItem
             {
                 ViewModel.IsActive = false;
                 Logger?.Error(ex, ex.Message);
-                await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                DispatcherQueue.TryEnqueue(async () =>
+                {
+                    await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                });
             }
         });
 

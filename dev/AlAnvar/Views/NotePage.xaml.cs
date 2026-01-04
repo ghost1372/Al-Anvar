@@ -125,7 +125,7 @@ public sealed partial class NotePage : Page
                 {
                     if (NoteTreeView.SelectedNode != null && NoteTreeView.SelectedNode.Content is NoteNode node)
                     {
-                        var note = await db.Notes.Where(x => x.Id == node.NoteId).FirstOrDefaultAsync();
+                        var note = await Queries.GetNoteByIdQueryAsync(db, node.NoteId).FirstOrDefaultAsync();
                         if (note != null)
                         {
                             note.Title = TxtNote.Text;
@@ -171,21 +171,34 @@ public sealed partial class NotePage : Page
         {
             if (NoteTreeView.SelectedNode.Content is NoteNode node)
             {
-                await db.Notes.Where(n => n.Id == node.NoteId).ExecuteDeleteAsync();
+                var note = await Queries.GetNoteByIdQueryAsync(db, node.NoteId).FirstOrDefaultAsync();
+                if (note != null)
+                {
+                    db.Notes.Remove(note);
+                    await db.SaveChangesAsync();
+                }
+
             }
             else if (NoteTreeView.SelectedNode.Content is AyaNode ayaNode)
             {
                 var noteIds = ayaNode.Notes.Select(n => n.NoteId).ToList();
-
-                await db.Notes.Where(n => noteIds.Contains(n.Id)).ExecuteDeleteAsync();
+                var result = await Queries.GetNotesByIdsAsync(db, noteIds).ToListAsync();
+                if (result != null)
+                {
+                    db.Notes.RemoveRange(result);
+                    await db.SaveChangesAsync();
+                }
             }
             else if (NoteTreeView.SelectedNode.Content is SuraNode suraNode)
             {
                 var noteIds = suraNode.Ayas.SelectMany(a => a.Notes).Select(n => n.NoteId).ToList();
-
-                await db.Notes.Where(n => noteIds.Contains(n.Id)).ExecuteDeleteAsync();
+                var result = await Queries.GetNotesByIdsAsync(db, noteIds).ToListAsync();
+                if (result != null)
+                {
+                    db.Notes.RemoveRange(result);
+                    await db.SaveChangesAsync();
+                }
             }
-
 
             NoteInfoBar.Title = Strings.NotePage_InfoBarDeleteSuccess_Title.GetLocalizedResource();
             NoteInfoBar.Message = Strings.NotePage_InfoBarDeleteSuccess_Message.GetLocalizedResource();

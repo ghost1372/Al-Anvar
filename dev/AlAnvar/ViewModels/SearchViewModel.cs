@@ -30,30 +30,7 @@ public partial class SearchViewModel : ObservableObject, ITitleBarAutoSuggestBox
             try
             {
                 using var db = new AlAnvarDBContext();
-                var baseQuery = from q in db.Qurans
-                                join m in db.Chapters
-                                on q.SuraId equals m.Id
-                                join c in db.QuransClean
-                                on new { q.SuraId, q.AyaId }
-                                equals new { c.SuraId, c.AyaId }
-                                into cleanJoin
-                                from clean in cleanJoin.DefaultIfEmpty()
-                                select new QuranSearchModel
-                                {
-                                    Id = q.Id,
-                                    SuraId = q.SuraId,
-                                    AyaId = q.AyaId,
-
-                                    SuraName = m.Name,
-                                    SuraEnglishName = m.EnglishName,
-                                    SuraFinglishName = m.FinglishName,
-
-                                    Aya = q.Aya,
-                                    CleanAya = clean != null ? clean.Aya : "",
-                                    Translation = ""
-                                };
-
-                var result = await baseQuery.ToListAsync();
+                var result = await Queries.GetQuranSearchQueryAsync(db).ToListAsync();
 
                 var translationFile = await LoadTranslationFileAsync(Settings.Translation?.Id);
 
@@ -77,7 +54,10 @@ public partial class SearchViewModel : ObservableObject, ITitleBarAutoSuggestBox
             {
                 IsActive = false;
                 Logger?.Error(ex, ex.Message);
-                await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                dispatcherQueue.TryEnqueue(async () =>
+                {
+                    await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                });
             }
         });
 

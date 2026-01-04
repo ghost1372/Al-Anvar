@@ -34,27 +34,13 @@ public partial class NoteViewModel : ObservableObject
             try
             {
                 using var db = new AlAnvarDBContext();
-                var result = await (from q in db.Qurans
-                                    where q.SuraId == quranMetadataTable.Id
-                                    join qc in db.QuransClean
-                                    on new { q.SuraId, q.AyaId }
-                                    equals new { qc.SuraId, qc.AyaId } into cleanJoin
-                                    from qc in cleanJoin.DefaultIfEmpty()
-                                    orderby q.AyaId
-                                    select new FinalQuran
-                                    {
-                                        Id = q.Id,
-                                        SuraId = q.SuraId,
-                                        AyaId = q.AyaId,
-                                        Aya = q.Aya,
-                                        CleanAya = qc.Aya,
-                                        SuraName = quranMetadataTable.Name,
-                                        SuraFinglishName = quranMetadataTable.FinglishName,
-                                        JuzId = q.JuzId,
-                                        HizbId = q.HizbId,
-                                        AudioFileName = q.AudioFileName
-                                    }).ToListAsync();
-
+                var result = await Queries.GetQuranWithCleanBySuraQueryAsync(db, quranMetadataTable.Id).ToListAsync();
+                foreach (var item in result)
+                {
+                    item.SuraName = quranMetadataTable.Name;
+                    item.SuraFinglishName = quranMetadataTable.FinglishName;
+                }
+               
                 dispatcherQueue.TryEnqueue(() =>
                 {
                     QuranVerses = new(result);
@@ -64,7 +50,10 @@ public partial class NoteViewModel : ObservableObject
             {
                 IsActive = false;
                 Logger?.Error(ex, ex.Message);
-                await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                dispatcherQueue.TryEnqueue(async () =>
+                {
+                    await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                });
             }
         });
 
@@ -80,9 +69,9 @@ public partial class NoteViewModel : ObservableObject
             try
             {
                 using var db = new AlAnvarDBContext();
-                var notes = await db.Notes.ToListAsync();
-                var chapters = await db.Chapters.ToListAsync();
-                var quran = await db.QuransClean.ToListAsync();
+                var notes = await Queries.GetAllNotesQueryAsync(db).ToListAsync();
+                var chapters = await Queries.GetAllChaptersQueryAsync(db).ToListAsync();
+                var quran = await Queries.GetQuranCleanQueryAsync(db).ToListAsync();
                 var result = notes.GroupBy(n => n.SuraId).Select(suraGroup =>
                 {
                     var suraId = suraGroup.Key;
@@ -136,7 +125,10 @@ public partial class NoteViewModel : ObservableObject
             {
                 IsActive = false;
                 Logger?.Error(ex, ex.Message);
-                await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                dispatcherQueue.TryEnqueue(async () =>
+                {
+                    await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                });
             }
         });
 

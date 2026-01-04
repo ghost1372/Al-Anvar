@@ -40,14 +40,14 @@ public partial class TafsirViewModel : ObservableObject, ITitleBarAutoSuggestBox
             try
             {
                 using var db = new AlAnvarDBContext();
-                var suras = await db.QuransClean.GroupBy(q => q.SuraId)
+                var suras = await Queries.GetQuranCleanQueryAsync(db).GroupBy(q => q.SuraId)
                     .Select(g => new { SuraId = g.Key, Ayas = g.OrderBy(a => a.AyaId).ToList() }).ToListAsync();
-
+                
                 var suraNodes = new List<SuraNode>();
 
                 foreach (var g in suras)
                 {
-                    var sura = await db.Chapters.FirstOrDefaultAsync(s => s.Id == g.SuraId);
+                    var sura = await Queries.GetAllChaptersQueryAsync(db).FirstOrDefaultAsync(s => s.Id == g.SuraId);
 
                     suraNodes.Add(new SuraNode
                     {
@@ -62,7 +62,7 @@ public partial class TafsirViewModel : ObservableObject, ITitleBarAutoSuggestBox
                     });
                 }
 
-                var result = await db.QuranTafsirNames.ToListAsync();
+                var result = await Queries.GetAllTafsirNamesQueryAsync(db).ToListAsync();
                 dispatcherQueue.TryEnqueue(async () =>
                 {
                     TafsirNames = new(result);
@@ -73,7 +73,10 @@ public partial class TafsirViewModel : ObservableObject, ITitleBarAutoSuggestBox
             {
                 IsActive = false;
                 Logger?.Error(ex, ex.Message);
-                await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                dispatcherQueue.TryEnqueue(async () =>
+                {
+                    await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
+                });
             }
         });
 
