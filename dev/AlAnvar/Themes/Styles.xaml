@@ -44,7 +44,6 @@
 
     <Style TargetType="ComboBox" BasedOn="{StaticResource DefaultComboBoxStyle}">
         <Setter Property="FontFamily" Value="{StaticResource AlAnvarUIFont}" />
-        <Setter Property="common:ComboBoxHelper.UseSystemBackdrop" Value="True" />
     </Style>
 
     <Style TargetType="dev:Shield" BasedOn="{StaticResource DefaultShieldStyle}">
