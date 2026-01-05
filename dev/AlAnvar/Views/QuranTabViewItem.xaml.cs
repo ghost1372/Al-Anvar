@@ -84,11 +84,14 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
     private void MediaPlayer_PlaybackStateChanged(Windows.Media.Playback.MediaPlayer sender, object args)
     {
-        if (sender.PlaybackSession.PlaybackState == Windows.Media.Playback.MediaPlaybackState.Playing)
+        dispatcherQueue.TryEnqueue(() =>
         {
-            isAnyFilePlayed = true;
-            AudioPlayer.MediaPlayer.CurrentStateChanged -= MediaPlayer_PlaybackStateChanged;
-        }
+            if (sender.PlaybackSession.PlaybackState == Windows.Media.Playback.MediaPlaybackState.Playing)
+            {
+                isAnyFilePlayed = true;
+                AudioPlayer.MediaPlayer.CurrentStateChanged -= MediaPlayer_PlaybackStateChanged;
+            }
+        });
     }
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
