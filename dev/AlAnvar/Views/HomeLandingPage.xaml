@@ -44,7 +44,7 @@
         <uc:TileGallery>
             <uc:TileGallery.Source>
                 <uc:SampleRow x:Uid="HomeLandingPage_TileGallery"
-                              CategoryImageUrl="ms-appx:///Assets/Fluent/Moon.png">
+                              CategoryImageUrl="ms-appx:///Assets/Svg/QuranLogo.svg">
                     <uc:SampleRow.SampleCards>
                         <uc:RowSample x:Uid="HomeLandingPage_RowSample"
                                       Icon="{dev:FontIcon Glyph=&#xE721;}" />

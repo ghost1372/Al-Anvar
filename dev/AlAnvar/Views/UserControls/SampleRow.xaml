@@ -13,7 +13,7 @@
                 <Grid.Background>
                     <ImageBrush Stretch="UniformToFill">
                         <ImageBrush.ImageSource>
-                            <BitmapImage UriSource="{x:Bind CategoryImageUrl, Mode=OneWay}" />
+                            <SvgImageSource UriSource="{x:Bind CategoryImageUrl, Mode=OneWay}" />
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Grid.Background>
@@ -22,7 +22,7 @@
                     <Grid.Background>
                         <ImageBrush Stretch="Uniform">
                             <ImageBrush.ImageSource>
-                                <BitmapImage UriSource="{x:Bind CategoryImageUrl, Mode=OneWay}" />
+                                <SvgImageSource UriSource="{x:Bind CategoryImageUrl, Mode=OneWay}" />
                             </ImageBrush.ImageSource>
                         </ImageBrush>
                     </Grid.Background>

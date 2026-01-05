@@ -14,7 +14,7 @@
           "UniqueId": "AlAnvar.Views.HomeLandingPage",
           "UsexUid": true,
           "LocalizeId": "AppData_HomeLandingPage",
-          "ImagePath": "ms-appx:///Assets/AppIcon.png",
+          "ImagePath": "ms-appx:///Assets/Fluent/Home.png",
           "HideItem": true
         },
         {
