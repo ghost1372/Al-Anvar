@@ -9,7 +9,6 @@
     <File Path=".github/workflows/dotnet-release.yml" />
   </Folder>
   <Project Path="dev/AlAnvar.Database/AlAnvar.Database.csproj" Id="5faf2505-6c85-402a-ac0b-7c34a9a7c7b0" />
-  <Project Path="dev/AlAnvar.SourceGenerator/AlAnvar.SourceGenerator.csproj" Id="4a963cf0-ca07-49f3-b5fb-bd6fae454eae" />
   <Project Path="dev/AlAnvar/AlAnvar.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />
