@@ -187,7 +187,7 @@
                                    TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}"
                                    TextWrapping="Wrap"
                                    Visibility="{x:Bind common:ProxyService.Instance.IsTranslationVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        <Border Grid.RowSpan="3"
+                        <Border Grid.RowSpan="2"
                                 Grid.Column="1"
                                 Width="32"
                                 Height="32"
@@ -195,15 +195,18 @@
                                 BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
                                 BorderThickness="1"
                                 CornerRadius="100">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
-                                       FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
-                                       FontWeight="Bold"
-                                       Foreground="{x:Bind common:ProxyService.Instance.QuranNumberColor, Mode=OneWay}"
-                                       Style="{ThemeResource BaseTextBlockStyle}"
-                                       Tag="AyatNumber"
-                                       Text="{x:Bind AyaId, Mode=OneWay}" />
+                            <Viewbox HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
+                                           FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
+                                           FontWeight="Bold"
+                                           Foreground="{x:Bind common:ProxyService.Instance.QuranNumberColor, Mode=OneWay}"
+                                           Style="{ThemeResource BaseTextBlockStyle}"
+                                           Tag="AyatNumber"
+                                           Text="{x:Bind AyaId, Mode=OneWay}" />
+                            </Viewbox>
                         </Border>
 
                         <StackPanel Grid.Row="2" Margin="0,0,0,10" Orientation="Horizontal" Spacing="5" Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
