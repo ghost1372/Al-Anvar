@@ -11,10 +11,9 @@
             </LinearGradientBrush>
             <StaticResource x:Key="MediaPlayerPanelBackground" ResourceKey="AcrylicInAppFillColorDefaultBrush" />
             <StaticResource x:Key="MediaPlayerBorderBrush" ResourceKey="SurfaceStrokeColorFlyoutBrush" />
-
         </ResourceDictionary>
 
-        <ResourceDictionary x:Key="Dark">
+        <ResourceDictionary x:Key="Default">
             <x:String x:Key="HeaderCover">ms-appx:///Assets/Cover/CoverDark.png</x:String>
             <LinearGradientBrush x:Key="HomeLandingTitleBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Offset="0.1" Color="#E0E0E0" />
@@ -25,7 +24,6 @@
 
             <StaticResource x:Key="MediaPlayerPanelBackground" ResourceKey="AcrylicInAppFillColorDefaultBrush" />
             <StaticResource x:Key="MediaPlayerBorderBrush" ResourceKey="SurfaceStrokeColorFlyoutBrush" />
-
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="HighContrast">
@@ -38,7 +36,6 @@
             </LinearGradientBrush>
             <StaticResource x:Key="MediaPlayerPanelBackground" ResourceKey="SystemControlPageBackgroundAltMediumBrush" />
             <StaticResource x:Key="MediaPlayerBorderBrush" ResourceKey="SurfaceStrokeColorFlyoutBrush" />
-
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
