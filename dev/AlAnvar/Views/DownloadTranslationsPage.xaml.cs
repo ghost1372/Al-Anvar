@@ -12,7 +12,7 @@ public sealed partial class DownloadTranslationsPage : Page
 
     private IDownload download;
 
-    private WindowedContentDialog dialog;
+    private ContentDialogWindow dialog;
     private TranslationItem translation;
     private TextBlock txtStatus;
     private StorageBar storageBarTranslation;
@@ -55,14 +55,15 @@ public sealed partial class DownloadTranslationsPage : Page
 
             dialog = new()
             {
-                Title = Strings.DownloadTranslationsPage_DialogTitle.GetLocalizedResource(),
-                PrimaryButtonText = Strings.DownloadTranslationsPage_DialogPrimaryButtonText.GetLocalizedResource(),
-                SecondaryButtonText = Strings.DownloadTranslationsPage_DialogSecondaryButtonText.GetLocalizedResource(),
+                Header = Strings.DownloadTranslationsPage_DialogTitle.GetLocalizedResource(),
+                PrimaryButtonContent = Strings.DownloadTranslationsPage_DialogPrimaryButtonText.GetLocalizedResource(),
+                SecondaryButtonContent = Strings.DownloadTranslationsPage_DialogSecondaryButtonText.GetLocalizedResource(),
                 DefaultButton = ContentDialogButton.Primary,
-                OwnerWindow = App.MainWindow,
+                Owner = App.MainWindow,
                 HasTitleBar = false,
-                ContentMinWidth = 500,
-                ContentFlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource())
+                MinWidth = 500,
+                SystemBackdrop = new Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop(),
+                FlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource())
             };
 
             StackPanel stck = new StackPanel
@@ -95,24 +96,24 @@ public sealed partial class DownloadTranslationsPage : Page
             dialog.SecondaryButtonClick -= OnDialogSecondaryButtonClick;
             dialog.SecondaryButtonClick += OnDialogSecondaryButtonClick;
 
-            await dialog.ShowAsync(true);
+            dialog.ShowDialog();
         }
     }
 
-    private void OnDialogSecondaryButtonClick(WindowedContentDialog sender, CancelEventArgs args)
+    private void OnDialogSecondaryButtonClick(object sender, EventArgs args)
     {
         dispatcherQueue.TryEnqueue(() =>
         {
             download?.Stop();
-            dialog?.PrimaryButtonText = Strings.DownloadTranslationsPage_DialogCancelText.GetLocalizedResource();
+            dialog?.PrimaryButtonContent = Strings.DownloadTranslationsPage_DialogCancelText.GetLocalizedResource();
             storageBarTranslation?.PercentCaution = 10;
+
+            dialog.TryClose();
         });
     }
 
-    private async void OnDialogPrimaryButtonClick(WindowedContentDialog sender, CancelEventArgs args)
+    private async void OnDialogPrimaryButtonClick(object sender, EventArgs args)
     {
-        args.Cancel = true;
-
         download = DownloadBuilder.New()
                         .WithUrl(translation?.Link)
                         .WithDirectory(Settings.TranslationsPath)
@@ -141,7 +142,7 @@ public sealed partial class DownloadTranslationsPage : Page
     {
         dispatcherQueue.TryEnqueue(() =>
         {
-            dialog?.PrimaryButtonText = Strings.DownloadTranslationsPage_FileDownloaded.GetLocalizedResource();
+            dialog?.PrimaryButtonContent = Strings.DownloadTranslationsPage_FileDownloaded.GetLocalizedResource();
         });
     }
 

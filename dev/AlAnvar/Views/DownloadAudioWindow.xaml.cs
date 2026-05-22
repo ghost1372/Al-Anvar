@@ -215,7 +215,7 @@ public sealed partial class DownloadAudioWindow : Window
                 StatusInfoBar.Message = ex.Message;
                 StatusInfoBar.Severity = InfoBarSeverity.Error;
                 var result = await MessageBox.ShowErrorAsync(ex.Message, Strings.DownloadAudioWindow_Error.GetLocalizedResource(), MessageBoxButtons.RetryCancel);
-                if (result == MessageBoxResult.RETRY)
+                if (result == MessageBoxResult.Retry)
                 {
                     Grid_Loaded(null, null);
                 }

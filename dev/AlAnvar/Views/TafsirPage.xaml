@@ -10,43 +10,25 @@
       xmlns:models="using:AlAnvar.Models"
       mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="SuraTemplate"
-                      x:DataType="models:SuraNode">
-            <TreeViewItem x:Uid="NotePage_CollapsedGlyph"
-                          ItemsSource="{x:Bind Ayas}">
+        <DataTemplate x:Key="SuraTemplate" x:DataType="models:SuraNode">
+            <TreeViewItem x:Uid="NotePage_CollapsedGlyph" ItemsSource="{x:Bind Ayas}">
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <ImageIcon Width="24"
-                               Height="24"
-                               Source="ms-appx:///Assets/Fluent/Library.png" />
-                    <TextBlock Width="150"
-                               VerticalAlignment="Center"
-                               MaxLines="2"
-                               Style="{ThemeResource BaseTextBlockStyle}"
-                               Text="{x:Bind SuraName}" />
+                    <ImageIcon Width="24" Height="24" Source="ms-appx:///Assets/Fluent/Library.png" />
+                    <TextBlock Width="150" VerticalAlignment="Center" MaxLines="2" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind SuraName}" />
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>
 
-        <DataTemplate x:Key="AyaTemplate"
-                      x:DataType="models:AyaNode">
-            <TreeViewItem x:Uid="NotePage_CollapsedGlyph"
-                          ItemsSource="{x:Bind Notes}">
+        <DataTemplate x:Key="AyaTemplate" x:DataType="models:AyaNode">
+            <TreeViewItem x:Uid="NotePage_CollapsedGlyph" ItemsSource="{x:Bind Notes}">
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <ImageIcon Width="24"
-                               Height="24"
-                               Source="ms-appx:///Assets/Fluent/Document.png" />
-                    <TextBlock Width="150"
-                               VerticalAlignment="Center"
-                               MaxLines="2"
-                               Style="{ThemeResource BaseTextBlockStyle}"
-                               Text="{x:Bind AyaText}" />
+                    <ImageIcon Width="24" Height="24" Source="ms-appx:///Assets/Fluent/Document.png" />
+                    <TextBlock Width="150" VerticalAlignment="Center" MaxLines="2" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind AyaText}" />
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>
 
-        <common:TreeNodeTemplateSelector x:Key="TreeTemplateSelector"
-                                         AyaTemplate="{StaticResource AyaTemplate}"
-                                         SuraTemplate="{StaticResource SuraTemplate}" />
+        <common:TreeNodeTemplateSelector x:Key="TreeTemplateSelector" AyaTemplate="{StaticResource AyaTemplate}" SuraTemplate="{StaticResource SuraTemplate}" />
     </Page.Resources>
     <Grid x:Uid="Main_ReverseFlowDirection">
         <Grid ColumnSpacing="10">
@@ -59,41 +41,23 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="CmbTafsir"
-                          x:Uid="TafsirPage_Tafsir"
-                          Margin="10"
-                          HorizontalAlignment="Stretch"
-                          ItemsSource="{x:Bind ViewModel.TafsirNames, Mode=OneWay}"
-                          SelectedIndex="0">
+                <ComboBox x:Name="CmbTafsir" x:Uid="TafsirPage_Tafsir" Margin="10" HorizontalAlignment="Stretch" ItemsSource="{x:Bind ViewModel.TafsirNames, Mode=OneWay}" SelectedIndex="0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="database:QuranTafsirNameTable">
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
-                                       Text="{x:Bind Name}" />
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Name}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Border Grid.Row="1"
-                        Padding="5,10,5,10">
-                    <TreeView x:Name="TafsirTreeView"
-                              ItemTemplateSelector="{StaticResource TreeTemplateSelector}"
-                              ItemsSource="{x:Bind ViewModel.Quran, Mode=OneWay}"
-                              SelectionChanged="TafsirTreeView_SelectionChanged"
-                              SelectionMode="Single" />
+                <Border Grid.Row="1" Padding="5,10,5,10">
+                    <TreeView x:Name="TafsirTreeView" ItemTemplateSelector="{StaticResource TreeTemplateSelector}" ItemsSource="{x:Bind ViewModel.Quran, Mode=OneWay}" SelectionChanged="TafsirTreeView_SelectionChanged" SelectionMode="Single" />
                 </Border>
             </Grid>
 
-            <ScrollViewer x:Uid="Main_FlowDirection"
-                          Padding="10">
-                <RichTextBlock x:Name="TafsirRichTextBlock"
-                               common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}"
-                               common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}"
-                               IsHitTestVisible="False"
-                               TextAlignment="Justify" />
+            <ScrollViewer x:Uid="Main_FlowDirection" Padding="10">
+                <RichTextBlock x:Name="TafsirRichTextBlock" common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}" common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}" IsHitTestVisible="False" TextAlignment="Justify" />
             </ScrollViewer>
 
-            <ProgressRing HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+            <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
         </Grid>
     </Grid>
 </Page>

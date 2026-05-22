@@ -11,43 +11,24 @@
     <dev:OutOfBoxPage>
         <dev:OutOfBoxPage.Title>
             <StackPanel Spacing="5">
-                <TextBlock x:Uid="HomeLandingPage_AppTitle"
-                           HorizontalAlignment="Center"
-                           CharacterSpacing="48"
-                           FontSize="40"
-                           FontWeight="Bold"
-                           Foreground="{ThemeResource HomeLandingTitleBackgroundGradient}"
-                           Opacity="0.8"
-                           TextAlignment="Center"
-                           TextWrapping="Wrap">
+                <TextBlock x:Uid="HomeLandingPage_AppTitle" HorizontalAlignment="Center" CharacterSpacing="48" FontSize="40" FontWeight="Bold" Foreground="{ThemeResource HomeLandingTitleBackgroundGradient}" Opacity="0.8" TextAlignment="Center" TextWrapping="Wrap">
                 </TextBlock>
                 <Grid HorizontalAlignment="Center" RequestedTheme="Light">
                     <Grid Background="{ThemeResource AcrylicBackgroundFillColorBaseBrush}" CornerRadius="12" Opacity="0.6" />
-                    <TextBlock Margin="10,4,10,4"
-                               HorizontalAlignment="Center"
-                               FontSize="14"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap">
+                    <TextBlock Margin="10,4,10,4" HorizontalAlignment="Center" FontSize="14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextAlignment="Center" TextWrapping="Wrap">
                         <Run x:Uid="HomeLandingPage_AppSubtitle" />
                     </TextBlock>
                 </Grid>
             </StackPanel>
         </dev:OutOfBoxPage.Title>
         <dev:OutOfBoxPage.ActionContent>
-            <dev:CheckUpdateControl x:Uid="HomeLandingPage_Update"
-                                    Click="OnCheckUpdateControl"
-                                    IsUpdateAvailable="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}"
-                                    LastUpdateCheckDate="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}"
-                                    UpdateAvailableVersion="{x:Bind ViewModel.NewUpdateVersion, Mode=OneWay}" />
+            <dev:CheckUpdateControl x:Uid="HomeLandingPage_Update" Click="OnCheckUpdateControl" IsUpdateAvailable="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}" LastUpdateCheckDate="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}" UpdateAvailableVersion="{x:Bind ViewModel.NewUpdateVersion, Mode=OneWay}" />
         </dev:OutOfBoxPage.ActionContent>
         <uc:TileGallery>
             <uc:TileGallery.Source>
-                <uc:SampleRow x:Uid="HomeLandingPage_TileGallery"
-                              CategoryImageUrl="ms-appx:///Assets/Svg/QuranLogo.svg">
+                <uc:SampleRow x:Uid="HomeLandingPage_TileGallery" CategoryImageUrl="ms-appx:///Assets/Svg/QuranLogo.svg">
                     <uc:SampleRow.SampleCards>
-                        <uc:RowSample x:Uid="HomeLandingPage_RowSample"
-                                      Icon="{dev:FontIcon Glyph=&#xE721;}" />
+                        <uc:RowSample x:Uid="HomeLandingPage_RowSample" Icon="{dev:FontIcon Glyph=&#xE721;}" />
                     </uc:SampleRow.SampleCards>
                 </uc:SampleRow>
             </uc:TileGallery.Source>

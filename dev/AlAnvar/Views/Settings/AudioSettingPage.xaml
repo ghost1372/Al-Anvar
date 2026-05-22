@@ -13,33 +13,17 @@
 
     <ScrollView>
         <StackPanel Margin="10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}" Spacing="5">
-            <dev:SettingsCard x:Uid="AudioSettingPage_AudioChoose"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Audio.png}">
-                <ComboBox x:Name="cmbAudio"
-                          MinWidth="250"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          ItemsSource="{x:Bind ViewModel.ExistingAudioItems, Mode=OneWay}"
-                          SelectedIndex="{x:Bind common:AppHelper.Settings.AudioIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{x:Bind common:AppHelper.Settings.Audio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <dev:SettingsCard x:Uid="AudioSettingPage_AudioChoose" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Audio.png}">
+                <ComboBox x:Name="cmbAudio" MinWidth="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{x:Bind ViewModel.ExistingAudioItems, Mode=OneWay}" SelectedIndex="{x:Bind common:AppHelper.Settings.AudioIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{x:Bind common:AppHelper.Settings.Audio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </dev:SettingsCard>
-            <dev:SettingsExpander x:Uid="AudioSettingPage_AudioSaveLocation"
-                                  HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Folder.png}">
-                <Button x:Uid="AudioSettingPage_ChooseFolder"
-                        MinWidth="220"
-                        Command="{x:Bind ViewModel.ChooseFolderCommand}" />
+            <dev:SettingsExpander x:Uid="AudioSettingPage_AudioSaveLocation" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Folder.png}">
+                <Button x:Uid="AudioSettingPage_ChooseFolder" MinWidth="220" Command="{x:Bind ViewModel.ChooseFolderCommand}" />
                 <dev:SettingsExpander.ItemsHeader>
-                    <HyperlinkButton HorizontalAlignment="Stretch"
-                                     HorizontalContentAlignment="Left"
-                                     Command="{x:Bind ViewModel.GoToFolderInExplorerCommand}"
-                                     Content="{x:Bind ViewModel.AudiosPath, Mode=OneWay}"
-                                     FlowDirection="LeftToRight" />
+                    <HyperlinkButton HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{x:Bind ViewModel.GoToFolderInExplorerCommand}" Content="{x:Bind ViewModel.AudiosPath, Mode=OneWay}" FlowDirection="LeftToRight" />
                 </dev:SettingsExpander.ItemsHeader>
             </dev:SettingsExpander>
-            <dev:SettingsCard x:Uid="AudioSettingPage_DownloadAudio"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Download.png}">
-                <HyperlinkButton x:Uid="AudioSettingPage_ViewMoreAudio"
-                                 Command="{x:Bind ViewModel.GoToDownloadAudioPageCommand}" />
+            <dev:SettingsCard x:Uid="AudioSettingPage_DownloadAudio" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Download.png}">
+                <HyperlinkButton x:Uid="AudioSettingPage_ViewMoreAudio" Command="{x:Bind ViewModel.GoToDownloadAudioPageCommand}" />
             </dev:SettingsCard>
         </StackPanel>
     </ScrollView>

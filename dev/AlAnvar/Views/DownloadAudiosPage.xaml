@@ -10,43 +10,22 @@
       mc:Ignorable="d">
 
     <Grid x:Uid="Main_FlowDirection" RowSpacing="10">
-        <tv:TableView x:Name="AudiosTableView"
-                      AutoGenerateColumns="False"
-                      CanFilterColumns="False"
-                      CanSortColumns="True"
-                      CornerButtonMode="None"
-                      CornerRadius="8,8,0,0"
-                      GridLinesVisibility="Horizontal"
-                      HeaderGridLinesVisibility="Horizontal"
-                      IsReadOnly="True"
-                      ItemsSource="{x:Bind ViewModel.AudioItems, Mode=OneWay}"
-                      SelectionMode="Single"
-                      SelectionUnit="Row">
+        <tv:TableView x:Name="AudiosTableView" AutoGenerateColumns="False" CanFilterColumns="False" CanSortColumns="True" CornerButtonMode="None" CornerRadius="8,8,0,0" GridLinesVisibility="Horizontal" HeaderGridLinesVisibility="Horizontal" IsReadOnly="True" ItemsSource="{x:Bind ViewModel.AudioItems, Mode=OneWay}" SelectionMode="Single" SelectionUnit="Row">
             <tv:TableView.Columns>
-                <tv:TableViewTextColumn x:Uid="DownloadAudiosPage_TableViewPName"
-                                        Width="250"
-                                        Binding="{Binding PersianName}" />
-                <tv:TableViewTextColumn x:Uid="DownloadAudiosPage_TableViewName"
-                                        Width="250"
-                                        Binding="{Binding Name}" />
-                <tv:TableViewCheckBoxColumn x:Uid="DownloadAudiosPage_TableViewActive"
-                                            Binding="{Binding IsActive}" />
+                <tv:TableViewTextColumn x:Uid="DownloadAudiosPage_TableViewPName" Width="250" Binding="{Binding PersianName}" />
+                <tv:TableViewTextColumn x:Uid="DownloadAudiosPage_TableViewName" Width="250" Binding="{Binding Name}" />
+                <tv:TableViewCheckBoxColumn x:Uid="DownloadAudiosPage_TableViewActive" Binding="{Binding IsActive}" />
                 <tv:TableViewTemplateColumn Width="150">
                     <tv:TableViewTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Uid="DownloadAudiosPage_Download"
-                                    HorizontalAlignment="Stretch"
-                                    Click="OnDownloadAudio"
-                                    Style="{ThemeResource SubtleButtonStyle}" />
+                            <Button x:Uid="DownloadAudiosPage_Download" HorizontalAlignment="Stretch" Click="OnDownloadAudio" Style="{ThemeResource SubtleButtonStyle}" />
                         </DataTemplate>
                     </tv:TableViewTemplateColumn.CellTemplate>
                 </tv:TableViewTemplateColumn>
             </tv:TableView.Columns>
         </tv:TableView>
 
-        <ProgressRing HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
     </Grid>
 </Page>

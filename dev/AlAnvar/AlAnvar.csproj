@@ -43,7 +43,7 @@
 
   <ItemGroup>
     <AdditionalFiles Include="Assets\NavViewMenu\AppData.json" />
-    <AdditionalFiles Include="**\*.xaml" />
+    <AdditionalFiles Include="@(Page)" />
     <AdditionalFiles Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
 
@@ -59,24 +59,23 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.2.251219" />
-    <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.2.251219" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.3.260402-preview2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.3.260402-preview2" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.Ribbon" Version="0.1.250826-build.2212" />
-    <PackageReference Include="DevWinUI" Version="9.9.3" />
-    <PackageReference Include="DevWinUI.Controls" Version="9.9.3" />
-    <PackageReference Include="DevWinUI.SourceGenerator" Version="9.9.0" />
-    <PackageReference Include="Downloader" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
+    <PackageReference Include="DevWinUI" Version="10.0.0-Preview3" />
+    <PackageReference Include="DevWinUI.SourceGenerator" Version="10.0.0-Preview3" />
+    <PackageReference Include="Downloader" Version="5.5.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.3.0-prerelease.251115.2" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7463" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.0-experimental4" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.1.3" />
     <PackageReference Include="nucs.JsonSettings" Version="2.0.2" />
     <PackageReference Include="nucs.JsonSettings.AutoSaveGenerator" Version="2.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-    <PackageReference Include="WinUI.TableView" Version="1.4.0-preview2" />
+    <PackageReference Include="WinUI.TableView" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlAnvar.Database\AlAnvar.Database.csproj" />

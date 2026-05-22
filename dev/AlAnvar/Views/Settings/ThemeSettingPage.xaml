@@ -10,38 +10,24 @@
       x:Uid="Main_FlowDirection"
       dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
-    <ScrollView Margin="{ThemeResource ContentPageMargin}"
-                Padding="{ThemeResource ContentPagePadding}"
-                VerticalScrollBarVisibility="Auto">
+    <ScrollView Margin="{ThemeResource ContentPageMargin}" Padding="{ThemeResource ContentPagePadding}" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10" dev:PanelAttach.ChildrenTransitions="Default" Spacing="5">
-            <dev:SettingsCard x:Uid="ThemeSettingPage_Theme"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Theme.png}">
-                <ComboBox MinWidth="250"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
+            <dev:SettingsCard x:Uid="ThemeSettingPage_Theme" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Theme.png}">
+                <ComboBox MinWidth="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
                     <ComboBoxItem x:Uid="ThemeSettingPage_ThemeLight" Tag="Light" />
                     <ComboBoxItem x:Uid="ThemeSettingPage_ThemeDark" Tag="Dark" />
                     <ComboBoxItem x:Uid="ThemeSettingPage_ThemeSystem" Tag="Default" />
                 </ComboBox>
             </dev:SettingsCard>
-            <dev:SettingsCard x:Uid="ThemeSettingPage_ThemeBackdrop"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Backdrop.png}">
-                <ComboBox MinWidth="250"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
+            <dev:SettingsCard x:Uid="ThemeSettingPage_ThemeBackdrop" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Backdrop.png}">
+                <ComboBox MinWidth="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
                     <ComboBoxItem x:Uid="ThemeSettingPage_ThemeBackdropMica" Tag="Mica" />
                     <ComboBoxItem x:Uid="ThemeSettingPage_ThemeBackdropMicaAlt" Tag="MicaAlt" />
                     <ComboBoxItem x:Uid="ThemeSettingPage_ThemeBackdropAcrylic" Tag="Acrylic" />
                     <ComboBoxItem x:Uid="ThemeSettingPage_ThemeBackdropAcrylicThin" Tag="AcrylicThin" />
                 </ComboBox>
             </dev:SettingsCard>
-            <dev:SettingsCard x:Uid="ThemeSettingPage_ThemeAccentColor"
-                              ActionIcon="{dev:BitmapIcon Source=Assets/Fluent/External.png}"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Color.png}"
-                              IsClickEnabled="True"
-                              LaunchUri="ms-settings:colors" />
+            <dev:SettingsCard x:Uid="ThemeSettingPage_ThemeAccentColor" ActionIcon="{dev:BitmapIcon Source=Assets/Fluent/External.png}" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Color.png}" IsClickEnabled="True" LaunchUri="ms-settings:colors" />
         </StackPanel>
     </ScrollView>
 </Page>

@@ -11,25 +11,16 @@
       x:Uid="Main_FlowDirection"
       dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
-    <ScrollView Margin="{ThemeResource ContentPageMargin}"
-                Padding="{ThemeResource ContentPagePadding}"
-                VerticalScrollBarVisibility="Auto">
+    <ScrollView Margin="{ThemeResource ContentPageMargin}" Padding="{ThemeResource ContentPagePadding}" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10" dev:PanelAttach.ChildrenTransitions="Default" Spacing="5">
-            <dev:SettingsExpander x:Uid="AboutUsSettingPage_About"
-                                  HeaderIcon="{dev:BitmapIcon Source=Assets/AppIcon.png}"
-                                  IsExpanded="True">
-                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           IsTextSelectionEnabled="True"
-                           Text="{x:Bind dev:ProcessInfoHelper.VersionWithPrefix}" />
+            <dev:SettingsExpander x:Uid="AboutUsSettingPage_About" HeaderIcon="{dev:BitmapIcon Source=Assets/AppIcon.png}" IsExpanded="True">
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" IsTextSelectionEnabled="True" Text="{x:Bind dev:ProcessInfoHelper.VersionWithPrefix}" />
                 <dev:SettingsExpander.Items>
-                    <dev:SettingsCard HorizontalContentAlignment="Left"
-                                      ContentAlignment="Left">
+                    <dev:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Left">
                         <StackPanel Orientation="Vertical" Spacing="5">
                             <TextBlock x:Uid="AboutUsSettingPage_RelatedLink" />
-                            <HyperlinkButton x:Uid="AboutUsSettingPage_SourceCode"
-                                             NavigateUri="{x:Bind common:Constants.RepoUrl, Mode=OneWay}" />
-                            <HyperlinkButton x:Uid="AboutUsSettingPage_ReleaseNote"
-                                             NavigateUri="{x:Bind common:Constants.RepoReleaseUrl, Mode=OneWay}" />
+                            <HyperlinkButton x:Uid="AboutUsSettingPage_SourceCode" NavigateUri="{x:Bind common:Constants.RepoUrl, Mode=OneWay}" />
+                            <HyperlinkButton x:Uid="AboutUsSettingPage_ReleaseNote" NavigateUri="{x:Bind common:Constants.RepoReleaseUrl, Mode=OneWay}" />
                         </StackPanel>
                     </dev:SettingsCard>
                 </dev:SettingsExpander.Items>

@@ -24,19 +24,18 @@ public static partial class AppHelper
     {
         if (!File.Exists(Settings.DBPath))
         {
-            WindowedContentDialog contentDialog = new WindowedContentDialog()
+            var contentDialog = new WindowedContentDialog()
             {
-                Title = Strings.AppHelper_DatabaseDialogTitle.GetLocalizedResource(),
+                Header = Strings.AppHelper_DatabaseDialogTitle.GetLocalizedResource(),
                 Content = Strings.AppHelper_DatabaseDialogContent.GetLocalizedResource(),
-                CloseButtonText = Strings.AppHelper_DatabaseDialogPrimaryButtonText.GetLocalizedResource(),
-                SecondaryButtonText = Strings.AppHelper_DatabaseDialogSecondaryButtonText.GetLocalizedResource(),
-                PrimaryButtonText = Strings.AppHelper_DatabaseDialogPrimaryButtonText.GetLocalizedResource(),
-                ContentFlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource()),
+                CloseButtonContent = Strings.AppHelper_DatabaseDialogPrimaryButtonText.GetLocalizedResource(),
+                SecondaryButtonContent = Strings.AppHelper_DatabaseDialogSecondaryButtonText.GetLocalizedResource(),
+                PrimaryButtonContent = Strings.AppHelper_DatabaseDialogPrimaryButtonText.GetLocalizedResource(),
+                FlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource()),
                 DefaultButton = ContentDialogButton.Close,
-                OwnerWindow = App.MainWindow,
-                Underlay = UnderlayMode.SmokeLayer
+                Owner = App.MainWindow,
             };
-
+            contentDialog.SystemBackdrop = new Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop();
             contentDialog.DefaultButton = ContentDialogButton.Primary;
 
             contentDialog.PrimaryButtonClick -= OnGoToSettings;
@@ -45,12 +44,12 @@ public static partial class AppHelper
             contentDialog.SecondaryButtonClick -= OnExit;
             contentDialog.SecondaryButtonClick += OnExit;
 
-            void OnExit(WindowedContentDialog sender, CancelEventArgs args)
+            void OnExit(object sender, EventArgs args)
             {
                 Environment.Exit(0);
             }
 
-            void OnGoToSettings(WindowedContentDialog sender, CancelEventArgs args)
+            void OnGoToSettings(object sender, EventArgs args)
             {
                 EnsureNavigationSelection(typeof(SettingsPage));
             }

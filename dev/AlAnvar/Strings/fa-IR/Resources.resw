@@ -708,13 +708,13 @@
   <data name="GeneralSettingPage_FontExpander.Description" xml:space="preserve">
     <value>فونت آیه ها، ترجمه ها و رابط کاربری را انتخاب کنید</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.Title" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.Header" xml:space="preserve">
     <value>ایجاد یادداشت جدید</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.PrimaryButtonText" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.PrimaryButtonContent" xml:space="preserve">
     <value>ذخیره</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.CloseButtonText" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.CloseButtonContent" xml:space="preserve">
     <value>بستن</value>
   </data>
   <data name="QuranTabViewItem_DialogContentSura.Header" xml:space="preserve">
@@ -741,7 +741,7 @@
   <data name="QuranTabViewItem_DialogContentNote.PlaceholderText" xml:space="preserve">
     <value>یادداشت یا برداشت خود درباره این آیه یا سوره را بنویسید</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.ContentFlowDirection" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.FlowDirection" xml:space="preserve">
     <value>RightToLeft</value>
   </data>
   <data name="QuranPage_NoteFavRibbonGroup.Label" xml:space="preserve">

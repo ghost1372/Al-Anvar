@@ -10,36 +10,16 @@
       NavigationCacheMode="Required"
       mc:Ignorable="d">
     <Grid x:Uid="Main_FlowDirection" RowSpacing="10">
-        <tv:TableView x:Name="TranslationsTableView"
-                      AutoGenerateColumns="False"
-                      CanFilterColumns="False"
-                      CanSortColumns="True"
-                      CornerButtonMode="None"
-                      CornerRadius="8,8,0,0"
-                      GridLinesVisibility="Horizontal"
-                      HeaderGridLinesVisibility="Horizontal"
-                      IsReadOnly="True"
-                      ItemsSource="{x:Bind ViewModel.TranslationItems, Mode=OneWay}"
-                      SelectionChanged="TranslationsTableView_SelectionChanged"
-                      SelectionMode="Single"
-                      SelectionUnit="Row">
+        <tv:TableView x:Name="TranslationsTableView" AutoGenerateColumns="False" CanFilterColumns="False" CanSortColumns="True" CornerButtonMode="None" CornerRadius="8,8,0,0" GridLinesVisibility="Horizontal" HeaderGridLinesVisibility="Horizontal" IsReadOnly="True" ItemsSource="{x:Bind ViewModel.TranslationItems, Mode=OneWay}" SelectionChanged="TranslationsTableView_SelectionChanged" SelectionMode="Single" SelectionUnit="Row">
             <tv:TableView.Columns>
-                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewLanguage"
-                                        Width="100"
-                                        Binding="{Binding Language}" />
-                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewTranslator"
-                                        Width="300"
-                                        Binding="{Binding Translator}" />
-                <tv:TableViewCheckBoxColumn x:Uid="DownloadTranslationsPage_TableViewActive"
-                                            Binding="{Binding IsActive}" />
-                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewName"
-                                        Binding="{Binding Name}" />
+                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewLanguage" Width="100" Binding="{Binding Language}" />
+                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewTranslator" Width="300" Binding="{Binding Translator}" />
+                <tv:TableViewCheckBoxColumn x:Uid="DownloadTranslationsPage_TableViewActive" Binding="{Binding IsActive}" />
+                <tv:TableViewTextColumn x:Uid="DownloadTranslationsPage_TableViewName" Binding="{Binding Name}" />
 
             </tv:TableView.Columns>
 
-            <ProgressRing HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+            <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
         </tv:TableView>
     </Grid>
 </Page>

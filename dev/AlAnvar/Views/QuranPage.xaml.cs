@@ -364,75 +364,14 @@ public sealed partial class QuranPage : Page
         if (!await EnsureDatabaseExistsAsync())
             return;
 
-        var dialog = Resources["AddNoteDialog"] as WindowedContentDialog;
+        var dialog = new AddNoteDialog(ViewModel);
         if (dialog != null)
         {
             ViewModel.CanSaveNote = false;
             ViewModel.TitleNote = string.Empty;
             ViewModel.DescriptionNote = string.Empty;
 
-            dialog.OwnerWindow = App.MainWindow;
-
-            dialog.PrimaryButtonClick -= OnDialogPrimaryButtonClick;
-            dialog.PrimaryButtonClick += OnDialogPrimaryButtonClick;
-
-            await dialog.ShowAsync(true);
-        }
-    }
-
-    private async void OnDialogPrimaryButtonClick(WindowedContentDialog sender, System.ComponentModel.CancelEventArgs args)
-    {
-        args.Cancel = true;
-        try
-        {
-            using var db = new AlAnvarDBContext();
-            int noteSuraId = -1;
-            int noteVerseId = -1;
-
-            if (CmbQuranVerse.SelectedItem is FinalQuran finalQuran)
-            {
-                noteSuraId = finalQuran.SuraId;
-                noteVerseId = finalQuran.AyaId;
-            }
-
-            if (noteSuraId == -1 || noteVerseId == -1)
-            {
-                await MessageBox.ShowErrorAsync(Strings.QuranPage_DialogAddNoteError.GetLocalizedResource(), Strings.MessageBoxErrorTitle.GetLocalizedResource());
-                return;
-            }
-
-            if (string.IsNullOrEmpty(ViewModel.TitleNote) || string.IsNullOrEmpty(ViewModel.DescriptionNote))
-            {
-                await MessageBox.ShowErrorAsync(Strings.QuranPage_DialogAddNoteEmptyError.GetLocalizedResource(), Strings.MessageBoxErrorTitle.GetLocalizedResource());
-                return;
-            }
-
-            args.Cancel = false;
-
-            var note = new QuranNoteTable
-            {
-                SuraId = noteSuraId,
-                AyaId = noteVerseId,
-                Title = ViewModel.TitleNote,
-                Description = ViewModel.DescriptionNote,
-                CreatedAt = DateTime.Now.ToShortDateString(),
-                UpdatedAt = DateTime.Now.ToShortDateString(),
-            };
-            await db.Notes.AddAsync(note);
-            await db.SaveChangesAsync();
-        }
-        catch (Exception ex)
-        {
-            Logger?.Error(ex, ex.Message);
-            await MessageBox.ShowErrorAsync(ex.Message, Strings.MessageBoxErrorTitle.GetLocalizedResource());
-        }
-    }
-
-    private async void CmbQuranSura_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (CmbQuranSura.SelectedItem is QuranMetadataTable quranMetadata)
-        {
-            await ViewModel.GetQuranVerse(quranMetadata);
+            dialog.ShowDialog();
         }
     }
 
@@ -458,23 +397,23 @@ public sealed partial class QuranPage : Page
 
             var dialog = new WindowedContentDialog()
             {
-                Title = Strings.QuranPage_MediaNotFoundTitle.GetLocalizedResource(),
-                PrimaryButtonText = Strings.QuranPage_MediaNotFoundPrimaryButtonText.GetLocalizedResource(),
-                CloseButtonText = Strings.QuranPage_MediaNotFoundCloseButtonText.GetLocalizedResource(),
+                Header = Strings.QuranPage_MediaNotFoundTitle.GetLocalizedResource(),
+                PrimaryButtonContent = Strings.QuranPage_MediaNotFoundPrimaryButtonText.GetLocalizedResource(),
+                CloseButtonContent = Strings.QuranPage_MediaNotFoundCloseButtonText.GetLocalizedResource(),
                 DefaultButton = ContentDialogButton.Primary,
                 Content = Strings.QuranPage_MediaNotFound.GetLocalizedResource(),
-                OwnerWindow = App.MainWindow,
+                Owner = App.MainWindow,
                 HasTitleBar = false,
-                ContentMinWidth = 500,
-                ContentFlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource())
+                MinWidth = 500,
+                FlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource())
             };
 
             dialog.PrimaryButtonClick -= OnPrimaryButtonClick;
             dialog.PrimaryButtonClick += OnPrimaryButtonClick;
 
-            dialog.ShowAsync(true);
+            dialog.ShowAsync();
 
-            void OnPrimaryButtonClick(WindowedContentDialog sender, System.ComponentModel.CancelEventArgs args)
+            void OnPrimaryButtonClick(object sender, EventArgs args)
             {
                 App.Current.NavService.NavigateTo(typeof(SettingsPage));
             }

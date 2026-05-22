@@ -51,8 +51,8 @@ public sealed partial class LocalTranslationsPage : Page
         var items = TranslationsTableView.SelectedItems.OfType<TranslationItem>().ToList();
         if (items != null && items.Count > 0)
         {
-            var result = await MessageBox.ShowWarningAsync(Strings.LocalTranslationsPage_MessageBoxConfirmDelete.GetLocalizedResource(), MessageBoxButtons.YesNo);
-            if (result == MessageBoxResult.YES)
+            var result = await MessageBox.ShowWarningAsync(Strings.LocalTranslationsPage_MessageBoxConfirmDelete.GetLocalizedResource(), "", MessageBoxButtons.YesNo);
+            if (result == MessageBoxResult.Yes)
             {
                 await ViewModel.DeleteSelections(items);
                 await ViewModel.GetAvailableLocalTranslations();

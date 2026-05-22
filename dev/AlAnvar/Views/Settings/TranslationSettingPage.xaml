@@ -12,33 +12,17 @@
       mc:Ignorable="d">
     <ScrollView>
         <StackPanel Margin="10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}" Spacing="5">
-            <dev:SettingsCard x:Uid="TranslationSettingPage_Translator"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Translation.png}">
-                <ComboBox x:Name="cmbTranslation"
-                          MinWidth="250"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          ItemsSource="{x:Bind ViewModel.ExistingTranslationItems, Mode=OneWay}"
-                          SelectedIndex="{x:Bind common:AppHelper.Settings.TranslationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{x:Bind common:AppHelper.Settings.Translation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <dev:SettingsCard x:Uid="TranslationSettingPage_Translator" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Translation.png}">
+                <ComboBox x:Name="cmbTranslation" MinWidth="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{x:Bind ViewModel.ExistingTranslationItems, Mode=OneWay}" SelectedIndex="{x:Bind common:AppHelper.Settings.TranslationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{x:Bind common:AppHelper.Settings.Translation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </dev:SettingsCard>
-            <dev:SettingsExpander x:Uid="TranslationSettingPage_SaveLocation"
-                                  HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Folder.png}">
-                <Button x:Uid="TranslationSettingPage_SaveLocationBrowse"
-                        MinWidth="220"
-                        Command="{x:Bind ViewModel.ChooseFolderCommand}" />
+            <dev:SettingsExpander x:Uid="TranslationSettingPage_SaveLocation" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Folder.png}">
+                <Button x:Uid="TranslationSettingPage_SaveLocationBrowse" MinWidth="220" Command="{x:Bind ViewModel.ChooseFolderCommand}" />
                 <dev:SettingsExpander.ItemsHeader>
-                    <HyperlinkButton HorizontalAlignment="Stretch"
-                                     HorizontalContentAlignment="Left"
-                                     Command="{x:Bind ViewModel.GoToFolderInExplorerCommand}"
-                                     Content="{x:Bind ViewModel.TranslationsPath, Mode=OneWay}"
-                                     FlowDirection="LeftToRight" />
+                    <HyperlinkButton HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{x:Bind ViewModel.GoToFolderInExplorerCommand}" Content="{x:Bind ViewModel.TranslationsPath, Mode=OneWay}" FlowDirection="LeftToRight" />
                 </dev:SettingsExpander.ItemsHeader>
             </dev:SettingsExpander>
-            <dev:SettingsCard x:Uid="TranslationSettingPage_DownloadTranslation"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Download.png}">
-                <HyperlinkButton x:Uid="TranslationSettingPage_DownloadTranslationButton"
-                                 Command="{x:Bind ViewModel.GoToDownloadTranslationPageCommand}" />
+            <dev:SettingsCard x:Uid="TranslationSettingPage_DownloadTranslation" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Download.png}">
+                <HyperlinkButton x:Uid="TranslationSettingPage_DownloadTranslationButton" Command="{x:Bind ViewModel.GoToDownloadTranslationPageCommand}" />
             </dev:SettingsCard>
         </StackPanel>
     </ScrollView>

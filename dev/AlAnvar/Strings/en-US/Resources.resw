@@ -708,13 +708,13 @@
   <data name="GeneralSettingPage_FontExpander.Description" xml:space="preserve">
     <value>Choose the fonts used for the interface, Quran text, and translations.</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.Title" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.Header" xml:space="preserve">
     <value>Add New Note</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.PrimaryButtonText" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.PrimaryButtonContent" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.CloseButtonText" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.CloseButtonContent" xml:space="preserve">
     <value>Close</value>
   </data>
   <data name="QuranTabViewItem_DialogContentSura.Header" xml:space="preserve">
@@ -741,7 +741,7 @@
   <data name="QuranTabViewItem_DialogContentNote.PlaceholderText" xml:space="preserve">
     <value>Write your note or reflection about this verse or surah</value>
   </data>
-  <data name="QuranTabViewItem_Dialog.ContentFlowDirection" xml:space="preserve">
+  <data name="QuranTabViewItem_Dialog.FlowDirection" xml:space="preserve">
     <value>LeftToRight</value>
   </data>
   <data name="QuranPage_NoteFavRibbonGroup.Label" xml:space="preserve">

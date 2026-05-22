@@ -14,27 +14,15 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Margin="5"
-                Padding="10"
-                HorizontalAlignment="Stretch"
-                Background="{ThemeResource CommandBarBackgroundOpen}"
-                BorderBrush="{ThemeResource CommandBarBorderBrushOpen}"
-                BorderThickness="1"
-                CornerRadius="{ThemeResource OverlayCornerRadius}">
+        <Border Margin="5" Padding="10" HorizontalAlignment="Stretch" Background="{ThemeResource CommandBarBackgroundOpen}" BorderBrush="{ThemeResource CommandBarBorderBrushOpen}" BorderThickness="1" CornerRadius="{ThemeResource OverlayCornerRadius}">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
-                <Button x:Name="BtnDeleteSelection"
-                        Click="OnDeleteSelection"
-                        IsEnabled="False"
-                        Style="{ThemeResource SubtleButtonStyle}">
+                <Button x:Name="BtnDeleteSelection" Click="OnDeleteSelection" IsEnabled="False" Style="{ThemeResource SubtleButtonStyle}">
                     <StackPanel x:Uid="Main_FlowDirection" Orientation="Horizontal" Spacing="5">
                         <FontIcon Glyph="&#xE74D;" />
                         <TextBlock x:Uid="LocalAudiosPage_DeleteSelection" />
                     </StackPanel>
                 </Button>
-                <Button x:Name="BtnOpenFolder"
-                        Click="OnOpenFolder"
-                        IsEnabled="False"
-                        Style="{ThemeResource SubtleButtonStyle}">
+                <Button x:Name="BtnOpenFolder" Click="OnOpenFolder" IsEnabled="False" Style="{ThemeResource SubtleButtonStyle}">
                     <StackPanel x:Uid="Main_FlowDirection" Orientation="Horizontal" Spacing="5">
                         <FontIcon Glyph="&#xEC50;" />
                         <TextBlock x:Uid="LocalAudiosPage_OpenFolder" />
@@ -43,39 +31,15 @@
             </StackPanel>
         </Border>
 
-        <tv:TableView x:Name="AudiosTableView"
-                      x:Uid="Main_FlowDirection"
-                      Grid.Row="1"
-                      AutoGenerateColumns="False"
-                      CanFilterColumns="False"
-                      CanSortColumns="True"
-                      CornerButtonMode="None"
-                      CornerRadius="8,8,0,0"
-                      GridLinesVisibility="Horizontal"
-                      HeaderGridLinesVisibility="Horizontal"
-                      IsReadOnly="True"
-                      ItemsSource="{x:Bind ViewModel.LocalAudioItems, Mode=OneWay}"
-                      SelectionChanged="AudiosTableView_SelectionChanged"
-                      SelectionMode="Extended"
-                      SelectionUnit="Row">
+        <tv:TableView x:Name="AudiosTableView" x:Uid="Main_FlowDirection" Grid.Row="1" AutoGenerateColumns="False" CanFilterColumns="False" CanSortColumns="True" CornerButtonMode="None" CornerRadius="8,8,0,0" GridLinesVisibility="Horizontal" HeaderGridLinesVisibility="Horizontal" IsReadOnly="True" ItemsSource="{x:Bind ViewModel.LocalAudioItems, Mode=OneWay}" SelectionChanged="AudiosTableView_SelectionChanged" SelectionMode="Extended" SelectionUnit="Row">
             <tv:TableView.Columns>
-                <tv:TableViewTextColumn x:Uid="LocalAudiosPage_TableViewPName"
-                                        Width="250"
-                                        Binding="{Binding PersianName}" />
-                <tv:TableViewTextColumn x:Uid="LocalAudiosPage_TableViewName"
-                                        Width="250"
-                                        Binding="{Binding Name}" />
+                <tv:TableViewTextColumn x:Uid="LocalAudiosPage_TableViewPName" Width="250" Binding="{Binding PersianName}" />
+                <tv:TableViewTextColumn x:Uid="LocalAudiosPage_TableViewName" Width="250" Binding="{Binding Name}" />
             </tv:TableView.Columns>
         </tv:TableView>
 
-        <ProgressRing Grid.Row="1"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <ProgressRing Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
-        <TeachingTip x:Uid="AudioNotFoundNotificationText"
-                     IsLightDismissEnabled="True"
-                     IsOpen="{x:Bind ViewModel.ShowAudioNotFound, Mode=TwoWay}"
-                     Target="{x:Bind AudiosTableView}" />
+        <TeachingTip x:Uid="AudioNotFoundNotificationText" IsLightDismissEnabled="True" IsOpen="{x:Bind ViewModel.ShowAudioNotFound, Mode=TwoWay}" Target="{x:Bind AudiosTableView}" />
     </Grid>
 </Page>

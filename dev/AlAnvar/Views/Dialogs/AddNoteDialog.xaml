@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dev:ContentDialogWindow x:Class="AlAnvar.Views.AddNoteDialog"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:database="using:AlAnvar.Database.Tables"
+                         xmlns:dev="using:DevWinUI"
+                         xmlns:local="using:AlAnvar"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                         xmlns:models="using:AlAnvar.Models"
+                         x:Uid="QuranTabViewItem_Dialog"
+                         MinWidth="700"
+                         CanResize="True"
+                         DefaultButton="Primary"
+                         IsPrimaryButtonEnabled="{x:Bind ViewModel.CanSaveNote, Mode=OneWay}"
+                         PrimaryButtonClick="OnDialogPrimaryButtonClick"
+                         mc:Ignorable="d">
+
+    <dev:ContentDialogWindow.SystemBackdrop>
+        <DesktopAcrylicBackdrop />
+    </dev:ContentDialogWindow.SystemBackdrop>
+    <Grid x:Uid="Main_FlowDirection" ColumnSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Width="250" Spacing="10">
+            <ComboBox x:Name="CmbQuranSura" x:Uid="QuranTabViewItem_DialogContentSura" HorizontalAlignment="Stretch" ItemsSource="{x:Bind ViewModel.QuranMetaItems, Mode=OneWay}" SelectedIndex="-1" SelectionChanged="CmbQuranSura_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="database:QuranMetadataTable">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Id}" />
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text=" - " />
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox x:Name="CmbQuranVerse" x:Uid="QuranTabViewItem_DialogContentVerse" HorizontalAlignment="Stretch" ItemsSource="{x:Bind ViewModel.QuranVerses, Mode=OneWay}" SelectedIndex="-1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:FinalQuran">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind AyaId}" />
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text=" - " />
+                            <TextBlock Width="200" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind DisplayAya}" TextWrapping="NoWrap" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <AppBarSeparator Grid.Column="1" />
+        <StackPanel Grid.Column="2" Spacing="10">
+            <TextBox x:Uid="QuranTabViewItem_DialogContentTitle" Text="{x:Bind ViewModel.TitleNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Uid="QuranTabViewItem_DialogContentNote" MinHeight="200" AcceptsReturn="True" Text="{x:Bind ViewModel.DescriptionNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</dev:ContentDialogWindow>

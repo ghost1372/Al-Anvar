@@ -11,11 +11,7 @@
              xmlns:tv="using:WinUI.TableView"
              mc:Ignorable="d">
     <Grid>
-        <tv:TableView x:Name="FavoriteTableView"
-                      Margin="10"
-                      AutoGenerateColumns="False"
-                      ItemsSource="{x:Bind ViewModel.Favorites, Mode=OneWay}"
-                      ShowExportOptions="True">
+        <tv:TableView x:Name="FavoriteTableView" Margin="10" AutoGenerateColumns="False" ItemsSource="{x:Bind ViewModel.Favorites, Mode=OneWay}" ShowExportOptions="True">
             <tv:TableView.ItemTemplate>
                 <DataTemplate x:DataType="models:FinalQuran">
                     <Grid Margin="15,0">
@@ -30,120 +26,37 @@
                         </Grid.RowDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem x:Name="MnuGoToSura"
-                                                x:Uid="FavoriteTabViewItem_MenuGoToSura"
-                                                Click="OnMenuClicked"
-                                                CommandParameter="{Binding ElementName=BtnGoToTab}"
-                                                Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/External.png}"
-                                                Tag="GoToSura" />
+                                <MenuFlyoutItem x:Name="MnuGoToSura" x:Uid="FavoriteTabViewItem_MenuGoToSura" Click="OnMenuClicked" CommandParameter="{Binding ElementName=BtnGoToTab}" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/External.png}" Tag="GoToSura" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem x:Name="MnuDelete"
-                                                x:Uid="FavoriteTabViewItem_MenuDelete"
-                                                Click="OnMenuClicked"
-                                                CommandParameter="{Binding ElementName=BtnDelete}"
-                                                Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Delete.png}"
-                                                Tag="Delete" />
-                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuCopy"
-                                                     Click="OnMenuClicked"
-                                                     Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
-                                                     Tag="CopyVerse">
+                                <MenuFlyoutItem x:Name="MnuDelete" x:Uid="FavoriteTabViewItem_MenuDelete" Click="OnMenuClicked" CommandParameter="{Binding ElementName=BtnDelete}" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Delete.png}" Tag="Delete" />
+                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuCopy" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" Tag="CopyVerse">
                                     <SplitMenuFlyoutItem.Items>
-                                        <MenuFlyoutItem x:Name="MnuCopyVerse"
-                                                        x:Uid="QuranTabViewItem_MenuCopyVerse"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
-                                                        Tag="CopyVerse" />
-                                        <MenuFlyoutItem x:Name="MnuCopyTranslation"
-                                                        x:Uid="QuranTabViewItem_MenuCopyTranslation"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
-                                                        Tag="CopyTranslation"
-                                                        Visibility="{x:Bind Translation, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}" />
-                                        <MenuFlyoutItem x:Name="MnuCopyAll"
-                                                        x:Uid="QuranTabViewItem_MenuCopyAll"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/CopyAll.png}"
-                                                        Tag="CopyAll" />
+                                        <MenuFlyoutItem x:Name="MnuCopyVerse" x:Uid="QuranTabViewItem_MenuCopyVerse" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" Tag="CopyVerse" />
+                                        <MenuFlyoutItem x:Name="MnuCopyTranslation" x:Uid="QuranTabViewItem_MenuCopyTranslation" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" Tag="CopyTranslation" Visibility="{x:Bind Translation, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}" />
+                                        <MenuFlyoutItem x:Name="MnuCopyAll" x:Uid="QuranTabViewItem_MenuCopyAll" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/CopyAll.png}" Tag="CopyAll" />
                                     </SplitMenuFlyoutItem.Items>
                                 </SplitMenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
-                        <TextBlock Padding="5,10,5,5"
-                                   FlowDirection="LeftToRight"
-                                   FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
-                                   FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
-                                   Foreground="{x:Bind common:ProxyService.Instance.QuranColor, Mode=OneWay}"
-                                   Tag="Ayat"
-                                   Text="{x:Bind DisplayAya, Mode=OneWay}"
-                                   TextAlignment="{x:Bind common:ProxyService.Instance.VerseTextAlignment, Mode=OneWay}"
-                                   TextWrapping="Wrap"
-                                   Visibility="{x:Bind common:ProxyService.Instance.IsAyaVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        <TextBlock Grid.Row="1"
-                                   Padding="5,0,5,5"
-                                   FlowDirection="LeftToRight"
-                                   FontFamily="{x:Bind common:ProxyService.Instance.TranslationFontFamily, Mode=OneWay}"
-                                   FontSize="{x:Bind common:ProxyService.Instance.TranslationFontSize, Mode=OneWay}"
-                                   Foreground="{x:Bind common:ProxyService.Instance.TranslationColor, Mode=OneWay}"
-                                   Tag="Translation"
-                                   Text="{x:Bind Translation, Mode=OneWay}"
-                                   TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}"
-                                   TextWrapping="Wrap"
-                                   Visibility="{x:Bind common:ProxyService.Instance.IsTranslationVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        <Border Grid.RowSpan="3"
-                                Grid.Column="1"
-                                Width="32"
-                                Height="32"
-                                VerticalAlignment="Center"
-                                BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
-                                BorderThickness="1"
-                                CornerRadius="100">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
-                                       FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
-                                       FontWeight="Bold"
-                                       Foreground="{x:Bind common:ProxyService.Instance.QuranNumberColor, Mode=OneWay}"
-                                       Style="{ThemeResource BaseTextBlockStyle}"
-                                       Tag="AyatNumber"
-                                       Text="{x:Bind AyaId, Mode=OneWay}" />
+                        <TextBlock Padding="5,10,5,5" FlowDirection="LeftToRight" FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}" FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}" Foreground="{x:Bind common:ProxyService.Instance.QuranColor, Mode=OneWay}" Tag="Ayat" Text="{x:Bind DisplayAya, Mode=OneWay}" TextAlignment="{x:Bind common:ProxyService.Instance.VerseTextAlignment, Mode=OneWay}" TextWrapping="Wrap" Visibility="{x:Bind common:ProxyService.Instance.IsAyaVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <TextBlock Grid.Row="1" Padding="5,0,5,5" FlowDirection="LeftToRight" FontFamily="{x:Bind common:ProxyService.Instance.TranslationFontFamily, Mode=OneWay}" FontSize="{x:Bind common:ProxyService.Instance.TranslationFontSize, Mode=OneWay}" Foreground="{x:Bind common:ProxyService.Instance.TranslationColor, Mode=OneWay}" Tag="Translation" Text="{x:Bind Translation, Mode=OneWay}" TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}" TextWrapping="Wrap" Visibility="{x:Bind common:ProxyService.Instance.IsTranslationVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Border Grid.RowSpan="3" Grid.Column="1" Width="32" Height="32" VerticalAlignment="Center" BorderBrush="{ThemeResource AccentFillColorDefaultBrush}" BorderThickness="1" CornerRadius="100">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}" FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}" FontWeight="Bold" Foreground="{x:Bind common:ProxyService.Instance.QuranNumberColor, Mode=OneWay}" Style="{ThemeResource BaseTextBlockStyle}" Tag="AyatNumber" Text="{x:Bind AyaId, Mode=OneWay}" />
                         </Border>
 
                         <StackPanel Grid.Row="2" Margin="0,0,0,10" Orientation="Horizontal" Spacing="5">
-                            <InfoBadge Padding="10,0,10,0"
-                                       Style="{StaticResource StringInfoBadgeStyle}"
-                                       Tag="{x:Bind SuraName, Mode=OneWay}" />
-                            <Button x:Name="BtnGoToTab"
-                                    Click="BtnGoToTab_Click"
-                                    Content="&#xE8A7;"
-                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                    FontSize="16"
-                                    Style="{ThemeResource SubtleButtonStyle}"
-                                    Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                            <dev:CopyButton x:Name="BtnCopy"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Click="BtnCopy_Click"
-                                            Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                            <Button x:Name="BtnDelete"
-                                    Click="BtnDelete_Click"
-                                    Content="&#xE74D;"
-                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                    FontSize="16"
-                                    Style="{ThemeResource SubtleButtonStyle}"
-                                    Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            <InfoBadge Padding="10,0,10,0" Style="{StaticResource StringInfoBadgeStyle}" Tag="{x:Bind SuraName, Mode=OneWay}" />
+                            <Button x:Name="BtnGoToTab" Click="BtnGoToTab_Click" Content="&#xE8A7;" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Style="{ThemeResource SubtleButtonStyle}" Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            <dev:CopyButton x:Name="BtnCopy" Background="Transparent" BorderThickness="0" Click="BtnCopy_Click" Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            <Button x:Name="BtnDelete" Click="BtnDelete_Click" Content="&#xE74D;" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Style="{ThemeResource SubtleButtonStyle}" Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </tv:TableView.ItemTemplate>
         </tv:TableView>
 
-        <ProgressRing HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
-        <TeachingTip x:Uid="FavoriteNotFoundNotificationText"
-                     IsLightDismissEnabled="True"
-                     IsOpen="{x:Bind ViewModel.ShowFavoriteNotFound, Mode=TwoWay}"
-                     Target="{x:Bind FavoriteTableView}" />
+        <TeachingTip x:Uid="FavoriteNotFoundNotificationText" IsLightDismissEnabled="True" IsOpen="{x:Bind ViewModel.ShowFavoriteNotFound, Mode=TwoWay}" Target="{x:Bind FavoriteTableView}" />
     </Grid>
 </TabViewItem>

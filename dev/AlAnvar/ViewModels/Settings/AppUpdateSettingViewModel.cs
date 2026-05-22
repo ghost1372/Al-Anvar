@@ -89,11 +89,11 @@ public partial class AppUpdateSettingViewModel : ObservableObject
     [RelayCommand]
     private async Task GetReleaseNotesAsync()
     {
-        WindowedContentDialog dialog = new WindowedContentDialog()
+        var dialog = new WindowedContentDialog()
         {
-            Title = Strings.AppUpdateSettingViewModel_ReleaseNoteTitle.GetLocalizedResource(),
-            CloseButtonText = Strings.AppUpdateSettingViewModel_ReleaseNoteClose.GetLocalizedResource(),
-            ContentFlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource()),
+            Header = Strings.AppUpdateSettingViewModel_ReleaseNoteTitle.GetLocalizedResource(),
+            CloseButtonContent = Strings.AppUpdateSettingViewModel_ReleaseNoteClose.GetLocalizedResource(),
+            FlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource()),
             Content = new ScrollViewer
             {
                 Content = new TextBlock
@@ -103,13 +103,11 @@ public partial class AppUpdateSettingViewModel : ObservableObject
                 },
                 Margin = new Thickness(10)
             },
-            Margin = new Thickness(10),
             DefaultButton = ContentDialogButton.Close,
-            OwnerWindow = App.MainWindow,
-            Underlay = UnderlayMode.SmokeLayer,
-            SystemBackdrop = new MicaBackdrop()
+            Owner = App.MainWindow,
+            SystemBackdrop = new DesktopAcrylicBackdrop()
         };
 
-        await dialog.ShowAsync(true);
+        await dialog.ShowAsync();
     }
 }

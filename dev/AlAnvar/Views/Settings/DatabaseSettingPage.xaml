@@ -12,34 +12,19 @@
 
     <ScrollView>
         <StackPanel Margin="10" ChildrenTransitions="{StaticResource SettingsCardsAnimations}" Spacing="5">
-            <dev:SettingsExpander x:Uid="DatabaseSettingPage_SaveLocation"
-                                  HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Folder.png}">
-                <Button x:Uid="DatabaseSettingPage_SaveLocationBrowse"
-                        MinWidth="220"
-                        Command="{x:Bind ViewModel.ChooseFileCommand}" />
+            <dev:SettingsExpander x:Uid="DatabaseSettingPage_SaveLocation" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Folder.png}">
+                <Button x:Uid="DatabaseSettingPage_SaveLocationBrowse" MinWidth="220" Command="{x:Bind ViewModel.ChooseFileCommand}" />
                 <dev:SettingsExpander.ItemsHeader>
-                    <HyperlinkButton HorizontalAlignment="Stretch"
-                                     HorizontalContentAlignment="Left"
-                                     Command="{x:Bind ViewModel.GoToFolderInExplorerCommand}"
-                                     Content="{x:Bind ViewModel.DatabasePath, Mode=OneWay}"
-                                     FlowDirection="LeftToRight" />
+                    <HyperlinkButton HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{x:Bind ViewModel.GoToFolderInExplorerCommand}" Content="{x:Bind ViewModel.DatabasePath, Mode=OneWay}" FlowDirection="LeftToRight" />
                 </dev:SettingsExpander.ItemsHeader>
             </dev:SettingsExpander>
-            <dev:SettingsExpander x:Uid="DatabaseSettingPage_BackupRestoreExpander"
-                                  HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Database.png}"
-                                  IsExpanded="True">
+            <dev:SettingsExpander x:Uid="DatabaseSettingPage_BackupRestoreExpander" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Database.png}" IsExpanded="True">
                 <dev:SettingsExpander.Items>
-                    <dev:SettingsCard x:Uid="DatabaseSettingPage_BackupCard"
-                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Save.png}">
-                        <Button x:Uid="DatabaseSettingPage_Backup"
-                                MinWidth="220"
-                                Click="OnBackup" />
+                    <dev:SettingsCard x:Uid="DatabaseSettingPage_BackupCard" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Save.png}">
+                        <Button x:Uid="DatabaseSettingPage_Backup" MinWidth="220" Click="OnBackup" />
                     </dev:SettingsCard>
-                    <dev:SettingsCard x:Uid="DatabaseSettingPage_RestoreCard"
-                                      HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Restore.png}">
-                        <Button x:Uid="DatabaseSettingPage_Restore"
-                                MinWidth="220"
-                                Click="OnRestore" />
+                    <dev:SettingsCard x:Uid="DatabaseSettingPage_RestoreCard" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Restore.png}">
+                        <Button x:Uid="DatabaseSettingPage_Restore" MinWidth="220" Click="OnRestore" />
                     </dev:SettingsCard>
                 </dev:SettingsExpander.Items>
             </dev:SettingsExpander>

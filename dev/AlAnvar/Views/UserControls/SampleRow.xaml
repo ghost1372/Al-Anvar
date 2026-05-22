@@ -30,38 +30,19 @@
             </Grid>
             <Grid Padding="16" BorderThickness="0,1,1,1" CornerRadius="0,16,16,0" Style="{StaticResource CardGridStyle}" Visibility="{x:Bind ShowCategory, Mode=OneWay}">
                 <StackPanel Width="320" Margin="12,0,12,0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical" Spacing="8">
-                    <TextBlock FontSize="20"
-                               FontWeight="SemiBold"
-                               Text="{x:Bind CategoryHeader, Mode=OneWay}"
-                               TextAlignment="Left"
-                               TextWrapping="Wrap" />
-                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               Text="{x:Bind CategoryDescription, Mode=OneWay}"
-                               TextAlignment="Left"
-                               TextWrapping="Wrap" />
-                    <HyperlinkButton x:Uid="SampleRow_Explore"
-                                     Margin="-12,0,0,0"
-                                     HorizontalAlignment="Left"
-                                     Click="OnExplore" />
+                    <TextBlock FontSize="20" FontWeight="SemiBold" Text="{x:Bind CategoryHeader, Mode=OneWay}" TextAlignment="Left" TextWrapping="Wrap" />
+                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind CategoryDescription, Mode=OneWay}" TextAlignment="Left" TextWrapping="Wrap" />
+                    <HyperlinkButton x:Uid="SampleRow_Explore" Margin="-12,0,0,0" HorizontalAlignment="Left" Click="OnExplore" />
                 </StackPanel>
             </Grid>
 
-            <ItemsView Margin="16,0,0,0"
-                       VerticalAlignment="Stretch"
-                       VerticalContentAlignment="Stretch"
-                       IsItemInvokedEnabled="True"
-                       ItemsSource="{x:Bind SampleCards, Mode=OneWay}"
-                       SelectionMode="None">
+            <ItemsView Margin="16,0,0,0" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" IsItemInvokedEnabled="True" ItemsSource="{x:Bind SampleCards, Mode=OneWay}" SelectionMode="None">
                 <ItemsView.Layout>
-                    <StackLayout Orientation="Horizontal"
-                                 Spacing="16" />
+                    <StackLayout Orientation="Horizontal" Spacing="16" />
                 </ItemsView.Layout>
                 <ItemsView.ItemTemplate>
                     <DataTemplate x:DataType="local:RowSample">
-                        <ItemContainer VerticalAlignment="Stretch"
-                                       VerticalContentAlignment="Stretch"
-                                       AutomationProperties.Name="{x:Bind Title}"
-                                       CornerRadius="16">
+                        <ItemContainer VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" AutomationProperties.Name="{x:Bind Title}" CornerRadius="16">
                             <Grid Width="260" Height="260" Padding="20,6,12,6" VerticalAlignment="Stretch" ColumnSpacing="20" CornerRadius="16" RowSpacing="2" Style="{StaticResource CardGridStyle}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -69,29 +50,12 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Viewbox Width="32"
-                                         Height="32"
-                                         Margin="0,24,0,8"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center">
-                                    <ContentPresenter Content="{x:Bind Icon}"
-                                                      FontSize="36"
-                                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                <Viewbox Width="32" Height="32" Margin="0,24,0,8" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <ContentPresenter Content="{x:Bind Icon}" FontSize="36" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
                                 </Viewbox>
-                                <TextBlock Grid.Row="1"
-                                           Style="{StaticResource BodyStrongTextBlockStyle}"
-                                           Text="{x:Bind Title}" />
-                                <TextBlock Grid.Row="2"
-                                           Margin="0,8,0,0"
-                                           VerticalAlignment="Top"
-                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                           Text="{x:Bind Description}"
-                                           TextTrimming="CharacterEllipsis"
-                                           TextWrapping="Wrap" />
-                                <HyperlinkButton x:Uid="SampleRow_Search"
-                                                 Grid.Row="3"
-                                                 Margin="-12,0,0,8"
-                                                 Click="OnSearch" />
+                                <TextBlock Grid.Row="1" Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind Title}" />
+                                <TextBlock Grid.Row="2" Margin="0,8,0,0" VerticalAlignment="Top" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind Description}" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+                                <HyperlinkButton x:Uid="SampleRow_Search" Grid.Row="3" Margin="-12,0,0,8" Click="OnSearch" />
                             </Grid>
                         </ItemContainer>
                     </DataTemplate>

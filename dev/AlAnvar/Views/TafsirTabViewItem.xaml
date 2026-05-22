@@ -10,15 +10,9 @@
 
     <Grid>
         <ScrollViewer Padding="10">
-            <RichTextBlock x:Name="TafsirRichTextBlock"
-                           common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}"
-                           common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}"
-                           IsHitTestVisible="False"
-                           TextAlignment="Justify" />
+            <RichTextBlock x:Name="TafsirRichTextBlock" common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}" common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}" IsHitTestVisible="False" TextAlignment="Justify" />
         </ScrollViewer>
 
-        <ProgressRing HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
     </Grid>
 </TabViewItem>

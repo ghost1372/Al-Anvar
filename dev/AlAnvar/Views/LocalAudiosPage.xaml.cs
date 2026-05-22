@@ -50,8 +50,8 @@ public sealed partial class LocalAudiosPage : Page
         var items = AudiosTableView.SelectedItems.OfType<AudioItem>().ToList();
         if (items != null && items.Count > 0)
         {
-            var result = await MessageBox.ShowWarningAsync(Strings.LocalAudiosPage_MessageBoxConfirmDelete.GetLocalizedResource(), MessageBoxButtons.YesNo);
-            if (result == MessageBoxResult.YES)
+            var result = await MessageBox.ShowWarningAsync(Strings.LocalAudiosPage_MessageBoxConfirmDelete.GetLocalizedResource(),"", MessageBoxButtons.YesNo);
+            if (result == MessageBoxResult.Yes)
             {
                 await ViewModel.DeleteSelections(items);
                 await ViewModel.GetAvailableLocalAudios();

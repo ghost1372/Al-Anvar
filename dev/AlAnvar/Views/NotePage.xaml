@@ -11,65 +11,35 @@
       xmlns:models="using:AlAnvar.Models"
       mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="SuraTemplate"
-                      x:DataType="models:SuraNode">
-            <TreeViewItem x:Uid="NotePage_CollapsedGlyph"
-                          ItemsSource="{x:Bind Ayas}">
+        <DataTemplate x:Key="SuraTemplate" x:DataType="models:SuraNode">
+            <TreeViewItem x:Uid="NotePage_CollapsedGlyph" ItemsSource="{x:Bind Ayas}">
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <ImageIcon Width="24"
-                               Height="24"
-                               Source="ms-appx:///Assets/Fluent/Library.png" />
-                    <TextBlock Width="150"
-                               VerticalAlignment="Center"
-                               MaxLines="2"
-                               Style="{ThemeResource BaseTextBlockStyle}"
-                               Text="{x:Bind SuraName}" />
+                    <ImageIcon Width="24" Height="24" Source="ms-appx:///Assets/Fluent/Library.png" />
+                    <TextBlock Width="150" VerticalAlignment="Center" MaxLines="2" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind SuraName}" />
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>
 
-        <DataTemplate x:Key="AyaTemplate"
-                      x:DataType="models:AyaNode">
-            <TreeViewItem x:Uid="NotePage_CollapsedGlyph"
-                          ItemsSource="{x:Bind Notes}">
+        <DataTemplate x:Key="AyaTemplate" x:DataType="models:AyaNode">
+            <TreeViewItem x:Uid="NotePage_CollapsedGlyph" ItemsSource="{x:Bind Notes}">
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <ImageIcon Width="24"
-                               Height="24"
-                               Source="ms-appx:///Assets/Fluent/Document.png" />
-                    <TextBlock Width="150"
-                               VerticalAlignment="Center"
-                               MaxLines="2"
-                               Style="{ThemeResource BaseTextBlockStyle}"
-                               Text="{x:Bind AyaText}" />
-                    <InfoBadge Padding="0"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource StringInfoBadgeStyle}"
-                               Tag="{x:Bind NoteCount}" />
+                    <ImageIcon Width="24" Height="24" Source="ms-appx:///Assets/Fluent/Document.png" />
+                    <TextBlock Width="150" VerticalAlignment="Center" MaxLines="2" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind AyaText}" />
+                    <InfoBadge Padding="0" VerticalAlignment="Center" Style="{StaticResource StringInfoBadgeStyle}" Tag="{x:Bind NoteCount}" />
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>
 
-        <DataTemplate x:Key="NoteTemplate"
-                      x:DataType="models:NoteNode">
+        <DataTemplate x:Key="NoteTemplate" x:DataType="models:NoteNode">
             <TreeViewItem>
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <ImageIcon Width="24"
-                               Height="24"
-                               Source="ms-appx:///Assets/Fluent/Edit.png" />
-                    <TextBlock Width="150"
-                               VerticalAlignment="Center"
-                               MaxLines="2"
-                               Style="{ThemeResource BaseTextBlockStyle}"
-                               Text="{x:Bind Title}"
-                               TextWrapping="Wrap" />
+                    <ImageIcon Width="24" Height="24" Source="ms-appx:///Assets/Fluent/Edit.png" />
+                    <TextBlock Width="150" VerticalAlignment="Center" MaxLines="2" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Title}" TextWrapping="Wrap" />
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>
 
-        <common:TreeNodeTemplateSelector x:Key="TreeTemplateSelector"
-                                         AyaTemplate="{StaticResource AyaTemplate}"
-                                         NoteTemplate="{StaticResource NoteTemplate}"
-                                         SuraTemplate="{StaticResource SuraTemplate}" />
+        <common:TreeNodeTemplateSelector x:Key="TreeTemplateSelector" AyaTemplate="{StaticResource AyaTemplate}" NoteTemplate="{StaticResource NoteTemplate}" SuraTemplate="{StaticResource SuraTemplate}" />
 
     </Page.Resources>
     <Grid x:Uid="Main_ReverseFlowDirection" ColumnSpacing="10">
@@ -77,16 +47,8 @@
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Border x:Uid="Main_FlowDirection"
-                Grid.Column="1"
-                Width="290"
-                Padding="5,10,5,10"
-                Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}">
-            <TreeView x:Name="NoteTreeView"
-                      ItemTemplateSelector="{StaticResource TreeTemplateSelector}"
-                      ItemsSource="{x:Bind ViewModel.Notes, Mode=OneWay}"
-                      SelectionChanged="TreeView_SelectionChanged"
-                      SelectionMode="Single" />
+        <Border x:Uid="Main_FlowDirection" Grid.Column="1" Width="290" Padding="5,10,5,10" Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}">
+            <TreeView x:Name="NoteTreeView" ItemTemplateSelector="{StaticResource TreeTemplateSelector}" ItemsSource="{x:Bind ViewModel.Notes, Mode=OneWay}" SelectionChanged="TreeView_SelectionChanged" SelectionMode="Single" />
         </Border>
 
         <Grid Grid.Column="0">
@@ -95,35 +57,21 @@
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border Margin="10"
-                    Padding="10"
-                    HorizontalAlignment="Stretch"
-                    Background="{ThemeResource CommandBarBackgroundOpen}"
-                    BorderBrush="{ThemeResource CommandBarBorderBrushOpen}"
-                    BorderThickness="1"
-                    CornerRadius="{ThemeResource OverlayCornerRadius}">
+            <Border Margin="10" Padding="10" HorizontalAlignment="Stretch" Background="{ThemeResource CommandBarBackgroundOpen}" BorderBrush="{ThemeResource CommandBarBorderBrushOpen}" BorderThickness="1" CornerRadius="{ThemeResource OverlayCornerRadius}">
                 <StackPanel x:Uid="Main_FlowDirection" HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
-                    <Button x:Name="BtnAdd"
-                            Click="OnAdd"
-                            Style="{ThemeResource SubtleButtonStyle}">
+                    <Button x:Name="BtnAdd" Click="OnAdd" Style="{ThemeResource SubtleButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="5">
                             <FontIcon Glyph="&#xE710;" />
                             <TextBlock x:Uid="NotePage_Add" />
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnSave"
-                            Click="OnSave"
-                            IsEnabled="False"
-                            Style="{ThemeResource SubtleButtonStyle}">
+                    <Button x:Name="BtnSave" Click="OnSave" IsEnabled="False" Style="{ThemeResource SubtleButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="5">
                             <FontIcon Glyph="&#xE74E;" />
                             <TextBlock x:Uid="NotePage_Save" />
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnDelete"
-                            Click="OnDelete"
-                            IsEnabled="False"
-                            Style="{ThemeResource SubtleButtonStyle}">
+                    <Button x:Name="BtnDelete" Click="OnDelete" IsEnabled="False" Style="{ThemeResource SubtleButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="5">
                             <FontIcon Glyph="&#xE74D;" />
                             <TextBlock x:Uid="NotePage_Delete" />
@@ -131,89 +79,46 @@
                     </Button>
                 </StackPanel>
             </Border>
-            <ScrollViewer Grid.Row="1"
-                          Padding="10">
+            <ScrollViewer Grid.Row="1" Padding="10">
                 <StackPanel x:Uid="Main_FlowDirection" Margin="10,10" Spacing="10">
                     <StackPanel Orientation="Horizontal" Spacing="10">
-                        <dev:Shield x:Name="CreatedShield"
-                                    x:Uid="NotePage_CreatedDate" />
-                        <dev:Shield x:Name="UpdatedShield"
-                                    x:Uid="NotePage_UpdatedDate"
-                                    Color="{ThemeResource SystemFillColorSuccessBrush}" />
+                        <dev:Shield x:Name="CreatedShield" x:Uid="NotePage_CreatedDate" />
+                        <dev:Shield x:Name="UpdatedShield" x:Uid="NotePage_UpdatedDate" Color="{ThemeResource SystemFillColorSuccessBrush}" />
                     </StackPanel>
                     <NavigationViewItemSeparator />
                     <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal" Spacing="10">
-                        <ComboBox x:Name="CmbQuranSura"
-                                  x:Uid="QuranTabViewItem_DialogContentSura"
-                                  MinWidth="200"
-                                  HorizontalAlignment="Stretch"
-                                  IsEnabled="False"
-                                  ItemsSource="{x:Bind ViewModel.QuranMetaItems, Mode=OneWay}"
-                                  SelectedIndex="-1"
-                                  SelectionChanged="CmbQuranSura_SelectionChanged">
+                        <ComboBox x:Name="CmbQuranSura" x:Uid="QuranTabViewItem_DialogContentSura" MinWidth="200" HorizontalAlignment="Stretch" IsEnabled="False" ItemsSource="{x:Bind ViewModel.QuranMetaItems, Mode=OneWay}" SelectedIndex="-1" SelectionChanged="CmbQuranSura_SelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate x:DataType="database:QuranMetadataTable">
                                     <StackPanel Orientation="Horizontal" Spacing="5">
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
-                                                   Text="{x:Bind Id}" />
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
-                                                   Text=" - " />
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
-                                                   Text="{x:Bind Name}" />
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Id}" />
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text=" - " />
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Name}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <ComboBox x:Name="CmbQuranVerse"
-                                  x:Uid="QuranTabViewItem_DialogContentVerse"
-                                  MinWidth="200"
-                                  HorizontalAlignment="Stretch"
-                                  IsEnabled="False"
-                                  ItemsSource="{x:Bind ViewModel.QuranVerses, Mode=OneWay}"
-                                  SelectedIndex="-1">
+                        <ComboBox x:Name="CmbQuranVerse" x:Uid="QuranTabViewItem_DialogContentVerse" MinWidth="200" HorizontalAlignment="Stretch" IsEnabled="False" ItemsSource="{x:Bind ViewModel.QuranVerses, Mode=OneWay}" SelectedIndex="-1">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate x:DataType="models:FinalQuran">
                                     <StackPanel Orientation="Horizontal" Spacing="5">
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
-                                                   Text="{x:Bind AyaId}" />
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
-                                                   Text=" - " />
-                                        <TextBlock Width="200"
-                                                   Style="{ThemeResource BaseTextBlockStyle}"
-                                                   Text="{x:Bind DisplayAya}"
-                                                   TextWrapping="NoWrap" />
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind AyaId}" />
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text=" - " />
+                                        <TextBlock Width="200" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind DisplayAya}" TextWrapping="NoWrap" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </StackPanel>
-                    <TextBox x:Name="TxtTitle"
-                             x:Uid="NotePage_Title"
-                             HorizontalAlignment="Stretch"
-                             IsEnabled="False" />
-                    <TextBox x:Name="TxtNote"
-                             x:Uid="NotePage_Note"
-                             MinHeight="200"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Stretch"
-                             AcceptsReturn="True"
-                             IsEnabled="False"
-                             TextWrapping="Wrap" />
+                    <TextBox x:Name="TxtTitle" x:Uid="NotePage_Title" HorizontalAlignment="Stretch" IsEnabled="False" />
+                    <TextBox x:Name="TxtNote" x:Uid="NotePage_Note" MinHeight="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" IsEnabled="False" TextWrapping="Wrap" />
                 </StackPanel>
             </ScrollViewer>
-            <InfoBar x:Name="NoteInfoBar"
-                     x:Uid="Main_FlowDirection"
-                     Grid.Row="2" />
+            <InfoBar x:Name="NoteInfoBar" x:Uid="Main_FlowDirection" Grid.Row="2" />
         </Grid>
 
-        <ProgressRing Grid.Column="1"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <ProgressRing Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
 
-        <TeachingTip x:Uid="NoteNotFoundNotificationText"
-                     IsLightDismissEnabled="True"
-                     IsOpen="{x:Bind ViewModel.ShowNoteNotFound, Mode=TwoWay}"
-                     Target="{x:Bind NoteTreeView}" />
+        <TeachingTip x:Uid="NoteNotFoundNotificationText" IsLightDismissEnabled="True" IsOpen="{x:Bind ViewModel.ShowNoteNotFound, Mode=TwoWay}" Target="{x:Bind NoteTreeView}" />
     </Grid>
 </Page>

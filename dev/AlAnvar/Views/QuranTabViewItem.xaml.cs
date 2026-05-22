@@ -305,12 +305,20 @@ public sealed partial class QuranTabViewItem : TabViewItem
     }
 
     private async void BtnNote_Click(object sender, RoutedEventArgs e)
+    {        
+        var button = sender as Button;
+        if (button != null && button.DataContext is FinalQuran finalQuran)
+        {
+            await AddNewNote(finalQuran);
+        }
+    }
+
+    private async Task AddNewNote(FinalQuran finalQuran)
     {
         if (!await EnsureDatabaseExistsAsync())
             return;
 
-        var button = sender as Button;
-        if (button != null && button.DataContext is FinalQuran finalQuran)
+        if (finalQuran != null)
         {
             var dialog = Resources["AddNoteDialog"] as WindowedContentDialog;
             if (dialog != null)
@@ -324,17 +332,17 @@ public sealed partial class QuranTabViewItem : TabViewItem
                 noteSuraId = finalQuran.SuraId;
                 noteVerseId = finalQuran.AyaId;
 
-                dialog.OwnerWindow = App.MainWindow;
+                dialog.Owner = App.MainWindow;
 
                 dialog.PrimaryButtonClick -= OnDialogPrimaryButtonClick;
                 dialog.PrimaryButtonClick += OnDialogPrimaryButtonClick;
 
-                await dialog.ShowAsync(true);
+                await dialog.ShowAsync();
             }
         }
     }
 
-    private async void OnDialogPrimaryButtonClick(WindowedContentDialog sender, System.ComponentModel.CancelEventArgs args)
+    private async void OnDialogPrimaryButtonClick(object sender, EventArgs args)
     {
         try
         {
@@ -388,6 +396,9 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
             switch (menu.Tag.ToString())
             {
+                case "Note":
+                    await AddNewNote(finalQuran);
+                    break;
                 case "CopyVerse":
                     CopyToClipboard(finalQuran.Aya);
                     break;
@@ -487,14 +498,14 @@ public sealed partial class QuranTabViewItem : TabViewItem
 
                     var dialog = new WindowedContentDialog()
                     {
-                        Title = Strings.QuranTabViewItem_DialogTitle.GetLocalizedResource(),
-                        PrimaryButtonText = Strings.QuranTabViewItem_DialogPrimaryButtonText.GetLocalizedResource(),
-                        SecondaryButtonText = Strings.QuranTabViewItem_DialogSecondaryButtonText.GetLocalizedResource(),
+                        Header = Strings.QuranTabViewItem_DialogTitle.GetLocalizedResource(),
+                        PrimaryButtonContent = Strings.QuranTabViewItem_DialogPrimaryButtonText.GetLocalizedResource(),
+                        SecondaryButtonContent = Strings.QuranTabViewItem_DialogSecondaryButtonText.GetLocalizedResource(),
                         DefaultButton = ContentDialogButton.Primary,
-                        OwnerWindow = App.MainWindow,
+                        Owner = App.MainWindow,
                         HasTitleBar = false,
-                        ContentMinWidth = 500,
-                        ContentFlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource())
+                        MinWidth = 500,
+                        FlowDirection = GeneralHelper.GetEnum<FlowDirection>(Strings.Main_FlowDirection_FlowDirection.GetLocalizedResource())
                     };
 
                     var fromNumberBox = new NumberBox
@@ -527,9 +538,9 @@ public sealed partial class QuranTabViewItem : TabViewItem
                     dialog.PrimaryButtonClick -= OnPrimaryClick;
                     dialog.PrimaryButtonClick += OnPrimaryClick;
 
-                    await dialog.ShowAsync(true);
+                    await dialog.ShowAsync();
 
-                    async void OnPrimaryClick(WindowedContentDialog sender, System.ComponentModel.CancelEventArgs args)
+                    async void OnPrimaryClick(object sender, EventArgs args)
                     {
                         var folderPath = Path.Combine(Settings.AudiosPath, Settings.Audio.DirName);
                         if (Directory.Exists(folderPath))

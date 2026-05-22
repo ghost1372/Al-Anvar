@@ -11,15 +11,9 @@
              xmlns:tv="using:WinUI.TableView"
              mc:Ignorable="d">
     <TabViewItem.Resources>
-        <dev:WindowedContentDialog x:Key="AddNoteDialog"
-                                   x:Uid="QuranTabViewItem_Dialog"
-                                   ContentMinWidth="700"
-                                   DefaultButton="Primary"
-                                   IsPrimaryButtonEnabled="{x:Bind ViewModel.CanSaveNote, Mode=OneWay}"
-                                   IsResizable="True"
-                                   Underlay="SmokeLayer">
+        <dev:WindowedContentDialog x:Key="AddNoteDialog" x:Uid="QuranTabViewItem_Dialog" MinWidth="700" CanResize="True" DefaultButton="Primary" IsPrimaryButtonEnabled="{x:Bind ViewModel.CanSaveNote, Mode=OneWay}">
             <dev:WindowedContentDialog.SystemBackdrop>
-                <MicaBackdrop />
+                <DesktopAcrylicBackdrop />
             </dev:WindowedContentDialog.SystemBackdrop>
             <Grid x:Uid="Main_FlowDirection" ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
@@ -28,24 +22,13 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <StackPanel Width="250" Spacing="10">
-                    <TextBox x:Uid="QuranTabViewItem_DialogContentSura"
-                             HorizontalAlignment="Stretch"
-                             IsReadOnly="True"
-                             Text="{x:Bind ViewModel.SuraNote, Mode=OneWay}" />
-                    <TextBox x:Uid="QuranTabViewItem_DialogContentVerse"
-                             HorizontalAlignment="Stretch"
-                             IsReadOnly="True"
-                             Text="{x:Bind ViewModel.VerseNote, Mode=OneWay}" />
+                    <TextBox x:Uid="QuranTabViewItem_DialogContentSura" HorizontalAlignment="Stretch" IsReadOnly="True" Text="{x:Bind ViewModel.SuraNote, Mode=OneWay}" />
+                    <TextBox x:Uid="QuranTabViewItem_DialogContentVerse" HorizontalAlignment="Stretch" IsReadOnly="True" Text="{x:Bind ViewModel.VerseNote, Mode=OneWay}" />
                 </StackPanel>
                 <AppBarSeparator Grid.Column="1" />
                 <StackPanel Grid.Column="2" Spacing="10">
-                    <TextBox x:Uid="QuranTabViewItem_DialogContentTitle"
-                             Text="{x:Bind ViewModel.TitleNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBox x:Uid="QuranTabViewItem_DialogContentNote"
-                             MinHeight="200"
-                             AcceptsReturn="True"
-                             Text="{x:Bind ViewModel.DescriptionNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             TextWrapping="Wrap" />
+                    <TextBox x:Uid="QuranTabViewItem_DialogContentTitle" Text="{x:Bind ViewModel.TitleNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox x:Uid="QuranTabViewItem_DialogContentNote" MinHeight="200" AcceptsReturn="True" Text="{x:Bind ViewModel.DescriptionNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
                 </StackPanel>
             </Grid>
         </dev:WindowedContentDialog>
@@ -55,12 +38,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <tv:TableView x:Name="QuranTableView"
-                      Margin="10"
-                      AutoGenerateColumns="False"
-                      ItemsSource="{x:Bind ViewModel.Sura, Mode=OneWay}"
-                      SelectionChanged="OnSelectionChanged"
-                      ShowExportOptions="True">
+        <tv:TableView x:Name="QuranTableView" Margin="10" AutoGenerateColumns="False" ItemsSource="{x:Bind ViewModel.Sura, Mode=OneWay}" SelectionChanged="OnSelectionChanged" ShowExportOptions="True">
             <tv:TableView.ItemTemplate>
                 <DataTemplate x:DataType="models:FinalQuran">
                     <Grid Margin="15,0">
@@ -75,192 +53,66 @@
                         </Grid.RowDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem x:Name="MnuPlay"
-                                                x:Uid="QuranTabViewItem_MenuPlay"
-                                                Click="OnMenuClicked"
-                                                Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Play.png}"
-                                                Tag="Play" />
-                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuExport"
-                                                     Click="OnMenuClicked"
-                                                     Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Folder.png}"
-                                                     Tag="Export">
+                                <MenuFlyoutItem x:Name="MnuPlay" x:Uid="QuranTabViewItem_MenuPlay" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Play.png}" Tag="Play" />
+                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuExport" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Folder.png}" Tag="Export">
                                     <SplitMenuFlyoutItem.Items>
-                                        <MenuFlyoutItem x:Name="MnuExport"
-                                                        x:Uid="QuranTabViewItem_MenuExportSingle"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Export.png}"
-                                                        Tag="Export" />
-                                        <MenuFlyoutItem x:Name="MnuExportAll"
-                                                        x:Uid="QuranTabViewItem_MenuExportAll"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/ExportAll.png}"
-                                                        Tag="ExportAll" />
-                                        <MenuFlyoutItem x:Name="MnuExportCustom"
-                                                        x:Uid="QuranTabViewItem_MenuExportCustom"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Export.png}"
-                                                        Tag="ExportCustom" />
+                                        <MenuFlyoutItem x:Name="MnuExport" x:Uid="QuranTabViewItem_MenuExportSingle" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Export.png}" Tag="Export" />
+                                        <MenuFlyoutItem x:Name="MnuExportAll" x:Uid="QuranTabViewItem_MenuExportAll" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/ExportAll.png}" Tag="ExportAll" />
+                                        <MenuFlyoutItem x:Name="MnuExportCustom" x:Uid="QuranTabViewItem_MenuExportCustom" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Export.png}" Tag="ExportCustom" />
                                     </SplitMenuFlyoutItem.Items>
                                 </SplitMenuFlyoutItem>
 
                                 <MenuFlyoutSeparator />
 
-                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuTafsir"
-                                                     Click="OnMenuClicked"
-                                                     CommandParameter="AlMizan"
-                                                     Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Library.png}"
-                                                     Tag="Tafsir">
+                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuTafsir" Click="OnMenuClicked" CommandParameter="AlMizan" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Library.png}" Tag="Tafsir">
                                     <SplitMenuFlyoutItem.Items>
-                                        <MenuFlyoutItem x:Uid="QuranTabViewItem_MenuTafsirAlMizan"
-                                                        Click="OnMenuClicked"
-                                                        CommandParameter="AlMizan"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Quran.png}"
-                                                        Tag="Tafsir" />
-                                        <MenuFlyoutItem x:Uid="QuranTabViewItem_MenuTafsirNemone"
-                                                        Click="OnMenuClicked"
-                                                        CommandParameter="Nemone"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Quran.png}"
-                                                        Tag="Tafsir" />
+                                        <MenuFlyoutItem x:Uid="QuranTabViewItem_MenuTafsirAlMizan" Click="OnMenuClicked" CommandParameter="AlMizan" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Quran.png}" Tag="Tafsir" />
+                                        <MenuFlyoutItem x:Uid="QuranTabViewItem_MenuTafsirNemone" Click="OnMenuClicked" CommandParameter="Nemone" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Quran.png}" Tag="Tafsir" />
                                     </SplitMenuFlyoutItem.Items>
                                 </SplitMenuFlyoutItem>
 
                                 <MenuFlyoutSeparator />
 
-                                <MenuFlyoutItem x:Name="MnuFavorite"
-                                                x:Uid="QuranTabViewItem_MenuFavorite"
-                                                Click="OnMenuClicked"
-                                                CommandParameter="{Binding ElementName=TGFavorite}"
-                                                Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Star.png}"
-                                                Tag="Favorite" />
-                                <MenuFlyoutItem x:Name="MnuNote"
-                                                x:Uid="QuranTabViewItem_MenuNote"
-                                                Click="OnMenuClicked"
-                                                CommandParameter="{Binding ElementName=BtnNote}"
-                                                Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Note.png}"
-                                                Tag="Note" />
+                                <MenuFlyoutItem x:Name="MnuFavorite" x:Uid="QuranTabViewItem_MenuFavorite" Click="OnMenuClicked" CommandParameter="{Binding ElementName=TGFavorite}" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Star.png}" Tag="Favorite" />
+                                <MenuFlyoutItem x:Name="MnuNote" x:Uid="QuranTabViewItem_MenuNote" Click="OnMenuClicked" CommandParameter="{Binding ElementName=BtnNote}" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Note.png}" Tag="Note" />
                                 <MenuFlyoutSeparator />
 
-                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuCopy"
-                                                     Click="OnMenuClicked"
-                                                     Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
-                                                     Tag="CopyVerse">
+                                <SplitMenuFlyoutItem x:Uid="QuranTabViewItem_MenuCopy" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" Tag="CopyVerse">
                                     <SplitMenuFlyoutItem.Items>
-                                        <MenuFlyoutItem x:Name="MnuCopyVerse"
-                                                        x:Uid="QuranTabViewItem_MenuCopyVerse"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
-                                                        Tag="CopyVerse" />
-                                        <MenuFlyoutItem x:Name="MnuCopyTranslation"
-                                                        x:Uid="QuranTabViewItem_MenuCopyTranslation"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}"
-                                                        Tag="CopyTranslation"
-                                                        Visibility="{x:Bind Translation, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}" />
-                                        <MenuFlyoutItem x:Name="MnuCopyAll"
-                                                        x:Uid="QuranTabViewItem_MenuCopyAll"
-                                                        Click="OnMenuClicked"
-                                                        Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/CopyAll.png}"
-                                                        Tag="CopyAll" />
+                                        <MenuFlyoutItem x:Name="MnuCopyVerse" x:Uid="QuranTabViewItem_MenuCopyVerse" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" Tag="CopyVerse" />
+                                        <MenuFlyoutItem x:Name="MnuCopyTranslation" x:Uid="QuranTabViewItem_MenuCopyTranslation" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" Tag="CopyTranslation" Visibility="{x:Bind Translation, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}" />
+                                        <MenuFlyoutItem x:Name="MnuCopyAll" x:Uid="QuranTabViewItem_MenuCopyAll" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/CopyAll.png}" Tag="CopyAll" />
                                     </SplitMenuFlyoutItem.Items>
                                 </SplitMenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
-                        <TextBlock Padding="5,10,5,5"
-                                   FlowDirection="LeftToRight"
-                                   FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
-                                   FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
-                                   Foreground="{x:Bind common:ProxyService.Instance.QuranColor, Mode=OneWay}"
-                                   Tag="Ayat"
-                                   Text="{x:Bind DisplayAya, Mode=OneWay}"
-                                   TextAlignment="{x:Bind common:ProxyService.Instance.VerseTextAlignment, Mode=OneWay}"
-                                   TextWrapping="Wrap"
-                                   Visibility="{x:Bind common:ProxyService.Instance.IsAyaVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <TextBlock Padding="5,10,5,5" FlowDirection="LeftToRight" FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}" FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}" Foreground="{x:Bind common:ProxyService.Instance.QuranColor, Mode=OneWay}" Tag="Ayat" Text="{x:Bind DisplayAya, Mode=OneWay}" TextAlignment="{x:Bind common:ProxyService.Instance.VerseTextAlignment, Mode=OneWay}" TextWrapping="Wrap" Visibility="{x:Bind common:ProxyService.Instance.IsAyaVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-                        <TextBlock Grid.Row="1"
-                                   Padding="5,0,5,5"
-                                   FlowDirection="LeftToRight"
-                                   FontFamily="{x:Bind common:ProxyService.Instance.TranslationFontFamily, Mode=OneWay}"
-                                   FontSize="{x:Bind common:ProxyService.Instance.TranslationFontSize, Mode=OneWay}"
-                                   Foreground="{x:Bind common:ProxyService.Instance.TranslationColor, Mode=OneWay}"
-                                   Tag="Translation"
-                                   Text="{x:Bind Translation, Mode=OneWay}"
-                                   TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}"
-                                   TextWrapping="Wrap"
-                                   Visibility="{x:Bind common:ProxyService.Instance.IsTranslationVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        <Border Grid.RowSpan="2"
-                                Grid.Column="1"
-                                Width="32"
-                                Height="32"
-                                VerticalAlignment="Center"
-                                BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
-                                BorderThickness="1"
-                                CornerRadius="100">
-                            <Viewbox HorizontalAlignment="Center"
-                                     VerticalAlignment="Center">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}"
-                                           FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}"
-                                           FontWeight="Bold"
-                                           Foreground="{x:Bind common:ProxyService.Instance.QuranNumberColor, Mode=OneWay}"
-                                           Style="{ThemeResource BaseTextBlockStyle}"
-                                           Tag="AyatNumber"
-                                           Text="{x:Bind AyaId, Mode=OneWay}" />
+                        <TextBlock Grid.Row="1" Padding="5,0,5,5" FlowDirection="LeftToRight" FontFamily="{x:Bind common:ProxyService.Instance.TranslationFontFamily, Mode=OneWay}" FontSize="{x:Bind common:ProxyService.Instance.TranslationFontSize, Mode=OneWay}" Foreground="{x:Bind common:ProxyService.Instance.TranslationColor, Mode=OneWay}" Tag="Translation" Text="{x:Bind Translation, Mode=OneWay}" TextAlignment="{x:Bind common:ProxyService.Instance.TranslationTextAlignment, Mode=OneWay}" TextWrapping="Wrap" Visibility="{x:Bind common:ProxyService.Instance.IsTranslationVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Border Grid.RowSpan="2" Grid.Column="1" Width="32" Height="32" VerticalAlignment="Center" BorderBrush="{ThemeResource AccentFillColorDefaultBrush}" BorderThickness="1" CornerRadius="100">
+                            <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{x:Bind common:ProxyService.Instance.QuranFontFamily, Mode=OneWay}" FontSize="{x:Bind common:ProxyService.Instance.QuranFontSize, Mode=OneWay}" FontWeight="Bold" Foreground="{x:Bind common:ProxyService.Instance.QuranNumberColor, Mode=OneWay}" Style="{ThemeResource BaseTextBlockStyle}" Tag="AyatNumber" Text="{x:Bind AyaId, Mode=OneWay}" />
                             </Viewbox>
                         </Border>
 
                         <StackPanel Grid.Row="2" Margin="0,0,0,10" Orientation="Horizontal" Spacing="5" Visibility="{x:Bind common:ProxyService.Instance.IsOperationButtonVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <dev:CopyButton x:Name="BtnCopy"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Click="BtnCopy_Click" />
-                            <ToggleButton x:Name="TGFavorite"
-                                          Background="Transparent"
-                                          BorderThickness="0"
-                                          Checked="OnToggleButtonChecked"
-                                          FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                          IsChecked="{x:Bind IsFavorite, Mode=OneWay}"
-                                          Unchecked="OnToggleButtonChecked">
-                                <FontIcon FontSize="16"
-                                          Glyph="&#xE734;" />
+                            <dev:CopyButton x:Name="BtnCopy" Background="Transparent" BorderThickness="0" Click="BtnCopy_Click" />
+                            <ToggleButton x:Name="TGFavorite" Background="Transparent" BorderThickness="0" Checked="OnToggleButtonChecked" FontFamily="{StaticResource SymbolThemeFontFamily}" IsChecked="{x:Bind IsFavorite, Mode=OneWay}" Unchecked="OnToggleButtonChecked">
+                                <FontIcon FontSize="16" Glyph="&#xE734;" />
                             </ToggleButton>
-                            <Button x:Name="BtnNote"
-                                    Click="BtnNote_Click"
-                                    Content="&#xE70B;"
-                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                    FontSize="16"
-                                    Style="{ThemeResource SubtleButtonStyle}" />
+                            <Button x:Name="BtnNote" Click="BtnNote_Click" Content="&#xE70B;" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Style="{ThemeResource SubtleButtonStyle}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </tv:TableView.ItemTemplate>
         </tv:TableView>
-        <Border x:Name="AudioPlayerHost"
-                Grid.Row="1"
-                Margin="5,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom"
-                Background="{ThemeResource MediaPlayerPanelBackground}"
-                BorderBrush="{ThemeResource MediaPlayerBorderBrush}"
-                BorderThickness="1"
-                CornerRadius="8,8,0,0"
-                Visibility="Collapsed">
+        <Border x:Name="AudioPlayerHost" Grid.Row="1" Margin="5,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="{ThemeResource MediaPlayerPanelBackground}" BorderBrush="{ThemeResource MediaPlayerBorderBrush}" BorderThickness="1" CornerRadius="8,8,0,0" Visibility="Collapsed">
             <StackPanel Spacing="5">
-                <MediaPlayerElement x:Name="AudioPlayer"
-                                    HorizontalAlignment="Stretch"
-                                    AreTransportControlsEnabled="True"
-                                    AutoPlay="False" />
-                <dev:StorageBar x:Name="AudioStorageBar"
-                                Margin="10,0,10,10"
-                                PercentCaution="1000"
-                                PercentCritical="1001"
-                                Visibility="Collapsed"
-                                Value="0" />
+                <MediaPlayerElement x:Name="AudioPlayer" HorizontalAlignment="Stretch" AreTransportControlsEnabled="True" AutoPlay="False" />
+                <dev:StorageBar x:Name="AudioStorageBar" Margin="10,0,10,10" PercentCaution="1000" PercentCritical="1001" Visibility="Collapsed" Value="0" />
             </StackPanel>
         </Border>
 
-        <ProgressRing HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
     </Grid>
 </TabViewItem>
