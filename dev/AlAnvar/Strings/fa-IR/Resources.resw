@@ -1083,7 +1083,7 @@
   <data name="SearchPage_Translation.Header" xml:space="preserve">
     <value>ترجمه</value>
   </data>
-  <data name="SearchPage_SuraId" xml:space="preserve">
+  <data name="SearchPage_SuraId.Header" xml:space="preserve">
     <value>شماره سوره</value>
   </data>
 </root>

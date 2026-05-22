@@ -88,4 +88,9 @@ public sealed partial class TafsirPage : Page
 
         ViewModel.IsActive = false;
     }
+
+    public async void OnMenuClicked(object sender, RoutedEventArgs e)
+    {
+        CopyToClipboard(paragraph);
+    }
 }

@@ -4,15 +4,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:common="using:AlAnvar.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dev="using:DevWinUI"
              xmlns:local="using:AlAnvar.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
 
     <Grid>
         <ScrollViewer Padding="10">
-            <RichTextBlock x:Name="TafsirRichTextBlock" common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}" common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}" IsHitTestVisible="False" TextAlignment="Justify" />
+            <RichTextBlock x:Name="TafsirRichTextBlock" common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}" common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}" IsHitTestVisible="False" IsTextSelectionEnabled="True" TextAlignment="Justify" />
         </ScrollViewer>
-
         <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+        <Grid.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem x:Uid="QuranTabViewItem_MenuCopy" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" />
+            </MenuFlyout>
+        </Grid.ContextFlyout>
     </Grid>
 </TabViewItem>

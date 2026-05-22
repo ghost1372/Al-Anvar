@@ -5,6 +5,7 @@
       xmlns:common="using:AlAnvar.Common"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:database="using:AlAnvar.Database.Tables"
+      xmlns:dev="using:DevWinUI"
       xmlns:local="using:AlAnvar.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="using:AlAnvar.Models"
@@ -56,8 +57,12 @@
             <ScrollViewer x:Uid="Main_FlowDirection" Padding="10">
                 <RichTextBlock x:Name="TafsirRichTextBlock" common:RichTextBlockExtensions.HighlightingText="{x:Bind ViewModel.Query, Mode=OneWay}" common:RichTextBlockExtensions.Text="{x:Bind paragraph, Mode=OneWay}" IsHitTestVisible="False" TextAlignment="Justify" />
             </ScrollViewer>
-
             <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+            <Grid.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem x:Uid="QuranTabViewItem_MenuCopy" Click="OnMenuClicked" Icon="{dev:BitmapIcon Source=ms-appx:///Assets/Fluent/Copy.png}" />
+                </MenuFlyout>
+            </Grid.ContextFlyout>
         </Grid>
     </Grid>
 </Page>

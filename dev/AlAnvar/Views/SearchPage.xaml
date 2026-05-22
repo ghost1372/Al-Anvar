@@ -26,7 +26,7 @@
                 </MenuFlyout>
             </tv:TableView.RowContextFlyout>
             <tv:TableView.Columns>
-                <tv:TableViewTextColumn x:Uid="SearchPage_SuraId" Width="80" Binding="{Binding SuraId}" />
+                <tv:TableViewTextColumn x:Uid="SearchPage_SuraId" Width="100" Binding="{Binding SuraId}" />
                 <tv:TableViewTextColumn x:Uid="SearchPage_SuraName" Width="100" Binding="{Binding SuraName}" />
                 <tv:TableViewTextColumn x:Uid="SearchPage_AyaId" Width="80" Binding="{Binding AyaId}" />
                 <tv:TableViewTemplateColumn x:Uid="SearchPage_AyaText" Width="500" CanFilter="True" CanSort="True">

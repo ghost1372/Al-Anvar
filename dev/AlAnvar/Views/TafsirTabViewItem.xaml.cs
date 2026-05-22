@@ -77,4 +77,9 @@ public sealed partial class TafsirTabViewItem : TabViewItem
 
         ViewModel.IsActive = false;
     }
+
+    public async void OnMenuClicked(object sender, RoutedEventArgs e)
+    {
+        CopyToClipboard(paragraph);
+    }
 }
