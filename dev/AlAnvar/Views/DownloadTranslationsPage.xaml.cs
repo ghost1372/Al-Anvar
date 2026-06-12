@@ -96,7 +96,7 @@ public sealed partial class DownloadTranslationsPage : Page
             dialog.SecondaryButtonClick -= OnDialogSecondaryButtonClick;
             dialog.SecondaryButtonClick += OnDialogSecondaryButtonClick;
 
-            dialog.ShowDialog();
+            await dialog.ShowDialogAsync();
         }
     }
 

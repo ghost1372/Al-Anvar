@@ -371,7 +371,7 @@ public sealed partial class QuranPage : Page
             ViewModel.TitleNote = string.Empty;
             ViewModel.DescriptionNote = string.Empty;
 
-            dialog.ShowDialog();
+            await dialog.ShowDialogAsync();
         }
     }
 
