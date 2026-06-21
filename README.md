@@ -21,6 +21,11 @@ In the name of God
 الانوار یک نرم افزار قرآنی بازنویسی شده از روی نسخه کلاسیک، بصورت متن باز و برپایه WinUI 3 می باشد.
 </div>
 
+<a href="https://apps.microsoft.com/detail/AlAnvar/9P5Q71VW0G06?launch=true
+	&mode=mini">
+	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
+</a>
+
 ![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/1.png)
 ![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/2.png)
 ![AlAnvar](https://raw.githubusercontent.com/ghost1372/App-Resources/refs/heads/main/AlAnvar/ScreenShots/3.png)
