@@ -6,10 +6,8 @@ namespace AlAnvar.ViewModels;
 
 public partial class GeneralSettingViewModel : ObservableObject
 {
-    public ObservableCollection<AppLanguageItem> AppLanguages => AppLanguageHelper.SupportedLanguages;
-
     [ObservableProperty]
-    public partial int SelectedAppLanguageIndex { get; set; }
+    public partial int SelectedAppLanguageIndex { get; set; } = AppLanguageHelper.SupportedLanguages.IndexOf(AppLanguageHelper.PreferredLanguage);
     partial void OnSelectedAppLanguageIndexChanged(int value)
     {
         if (AppLanguageHelper.TryChange(value))

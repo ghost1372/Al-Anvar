@@ -16,7 +16,7 @@
     <Nullable>disable</Nullable>
     <TrimMode>partial</TrimMode>
     <ImplicitUsings>true</ImplicitUsings>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>latest</LangVersion>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <IsAotCompatible>true</IsAotCompatible>
     <CsWinRTAotWarningLevel>2</CsWinRTAotWarningLevel>
@@ -57,6 +57,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TrimmerRootDescriptor Include="ILLink.Descriptors.xml" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
   <!-- 
@@ -72,9 +76,9 @@
     <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.3.260402-preview2" />
     <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.3.260402-preview2" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.Ribbon" Version="0.1.250826-build.2212" />
-    <PackageReference Include="DevWinUI" Version="10.0.0" />
+    <PackageReference Include="DevWinUI" Version="10.1.0" />
     <PackageReference Include="DevWinUI.SourceGenerator" Version="10.0.0" />
-    <PackageReference Include="Downloader" Version="5.8.1" />
+    <PackageReference Include="Downloader" Version="5.9.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.3.0-prerelease.251115.2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1839" />
@@ -82,14 +86,22 @@
     <PackageReference Include="nucs.JsonSettings" Version="2.0.2" />
     <PackageReference Include="nucs.JsonSettings.AutoSaveGenerator" Version="2.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Serilog" Version="4.3.1" />
+    <PackageReference Include="Serilog" Version="4.4.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-    <PackageReference Include="WinUI.TableView" Version="1.4.1" />
+    <PackageReference Include="WinUI.TableView" Version="1.5.0-preview1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlAnvar.Database\AlAnvar.Database.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
+    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
+    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
+    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <DefaultLanguage>fa-IR</DefaultLanguage>
+  </PropertyGroup>
+  
   <!-- 
 	Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
 	Explorer "Package and Publish" context menu entry to be enabled for this project even if 

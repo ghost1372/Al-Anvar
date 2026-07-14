@@ -34,7 +34,7 @@
             </dev:SettingsCard>
 
             <dev:SettingsCard x:Uid="GeneralSettingPage_Language" HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Language.png}">
-                <ComboBox x:Name="CmbLanguage" MinWidth="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{x:Bind ViewModel.AppLanguages}" SelectedIndex="{x:Bind ViewModel.SelectedAppLanguageIndex, Mode=TwoWay}">
+                <ComboBox x:Name="CmbLanguage" MinWidth="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{x:Bind dev:AppLanguageHelper.SupportedLanguages}" SelectedIndex="{x:Bind ViewModel.SelectedAppLanguageIndex, Mode=TwoWay}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="dev:AppLanguageItem">
                             <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Name}" />

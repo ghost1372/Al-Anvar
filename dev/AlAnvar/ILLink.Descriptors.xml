@@ -1,0 +1,3 @@
+﻿<linker>
+	<assembly fullname="WinUI.TableView" preserve="all" />
+</linker>
