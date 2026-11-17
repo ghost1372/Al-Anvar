@@ -46,15 +46,14 @@ jobs:
         platform: [x86, x64, ARM64] # Change platform if you want to build only a specific platform
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         fetch-depth: 0
         
-    - uses: actions/setup-dotnet@v5
+    - uses: actions/setup-dotnet@v6
       with:
        dotnet-version: | 
-         9.x.x
-         10.x.x
+         11.x.x
 
     # Add CommunityToolkit Labs and Main nuget sources
     - run: |

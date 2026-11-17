@@ -1,32 +1,33 @@
 ﻿using AlAnvar.Models;
-using Nucs.JsonSettings.Examples;
+using Nucs.JsonSettings;
+using Nucs.JsonSettings.Autosave;
 using Nucs.JsonSettings.Modulation;
 
 namespace AlAnvar.Common;
 
-[GenerateAutoSaveOnChange]
+[Autosave]
 public partial class AppConfig : NotifiyingJsonSettings, IVersionable
 {
     [EnforcedVersion("3.0.0.2")]
     public Version Version { get; set; } = new Version(3, 0, 0, 2);
 
-    private string fileName { get; set; } = Constants.AppConfigPath;
-    private string dBPath { get; set; } = Constants.DatabaseFilePath;
-    private string lastUpdateCheck { get; set; }
-    private string audiosPath { get; set; } = Constants.AudiosPath;
-    private string translationsPath { get; set; } = Constants.TranslationsPath;
+    public override string FileName { get; set; } = Constants.AppConfigPath;
+    public string DBPath { get; set; } = Constants.DatabaseFilePath;
+    public string LastUpdateCheck { get; set; }
+    public string AudiosPath { get; set; } = Constants.AudiosPath;
+    public string TranslationsPath { get; set; } = Constants.TranslationsPath;
 
-    private bool useDeveloperMode { get; set; } = true;
-    private bool isAutoDownloadAudio { get; set; } = true;
-    private bool isFirstRun { get; set; } = true;
+    public bool UseDeveloperMode { get; set; } = true;
+    public bool IsAutoDownloadAudio { get; set; } = true;
+    public bool IsFirstRun { get; set; } = true;
 
-    private int audioIndex { get; set; }
-    private int translationIndex { get; set; }
+    public int AudioIndex { get; set; }
+    public int TranslationIndex { get; set; }
 
-    private TranslationItem translation { get; set; }
-    private AudioItem audio { get; set; }
-    private FontOption uIFont { get; set; }
-    private FontOption quranFont { get; set; }
-    private FontOption translationFont { get; set; }
-    private TabViewWidthMode tabWidthMode { get; set; } = TabViewWidthMode.SizeToContent;
+    public TranslationItem Translation { get; set; }
+    public AudioItem Audio { get; set; }
+    public FontOption UIFont { get; set; }
+    public FontOption QuranFont { get; set; }
+    public FontOption TranslationFont { get; set; }
+    public TabViewWidthMode TabWidthMode { get; set; } = TabViewWidthMode.SizeToContent;
 }
